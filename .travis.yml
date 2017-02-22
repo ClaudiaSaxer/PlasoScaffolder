@@ -1,0 +1,20 @@
+language: python
+matrix:
+  include:
+  - os: linux
+    dist: trusty
+    sudo: required
+    python: 3.6
+  - os: osx
+    language: generic
+    env: PYTHONPATH=/Library/Python/3.6/site-packages/
+  exclude:
+  - os: linux
+    dist: trusty
+    sudo: required
+    python: 3.6
+cache: pip
+install:
+  - ./config/travis/install.sh
+script: 
+  - python run_tests.py
