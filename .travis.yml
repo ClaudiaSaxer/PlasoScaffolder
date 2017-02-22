@@ -8,7 +8,7 @@ matrix:
   - os: osx
     dist: trusty
     sudo: required
-    env: PYTHONPATH=/Library/Python/2.7/site-packages/
+    env: PYTHONPATH=/Library/Python/3.6/site-packages/
     python: 3.6
 cache: pip
 install:
