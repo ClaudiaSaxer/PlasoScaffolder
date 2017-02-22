@@ -1,3 +1,4 @@
 "# PlasoScaffolder" 
 
-https://ci.appveyor.com/project/Saxer/plasoscaffolder/branch/master
+### Project status
+[Build status](https://ci.appveyor.com/api/projects/status/ht9gqpd5r7gdutfv?svg=true)]
