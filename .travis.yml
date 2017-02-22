@@ -8,8 +8,8 @@ matrix:
   - os: osx
     language: generic
     env: PYTHONPATH=/Library/Python/3.6/site-packages/
-	python: 3.6
-cache:pip
+    python: 3.6
+cache: pip
 install:
   - config/travis/install.sh
 script: 
