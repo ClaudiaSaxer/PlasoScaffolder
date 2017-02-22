@@ -2,12 +2,12 @@ language: python
 matrix:
   include:
   - os: linux
-	dist: trusty
-	sudo: required
-	python: 3.6
+    dist: trusty
+    sudo: required
+    python: 3.6
   - os: osx
-	language: generic
-	env: PYTHONPATH=/Library/Python/3.6/site-packages/
+    language: generic
+    env: PYTHONPATH=/Library/Python/3.6/site-packages/
 	python: 3.6
 cache:pip
 install:
