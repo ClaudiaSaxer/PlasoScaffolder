@@ -45,6 +45,12 @@
     <Compile Include="tests\test1.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tests\test2.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tests\test3.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
