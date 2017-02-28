@@ -8,8 +8,6 @@ matrix:
   - os: osx
     language: generic
     env: PYTHONPATH=/Library/Python/3.6/site-packages/
-  exclude:
-  - os: linux
     dist: trusty
     sudo: required
     python: 3.6
