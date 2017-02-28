@@ -21,7 +21,6 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="utils\" />
     <Folder Include="plasoScaffolder\" />
     <Folder Include="plasoScaffolder\lib\" />
     <Folder Include="tests\" />
