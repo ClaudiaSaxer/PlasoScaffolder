@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9bc290cb-a17c-49ef-8802-b796d763bf13}</ProjectGuid>
     <ProjectHome />
-    <StartupFile />
+    <StartupFile>plasoScaffolder\main.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -39,6 +39,9 @@
     <Compile Include="plasoScaffolder\__init__.py" />
     <Compile Include="run_tests.py" />
     <Compile Include="setup.py" />
+    <Compile Include="plasoScaffolder\main.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tests\test1.py">
       <SubType>Code</SubType>
     </Compile>
