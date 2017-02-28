@@ -11,7 +11,7 @@
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <InterpreterId>{2b1572d0-09de-4941-a12e-f9614c09fe3c}</InterpreterId>
+    <InterpreterId>{e237f882-e92d-40bb-bb7f-6b01d5507992}</InterpreterId>
     <InterpreterVersion>3.5</InterpreterVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
@@ -21,40 +21,33 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
-    <InterpreterReference Include="{0f14d84c-4e10-47ed-a8f9-3835979571b9}\3.5" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="config\" />
-    <Folder Include="config\travis\" />
+    <Folder Include="utils\" />
     <Folder Include="plasoScaffolder\" />
+    <Folder Include="plasoScaffolder\lib\" />
     <Folder Include="tests\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".gitignore" />
-    <Content Include=".travis.yml" />
-    <Content Include="appveyor.yml" />
-    <Content Include="config\travis\install.sh" />
-    <Content Include="config\travis\installnotworking.sh" />
-    <Content Include="README.md" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="plasoScaffolder\helloworld.py" />
+    <Compile Include="plasoScaffolder\lib\errors.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plasoScaffolder\lib\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plasoScaffolder\__init__.py" />
     <Compile Include="run_tests.py" />
     <Compile Include="setup.py" />
     <Compile Include="tests\test1.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tests\test2.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tests\test3.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="tests\__init__.py" />
   </ItemGroup>
   <ItemGroup>
-    <Interpreter Include="..\venvplasoscaffolder\">
-      <Id>{2b1572d0-09de-4941-a12e-f9614c09fe3c}</Id>
+    <Interpreter Include="..\..\venvplasoscaffolder\">
+      <Id>{e237f882-e92d-40bb-bb7f-6b01d5507992}</Id>
       <BaseInterpreter>{0f14d84c-4e10-47ed-a8f9-3835979571b9}</BaseInterpreter>
       <Version>3.5</Version>
       <Description>venvplasoscaffolder (Python3.6)</Description>
