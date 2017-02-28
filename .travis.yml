@@ -15,6 +15,6 @@ matrix:
     python: 3.6
 cache: pip
 install:
-  - ./config/travis/install.sh
+  - .build/config/travis/install.sh
 script: 
-  - python run_tests.py
+  - python .src/run_tests.py
