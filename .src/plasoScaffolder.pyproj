@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9bc290cb-a17c-49ef-8802-b796d763bf13}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>plasoScaffolder\main.py</StartupFile>
+    <StartupFile>plasoscaffolder\main.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -13,6 +13,7 @@
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId>{e237f882-e92d-40bb-bb7f-6b01d5507992}</InterpreterId>
     <InterpreterVersion>3.5</InterpreterVersion>
+    <Name>plasoscaffolder</Name>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -21,25 +22,39 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="plasoScaffolder\" />
-    <Folder Include="plasoScaffolder\lib\" />
+    <Folder Include="plasoscaffolder\" />
+    <Folder Include="plasoscaffolder\cli\group2\" />
+    <Folder Include="plasoscaffolder\cli\group1\" />
+    <Folder Include="plasoscaffolder\lib\" />
+    <Folder Include="plasoscaffolder\cli\" />
     <Folder Include="tests\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="plasoScaffolder\helloworld.py" />
-    <Compile Include="plasoScaffolder\lib\errors.py">
+    <Compile Include="plasoscaffolder\cli\cli.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="plasoScaffolder\lib\__init__.py">
+    <Compile Include="plasoscaffolder\cli\group1\commands.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="plasoScaffolder\__init__.py" />
+    <Compile Include="plasoscaffolder\cli\group1\__init__.py" />
+    <Compile Include="plasoscaffolder\cli\group2\commands.py" />
+    <Compile Include="plasoscaffolder\cli\group2\__init__.py" />
+    <Compile Include="plasoscaffolder\cli\__init__.py" />
+    <Compile Include="plasoscaffolder\helloworld.py" />
+    <Compile Include="plasoscaffolder\lib\errors.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plasoscaffolder\lib\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plasoscaffolder\mainclick.py" />
+    <Compile Include="plasoscaffolder\__init__.py" />
     <Compile Include="run_tests.py" />
     <Compile Include="setup.py" />
-    <Compile Include="plasoScaffolder\main.py">
+    <Compile Include="plasoscaffolder\main.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tests\test1.py">
