@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """File representing the controller for sqlite plugin"""
 
+
 def testpath(ctx, param, value):
   """save the path"""
   print("save testpath "+value)
@@ -19,5 +20,4 @@ def sourcepath(ctx, param, value):
 def generate(path, name, testfile):
   """generate files"""
   print("generate "+str(path)+" "+str(name)+" "+str(testfile))
-
 
