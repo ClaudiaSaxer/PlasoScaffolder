@@ -1,8 +1,7 @@
 import click 
 
-from tempplugin import commands as tempplugin
 from sqliteplugin import commands as sqliteplugin
-
+from tempplugin import commands as tempplugin
 
 @click.group()
 def entry_point():

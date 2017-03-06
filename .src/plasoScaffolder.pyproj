@@ -23,8 +23,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="plasoscaffolder\" />
-    <Folder Include="plasoscaffolder\cli\group2\" />
-    <Folder Include="plasoscaffolder\cli\group1\" />
+    <Folder Include="plasoscaffolder\cli\tempplugin\" />
+    <Folder Include="plasoscaffolder\cli\sqliteplugin\" />
     <Folder Include="plasoscaffolder\lib\" />
     <Folder Include="plasoscaffolder\cli\" />
     <Folder Include="tests\" />
@@ -36,12 +36,12 @@
     <Compile Include="plasoscaffolder\cli\cli.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="plasoscaffolder\cli\group1\commands.py">
+    <Compile Include="plasoscaffolder\cli\sqliteplugin\commands.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="plasoscaffolder\cli\group1\__init__.py" />
-    <Compile Include="plasoscaffolder\cli\group2\commands.py" />
-    <Compile Include="plasoscaffolder\cli\group2\__init__.py" />
+    <Compile Include="plasoscaffolder\cli\sqliteplugin\__init__.py" />
+    <Compile Include="plasoscaffolder\cli\tempplugin\commands.py" />
+    <Compile Include="plasoscaffolder\cli\tempplugin\__init__.py" />
     <Compile Include="plasoscaffolder\cli\__init__.py" />
     <Compile Include="plasoscaffolder\helloworld.py" />
     <Compile Include="plasoscaffolder\lib\errors.py">
@@ -50,14 +50,13 @@
     <Compile Include="plasoscaffolder\lib\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="plasoscaffolder\mainclick.py" />
     <Compile Include="plasoscaffolder\__init__.py" />
     <Compile Include="run_tests.py" />
     <Compile Include="setup.py" />
     <Compile Include="plasoscaffolder\main.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tests\test1.py">
+    <Compile Include="tests\click.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tests\__init__.py" />

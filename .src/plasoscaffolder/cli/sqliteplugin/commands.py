@@ -1,5 +1,11 @@
 import click
 
+
+@click.command()
+def sqlite():
+    click.echo("in sqlite")
+
+
 def events(ctx,param,value):
   for x in range(value):
     value = click.prompt('Enter the query for the'+str(x), default=12)
@@ -24,6 +30,6 @@ def sqlite(name,tfp,tables,event,testfile):
   click.echo(tables)
   click.echo(event)
   click.echo(testfile)
-
+  
     
 
