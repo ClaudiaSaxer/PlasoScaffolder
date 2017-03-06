@@ -13,6 +13,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        plasoscaffolder=plasoscaffolder.mainclick:main
+        plasoscaffolder=plasoscaffolder.frontend.argumentparser.main:entry_point
     ''',
 )
