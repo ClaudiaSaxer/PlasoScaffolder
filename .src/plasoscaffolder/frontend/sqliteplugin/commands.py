@@ -2,7 +2,6 @@
 import click
 from .controller import *
 
-
 @click.command()
 @click.option('--path', '-n', prompt="What's the path to the plaso project?",
               help='The path to plaso',callback=sourcepath)
