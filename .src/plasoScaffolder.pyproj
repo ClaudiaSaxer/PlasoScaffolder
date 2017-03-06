@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9bc290cb-a17c-49ef-8802-b796d763bf13}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>plasoscaffolder\main.py</StartupFile>
+    <StartupFile>plasoscaffolder\frontend\argumentparser\main.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -23,39 +23,40 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="plasoscaffolder\" />
-    <Folder Include="plasoscaffolder\cli\tempplugin\" />
-    <Folder Include="plasoscaffolder\cli\sqliteplugin\" />
-    <Folder Include="plasoscaffolder\lib\" />
-    <Folder Include="plasoscaffolder\cli\" />
+    <Folder Include="plasoscaffolder\bll\" />
+    <Folder Include="plasoscaffolder\bll\mappings\" />
+    <Folder Include="plasoscaffolder\bll\templates\" />
+    <Folder Include="plasoscaffolder\common\" />
+    <Folder Include="plasoscaffolder\dal\" />
+    <Folder Include="plasoscaffolder\frontend\" />
+    <Folder Include="plasoscaffolder\frontend\argumentparser\" />
+    <Folder Include="plasoscaffolder\frontend\argumentparser\sqliteplugin\" />
+    <Folder Include="plasoscaffolder\frontend\controller\" />
+    <Folder Include="plasoscaffolder\frontend\controller\sqliteplugin\" />
     <Folder Include="tests\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="plasoscaffolder\cli\cli.py">
+    <Compile Include="plasoscaffolder\bll\mappings\__init__.py" />
+    <Compile Include="plasoscaffolder\bll\templates\__init__.py" />
+    <Compile Include="plasoscaffolder\bll\__init__.py" />
+    <Compile Include="plasoscaffolder\common\errors.py" />
+    <Compile Include="plasoscaffolder\common\__init__.py" />
+    <Compile Include="plasoscaffolder\dal\__init__.py" />
+    <Compile Include="plasoscaffolder\frontend\argumentparser\main.py" />
+    <Compile Include="plasoscaffolder\frontend\argumentparser\sqliteplugin\commands.py" />
+    <Compile Include="plasoscaffolder\frontend\argumentparser\sqliteplugin\__init__.py" />
+    <Compile Include="plasoscaffolder\frontend\argumentparser\__init__.py" />
+    <Compile Include="plasoscaffolder\frontend\controller\sqliteplugin\sqliteplugin_controller.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="plasoscaffolder\cli\sqliteplugin\commands.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="plasoscaffolder\cli\sqliteplugin\__init__.py" />
-    <Compile Include="plasoscaffolder\cli\tempplugin\commands.py" />
-    <Compile Include="plasoscaffolder\cli\tempplugin\__init__.py" />
-    <Compile Include="plasoscaffolder\cli\__init__.py" />
-    <Compile Include="plasoscaffolder\helloworld.py" />
-    <Compile Include="plasoscaffolder\lib\errors.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="plasoscaffolder\lib\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="plasoscaffolder\__init__.py" />
+    <Compile Include="plasoscaffolder\frontend\controller\sqliteplugin\__init__.py" />
+    <Compile Include="plasoscaffolder\frontend\controller\__init__.py" />
+    <Compile Include="plasoscaffolder\frontend\__init__.py" />
     <Compile Include="run_tests.py" />
     <Compile Include="setup.py" />
-    <Compile Include="plasoscaffolder\main.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="tests\click.py">
       <SubType>Code</SubType>
     </Compile>

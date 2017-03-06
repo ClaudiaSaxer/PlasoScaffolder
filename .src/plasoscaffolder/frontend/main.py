@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import click 
 
 from sqliteplugin import commands as sqliteplugin
