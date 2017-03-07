@@ -15,4 +15,4 @@ cache: pip
 install:
   - .build/config/travis/install.sh
 script: 
-  - python .src/run_tests.py
+  - python src/run_tests.py
