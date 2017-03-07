@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Module containing helper functions for the SQLite plugin"""
-from os.path import join, isfile
+from os.path import join, isfile, isdir
 
 
 def plugin_exists(path, plugin_name):
@@ -16,6 +16,13 @@ def plugin_exists(path, plugin_name):
     parser_test_file_path(path, plugin_name)) or isfile(database_path(path,
     plugin_name))
 
+def file_exists(path):
+  """ Checks if the file exists """
+  return isfile(path)
+
+def folder_exists(path):
+  """Checks if folder exists"""
+  return isdir(path)
 
 def formatter_file_path(path, plugin_name):
   """ The formatter file path for the SQLite plugin for the plaso folder.

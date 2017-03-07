@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 """File representing the controller for SQLite plugin"""
-import os
-
-from plasoscaffolder.bll.services.file_creator import *
+from plasoscaffolder.bll.services.sqlite_generator import generate_sqlite_plugin
+from plasoscaffolder.bll.services.sqlite_plugin_helper import plugin_exists, file_exists, folder_exists
 import click
-from plasoscaffolder.bll.services.sqlite_plugin_helper import *
 
 
 class SqliteController:
@@ -19,7 +17,9 @@ class SqliteController:
     :param value: the source path (automatically given via callback)
     :return: the source path representing the same as value
     """
-    self.path = value
+    while not folder_exists(value):
+      value = click.prompt(click.style("Folder does not exists. Enter correct one: ",fg="red"))
+      self.path = value
     return value
 
   def plugin_name(self, ctx, param, value):
@@ -29,9 +29,8 @@ class SqliteController:
     :param value: the plugin name (automatically given via callback)
     :return: the plugin name representing the same as value
     """
-    print("save plugin name " + value)
     while plugin_exists(self.path, value):
-      value = click.prompt("Plugin exists. Choose new name: ")
+      value = click.prompt(click.style("Plugin exists. Choose new name: ",fg="red"))
     self.name = value
     return value
 
@@ -42,7 +41,8 @@ class SqliteController:
     :param value: the test file path (automatically given via callback)
     :return: the test file path representing the same as the value
     """
-    print("save test path " + value)
+    while not file_exists(value):
+      value = click.prompt(click.style("File does not exists. Choose another: ",fg="red"))
     return value
 
   def generate(self, path, name, testfile):
@@ -51,10 +51,4 @@ class SqliteController:
     :param name: the name of the plugin
     :param testfile: the path of the testfile
     """
-    creator = FileCreator()
-    file = creator.create_file_from_path
-
-    print("generate " + file(formatter_file_path(path, name)))
-    print("generate " + file(parser_file_path(path, name)))
-    print("generate " + file(parser_test_file_path(path, name)))
-    print("generate " + file(formatter_test_file_path(path, name)))
+    generate_sqlite_plugin(path, name, testfile)
