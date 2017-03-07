@@ -8,7 +8,6 @@ from plasoscaffolder.frontend.sqliteplugin import commands as sqliteplugin
 def entry_point():
   pass
 
-
 entry_point.add_command(sqliteplugin.sqlite)
 
 if __name__ == '__main__':

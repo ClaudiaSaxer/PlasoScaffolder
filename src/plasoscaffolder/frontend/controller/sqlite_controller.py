@@ -3,40 +3,41 @@
 import os
 
 from plasoscaffolder.bll.services.file_creator import *
+import click
+from plasoscaffolder.bll.services.sqlite_plugin_helper import *
 
 
-def test_path(ctx, param, value):
-  """save the path"""
-  print("save test path "+value)
-  return value
+class SqliteController:
+  path = None
+  name = None
 
-def plugin_name(ctx, param, value):
-  """save the plugin name"""
-  print("save plugin name "+value)
-  return value
+  def source_path(self, ctx, param, value):
+    """save the source path"""
+    print("save source path " + value)
+    self.path = value
+    return value
 
-def source_path(ctx, param, value):
-  """save the source path"""
-  print("save source path "+value)
-  return value
+  def plugin_name(self, ctx, param, value):
+    """save the plugin name"""
+    print("save plugin name " + value)
+    while plugin_exists(self.path, value):
+      value = click.prompt("Plugin exists. Choose new name: ")
+    self.name = value
+    return value
 
-def generate(path, name, testfile):
-  """generate files"""
-  formatterfile = FileCreator( os.path.join(path,"plaso","formatters"),name,"py")
-  formatterfile.createfile()
-  parserfile = FileCreator( os.path.join(path,"plaso","parsers","sqlite_plugins"),name,"py")
-  parserfile.createfile()
-  formatterfiletest = FileCreator( os.path.join(path,"tests","formatters"),name,"py")
-  formatterfiletest.createfile()
-  parserfiletest = FileCreator( os.path.join(path,"tests","parsers","sqlite_plugins"),name,"py")
-  parserfiletest.createfile()
+  def test_path(self, ctx, param, value):
+    """save the path"""
+    print("save test path " + value)
+    return value
 
-  print("generate "+formatterfile.filepath)
-  print("generate "+parserfile.filepath)
-  print("generate "+formatterfiletest.filepath)
-  print("generate "+parserfiletest.filepath)
+  def generate(self, path, name, testfile):
+    """generate files"""
+    creator = FileCreator()
+    file = creator.create_file_from_path
 
+    print("generate " + file(formatter_file_path(path, name)))
+    print("generate " + file(parser_file_path(path, name)))
+    print("generate " + file(parser_test_file_path(path, name)))
+    print("generate " + file(formatter_test_file_path(path, name)))
 
-
-
-  
+  print("Generate")
