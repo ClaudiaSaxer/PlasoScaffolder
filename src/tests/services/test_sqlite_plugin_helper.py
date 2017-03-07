@@ -19,7 +19,7 @@ class SqlitePluginHelperTest(unittest.TestCase):
            "sqlite_plugins" + os.sep + plugin_file
   parser_test = path + os.sep + "tests" + os.sep + "parsers" + os.sep + \
                 "sqlite_plugins" + os.sep + plugin_file
-  database = path + os.sep + "test_data" + os.sep + plugin_name+".db"
+  database = path + os.sep + "test_data" + os.sep + plugin_name + ".db"
 
   def test_formatter_file(self):
     """Tests the creation of the path for the formatter file."""
@@ -91,6 +91,24 @@ class SqlitePluginHelperTest(unittest.TestCase):
     self.assertTrue(actual)
     shutil.rmtree(self.path)
 
+  def test_file_exists(self):
+    """ test the method that checks if the file exists """
+    expected_content = "this is test content."
+    source = "temp"
+    self.assertFalse(file_exists(source))
+    with open(source, "a+") as f:
+      f.write(expected_content)
+    self.assertTrue(isfile(source))
+    os.remove(source)
+
+
+  def test_folder_exists(self):
+    """test the method that checks if folder exists"""
+    source = "temp"
+    self.assertFalse(folder_exists(source))
+    os.makedirs(source)
+    self.assertTrue(folder_exists(source))
+    os.removedirs(source)
 
 if __name__ == '__main__':
   unittest.main()
