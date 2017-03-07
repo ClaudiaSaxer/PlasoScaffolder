@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 """File representing the controller for sqLite plugin"""
-from plasoscaffolder.frontend.sqliteplugin.file_handler import *
-import os 
+import os
+
+from plasoscaffolder.bll.services.file_handler import *
+
 
 def test_path(ctx, param, value):
   """save the path"""
