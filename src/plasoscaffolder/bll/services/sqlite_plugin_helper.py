@@ -13,7 +13,8 @@ def plugin_exists(path, plugin_name):
   return isfile(formatter_file_path(path, plugin_name)) or isfile(
     parser_file_path(path, plugin_name)) or isfile(
     formatter_test_file_path(path, plugin_name)) or isfile(
-    parser_test_file_path(path, plugin_name))
+    parser_test_file_path(path, plugin_name)) or isfile(database_path(path,
+    plugin_name))
 
 
 def formatter_file_path(path, plugin_name):
@@ -56,3 +57,13 @@ def parser_test_file_path(path, plugin_name):
   """
   return join(path, "tests", "parsers", "sqlite_plugins", plugin_name +
                                                           ".py")
+
+
+def database_path(path, plugin_name):
+  """ The database file path for the SQLite plugin for the plaso folder.
+
+  :param path: The path to the plaso folder.
+  :param plugin_name: The name of the plugin.
+  :return: The path of the new file.
+  """
+  return join(path, "test_data", plugin_name + ".db")

@@ -19,6 +19,7 @@ class SqlitePluginHelperTest(unittest.TestCase):
            "sqlite_plugins" + os.sep + plugin_file
   parser_test = path + os.sep + "tests" + os.sep + "parsers" + os.sep + \
                 "sqlite_plugins" + os.sep + plugin_file
+  database = path + os.sep + "test_data" + os.sep + plugin_name+".db"
 
   def test_formatter_file(self):
     """Tests the creation of the path for the formatter file."""
@@ -39,6 +40,11 @@ class SqlitePluginHelperTest(unittest.TestCase):
     """Tests the creation of the path for the parser test file."""
     actual = parser_test_file_path(self.path, self.plugin_name)
     self.assertEqual(self.parser_test, actual)
+
+  def test_database_file(self):
+    """Tests the creation of the path for the database file."""
+    actual = database_path(self.path, self.plugin_name)
+    self.assertEqual(self.database, actual)
 
   def test_plugin_exists_false(self):
     """Tests the plugin exists method if none exists."""
@@ -73,6 +79,14 @@ class SqlitePluginHelperTest(unittest.TestCase):
     """Tests the plugin exists method if the formatter test file exists."""
     os.makedirs(os.path.dirname(self.formatter_test))
     Path(self.formatter_test).touch()
+    actual = plugin_exists(self.path, self.plugin_name)
+    self.assertTrue(actual)
+    shutil.rmtree(self.path)
+
+  def test_plugin_exists_true_5(self):
+    """Tests the plugin exists method if the database file exists."""
+    os.makedirs(os.path.dirname(self.database))
+    Path(self.database).touch()
     actual = plugin_exists(self.path, self.plugin_name)
     self.assertTrue(actual)
     shutil.rmtree(self.path)

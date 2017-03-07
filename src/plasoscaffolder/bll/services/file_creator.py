@@ -19,7 +19,7 @@ class FileCreator:
   def _create_folder(directory_path):
     """ creates a folder 
     
-    only to be called if the targetfolder does not yet exists"""
+    only to be called if the target folder does not yet exists"""
     os.makedirs(directory_path)
 
   def create_file(self, directory_path, file_name, filename_suffix):
