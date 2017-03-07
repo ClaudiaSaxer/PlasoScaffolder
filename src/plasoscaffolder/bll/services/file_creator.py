@@ -5,14 +5,14 @@ from pathlib import Path
 
 
 class FileCreator:
-  """Class handles the creation of Files"""
+  """ Class handles the creation of Files"""
 
   def __init__(self):
-    """    Constructing the FileHandler    """
+    """ Constructing the FileHandler"""
 
   @staticmethod
   def create_file_path(path, name, suffix):
-    """creates the filepath out of the direcotry path, filename and suffix"""
+    """ Creates the file path out of the directory path, filename and suffix."""
     return os.path.join(path, name + "." + suffix)
 
   @staticmethod

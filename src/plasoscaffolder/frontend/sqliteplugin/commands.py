@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-
+"""The commands for the SQLite plugin"""
 from plasoscaffolder.frontend.controller.sqlite_controller import *
 import click
 
 controller = SqliteController()
+
 
 @click.command()
 @click.option('--path', '-p', prompt="What's the path to the plaso project?",

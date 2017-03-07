@@ -5,11 +5,13 @@ import shutil
 
 
 class FileCreatorTest(unittest.TestCase):
+  """ Class representing the test case testing the file creator class"""
   path = "temp"
   name = "testfile"
   suffix = "py"
 
   def test_create_folder(self):
+    """Tests if the creation of a folder works."""
     self.assertFalse(os.path.exists(self.path))
     creator = FileCreator()
     creator._create_folder(self.path)
@@ -17,10 +19,12 @@ class FileCreatorTest(unittest.TestCase):
     shutil.rmtree(self.path)
 
   def test_get_folder_path(self):
+    """Tests if the construction of the folder path works."""
     path = FileCreator.create_file_path(self.path, self.name, self.suffix)
     self.assertEqual(path, self.path + os.sep + self.name + "." + self.suffix)
 
   def test_create_file(self):
+    """Tests if the creation of a file none existing beforehand works."""
     creator = FileCreator()
     self.assertFalse(
       os.path.exists(self.path + os.sep + self.name + "." + self.suffix))
@@ -30,6 +34,7 @@ class FileCreatorTest(unittest.TestCase):
     shutil.rmtree(self.path)
 
   def test_create_file_from_path(self):
+    """Tests if the creation of a file none existing beforhand works."""
     creator = FileCreator()
     self.assertFalse(
       os.path.exists(self.path + os.sep + self.name + "." + self.suffix))

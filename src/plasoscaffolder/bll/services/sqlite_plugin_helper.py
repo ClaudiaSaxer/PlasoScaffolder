@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Module containing helper functions for the SQLite plugin"""
 from os.path import join, isfile
 
 
@@ -16,7 +17,7 @@ def plugin_exists(path, plugin_name):
 
 
 def formatter_file_path(path, plugin_name):
-  """ The formatter file path for the sqlite plugin for the plaso folder.
+  """ The formatter file path for the SQLite plugin for the plaso folder.
 
   :param path: The path to the plaso folder.
   :param plugin_name: The name of the plugin.
@@ -26,7 +27,7 @@ def formatter_file_path(path, plugin_name):
 
 
 def parser_file_path(path, plugin_name):
-  """ The parser file path for the sqlite plugin for the plaso folder.
+  """ The parser file path for the SQLite plugin for the plaso folder.
 
   :param path: The path to the plaso folder.
   :param plugin_name: The name of the plugin.
@@ -37,7 +38,7 @@ def parser_file_path(path, plugin_name):
 
 
 def formatter_test_file_path(path, plugin_name):
-  """ The formatter test file path for the sqlite plugin for the plaso folder.
+  """ The formatter test file path for the SQLite plugin for the plaso folder.
 
   :param path: The path to the plaso folder.
   :param plugin_name: The name of the plugin.
@@ -47,5 +48,11 @@ def formatter_test_file_path(path, plugin_name):
 
 
 def parser_test_file_path(path, plugin_name):
+  """ The parser test file path for the sqlite plugin for the plaso folder.
+
+  :param path: The path to the plaso folder.
+  :param plugin_name: The name of the parser.
+  :return: The path of the new file.
+  """
   return join(path, "tests", "parsers", "sqlite_plugins", plugin_name +
                                                           ".py")
