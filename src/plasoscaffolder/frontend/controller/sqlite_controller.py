@@ -2,7 +2,7 @@
 """File representing the controller for sqLite plugin"""
 import os
 
-from plasoscaffolder.bll.services.file_handler import *
+from plasoscaffolder.bll.services.file_creator import *
 
 
 def test_path(ctx, param, value):
@@ -22,13 +22,13 @@ def source_path(ctx, param, value):
 
 def generate(path, name, testfile):
   """generate files"""
-  formatterfile = FileHandler( os.path.join(path,"plaso","formatters"),name,"py")
+  formatterfile = FileCreator( os.path.join(path,"plaso","formatters"),name,"py")
   formatterfile.createfile()
-  parserfile = FileHandler( os.path.join(path,"plaso","parsers","sqlite_plugins"),name,"py")
+  parserfile = FileCreator( os.path.join(path,"plaso","parsers","sqlite_plugins"),name,"py")
   parserfile.createfile()
-  formatterfiletest = FileHandler( os.path.join(path,"tests","formatters"),name,"py")
+  formatterfiletest = FileCreator( os.path.join(path,"tests","formatters"),name,"py")
   formatterfiletest.createfile()
-  parserfiletest = FileHandler( os.path.join(path,"tests","parsers","sqlite_plugins"),name,"py")
+  parserfiletest = FileCreator( os.path.join(path,"tests","parsers","sqlite_plugins"),name,"py")
   parserfiletest.createfile()
 
   print("generate "+formatterfile.filepath)
