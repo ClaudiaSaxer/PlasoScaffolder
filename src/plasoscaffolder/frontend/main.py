@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
-import click 
+import click
 
-from sqliteplugin import commands as sqliteplugin
+from plasoscaffolder.frontend.sqliteplugin import commands as sqliteplugin
+
 
 @click.group()
 def entry_point():
-    pass
+  pass
+
 
 entry_point.add_command(sqliteplugin.sqlite)
 
 if __name__ == '__main__':
-    entry_point()
+  entry_point()

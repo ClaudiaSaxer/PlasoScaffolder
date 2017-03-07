@@ -2,7 +2,7 @@
 """Tests for click"""
 import unittest
 from click.testing import CliRunner
-from plasoscaffolder.cli.cli import entry_point
+from plasoscaffolder.frontend.main import entry_point
 
 class TestClick(unittest.TestCase):
   """Testing a click function"""

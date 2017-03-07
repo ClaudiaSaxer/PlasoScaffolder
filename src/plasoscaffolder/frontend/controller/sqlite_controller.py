@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
-"""File representing the controller for sqlite plugin"""
-from .file_handler import *
+"""File representing the controller for sqLite plugin"""
+from plasoscaffolder.frontend.sqliteplugin.file_handler import *
 import os 
 
-def testpath(ctx, param, value):
+def test_path(ctx, param, value):
   """save the path"""
-  print("save testpath "+value)
+  print("save test path "+value)
   return value
 
-def pluginname(ctx, param, value):
-  """save the pluginname"""
-  print("save pluginname "+value)
+def plugin_name(ctx, param, value):
+  """save the plugin name"""
+  print("save plugin name "+value)
   return value
 
-def sourcepath(ctx, param, value):
-  """save the sourcpath"""
-  print("save sourcepath "+value)
+def source_path(ctx, param, value):
+  """save the source path"""
+  print("save source path "+value)
   return value
 
 def generate(path, name, testfile):
