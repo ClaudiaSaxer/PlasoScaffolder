@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """ A class to create files """
 import os
+from shutil import copyfile
 from pathlib import Path
 
 
@@ -49,3 +50,16 @@ class FileCreator:
     Path(file_path).touch()
 
     return file_path
+
+  def copy_file(self, source, destination):
+    """ Copies a database file
+
+    :param source: the source path of the database
+    :param destination: the destination path of the database
+    :return: he path of the copied file
+    """
+    if not os.path.exists(os.path.dirname(destination)):
+      self._create_folder(os.path.dirname(destination))
+    copyfile(source, destination)
+    return destination
+
