@@ -14,4 +14,4 @@ controller = SqliteController()
 @click.option('--testfile', prompt="What's the path to your test file?",
   help='The testfile path', callback=controller.test_path)
 def sqlite(path, name, testfile):
-  controller.generate(path, name, testfile)
+  controller.generate()

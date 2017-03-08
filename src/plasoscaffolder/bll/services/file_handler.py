@@ -12,7 +12,7 @@ class FileHandler:
     """ Constructing the FileHandler"""
 
   @staticmethod
-  def create_file_path(path, name, suffix):
+  def create_file_path(path: os.path, name: str, suffix: str) -> os.path:
     """ Creates the file path out of the directory path, filename and suffix."""
     return os.path.join(path, name + "." + suffix)
 
@@ -23,7 +23,7 @@ class FileHandler:
     only to be called if the target folder does not yet exists"""
     os.makedirs(directory_path)
 
-  def create_file(self, directory_path, file_name, filename_suffix):
+  def create_file(self, directory_path: os.path, file_name: str, filename_suffix: str):
     """ creates a empty file
 
     :param directory_path: The path to the directory the file should be created.
@@ -37,7 +37,7 @@ class FileHandler:
 
     Path(file_path).touch()
 
-  def create_file_from_path(self, file_path):
+  def create_file_from_path(self, file_path: os.path) -> os.path:
     """
     creates a empty file
 
@@ -48,7 +48,7 @@ class FileHandler:
     Path(file_path).touch()
     return file_path
 
-  def copy_file(self, source, destination):
+  def copy_file(self, source:os.path, destination:os.path) -> os.path:
     """ Copies a database file
 
     :param source: the source path of the database
@@ -59,12 +59,12 @@ class FileHandler:
     copyfile(source, destination)
     return destination
 
-  def create_or_modify_file_with_content(self, source, content):
+  def create_or_modify_file_with_content(self, source: os.path, content: str):
     self.__create_folder_for_file_path_if_not_exist(self, source)
     self._add_content_to_file(source, content)
 
   @staticmethod
-  def add_content(source, content):
+  def add_content(source: os.path, content: str) -> os.path:
     """ Add content to a file and create file if non existing
 
     :param source: The path of the file to edit.
@@ -77,7 +77,7 @@ class FileHandler:
     return source
 
   @staticmethod
-  def __create_folder_for_file_path_if_not_exist(self, file_path):
+  def __create_folder_for_file_path_if_not_exist(self, file_path: os.path):
     """Creates folders for the given file if it does not exist"""
     if not os.path.exists(os.path.dirname(file_path)):
       self._create_folder(os.path.dirname(file_path))
