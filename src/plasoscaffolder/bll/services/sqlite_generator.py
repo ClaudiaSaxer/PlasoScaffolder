@@ -23,6 +23,10 @@ class SqliteGenerator():
     self.output = output
 
   def generate_sqlite_plugin(self, fileHandler):
+    """
+    Generate the whole sqlite plugin
+    :param fileHandler: the Filehandler class
+    """
     file_handler = fileHandler()
 
     file = file_handler.create_file_from_path
