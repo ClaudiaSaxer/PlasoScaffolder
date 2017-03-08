@@ -18,7 +18,6 @@ def _get_template_path() -> os.path:
 
 
 def _get_template_environment() -> Environment:
-  _get_template_path()
   """
   template environment
   :return: the template environment
