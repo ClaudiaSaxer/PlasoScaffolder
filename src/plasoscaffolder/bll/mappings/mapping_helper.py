@@ -6,7 +6,7 @@ from jinja2 import Environment
 from jinja2 import FileSystemLoader
 
 
-def _getTemplatePath():
+def _get_template_path():
   """
   the path to the template file
   :param file_name: the name of the file
@@ -17,13 +17,13 @@ def _getTemplatePath():
   return os.path.join(head, 'templates')
 
 
-def _getTemplateEnvironment():
+def _get_template_environment():
   """
   template environment
   :return: the template environment
   """
   return Environment(autoescape=False,
-    loader=FileSystemLoader(_getTemplatePath()), trim_blocks=False)
+    loader=FileSystemLoader(_get_template_path()), trim_blocks=False)
 
 
 def render_template(template_filename, context):
@@ -33,5 +33,5 @@ def render_template(template_filename, context):
   :param context: the context of the template
   :return: the rendered template
   """
-  return _getTemplateEnvironment().get_template(template_filename).render(
+  return _get_template_environment().get_template(template_filename).render(
     context)
