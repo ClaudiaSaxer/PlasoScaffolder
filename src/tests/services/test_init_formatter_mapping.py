@@ -18,5 +18,15 @@ class InitFormatterMappingTest(unittest.TestCase):
     expected = "from plaso.formatters import "+self.plugin_name
     self.assertEqual(expected,actual)
 
+  def test_get_parser_init_create(self):
+    actual = get_parser_init_create(self.plugin_name)
+    expected = "# -*- coding: utf-8 -*-\nfrom plaso.parsers.sqlite_plugins import "+self.plugin_name
+    self.assertEqual(expected,actual)
+
+  def test_get_parser_init_edit(self):
+    actual = get_parser_init_edit(self.plugin_name)
+    expected = "from plaso.parsers.sqlite_plugins import "+self.plugin_name
+    self.assertEqual(expected,actual)
+
 if __name__ == '__main__':
   unittest.main()
