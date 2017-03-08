@@ -6,7 +6,7 @@ from plasoscaffolder.bll.services.sqlite_plugin_helper import *
 class SqliteGenerator():
   """ Generator for SQLite Files """
 
-  def __init__(self, path, name, database,output):
+  def __init__(self, path, name, database, output):
     """ Constructs the SQLite Generator
 
     :param path: the path of the plaso folder
@@ -46,7 +46,7 @@ class SqliteGenerator():
     self._print(formatter, parser, formatter_test, parser_test, database,
       parser_init, formatter_init)
 
-  def _print(self,formatter, parser, formatter_test, parser_test, database,
+  def _print(self, formatter, parser, formatter_test, parser_test, database,
       parser_init, formatter_init):
     self._print_create(formatter)
     self._print_create(parser)
@@ -62,21 +62,21 @@ class SqliteGenerator():
     else:
       self._print_create(formatter_init)
 
-  def _print_copy(self,file):
+  def _print_copy(self, file):
     """
     Click echo for copy file
     :param file: the file path
     """
     self.output("copy " + file)
 
-  def _print_edit(self,file):
+  def _print_edit(self, file):
     """
     Click echo for edit file
     :param file: the file path
     """
     self.output("edit " + file)
 
-  def _print_create(self,file):
+  def _print_create(self, file):
     """
     Click echo for create file
     :param file: the file path

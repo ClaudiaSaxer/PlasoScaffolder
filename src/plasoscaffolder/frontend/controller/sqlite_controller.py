@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """File representing the controller for SQLite plugin"""
+from plasoscaffolder.bll.services.file_handler import FileHandler
 from plasoscaffolder.bll.services.sqlite_generator import SqliteGenerator
 from plasoscaffolder.bll.services.sqlite_plugin_helper import plugin_exists, \
   file_exists, folder_exists
@@ -31,9 +32,6 @@ class SqliteController:
     :param value: the plugin name (automatically given via callback)
     :return: the plugin name representing the same as value
     """
-    print(value)
-    print(self.path)
-
     while plugin_exists(self.path, value):
       value = click.prompt(
         click.style("Plugin exists. Choose new name: ", fg="red"))
@@ -58,7 +56,7 @@ class SqliteController:
     :param name: the name of the plugin
     :param testfile: the path of the testfile
     """
-    generator = SqliteGenerator(path, name, testfile)
+    generator = SqliteGenerator(path, name, testfile, lambda x : click.echo(x))
     if not generator.init_formatter_exists or not generator.init_parser_exists :
       click.confirm(
         'At least one init file does not exist. Do you want the create them (or else abort)?',
@@ -67,4 +65,4 @@ class SqliteController:
     click.confirm('Do you want to generate the files?', abort=True,
       default=True)
 
-    generator.generate_sqlite_plugin()
+    generator.generate_sqlite_plugin(FileHandler)
