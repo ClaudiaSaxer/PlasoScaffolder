@@ -1,11 +1,13 @@
+# -*- coding: utf-8 -*-
 import unittest
-
 from plasoscaffolder.bll.mappings.init_formatter_mapping import *
 
 
 class InitFormatterMappingTest(unittest.TestCase):
+
   def setUp(self):
     self.plugin_name = "the_one_and_only"
+
   def test_get_formatter_init_create(self):
     actual = get_formatter_init_create(self.plugin_name)
     expected = "# -*- coding: utf-8 -*-\nfrom plaso.formatters import "+self.plugin_name

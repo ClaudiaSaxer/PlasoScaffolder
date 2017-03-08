@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import unittest
 
 from plasoscaffolder.bll.services.file_handler import *

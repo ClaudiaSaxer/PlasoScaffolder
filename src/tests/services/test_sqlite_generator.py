@@ -1,7 +1,6 @@
+# -*- coding: utf-8 -*-
 import os
 import unittest
-from unittest import mock
-
 from plasoscaffolder.bll.services.sqlite_generator import SqliteGenerator
 from plasoscaffolder.bll.services.file_handler import FileHandler
 
@@ -50,17 +49,19 @@ class SqliteGeneratorTest(unittest.TestCase):
     expected = "create testfile.pycreate testfile.pycreate testfile.pycreate " \
                "testfile.pycopy testfile.pycreate testfile.pycreate testfile.py"
     actual = self._readFromFile()
-    self.assertEqual(expected,actual)
+    self.assertEqual(expected, actual)
 
   def test_print(self):
     file_handler = FileHandler
     file_handler.create_file_from_path = MagicMock(return_value=self.testfile)
     file_handler.copy_file = MagicMock(return_value=self.testfile)
     file_handler.add_content = MagicMock(return_value=self.testfile)
-    self.generator._print("test1","test2","test3","test4","test5","test6","test7")
-    expected = "create test1create test2create test3create test4copy test5create test6create test7"
+    self.generator._print("test1", "test2", "test3", "test4", "test5", "test6",
+      "test7")
+    expected = "create test1create test2create test3create test4copy " \
+               "test5create test6create test7"
     actual = self._readFromFile()
-    self.assertEqual(expected,actual)
+    self.assertEqual(expected, actual)
 
   def _writeToFile(self, content):
     with open(self.testfile, 'a') as f:
