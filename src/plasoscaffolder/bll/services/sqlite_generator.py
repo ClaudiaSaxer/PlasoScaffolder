@@ -29,10 +29,13 @@ class SqliteGenerator():
     copy = file_handler.copy_file
     edit = file_handler.add_content
 
-    content_init_formatter = "from plaso.formatters import " + self.name
-    content_init_parser = get_formatter_init_edit(
-      self.name) if self.init_parser_exists \
+    content_init_formatter = get_formatter_init_edit(
+      self.name) if self.init_formatter_exists \
       else get_formatter_init_create(
+      self.name)
+    content_init_parser = get_parser_init_edit(
+      self.name) if self.init_parser_exists \
+      else get_parser_init_create(
       self.name)
 
     formatter = file(formatter_file_path(self.path, self.name))
