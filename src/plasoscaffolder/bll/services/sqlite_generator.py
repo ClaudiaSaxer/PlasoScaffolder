@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Module representing the sqlite plugin generator"""
-from plasoscaffolder.bll.mappings.init_formatter_mapping import *
+from plasoscaffolder.bll.mappings.init_mapping import *
 from plasoscaffolder.bll.services.sqlite_plugin_helper import *
 
 

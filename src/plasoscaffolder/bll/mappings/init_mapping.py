@@ -2,7 +2,6 @@
 """ Module representing function for the diffrent files """
 from plasoscaffolder.bll.mappings.mapping_helper import render_template
 
-
 def get_formatter_init_create(plugin_name):
   """
   renders formatter init if you want to create new init file
