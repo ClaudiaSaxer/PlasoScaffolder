@@ -19,7 +19,7 @@ class InitMappingTest(unittest.TestCase):
   def test_get_formatter_init_edit(self):
     """test the render for editing a existing formatter init file"""
     actual = get_formatter_init_edit(self.plugin_name)
-    expected = "from plaso.formatters import " + self.plugin_name
+    expected = "\nfrom plaso.formatters import " + self.plugin_name
     self.assertEqual(expected, actual)
 
   def test_get_parser_init_create(self):
@@ -32,7 +32,7 @@ class InitMappingTest(unittest.TestCase):
   def test_get_parser_init_edit(self):
     """test the render for editing a existing parser init file"""
     actual = get_parser_init_edit(self.plugin_name)
-    expected = "from plaso.parsers.sqlite_plugins import " + self.plugin_name
+    expected = "\nfrom plaso.parsers.sqlite_plugins import " + self.plugin_name
     self.assertEqual(expected, actual)
 
 
