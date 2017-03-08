@@ -44,7 +44,7 @@ class FileHandler:
     :param file_path: the path to the file.
     :return: the path of the created file
     """
-    self.__create_folder_for_file_path_if_not_exist(self,file_path)
+    self.__create_folder_for_file_path_if_not_exist(self, file_path)
     Path(file_path).touch()
     return file_path
 
@@ -55,27 +55,30 @@ class FileHandler:
     :param destination: the destination path of the database
     :return: he path of the copied file
     """
-    self.__create_folder_for_file_path_if_not_exist(self,destination)
+    self.__create_folder_for_file_path_if_not_exist(self, destination)
     copyfile(source, destination)
     return destination
 
   def create_or_modify_file_with_content(self, source, content):
-    self.__create_folder_for_file_path_if_not_exist(self,source)
+    self.__create_folder_for_file_path_if_not_exist(self, source)
     self._add_content_to_file(source, content)
 
-
   @staticmethod
-  def add_content(source, content):
+  def add_content(source, content, exists):
     """ Add content to a file and create file if non existing
 
     :param source: The path of the file to edit.
     :param content: The content to append to the file.
     :return: The path of the edited file.
     """
-    with open(source, "a+") as file:
-      file.write(content)
+    if exists:
+      with open(source, "a") as file:
+        file.write("\n" + content)
+    else:
+      header = "# -*- coding: utf-8 -*-"
+      with open(source, "a+") as file:
+        file.write(header + "\n" + content)
     return source
-
 
   @staticmethod
   def __create_folder_for_file_path_if_not_exist(self, file_path):

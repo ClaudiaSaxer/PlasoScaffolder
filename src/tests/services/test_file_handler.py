@@ -21,7 +21,6 @@ class FileHandlerTest(unittest.TestCase):
     if os.path.exists(self.path):
       shutil.rmtree(self.path)
 
-
   def test_create_folder(self):
     """Tests if the creation of a folder works."""
     self.assertFalse(os.path.exists(self.path))
@@ -63,11 +62,10 @@ class FileHandlerTest(unittest.TestCase):
     self.assertTrue(os.path.exists(destination))
     self.assertTrue(filecmp.cmp(destination, source))
 
-
   def test_edit_and_create_file_1(self):
     """Tests if the editing of a file existing works."""
     content = "this is test content. "
-    expected = content+content
+    expected = content + "\n" + content
     source = self.file
 
     with open(source, "a") as f:
@@ -75,29 +73,30 @@ class FileHandlerTest(unittest.TestCase):
 
     creator = FileHandler()
     self.assertTrue(os.path.exists(source))
-    creator.add_content(source, content)
+    creator.add_content(source, content, True)
     self.assertTrue(os.path.exists(source))
 
-    with open(source,"r") as f:
+    with open(source, "r") as f:
       actual = f.read()
 
-    self.assertEqual(expected,actual)
+    self.assertEqual(expected, actual)
 
   def test_edit_and_create_file_2(self):
     """Tests if the editing of a file not existing works."""
     content = "this is test content. "
-    expected = content
+    expected = "# -*- coding: utf-8 -*-\n"+content
     source = self.file
 
     creator = FileHandler()
     self.assertFalse(os.path.exists(source))
-    creator.add_content(source, content)
+    creator.add_content(source, content, False)
     self.assertTrue(os.path.exists(source))
 
-    with open(source,"r") as f:
+    with open(source, "r") as f:
       actual = f.read()
 
-    self.assertEqual(expected,actual)
+    self.assertEqual(expected, actual)
+
 
 if __name__ == '__main__':
   unittest.main()
