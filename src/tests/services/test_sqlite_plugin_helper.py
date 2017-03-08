@@ -20,6 +20,10 @@ class SqlitePluginHelperTest(unittest.TestCase):
   parser_test = path + os.sep + "tests" + os.sep + "parsers" + os.sep + \
                 "sqlite_plugins" + os.sep + plugin_file
   database = path + os.sep + "test_data" + os.sep + plugin_name + ".db"
+  parser_init = path + os.sep + "plaso" + os.sep + "parsers" + os.sep + \
+                "sqlite_plugins" + os.sep + "__init__.py"
+  formatter_init = path + os.sep + "plaso" + os.sep + "formatters" + os.sep +\
+                   "__init__.py"
 
   def test_formatter_file(self):
     """Tests the creation of the path for the formatter file."""
@@ -45,6 +49,16 @@ class SqlitePluginHelperTest(unittest.TestCase):
     """Tests the creation of the path for the database file."""
     actual = database_path(self.path, self.plugin_name)
     self.assertEqual(self.database, actual)
+
+  def test_formatter_init_file(self):
+    """Tests the creation of the path for the formatter init file."""
+    actual = formatter_init_file_path(self.path)
+    self.assertEqual(self.formatter_init, actual)
+
+  def test_parser_init__file(self):
+    """Tests the creation of the path for the parser init file."""
+    actual = parser_init_file_path(self.path)
+    self.assertEqual(self.parser_init, actual)
 
   def test_plugin_exists_false(self):
     """Tests the plugin exists method if none exists."""
@@ -101,7 +115,6 @@ class SqlitePluginHelperTest(unittest.TestCase):
     self.assertTrue(isfile(source))
     os.remove(source)
 
-
   def test_folder_exists(self):
     """test the method that checks if folder exists"""
     source = "temp"
@@ -109,6 +122,7 @@ class SqlitePluginHelperTest(unittest.TestCase):
     os.makedirs(source)
     self.assertTrue(folder_exists(source))
     os.removedirs(source)
+
 
 if __name__ == '__main__':
   unittest.main()
