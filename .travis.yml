@@ -12,7 +12,6 @@ matrix:
     sudo: required
     python: 3.6
 cache: pip
-install:
-  - .build/config/travis/install.sh
+install: "pip install -r src/requirements.txt"
 script: 
   - python src/run_tests.py
