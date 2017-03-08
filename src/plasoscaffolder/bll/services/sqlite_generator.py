@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Module representing the sqlite plugin generator"""
+from plasoscaffolder.bll.mappings.init_formatter_mapping import *
 from plasoscaffolder.bll.services.sqlite_plugin_helper import *
 
 
@@ -29,19 +30,19 @@ class SqliteGenerator():
     edit = file_handler.add_content
 
     content_init_formatter = "from plaso.formatters import " + self.name
-    content_init_parser = "from plaso.parsers.sqlite_plugins import " + \
-                          self.name
+    content_init_parser = get_formatter_init_edit(
+      self.name) if self.init_parser_exists \
+      else get_formatter_init_create(
+      self.name)
 
     formatter = file(formatter_file_path(self.path, self.name))
     parser = file(parser_file_path(self.path, self.name))
     formatter_test = file(formatter_test_file_path(self.path, self.name))
     parser_test = file(parser_test_file_path(self.path, self.name))
     database = copy(self.database, database_path(self.path, self.name))
-    parser_init = edit(parser_init_file_path(self.path), content_init_parser,
-      self.init_parser_exists)
+    parser_init = edit(parser_init_file_path(self.path), content_init_parser)
     formatter_init = edit(formatter_init_file_path(self.path),
-      content_init_formatter,
-      self.init_formatter_exists)
+      content_init_formatter)
 
     self._print(formatter, parser, formatter_test, parser_test, database,
       parser_init, formatter_init)

@@ -64,20 +64,16 @@ class FileHandler:
     self._add_content_to_file(source, content)
 
   @staticmethod
-  def add_content(source, content, exists):
+  def add_content(source, content):
     """ Add content to a file and create file if non existing
 
     :param source: The path of the file to edit.
     :param content: The content to append to the file.
     :return: The path of the edited file.
     """
-    if exists:
-      with open(source, "a") as file:
-        file.write("\n" + content)
-    else:
-      header = "# -*- coding: utf-8 -*-"
-      with open(source, "a+") as file:
-        file.write(header + "\n" + content)
+    with open(source, "a") as file:
+      file.write(content)
+
     return source
 
   @staticmethod

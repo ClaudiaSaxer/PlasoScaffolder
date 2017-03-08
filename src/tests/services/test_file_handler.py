@@ -65,7 +65,7 @@ class FileHandlerTest(unittest.TestCase):
   def test_edit_and_create_file_1(self):
     """Tests if the editing of a file existing works."""
     content = "this is test content. "
-    expected = content + "\n" + content
+    expected = content + content
     source = self.file
 
     with open(source, "a") as f:
@@ -73,7 +73,7 @@ class FileHandlerTest(unittest.TestCase):
 
     creator = FileHandler()
     self.assertTrue(os.path.exists(source))
-    creator.add_content(source, content, True)
+    creator.add_content(source, content)
     self.assertTrue(os.path.exists(source))
 
     with open(source, "r") as f:
@@ -84,12 +84,12 @@ class FileHandlerTest(unittest.TestCase):
   def test_edit_and_create_file_2(self):
     """Tests if the editing of a file not existing works."""
     content = "this is test content. "
-    expected = "# -*- coding: utf-8 -*-\n"+content
+    expected = content
     source = self.file
 
     creator = FileHandler()
     self.assertFalse(os.path.exists(source))
-    creator.add_content(source, content, False)
+    creator.add_content(source, content)
     self.assertTrue(os.path.exists(source))
 
     with open(source, "r") as f:
