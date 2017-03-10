@@ -9,7 +9,6 @@ from jinja2 import FileSystemLoader
 def _get_template_path() -> os.path:
   """
   the path to the template file
-  :param file_name: the name of the file
   :return: the template file path
   """
   path = os.path.dirname(os.path.abspath(__file__))

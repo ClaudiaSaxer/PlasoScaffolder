@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Module representing function for the diffrent files """
+""" Module representing function for the different files """
 from plasoscaffolder.bll.mappings.mapping_helper import render_template
 
 def get_formatter_init_create(plugin_name: str) -> str:

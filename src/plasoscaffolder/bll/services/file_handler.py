@@ -9,10 +9,10 @@ class FileHandler:
   """ Class handles the creation of Files"""
 
   def __init__(self):
-    """ Constructing the FileHandler"""
+    """ TODO remove if not deeded, use super Constructing the FileHandler"""
 
-  @staticmethod
-  def create_file_path(path: os.path, name: str, suffix: str) -> os.path:
+  @classmethod
+  def create_file_path(cls,path: os.path, name: str, suffix: str) -> os.path:
     """ Creates the file path out of the directory path, filename and suffix."""
     return os.path.join(path, name + "." + suffix)
 

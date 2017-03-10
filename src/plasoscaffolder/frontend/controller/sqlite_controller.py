@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
 """File representing the controller for SQLite plugin"""
+import click
+
 from plasoscaffolder.bll.services.file_handler import FileHandler
 from plasoscaffolder.bll.services.sqlite_generator import SqliteGenerator
 from plasoscaffolder.bll.services.sqlite_plugin_helper import plugin_exists, \
   file_exists, folder_exists
-import click
 
 
-class SqliteController:
+class SqliteController(object):
   """ Class representing the controller for the SQLite controller."""
-  path = None
-  name = None
-  testfile = None
+  def __init__(self):
+    super(SqliteController, self).__init__()
+    self.path = None
+    self.name = None
+    self.testfile = None
 
   def source_path(self, ctx: click.core.Context, param: click.core.Option,
       value: str) -> str:
