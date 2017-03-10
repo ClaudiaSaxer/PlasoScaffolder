@@ -48,10 +48,14 @@ def get_parser_init_edit(plugin_name: str) -> str:
 
 def _render_init(file_name: str, plugin_name: str) -> str:
   """
-  renders parser init if you want to edit an existing init file
+    renders parser init if you want to edit an existing init file
 
-  :param plugin_name: the plugin name
-  :return: string of the rendered template
+  Args:
+    file_name: name of the file in the templates folder
+    plugin_name: the name of the plugin
+
+  Returns:string of the rendered template
+
   """
   context = {'plugin_name': plugin_name}
   rendered = render_template(file_name, context)
