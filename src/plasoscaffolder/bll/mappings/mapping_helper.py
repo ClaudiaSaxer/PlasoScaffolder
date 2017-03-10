@@ -6,10 +6,12 @@ from jinja2 import Environment
 from jinja2 import FileSystemLoader
 
 
-def _get_template_path() -> os.path:
+def _get_template_path() -> str:
   """
-  the path to the template file
-  :return: the template file path
+  Retrieves the path to the template files
+
+  Returns: the template file path
+
   """
   path = os.path.dirname(os.path.abspath(__file__))
   head, tail = os.path.split(path)
