@@ -23,7 +23,7 @@ def _get_template_path(template_path=None) -> str:
   """
   if template_path is not None:
     path = os.path.dirname(os.path.abspath(template_path))
-    directory_name, base_name = os.path.split(path)
+    directory_name = os.path.dirname(path)
     template_path = os.path.join(directory_name, 'templates')
   return template_path
 
