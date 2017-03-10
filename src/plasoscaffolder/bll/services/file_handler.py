@@ -50,10 +50,10 @@ class FileHandler:
     return file_path
 
   def copy_file(self, source:str, destination:str) -> str:
-    """ Copies a database file
+    """ Copies a file
 
-    :param source: the source path of the database
-    :param destination: the destination path of the database
+    :param source: path of the file to copy
+    :param destination: path to copy the file to.
     :return: he path of the copied file
     """
     self.__create_folder_for_file_path_if_not_exist(self, destination)
