@@ -67,8 +67,12 @@ class SqliteController(object):
     self.testfile = value
     return value
 
-  def generate(self):
-    """Generating the files."""
+  def generate(self,template_path:str):
+    """Generating the files.
+
+    Args:
+      template_path: the path to the template directory
+    """
     generator = SqliteGenerator(self.path, self.name, self.testfile,
       lambda x: click.echo(x))
     if not generator.init_formatter_exists or not generator.init_parser_exists:
@@ -80,4 +84,4 @@ class SqliteController(object):
     click.confirm('Do you want to generate the files?', abort=True,
       default=True)
 
-    generator.generate_sqlite_plugin(FileHandler)
+    generator.generate_sqlite_plugin(FileHandler, template_path)

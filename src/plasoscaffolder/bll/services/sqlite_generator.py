@@ -7,7 +7,7 @@ from plasoscaffolder.bll.services.file_handler import FileHandler
 from plasoscaffolder.bll.services.sqlite_plugin_helper import *
 
 
-class SqliteGenerator():
+class SqliteGenerator(object):
   """ Generator for SQLite Files """
 
   def __init__(self, path: os.path, name: str, database: os.path, output):
@@ -27,30 +27,33 @@ class SqliteGenerator():
     self.init_parser_exists = file_exists(parser_init_file_path(self.path))
     self.output = output
 
-  def generate_sqlite_plugin(self, fileHandler: FileHandler):
+  def generate_sqlite_plugin(self, fileHandler: FileHandler, template_path:str):
     """Generate the whole sqlite plugin
 
     Args:
       fileHandler: the Filehandler class
+      template_path: the path to the template directory
     """
 
-    file_handler = fileHandler()
+    file_handler = fileHandler
+    init_mapper = InitMapper(template_path)
 
     file = file_handler.create_file_from_path
     copy = file_handler.copy_file
     edit = file_handler.add_content
 
     if self.init_formatter_exists:
-      content_init_formatter = get_formatter_init_edit(self.name)
+      content_init_formatter = init_mapper.get_formatter_init_edit(self.name)
     else:
-      content_init_formatter = get_formatter_init_create(self.name)
+      content_init_formatter = init_mapper.get_formatter_init_create(self.name)
 
     if self.init_parser_exists:
-      content_init_parser = get_parser_init_edit(self.name)
+      content_init_parser = init_mapper.get_parser_init_edit(self.name)
     else:
-      content_init_parser = get_parser_init_create(self.name)
+      content_init_parser = init_mapper.get_parser_init_create(self.name)
 
-    formatter = file(formatter_file_path(self.path, self.name))
+    formatter = file_handler.create_file_from_path(formatter_file_path(
+      self.path, self.name))
     parser = file(parser_file_path(self.path, self.name))
     formatter_test = file(formatter_test_file_path(self.path, self.name))
     parser_test = file(parser_test_file_path(self.path, self.name))

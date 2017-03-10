@@ -8,9 +8,6 @@ from pathlib import Path
 class FileHandler:
   """ Class handles the creation of Files"""
 
-  def __init__(self):
-    """Initializing the FileHandler"""
-
   @classmethod
   def create_file_path(cls, path: str, name: str, suffix: str) -> str:
     """Creates the file path out of the directory path, filename and suffix.
