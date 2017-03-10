@@ -11,11 +11,9 @@ from jinja2 import FileSystemLoader
 __file__ = os.path.abspath(__file__)
 
 def _get_template_path() -> str:
-  """
-  Retrieves the path to the template files
+  """Retrieves the path to the template files
 
-  Returns:the template file path
-
+  Returns: the template file path
   """
   path = os.path.dirname(os.path.abspath(__file__ ))
   directory_name = os.path.dirname(path)
@@ -24,25 +22,25 @@ def _get_template_path() -> str:
 
 
 def _get_template_environment(template_path=_get_template_path()) -> Environment:
-  """
-  template environment
+  """template environment
 
   Args:
     template_path: the path to the template folder, if none is given the default will be taken
 
   Returns: the Environment
-
   """
   return Environment(autoescape=False,
     loader=FileSystemLoader(template_path), trim_blocks=False)
 
 
 def render_template(template_filename: str, context: dict) -> str:
-  """
-  render the template
-  :param template_filename: the name of the template
-  :param context: the context of the template
-  :return: the rendered template
+  """render the template
+
+  Args:
+    template_filename: the name of the template
+    context: the context of the template
+
+  Returns: the rendered template
   """
   return _get_template_environment().get_template(template_filename).render(
     context)

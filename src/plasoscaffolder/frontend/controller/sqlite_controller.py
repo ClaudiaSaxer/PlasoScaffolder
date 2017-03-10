@@ -9,7 +9,7 @@ from plasoscaffolder.bll.services.sqlite_plugin_helper import plugin_exists, \
 
 
 class SqliteController(object):
-  """ Class representing the controller for the SQLite controller."""
+  """Class representing the controller for the SQLite controller."""
   def __init__(self):
     super(SqliteController, self).__init__()
     self.path = None
@@ -18,12 +18,14 @@ class SqliteController(object):
 
   def source_path(self, ctx: click.core.Context, param: click.core.Option,
       value: str) -> str:
-    """ Saving the source path.
+    """Saving the source path.
 
-    :param ctx: the click context (automatically given via callback)
-    :param param: the click command (automatically given via callback)
-    :param value: the source path (automatically given via callback)
-    :return: the source path representing the same as value
+    Args:
+      ctx: the click context (automatically given via callback)
+      param: the click command (automatically given via callback)
+      value: the source path (automatically given via callback)
+
+    Returns: the source path representing the same as value
     """
     while not folder_exists(value):
       value = click.prompt(
@@ -33,12 +35,14 @@ class SqliteController(object):
 
   def plugin_name(self, ctx: click.core.Context, param: click.core.Option,
       value: str) -> str:
-    """ Saving the plugin name.
+    """Saving the plugin name.
 
-    :param ctx: the click context (automatically given via callback)
-    :param param: the click command (automatically given via callback)
-    :param value: the plugin name (automatically given via callback)
-    :return: the plugin name representing the same as value
+    Args:
+      ctx: the click context (automatically given via callback)
+      param: the click command (automatically given via callback)
+      value: the plugin name (automatically given via callback)
+
+    Returns: the plugin name representing the same as value
     """
     while plugin_exists(self.path, value):
       value = click.prompt(
@@ -48,12 +52,14 @@ class SqliteController(object):
 
   def test_path(self, ctx: click.core.Context, param: click.core.Option,
       value: str) -> str:
-    """ Saving the path to the test file.
+    """Saving the path to the test file.
 
-    :param ctx: the click context (automatically given via callback)
-    :param param: the click command (automatically given via callback)
-    :param value: the test file path (automatically given via callback)
-    :return: the test file path representing the same as the value
+    Args:
+      ctx: the click context (automatically given via callback)
+      param: the click command (automatically given via callback)
+      value: the test file path (automatically given via callback)
+
+    Returns: the test file path representing the same as the value
     """
     while not file_exists(value):
       value = click.prompt(
@@ -62,12 +68,7 @@ class SqliteController(object):
     return value
 
   def generate(self):
-    """ Generating the files.
-
-    :param path: the path of the plaso folder
-    :param name: the name of the plugin
-    :param testfile: the path of the testfile
-    """
+    """Generating the files."""
     generator = SqliteGenerator(self.path, self.name, self.testfile,
       lambda x: click.echo(x))
     if not generator.init_formatter_exists or not generator.init_parser_exists:

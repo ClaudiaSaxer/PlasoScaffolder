@@ -11,12 +11,13 @@ class SqliteGenerator():
   """ Generator for SQLite Files """
 
   def __init__(self, path: os.path, name: str, database: os.path, output):
-    """ Initializes a SQLite Generator.
+    """Initializes a SQLite Generator.
 
-    :param path: the path of the plaso folder
-    :param name: the name of the plugin
-    :param database: the path to the database
-    :param output: the output for the generation information (str -> y)
+    Args:
+      path: the path of the plaso folder
+      name: the name of the plugin
+      database: the path to the database
+      output: the output for the generation information (str -> y)
     """
     self.path = path
     self.name = name
@@ -27,11 +28,12 @@ class SqliteGenerator():
     self.output = output
 
   def generate_sqlite_plugin(self, fileHandler: FileHandler):
-    """
-    Generate the whole sqlite plugin
+    """Generate the whole sqlite plugin
 
-    :param fileHandler: the Filehandler class
+    Args:
+      fileHandler: the Filehandler class
     """
+
     file_handler = fileHandler()
 
     file = file_handler.create_file_from_path
@@ -63,16 +65,16 @@ class SqliteGenerator():
   def _print(self, formatter: os.path, parser: os.path, formatter_test: os.path,
       parser_test: os.path, database: os.path, parser_init: os.path,
       formatter_init: os.path):
-    """
-    Printing the information to the generated files
+    """Printing the information to the generated files
 
-    :param formatter: the formatter file
-    :param parser:  the parser file
-    :param formatter_test: the formatter test file
-    :param parser_test: the parser test file
-    :param database: the database file
-    :param parser_init: the parser init file
-    :param formatter_init: the formatter init file
+    Args:
+      formatter: the formatter file
+      parser: the parser file
+      formatter_test: the formatter test file
+      parser_test: the parser test file
+      database: the database file
+      parser_init: the parser init file
+      formatter_init: the formatter init file
     """
     self._print_create(formatter)
     self._print_create(parser)
@@ -89,25 +91,26 @@ class SqliteGenerator():
       self._print_create(formatter_init)
 
   def _print_copy(self, file: os.path):
-    """
-    Click echo for copy file
+    """Click echo for copy file
 
-    :param file: the file path
+    Args:
+      file: the file path
     """
+
     self.output("copy " + file)
 
   def _print_edit(self, file: os.path):
-    """
-    Click echo for edit file
+    """Click echo for edit file
 
-    :param file: the file path
+    Args:
+      file: the file path
     """
     self.output("edit " + file)
 
   def _print_create(self, file: os.path):
-    """
-    Click echo for create file
+    """Click echo for create file
 
-    :param file: the file path
+    Args:
+      file: the file path
     """
     self.output("create " + file)
