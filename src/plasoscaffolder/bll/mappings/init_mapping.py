@@ -46,7 +46,7 @@ def get_parser_init_edit(plugin_name: str) -> str:
   return _render_init(file_name, plugin_name)
 
 
-def _render_init(file_name, plugin_name: str) -> str:
+def _render_init(file_name: str, plugin_name: str) -> str:
   """
   renders parser init if you want to edit an existing init file
 
