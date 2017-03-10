@@ -72,8 +72,8 @@ class FileHandler:
     :param content: The content to append to the file.
     :return: The path of the edited file.
     """
-    with open(source, "a") as file:
-      file.write(content)
+    with open(source, "a") as file_object:
+      file_object.write(content)
 
     return source
 
