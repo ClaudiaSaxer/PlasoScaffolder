@@ -5,17 +5,27 @@ import os
 from jinja2 import Environment
 from jinja2 import FileSystemLoader
 
+# Since os.path.abspath() uses the current working directory (cwd)
+# os.path.abspath(__file__) will point to a different location if
+# cwd has been changed. Hence we preserve the absolute location of __file__.
+__file__ = os.path.abspath(__file__)
 
-def _get_template_path() -> str:
+def _get_template_path(template_path=None) -> str:
   """
   Retrieves the path to the template files
 
-  Returns: the template file path
+  Args:
+    template_path: the path to the templates, if none is given the default
+    will be taken
+
+  Returns:the template file path
 
   """
-  path = os.path.dirname(os.path.abspath(__file__))
-  head, tail = os.path.split(path)
-  return os.path.join(head, 'templates')
+  if template_path is not None:
+    path = os.path.dirname(os.path.abspath(template_path))
+    head, tail = os.path.split(path)
+    template_path = os.path.join(head, 'templates')
+  return template_path
 
 
 def _get_template_environment() -> Environment:
