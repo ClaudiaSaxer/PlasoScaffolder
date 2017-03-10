@@ -14,7 +14,8 @@ class FileHandler:
   @classmethod
   def create_file_path(cls, path: str, name: str, suffix: str) -> str:
     """ Creates the file path out of the directory path, filename and suffix."""
-    return os.path.join(path, name + "." + suffix)
+    file_name = "{0:s}.{1:s}".format(name, suffix)
+    return os.path.join(path, file_name)
 
   @classmethod
   def _create_folder(cls, directory_path):
