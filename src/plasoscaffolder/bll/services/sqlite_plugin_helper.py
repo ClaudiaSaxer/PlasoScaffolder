@@ -40,7 +40,8 @@ def formatter_file_path(path: str, plugin_name: str) -> str:
   :param plugin_name: The name of the plugin.
   :return: The path of the new file.
   """
-  return os.path.join(path, "plaso", "formatters", plugin_name + ".py")
+  file_name = "{0:s}.py".format(plugin_name)
+  return os.path.join(path, "plaso", "formatters", file_name)
 
 
 def parser_file_path(path: str, plugin_name: str) -> str:
