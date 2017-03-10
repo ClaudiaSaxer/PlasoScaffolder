@@ -11,7 +11,7 @@ class SqliteGenerator():
   """ Generator for SQLite Files """
 
   def __init__(self, path: os.path, name: str, database: os.path, output):
-    """ Constructs the SQLite Generator
+    """ Initializes a SQLite Generator.
 
     :param path: the path of the plaso folder
     :param name: the name of the plugin
