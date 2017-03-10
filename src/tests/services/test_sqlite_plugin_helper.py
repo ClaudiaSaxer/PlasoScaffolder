@@ -113,7 +113,7 @@ class SqlitePluginHelperTest(unittest.TestCase):
     self.assertFalse(file_exists(source))
     with open(source, "a+") as f:
       f.write(expected_content)
-    self.assertTrue(isfile(source))
+    self.assertTrue(os.path.isfile(source))
     os.remove(source)
 
   def test_folder_exists(self):
