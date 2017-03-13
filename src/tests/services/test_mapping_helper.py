@@ -9,19 +9,17 @@ class MyTestCase(unittest.TestCase):
   """ Class representing a test case for the mapping helper functions. """
 
   def setUp(self):
-    self.template_path = template_path()
+    self.template_path = os.path.join(os.path.dirname(os.path.dirname(__file__)),"test_template")
+    self.plugin_name = "the_one_and_only"
+    self.file = "test_template.jinja2"
+    self.helper = MappingHelper(self.template_path)
 
-  def test_get_template_path(self):
-   """helper = MappingHelper(template_path())
-
-    expected_first = "templates"
-    expected_second = "bll"
-    expected_third = "plasoscaffolder"
-    actual = helper._get_template_path().split(os.sep)
-    self.assertEqual(expected_first, actual[len(actual) - 1])
-    self.assertEqual(expected_second, actual[len(actual) - 2])
-    self.assertEqual(expected_third, actual[len(actual) - 3])"""
-
+  def test_render(self):
+    """test the render """
+    context = {'plugin_name': self.plugin_name}
+    actual = self.helper.render_template(self.file, context)
+    expected = "# -*- coding: utf-8 -*-\ntest " + self.plugin_name
+    self.assertEqual(expected, actual)
 
 if __name__ == '__main__':
   unittest.main()

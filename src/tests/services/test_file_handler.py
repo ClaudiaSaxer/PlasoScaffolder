@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import tempfile
 import unittest
 
 from plasoscaffolder.bll.services.file_handler import *
@@ -26,8 +27,10 @@ class FileHandlerTest(unittest.TestCase):
     """Tests if the creation of a folder works."""
     self.assertFalse(os.path.exists(self.path))
     creator = FileHandler()
-    creator._create_folder(self.path)
-    self.assertTrue(os.path.exists(self.path))
+    with tempfile.TemporaryDirectory() as tmpdir:
+      creator._create_folder(os.path.join(tmpdir,"temp"))
+      actual = os.path.exists(os.path.join(tmpdir,"temp"))
+    self.assertTrue(actual)
 
   def test_get_folder_path(self):
     """Tests if the construction of the folder path works."""
