@@ -43,7 +43,7 @@ class SqliteGeneratorTest(unittest.TestCase):
     self.assertEqual(expected, actual)
 
   def test_generate_sqlite_plugin(self):
-    file_handler = FileHandler()
+    file_handler = FileHandler
     file_handler.create_file_from_path = MagicMock(return_value=self.testfile)
     file_handler.copy_file = MagicMock(return_value=self.testfile)
     file_handler.add_content = MagicMock(return_value=self.testfile)

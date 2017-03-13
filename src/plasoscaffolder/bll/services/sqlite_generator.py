@@ -27,7 +27,8 @@ class SqliteGenerator(object):
     self.init_parser_exists = file_exists(parser_init_file_path(self.path))
     self.output = output
 
-  def generate_sqlite_plugin(self, fileHandler: FileHandler, template_path:str):
+  def generate_sqlite_plugin(self, fileHandler: FileHandler,
+      template_path: str):
     """Generate the whole sqlite plugin
 
     Args:
@@ -35,7 +36,7 @@ class SqliteGenerator(object):
       template_path: the path to the template directory
     """
 
-    file_handler = fileHandler
+    file_handler = fileHandler()
     init_mapper = InitMapper(template_path)
 
     file = file_handler.create_file_from_path
@@ -52,8 +53,8 @@ class SqliteGenerator(object):
     else:
       content_init_parser = init_mapper.get_parser_init_create(self.name)
 
-    formatter = file_handler.create_file_from_path(formatter_file_path(
-      self.path, self.name))
+    formatter_file = formatter_file_path(self.path, self.name)
+    formatter = file_handler.create_file_from_path(formatter_file)
     parser = file(parser_file_path(self.path, self.name))
     formatter_test = file(formatter_test_file_path(self.path, self.name))
     parser_test = file(parser_test_file_path(self.path, self.name))

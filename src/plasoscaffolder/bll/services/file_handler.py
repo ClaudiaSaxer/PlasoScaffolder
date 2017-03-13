@@ -57,7 +57,7 @@ class FileHandler:
 
     Returns: the path of the created file
     """
-    self.__create_folder_for_file_path_if_not_exist(self, file_path)
+    self.__create_folder_for_file_path_if_not_exist(file_path)
     Path(file_path).touch()
     return file_path
 
@@ -70,12 +70,12 @@ class FileHandler:
 
     Returns: the path of the copied file
     """
-    self.__create_folder_for_file_path_if_not_exist(self, destination)
+    self.__create_folder_for_file_path_if_not_exist(destination)
     copyfile(source, destination)
     return destination
 
   def create_or_modify_file_with_content(self, source: str, content: str):
-    self.__create_folder_for_file_path_if_not_exist(self, source)
+    self.__create_folder_for_file_path_if_not_exist(source)
     self._add_content_to_file(source, content)
 
   @classmethod
@@ -93,8 +93,7 @@ class FileHandler:
 
     return source
 
-  @classmethod
-  def __create_folder_for_file_path_if_not_exist(cls, self, file_path: str):
+  def __create_folder_for_file_path_if_not_exist(self, file_path: str):
     """Creates folders for the given file if it does not exist
 
     Args:

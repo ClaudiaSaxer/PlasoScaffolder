@@ -21,11 +21,6 @@ controller = SqliteController()
 @click.option('--testfile', prompt="What's the path to your test file?",
   help='The testfile path', callback=controller.test_path)
 def sqlite(path,name,testfile):
-  """
-  run sqlite after all options where run
-  Args:
-    __file__: the absolute location of __file__
-  """
   template_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
     'bll', 'templates')
   controller.generate(template_path)
