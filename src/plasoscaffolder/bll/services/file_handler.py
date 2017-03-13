@@ -88,6 +88,7 @@ class FileHandler:
 
     Returns: The path of the edited file.
     """
+    print("\n+++++++++++++++++++++"+os.path.abspath(source))
     with open(source, "a") as file_object:
       file_object.write(content)
 
