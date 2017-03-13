@@ -8,8 +8,8 @@ from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
 
 class FakeSqlitePluginPathHelper(BaseSqlitePluginPathHelper):
   def __init__(self, path: str, plugin_name: str):
-    self.path = path
-    self.file_name = plugin_name
+    self.path = str(path)
+    self.file_name = str(plugin_name)
 
   def formatter_file_path(self) -> str:
     return os.path.join(self.path, self.file_name)
