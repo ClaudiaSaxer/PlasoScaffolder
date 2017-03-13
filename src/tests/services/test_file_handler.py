@@ -87,7 +87,6 @@ class FileHandlerTest(unittest.TestCase):
     content = "this is test content. "
     expected = content
     source = self.file
-    print("\n....................."+os.path.abspath(self.file))
 
     creator = FileHandler()
     self.assertFalse(os.path.exists(source))
