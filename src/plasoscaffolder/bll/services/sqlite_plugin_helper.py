@@ -9,6 +9,7 @@ from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
 
 
 class SqlitePluginHelper(BaseSqlitePluginHelper):
+
   def __init__(self):
     """Initializes the sqlite plugin halper"""
 

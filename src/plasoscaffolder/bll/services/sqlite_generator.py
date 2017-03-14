@@ -13,7 +13,7 @@ class SqliteGenerator(BaseSqliteGenerator):
   """ Generator for SQLite Files """
 
   def __init__(self, path: os.path, name: str, database: str, output,
-      helper: BaseSqlitePluginHelper, path_helper=BaseSqlitePluginPathHelper):
+      pluginHelper: BaseSqlitePluginHelper, pathHelper=BaseSqlitePluginPathHelper):
     """Initializes a SQLite Generator.
 
     Args:
@@ -25,6 +25,8 @@ class SqliteGenerator(BaseSqliteGenerator):
     self.path = path
     self.name = name
     self.database = database
+    path_helper = pathHelper(path, name)
+    helper = pluginHelper()
     self.init_formatter_exists = helper.file_exists(
       path_helper.formatter_init_file_path())
     self.init_parser_exists = helper.file_exists(

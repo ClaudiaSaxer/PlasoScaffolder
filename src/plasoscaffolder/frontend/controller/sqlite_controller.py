@@ -1,20 +1,25 @@
 # -*- coding: utf-8 -*-
 """File representing the controller for SQLite plugin"""
 import click
+from plasoscaffolder.bll.mappings.init_mapping import InitMapper
+from plasoscaffolder.bll.mappings.mapping_helper import MappingHelper
 
 from plasoscaffolder.bll.services.file_handler import FileHandler
 from plasoscaffolder.bll.services.sqlite_generator import SqliteGenerator
-from plasoscaffolder.bll.services.sqlite_plugin_helper import plugin_exists, \
-  file_exists, folder_exists
+from plasoscaffolder.bll.services.sqlite_plugin_helper import SqlitePluginHelper
+from plasoscaffolder.bll.services.sqlite_plugin_path_helper import \
+  SqlitePluginPathHelper
 
 
 class SqliteController(object):
   """Class representing the controller for the SQLite controller."""
+
   def __init__(self):
     super(SqliteController, self).__init__()
     self.path = None
     self.name = None
     self.testfile = None
+    self.plugin_helper = SqlitePluginHelper()
 
   def source_path(self, ctx: click.core.Context, param: click.core.Option,
       value: str) -> str:
@@ -27,7 +32,7 @@ class SqliteController(object):
 
     Returns: the source path representing the same as value
     """
-    while not folder_exists(value):
+    while not self.plugin_helper.folder_exists(value):
       value = click.prompt(
         click.style("Folder does not exists. Enter correct one: ", fg="red"))
     self.path = value
@@ -44,7 +49,8 @@ class SqliteController(object):
 
     Returns: the plugin name representing the same as value
     """
-    while plugin_exists(self.path, value):
+    while self.plugin_helper.plugin_exists(self.path, value,
+        SqlitePluginPathHelper):
       value = click.prompt(
         click.style("Plugin exists. Choose new name: ", fg="red"))
     self.name = value
@@ -61,20 +67,21 @@ class SqliteController(object):
 
     Returns: the test file path representing the same as the value
     """
-    while not file_exists(value):
+    while not self.plugin_helper.file_exists(value):
       value = click.prompt(
         click.style("File does not exists. Choose another: ", fg="red"))
     self.testfile = value
     return value
 
-  def generate(self,template_path:str):
+  def generate(self, template_path: str):
     """Generating the files.
 
     Args:
       template_path: the path to the template directory
     """
     generator = SqliteGenerator(self.path, self.name, self.testfile,
-      lambda x: click.echo(x))
+      lambda x: click.echo(x), SqlitePluginHelper, SqlitePluginPathHelper)
+
     if not generator.init_formatter_exists or not generator.init_parser_exists:
       click.confirm(
         'At least one init file does not exist. Do you want the create them ('
@@ -84,4 +91,5 @@ class SqliteController(object):
     click.confirm('Do you want to generate the files?', abort=True,
       default=True)
 
-    generator.generate_sqlite_plugin(FileHandler, template_path)
+    generator.generate_sqlite_plugin(template_path, FileHandler, InitMapper,
+      MappingHelper)
