@@ -34,7 +34,7 @@ class SqliteController(object):
     """
     while not self.plugin_helper.folder_exists(value):
       value = click.prompt(
-        click.style("Folder does not exists. Enter correct one: ", fg="red"))
+        click.style('Folder does not exists. Enter correct one: ', fg='red'))
     self.path = value
     return value
 
@@ -52,7 +52,7 @@ class SqliteController(object):
     while self.plugin_helper.plugin_exists(self.path, value,
         SqlitePluginPathHelper):
       value = click.prompt(
-        click.style("Plugin exists. Choose new name: ", fg="red"))
+        click.style('Plugin exists. Choose new name: ', fg='red'))
     self.name = value
     return value
 
@@ -69,7 +69,7 @@ class SqliteController(object):
     """
     while not self.plugin_helper.file_exists(value):
       value = click.prompt(
-        click.style("File does not exists. Choose another: ", fg="red"))
+        click.style('File does not exists. Choose another: ', fg='red'))
     self.testfile = value
     return value
 

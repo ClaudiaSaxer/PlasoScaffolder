@@ -25,7 +25,7 @@ class FileHandler(BaseFileHandler):
 
     Returns: the joined path to the file
     """
-    file_name = "{0:s}.{1:s}".format(name, suffix)
+    file_name = '{0:s}.{1:s}'.format(name, suffix)
     return os.path.join(path, file_name)
 
   @classmethod
@@ -94,7 +94,7 @@ class FileHandler(BaseFileHandler):
 
     Returns: The path of the edited file.
     """
-    with open(source, "a") as file_object:
+    with open(source, 'a') as file_object:
       file_object.write(content)
 
     return source

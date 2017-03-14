@@ -14,11 +14,11 @@ controller = SqliteController()
 
 
 @click.command()
-@click.option('--path', '-p', prompt="What's the path to the plaso project?",
+@click.option('--path', '-p', prompt='What\'s the path to the plaso project?',
   help='The path to plaso', callback=controller.source_path)
-@click.option('--name', prompt="What's the name of the plugin?",
+@click.option('--name', prompt='What\'s the name of the plugin?',
   help='The plugin name', callback=controller.plugin_name)
-@click.option('--testfile', prompt="What's the path to your test file?",
+@click.option('--testfile', prompt='What\'s the path to your test file?',
   help='The testfile path', callback=controller.test_path)
 def sqlite(path,name,testfile):
   template_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))),

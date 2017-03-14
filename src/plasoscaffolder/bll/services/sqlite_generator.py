@@ -110,7 +110,7 @@ class SqliteGenerator(BaseSqliteGenerator):
       file: the file path
     """
 
-    self.output("copy " + file)
+    self.output('copy ' + file)
 
   def _print_edit(self, file: str):
     """Click echo for edit file
@@ -118,7 +118,7 @@ class SqliteGenerator(BaseSqliteGenerator):
     Args:
       file: the file path
     """
-    self.output("edit " + file)
+    self.output('edit ' + file)
 
   def _print_create(self, file: str):
     """Click echo for create file
@@ -126,4 +126,4 @@ class SqliteGenerator(BaseSqliteGenerator):
     Args:
       file: the file path
     """
-    self.output("create " + file)
+    self.output('create ' + file)

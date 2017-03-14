@@ -9,18 +9,18 @@ class MyTestCase(unittest.TestCase):
     runner = CliRunner()
     result = runner.invoke(entry_point, ['--help'])
     expected_output = (
-      "Usage: entry_point [OPTIONS] COMMAND [ARGS]..."
-      "\n"
-      "\n"
-      "Options:"
-      "\n"
-      "  --help  "
-      "Show this message and exit."
-      "\n"
-      "\n"
-      "Commands:"
-      "\n"
-      "  sqlite\n"
+      'Usage: entry_point [OPTIONS] COMMAND [ARGS]...'
+      '\n'
+      '\n'
+      'Options:'
+      '\n'
+      '  --help  '
+      'Show this message and exit.'
+      '\n'
+      '\n'
+      'Commands:'
+      '\n'
+      '  sqlite\n'
     )
 
     self.assertEqual(expected_output, str(result.output))
