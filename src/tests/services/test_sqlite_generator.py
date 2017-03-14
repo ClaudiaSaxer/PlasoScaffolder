@@ -67,12 +67,13 @@ class SqliteGeneratorTest(unittest.TestCase):
       file = os.path.join(tmpdir, 'testfile')
       generator = SqliteGenerator(tmpdir, 'test', 'test',
         lambda x: self._writeToFile(x, file), self.plugin_helper, path_helper)
-      generator.generate_sqlite_plugin(tmpdir, file_handler, init_mapper, mapping_helper)
+      generator.generate_sqlite_plugin(tmpdir, file_handler, init_mapper,
+        mapping_helper)
       out = os.path.join(tmpdir, 'test')
       init = os.path.join(tmpdir, '__init__.py')
       expected = (
-      "create " + out + "create " + out + "create " + out + "create " + out +
-      "copy " + out + "create " + init + "create " + init)
+      "create testcreate testcreate testcreate testcopy testcreate testcreate "
+      "test")
       actual = self._readFromFile(file)
     self.assertEqual(expected, actual)
 

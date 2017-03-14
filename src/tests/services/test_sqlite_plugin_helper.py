@@ -29,6 +29,7 @@ class SqlitePluginHelperTest(unittest.TestCase):
         helper = SqlitePluginHelper()
         actual = helper.plugin_exists(tmpdir, fp.name,
           FakeSqlitePluginPathHelper(tmpdir, fp.name))
+        print()
 
     self.assertTrue(actual)
 
