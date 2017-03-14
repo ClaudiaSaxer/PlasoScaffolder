@@ -23,7 +23,7 @@ class InitMapper(BaseInitMapper):
 
     Returns: string of the rendered template
     """
-    file_name = "formatter_init_create_template.py"
+    file_name = "formatter_init_create_template.jinja2"
     return self._render_init(file_name, plugin_name)
 
 
@@ -35,7 +35,7 @@ class InitMapper(BaseInitMapper):
 
     Returns: string of the rendered template
     """
-    file_name = "formatter_init_edit_template.py"
+    file_name = "formatter_init_edit_template.jinja2"
     return self._render_init(file_name, plugin_name)
 
 
@@ -47,7 +47,7 @@ class InitMapper(BaseInitMapper):
 
     Returns: string of the rendered template
     """
-    file_name = "parser_init_create_template.py"
+    file_name = "parser_init_create_template.jinja2"
     return self._render_init(file_name, plugin_name)
 
 
@@ -59,7 +59,7 @@ class InitMapper(BaseInitMapper):
 
     Returns: string of the rendered template
     """
-    file_name = "parser_init_edit_template.py"
+    file_name = "parser_init_edit_template.jinja2"
     return self._render_init(file_name, plugin_name)
 
 

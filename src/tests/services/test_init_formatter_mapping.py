@@ -17,26 +17,26 @@ class InitMappingTest(unittest.TestCase):
   def test_get_formatter_init_create(self):
     """test the render for creating a new formatter init file"""
     actual = self.mapper.get_formatter_init_create(self.plugin_name)
-    expected = "fake string formatter_init_create_template.py"
+    expected = "fake string formatter_init_create_template.jinja2"
     self.assertEqual(expected, actual)
 
   def test_get_formatter_init_edit(self):
     """test the render for editing a existing formatter init file"""
     actual = self.mapper.get_formatter_init_edit(self.plugin_name)
-    expected = "fake string formatter_init_edit_template.py"
+    expected = "fake string formatter_init_edit_template.jinja2"
     self.assertEqual(expected, actual)
 
   def test_get_parser_init_create(self):
     """test the render for creating a new parser init file"""
     actual = self.mapper.get_parser_init_create(self.plugin_name)
-    expected = "fake string parser_init_create_template.py"
+    expected = "fake string parser_init_create_template.jinja2"
 
     self.assertEqual(expected, actual)
 
   def test_get_parser_init_edit(self):
     """test the render for editing a existing parser init file"""
     actual = self.mapper.get_parser_init_edit(self.plugin_name)
-    expected = "fake string parser_init_edit_template.py"
+    expected = "fake string parser_init_edit_template.jinja2"
     self.assertEqual(expected, actual)
 
 
