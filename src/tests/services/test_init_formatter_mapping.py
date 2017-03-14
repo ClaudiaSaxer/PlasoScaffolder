@@ -11,7 +11,6 @@ class InitMappingTest(unittest.TestCase):
 
   def setUp(self):
     self.plugin_name = "the_one_and_only"
-    print(template_path())
     self.mapper = InitMapper("template ",FakeMappingHelper)
 
   def test_get_formatter_init_create(self):

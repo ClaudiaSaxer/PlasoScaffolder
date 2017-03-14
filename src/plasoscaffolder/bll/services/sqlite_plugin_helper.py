@@ -13,7 +13,7 @@ class SqlitePluginHelper(BaseSqlitePluginHelper):
     """Initializes the sqlite plugin halper"""
 
 
-  def plugin_exists(self, path: str, plugin_name: str, helper: BaseSqlitePluginPathHelper) -> bool:
+  def plugin_exists(self, path: str, plugin_name: str, SqlitePluginPathHelper: BaseSqlitePluginPathHelper) -> bool:
     """Checks if the plugin already exists.
 
     Args:
@@ -23,6 +23,7 @@ class SqlitePluginHelper(BaseSqlitePluginHelper):
 
     Returns: Boolean True if the plugin already exists. False if it does not.
     """
+    helper = SqlitePluginPathHelper(path, plugin_name)
     return os.path.isfile(helper.formatter_file_path()) or os.path.isfile(
       helper.parser_file_path()) or os.path.isfile(
       helper.formatter_test_file_path()) or os.path.isfile(
