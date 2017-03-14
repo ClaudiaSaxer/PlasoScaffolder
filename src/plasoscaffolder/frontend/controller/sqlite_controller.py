@@ -3,23 +3,24 @@
 import click
 from plasoscaffolder.bll.mappings.init_mapping import InitMapper
 from plasoscaffolder.bll.mappings.mapping_helper import MappingHelper
-
-from plasoscaffolder.bll.services.file_handler import FileHandler
 from plasoscaffolder.bll.services.sqlite_generator import SqliteGenerator
 from plasoscaffolder.bll.services.sqlite_plugin_helper import SqlitePluginHelper
 from plasoscaffolder.bll.services.sqlite_plugin_path_helper import \
   SqlitePluginPathHelper
+from plasoscaffolder.common.base_output_handler import BaseOutputHandler
+from plasoscaffolder.common.file_handler import FileHandler
 
 
 class SqliteController(object):
   """Class representing the controller for the SQLite controller."""
 
-  def __init__(self):
+  def __init__(self, outputHandler: BaseOutputHandler):
     super(SqliteController, self).__init__()
     self.path = None
     self.name = None
     self.testfile = None
     self.plugin_helper = SqlitePluginHelper()
+    self.output_handler = outputHandler()
 
   def source_path(self, ctx: click.core.Context, param: click.core.Option,
       value: str) -> str:
@@ -33,8 +34,8 @@ class SqliteController(object):
     Returns: the source path representing the same as value
     """
     while not self.plugin_helper.folder_exists(value):
-      value = click.prompt(
-        click.style('Folder does not exists. Enter correct one: ', fg='red'))
+      value = self.output_handler.prompt_error(
+        'Folder does not exists. Enter correct one: ')
     self.path = value
     return value
 
@@ -51,8 +52,8 @@ class SqliteController(object):
     """
     while self.plugin_helper.plugin_exists(self.path, value,
         SqlitePluginPathHelper):
-      value = click.prompt(
-        click.style('Plugin exists. Choose new name: ', fg='red'))
+      value = self.output_handler.prompt_error(
+        'Plugin exists. Choose new name: ')
     self.name = value
     return value
 
@@ -68,8 +69,8 @@ class SqliteController(object):
     Returns: the test file path representing the same as the value
     """
     while not self.plugin_helper.file_exists(value):
-      value = click.prompt(
-        click.style('File does not exists. Choose another: ', fg='red'))
+      value = self.output_handler.prompt_error(
+        'File does not exists. Choose another: ')
     self.testfile = value
     return value
 
@@ -80,16 +81,15 @@ class SqliteController(object):
       template_path: the path to the template directory
     """
     generator = SqliteGenerator(self.path, self.name, self.testfile,
-      lambda x: click.echo(x), SqlitePluginHelper, SqlitePluginPathHelper)
+      lambda x: self.output_handler.print_info(
+        x), SqlitePluginHelper, SqlitePluginPathHelper)
 
     if not generator.init_formatter_exists or not generator.init_parser_exists:
-      click.confirm(
-        'At least one init file does not exist. Do you want the create them ('
-        'or else abort)?',
-        abort=True, default=True)
+      self.output_handler.confirm(
+        'At least one init file does not exist. Do you want the create them ( '
+        'or else abort)?')
 
-    click.confirm('Do you want to generate the files?', abort=True,
-      default=True)
+    self.output_handler.confirm('Do you want to generate the files?')
 
     generator.generate_sqlite_plugin(template_path, FileHandler, InitMapper,
       MappingHelper)

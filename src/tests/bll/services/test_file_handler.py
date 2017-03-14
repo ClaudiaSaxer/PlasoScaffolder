@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
+import filecmp
+import shutil
 import tempfile
 import unittest
 
-from plasoscaffolder.bll.services.file_handler import *
-import shutil
-import filecmp
+from plasoscaffolder.common.file_handler import *
 
 
 class FileHandlerTest(unittest.TestCase):

@@ -3,16 +3,18 @@ import os
 
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
 from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
-from plasoscaffolder.bll.services.base_file_handler import BaseFileHandler
 from plasoscaffolder.bll.services.base_sqlite_generator import \
   BaseSqliteGenerator, BaseSqlitePluginHelper, BaseSqlitePluginPathHelper
+from plasoscaffolder.common.base_file_handler import BaseFileHandler
+from plasoscaffolder.common.base_output_handler import BaseOutputHandler
 
 
 class SqliteGenerator(BaseSqliteGenerator):
   """ Generator for SQLite Files """
 
-  def __init__(self, path: os.path, name: str, database: str, output,
-      pluginHelper: BaseSqlitePluginHelper, pathHelper=BaseSqlitePluginPathHelper):
+  def __init__(self, path: os.path, name: str, database: str, output_handler: BaseOutputHandler,
+      pluginHelper: BaseSqlitePluginHelper,
+      pathHelper=BaseSqlitePluginPathHelper):
     """Initializes a SQLite Generator.
 
     Args:
@@ -21,6 +23,8 @@ class SqliteGenerator(BaseSqliteGenerator):
       database: the path to the database
       output: the output for the generation information (str -> y)
     """
+    super().__init__(path, name, database, output_handler, pluginHelper, pathHelper)
+
     self.path = path
     self.name = name
     self.database = database
@@ -30,11 +34,12 @@ class SqliteGenerator(BaseSqliteGenerator):
       path_helper.formatter_init_file_path())
     self.init_parser_exists = helper.file_exists(
       path_helper.parser_init_file_path())
-    self.output = output
+    self.output = output_handler.print_info
     self.path_helper = path_helper
 
   def generate_sqlite_plugin(self, template_path: str,
-      fileHandler: BaseFileHandler, init_mapper: BaseInitMapper, mappingHelper: BaseMappingHelper):
+      fileHandler: BaseFileHandler, init_mapper: BaseInitMapper,
+      mappingHelper: BaseMappingHelper):
     """Generate the whole sqlite plugin
 
     Args:

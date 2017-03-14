@@ -16,6 +16,7 @@ class SqlitePluginPathHelper(BaseSqlitePluginPathHelper):
       plugin_name: The name of the plugin to check.
 
     """
+    super().__init__(path,plugin_name)
     self.path = path
     self.plugin_name = plugin_name
     self.file_name = '{0:s}.py'.format(self.plugin_name)

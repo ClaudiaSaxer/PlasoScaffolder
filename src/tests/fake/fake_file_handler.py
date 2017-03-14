@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """ A class to create files """
-from plasoscaffolder.bll.services.base_file_handler import BaseFileHandler
+from plasoscaffolder.common.base_file_handler import BaseFileHandler
 
 
 class FakeFileHandler(BaseFileHandler):

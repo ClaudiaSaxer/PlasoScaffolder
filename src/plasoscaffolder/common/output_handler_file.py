@@ -1,14 +1,21 @@
 # -*- coding: utf-8 -*-
-
-from click._unicodefun import click
+from plasoscaffolder.common.base_file_handler import BaseFileHandler
 from plasoscaffolder.common.base_output_handler import BaseOutputHandler
 
 
-class OutputHandlerClick(BaseOutputHandler):
-  """Clase representing the output handler for click"""
+class OutputHandlerFile(BaseOutputHandler):
+  """Clase representing the output handler for a file"""
 
-  def __init__(self):
+  def __init__(self, filepath: str, fileHandler: BaseFileHandler):
+    """Initializes File Output Handler
+
+    Args:
+      filepath: the path to the file
+      fileHandler: the file Handler
+    """
     super().__init__()
+    self.file_handler = fileHandler()
+    self.path = filepath
 
   def prompt_info(self, text: str) -> str:
     """A prompt for information with click
@@ -18,7 +25,7 @@ class OutputHandlerClick(BaseOutputHandler):
 
     Returns: the user input
     """
-    click.prompt(text, type=str)
+    raise NotImplementedError
 
   def prompt_error(self, text: str) -> str:
     """A prompt for errors with click
@@ -28,7 +35,7 @@ class OutputHandlerClick(BaseOutputHandler):
 
     Returns: the user input
     """
-    return click.prompt(click.style(text, fg='red'), type=str)
+    raise NotImplementedError
 
   def print_info(self, text: str):
     """A echo for infos with click
@@ -36,7 +43,7 @@ class OutputHandlerClick(BaseOutputHandler):
     Args:
       text: the text to print
     """
-    click.echo(text)
+    self.file_handler.add_content(self.path, text)
 
   def print_error(self, text: str):
     """A echo for errors with click
@@ -44,7 +51,7 @@ class OutputHandlerClick(BaseOutputHandler):
     Args:
       text: the text to print
     """
-    click.echo(text, color='red')
+    self.file_handler.add_content(self.path, text)
 
   def confirm(self, text: str):
     """A confirm, Default Y, if no abort execution
@@ -52,4 +59,4 @@ class OutputHandlerClick(BaseOutputHandler):
     Args:
       text: The text to confirm
     """
-    click.confirm(text, abort=True, default=True)
+    raise NotImplementedError

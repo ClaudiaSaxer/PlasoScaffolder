@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """Fake Module containing helper functions for the SQLite plugin"""
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
-from plasoscaffolder.bll.services.base_file_handler import BaseFileHandler
 from plasoscaffolder.bll.services.base_sqlite_plugin_helper import \
   BaseSqlitePluginHelper
+from plasoscaffolder.common.base_file_handler import BaseFileHandler
 
 
 class FakeSqlitePluginHelper(BaseSqlitePluginHelper):

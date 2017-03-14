@@ -2,7 +2,7 @@
 from abc import ABCMeta, abstractmethod
 
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
-from plasoscaffolder.bll.services.base_file_handler import BaseFileHandler
+from plasoscaffolder.common.base_file_handler import BaseFileHandler
 
 
 class BaseSqlitePluginHelper(metaclass=ABCMeta):

@@ -28,7 +28,7 @@ class BaseOutputHandler(metaclass=ABCMeta):
     pass
 
   @abstractmethod
-  def echo_info(self, text: str):
+  def print_info(self, text: str):
     """A echo for infos
 
     Args:
@@ -37,10 +37,19 @@ class BaseOutputHandler(metaclass=ABCMeta):
     pass
 
   @abstractmethod
-  def echo_error(self, text: str) :
+  def print_error(self, text: str):
     """A echo for errors
 
     Args:
       text: the text to print
+    """
+    pass
+
+  @abstractmethod
+  def confirm(self, text: str):
+    """A confirm, Default Y, if no abort execution
+
+    Args:
+      text: The text to confirm
     """
     pass

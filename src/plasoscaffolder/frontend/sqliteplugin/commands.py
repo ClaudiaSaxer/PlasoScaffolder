@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """The commands for the SQLite plugin"""
+from plasoscaffolder.common.output_handler_click import OutputHandlerClick
 from plasoscaffolder.frontend.controller.sqlite_controller import *
 import click
 import os
@@ -10,7 +11,7 @@ import os
 __file__ = os.path.abspath(__file__)
 
 
-controller = SqliteController()
+controller = SqliteController(OutputHandlerClick)
 
 
 @click.command()

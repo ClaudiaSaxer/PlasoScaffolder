@@ -3,7 +3,8 @@ import os
 import tempfile
 import unittest
 from plasoscaffolder.bll.services.sqlite_generator import SqliteGenerator
-
+from plasoscaffolder.common.file_handler import FileHandler
+from plasoscaffolder.common.output_handler_file import OutputHandlerFile
 
 from tests.fake.fake_file_handler import FakeFileHandler
 from tests.fake.fake_init_mapping import FakeInitMapper
@@ -28,7 +29,7 @@ class SqliteGeneratorTest(unittest.TestCase):
       path_helper = FakeSqlitePluginPathHelper
       file = os.path.join(tmpdir, 'testfile')
       generator = SqliteGenerator(tmpdir, 'test', 'test',
-        lambda x: self._writeToFile(x, file), self.plugin_helper, path_helper)
+        OutputHandlerFile(file, FileHandler), self.plugin_helper, path_helper)
       generator._print_copy(file)
       expected = "copy " + file
       actual = self._readFromFile(file)
@@ -39,7 +40,7 @@ class SqliteGeneratorTest(unittest.TestCase):
       path_helper = FakeSqlitePluginPathHelper
       file = os.path.join(tmpdir, 'testfile')
       generator = SqliteGenerator(tmpdir, 'test', 'test',
-        lambda x: self._writeToFile(x, file), self.plugin_helper, path_helper)
+        OutputHandlerFile(file, FileHandler), self.plugin_helper, path_helper)
       generator._print_edit(file)
       expected = "edit " + file
       actual = self._readFromFile(file)
@@ -50,7 +51,7 @@ class SqliteGeneratorTest(unittest.TestCase):
       path_helper = FakeSqlitePluginPathHelper
       file = os.path.join(tmpdir, 'testfile')
       generator = SqliteGenerator(tmpdir, 'test', 'test',
-        lambda x: self._writeToFile(x, file), self.plugin_helper, path_helper)
+        OutputHandlerFile(file, FileHandler), self.plugin_helper, path_helper)
       generator._print_create(file)
       expected = "create " + file
       actual = self._readFromFile(file)
@@ -63,14 +64,15 @@ class SqliteGeneratorTest(unittest.TestCase):
       path_helper = FakeSqlitePluginPathHelper
       file = os.path.join(tmpdir, 'testfile')
       generator = SqliteGenerator(tmpdir, 'test', 'test',
-        lambda x: self._writeToFile(x, file), self.plugin_helper, path_helper)
+        OutputHandlerFile(file, FileHandler), self.plugin_helper, path_helper)
       generator.generate_sqlite_plugin(tmpdir, file_handler, init_mapper,
         mapping_helper)
       out = os.path.join(tmpdir, 'test')
       init = os.path.join(tmpdir, '__init__.py')
       expected = (
-      "create testcreate testcreate testcreate testcopy testcreate testcreate "
-      "test")
+        "create testcreate testcreate testcreate testcopy testcreate "
+        "testcreate "
+        "test")
       actual = self._readFromFile(file)
     self.assertEqual(expected, actual)
 
@@ -80,7 +82,7 @@ class SqliteGeneratorTest(unittest.TestCase):
       path_helper = FakeSqlitePluginPathHelper
       file = os.path.join(tmpdir, 'testfile')
       generator = SqliteGenerator(tmpdir, 'test', 'test',
-        lambda x: self._writeToFile(x, file), self.plugin_helper, path_helper)
+        OutputHandlerFile(file, FileHandler), self.plugin_helper, path_helper)
       generator._print("test1", "test2", "test3", "test4", "test5", "test6",
         "test7")
       actual = self._readFromFile(file)
@@ -88,10 +90,6 @@ class SqliteGeneratorTest(unittest.TestCase):
     expected = "create test1create test2create test3create test4copy " \
                "test5create test6create test7"
     self.assertEqual(expected, actual)
-
-  def _writeToFile(self, content, path: str):
-    with open(path, 'a') as f:
-      f.write(content)
 
   def _readFromFile(self, path: str):
     with open(path, 'r') as f:

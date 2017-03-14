@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import os
-from shutil import copyfile
 from pathlib import Path
+from shutil import copyfile
 
-from plasoscaffolder.bll.services.base_file_handler import BaseFileHandler
+from plasoscaffolder.common.base_file_handler import BaseFileHandler
 
 
 class FileHandler(BaseFileHandler):
@@ -11,7 +11,7 @@ class FileHandler(BaseFileHandler):
 
   def __init__(self):
     """Initializing the filehandler"""
-    super(FileHandler, self).__init__()
+    super().__init__()
 
   @classmethod
   def create_file_path(cls, path: str, name: str, suffix: str) -> str:
