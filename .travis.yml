@@ -12,9 +12,11 @@ matrix:
     sudo: required
     python: 3.6
 cache: pip
-install: "pip install -r src/requirements.txt"
+install: 
+  - pip install -r src/requirements.txt
+  - pip install coveralls
 script: 
   - python src/run_tests.py
-  - if test `uname -s` = 'Linux' && test ${TRAVIS_PYTHON_VERSION} = "3.6"; then coverage run --source=plasoscaffolder --omit="*test_*,*__init__*,*test_lib*" src/run_tests.py; else src/run_tests.py; fi
+  - coverage run --source=plasoscaffolder src/run_tests test
 after_success:
-  - if test `uname -s` = 'Linux' && test ${TRAVIS_PYTHON_VERSION} = "3.6"; then coveralls --verbose; fi
+  coveralls
