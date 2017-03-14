@@ -25,6 +25,7 @@ class SqlitePluginHelperTest(unittest.TestCase):
       new_file = open(file_path,'a')
       helper = SqlitePluginHelper()
       actual = helper.plugin_exists(tmpdir, new_file.name, FakeSqlitePluginPathHelper)
+      new_file.close()
       os.remove(file_path)
 
 
