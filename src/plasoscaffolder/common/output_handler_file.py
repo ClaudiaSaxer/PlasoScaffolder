@@ -37,21 +37,25 @@ class OutputHandlerFile(BaseOutputHandler):
     """
     raise NotImplementedError
 
-  def print_info(self, text: str):
+  def print_info(self, text: str) -> str:
     """A echo for infos with click
 
     Args:
       text: the text to print
-    """
-    self.file_handler.add_content(self.path, text)
 
-  def print_error(self, text: str):
+    Returns: the file the content was added
+    """
+    return self.file_handler.add_content(self.path, text)
+
+  def print_error(self, text: str)-> str:
     """A echo for errors with click
 
     Args:
       text: the text to print
+
+    Returns: the file the content was added
     """
-    self.file_handler.add_content(self.path, text)
+    return self.file_handler.add_content(self.path, text)
 
   def confirm(self, text: str):
     """A confirm, Default Y, if no abort execution
