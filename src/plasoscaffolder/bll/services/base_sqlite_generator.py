@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-"""Module representing the sqlite plugin generator"""
-
 from abc import ABCMeta, abstractmethod
 
 from plasoscaffolder.bll.services.file_handler import FileHandler
@@ -8,7 +6,7 @@ from plasoscaffolder.bll.services.sqlite_plugin_helper import *
 
 
 class BaseSqliteGenerator(metaclass=ABCMeta):
-  """ Generator for SQLite Files """
+  """Class representing the base class for the base sqlite generator"""
 
   @abstractmethod
   def generate_sqlite_plugin(self, fileHandler: FileHandler,

@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-"""Module containing helper functions for the SQLite plugin"""
-import os
 from abc import ABCMeta, abstractmethod
 
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
@@ -8,6 +6,7 @@ from plasoscaffolder.bll.services.base_file_handler import BaseFileHandler
 
 
 class BaseSqlitePluginHelper(metaclass=ABCMeta):
+  """Class representing the base class for the sqlite plugin helper"""
 
   @abstractmethod
   def plugin_exists(self, template_path: str,

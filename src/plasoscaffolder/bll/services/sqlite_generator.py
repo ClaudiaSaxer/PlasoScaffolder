@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-"""Module representing the sqlite plugin generator"""
 import os
 
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper

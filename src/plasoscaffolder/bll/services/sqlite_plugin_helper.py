@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-"""Module containing helper functions for the SQLite plugin"""
 import os
 
 from plasoscaffolder.bll.services.base_sqlite_plugin_helper import \
@@ -9,6 +8,7 @@ from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
 
 
 class SqlitePluginHelper(BaseSqlitePluginHelper):
+  """Class containing helper functions for the SQLite plugin"""
 
   def __init__(self):
     """Initializes the sqlite plugin halper"""

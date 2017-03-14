@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-""" A class to create files """
 import os
 from shutil import copyfile
 from pathlib import Path

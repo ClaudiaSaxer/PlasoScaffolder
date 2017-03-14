@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Module containing helper functions for the SQLite plugin"""
 import os
 from abc import ABCMeta, abstractmethod
 
 
 class BaseSqlitePluginPathHelper(metaclass=ABCMeta):
-
+  """Class representing the base class for the sqlite plugin path helper"""
   def __init__(self, path: str, plugin_name: str):
     """Initializes the sqlite plugin halper
 

@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-""" A class to create files """
 from abc import ABCMeta, abstractmethod
 
 
 class BaseFileHandler(metaclass=ABCMeta):
-  """ Class handles the creation of Files"""
+  """ Class representing the base class for the file handler"""
 
   @staticmethod
   @abstractmethod
