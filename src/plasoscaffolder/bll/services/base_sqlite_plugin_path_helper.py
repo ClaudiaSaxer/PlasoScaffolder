@@ -6,14 +6,6 @@ from abc import abstractmethod
 class BaseSQLitePluginPathHelper(metaclass=ABCMeta):
   """Class representing the base class for the sqlite plugin path helper"""
 
-  def __init__(self, path: str, plugin_name: str):
-    """Initializes the sqlite plugin halper.
-
-     Args:
-      path (str): the plaso folder path
-      plugin_name (str): The name of the plugin to check.
-    """
-
   @abstractmethod
   def formatter_file_path(self) -> str:
     """The formatter file path for the SQLite plugin for the plaso folder.

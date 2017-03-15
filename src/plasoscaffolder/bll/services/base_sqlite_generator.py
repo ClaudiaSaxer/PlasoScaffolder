@@ -12,11 +12,6 @@ from plasoscaffolder.common.file_handler import FileHandler
 class BaseSQLiteGenerator(metaclass=ABCMeta):
   """Class representing the base class for the base sqlite generator."""
 
-  def __init__(self, path: os.path, name: str, database: str, output,
-      pluginHelper: BaseSQLitePluginHelper,
-      pathHelper=BaseSQLitePluginPathHelper):
-    """initializes the generator."""
-
   @abstractmethod
   def generate_sqlite_plugin(self, template_path: str,
       fileHandler: BaseFileHandler, init_mapper: BaseInitMapper,

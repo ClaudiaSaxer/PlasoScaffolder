@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 from abc import ABCMeta
 from abc import abstractmethod
-
 from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
-  BaseSQLitePluginPathHelper
+  BaseSqlitePluginPathHelper
 
 
-class BaseSQLitePluginHelper(metaclass=ABCMeta):
+class BaseSqlitePluginHelper(metaclass=ABCMeta):
   """Class representing the base class for the sqlite plugin helper."""
 
   @abstractmethod
   def plugin_exists(self, path: str, plugin_name: str,
-      sqlitePluginPathHelper: BaseSQLitePluginPathHelper) -> bool:
+      sqlitePluginPathHelper: BaseSqlitePluginPathHelper) -> bool:
     """Checks if the plugin already exists.
 
     Args:

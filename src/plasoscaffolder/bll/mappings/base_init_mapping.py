@@ -17,7 +17,6 @@ class BaseInitMapper(metaclass=ABCMeta):
     Returns:
       str: rendered template
     """
-    pass
 
   @abstractmethod
   def get_formatter_init_edit(self, plugin_name: str) -> str:
@@ -29,7 +28,6 @@ class BaseInitMapper(metaclass=ABCMeta):
     Returns:
       str: the rendered template
     """
-    pass
 
   @abstractmethod
   def get_parser_init_create(self, plugin_name: str) -> str:
@@ -41,7 +39,6 @@ class BaseInitMapper(metaclass=ABCMeta):
     Returns:
       str: the rendered template
     """
-    pass
 
   @abstractmethod
   def get_parser_init_edit(self, plugin_name: str) -> str:
@@ -53,7 +50,6 @@ class BaseInitMapper(metaclass=ABCMeta):
     Returns:
       str: the rendered template
     """
-    pass
 
   @abstractmethod
   def _render_init(self, file_name: str, plugin_name: str) -> str:
@@ -66,4 +62,3 @@ class BaseInitMapper(metaclass=ABCMeta):
     Returns:
       str: the rendered template
     """
-    pass
