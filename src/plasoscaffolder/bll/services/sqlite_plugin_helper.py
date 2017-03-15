@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import re
 
 from plasoscaffolder.bll.services.base_sqlite_plugin_helper import \
   BaseSQLitePluginHelper
@@ -30,7 +31,20 @@ class SQLitePluginHelper(BaseSQLitePluginHelper):
     return os.path.isfile(helper.formatter_file_path()) or os.path.isfile(
       helper.parser_file_path()) or os.path.isfile(
       helper.formatter_test_file_path()) or os.path.isfile(
-      helper.parser_test_file_path()) or os.path.isfile(helper.database_path())
+      helper.parser_test_file_path()) or os.path.isfile(
+      helper.database_path(""))
+
+  def valide_plugin_name(self, plugin_name: str) -> bool:
+    """Validates the plugin name.
+
+    Args:
+      plugin_name (str): the plugin name
+
+    Returns:
+      bool: true if the plugin name is valid
+    """
+    pattern = re.compile("[a-z]+((_)[a-z]+)*")
+    return pattern.fullmatch(plugin_name)
 
   def file_exists(self, path: str) -> bool:
     """Checks if the file exists

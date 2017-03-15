@@ -39,8 +39,11 @@ class BaseSQLitePluginPathHelper(object):
     """
 
   @abc.abstractmethod
-  def database_path(self) -> str:
+  def database_path(self, suffix: str = "") -> str:
     """The database file path for the SQLite plugin for the plaso folder.
+
+    Args:
+      suffix (str): the suffix of the database file
 
     Returns:
       str: path of the new file.

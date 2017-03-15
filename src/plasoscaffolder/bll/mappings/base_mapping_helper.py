@@ -28,3 +28,14 @@ class BaseMappingHelper(object):
     Returns:
       str: the rendered template
     """
+
+  @abc.abstractmethod
+  def generate_class_name(self, plugin_name: str) -> str:
+    """Generates the class name.
+
+    Args:
+      plugin_name (str): the plugin name
+
+    Returns:
+      str: the class name
+    """

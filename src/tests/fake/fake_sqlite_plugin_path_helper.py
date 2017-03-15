@@ -22,7 +22,7 @@ class FakeSQLitePluginPathHelper(BaseSQLitePluginPathHelper):
   def parser_test_file_path(self) -> str:
     return self.file_name
 
-  def database_path(self) -> str:
+  def database_path(self, suffix:str) -> str:
     return self.file_name
 
   def parser_init_file_path(self) -> str:

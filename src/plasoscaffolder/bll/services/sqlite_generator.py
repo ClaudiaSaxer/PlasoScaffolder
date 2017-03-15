@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
 from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
@@ -42,8 +43,6 @@ class SQLiteGenerator(BaseSQLiteGenerator):
       self.path_helper.formatter_init_file_path())
     self.init_parser_exists = self.plugin_helper.file_exists(
       self.path_helper.parser_init_file_path())
-    self.output = output_handler.print_info
-    self.path_helper = self.path_helper
 
   def generate_sqlite_plugin(self, template_path: str,
       fileHandler: BaseFileHandler, init_mapper: BaseInitMapper,
@@ -79,7 +78,8 @@ class SQLiteGenerator(BaseSQLiteGenerator):
     parser = file(self.path_helper.parser_file_path())
     formatter_test = file(self.path_helper.formatter_test_file_path())
     parser_test = file(self.path_helper.parser_test_file_path())
-    database = copy(self.database, self.path_helper.database_path())
+    database = copy(self.database,
+      self.path_helper.database_path(os.path.splitext(self.database)[1]))
     parser_init = edit(self.path_helper.parser_init_file_path(),
       content_init_parser)
     formatter_init = edit(self.path_helper.formatter_init_file_path(),

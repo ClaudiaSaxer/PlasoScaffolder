@@ -12,7 +12,7 @@ from plasoscaffolder.frontend.controller.sqlite_controller import \
 # cwd has been changed. Hence we preserve the absolute location of __file__.
 __file__ = os.path.abspath(__file__)
 
-controller = SQLiteController(OutputHandlerClick)
+controller = SQLiteController(OutputHandlerClick())
 
 
 @click.command()

@@ -38,3 +38,14 @@ class BaseSQLitePluginHelper(object):
     Args:
       path (str): the folder path
     """
+
+  @abc.abstractmethod
+  def valide_plugin_name(self, plugin_name: str) -> bool:
+    """Validates the plugin name.
+
+    Args:
+      plugin_name (str): the plugin name
+
+    Returns:
+      bool: true if the plugin name is valid
+    """

@@ -48,6 +48,40 @@ class SQLitePluginHelperTest(unittest.TestCase):
 
     self.assertTrue(actual)
 
+  def test_validate_plugin_name_1(self):
+    """tests the plugin name validation."""
+    helper = SQLitePluginHelper()
+    plugin_name = "this_is_a_test"
+    actual = helper.valide_plugin_name(plugin_name)
+    self.assertTrue(actual)
+
+  def test_validate_plugin_name_2(self):
+    """tests the plugin name validation."""
+    helper = SQLitePluginHelper()
+    plugin_name = "this_is_a_"
+    actual = helper.valide_plugin_name(plugin_name)
+    self.assertFalse(actual)
+
+  def test_validate_plugin_name_3(self):
+    """tests the plugin name validation."""
+    helper = SQLitePluginHelper()
+    plugin_name = "this"
+    actual = helper.valide_plugin_name(plugin_name)
+    self.assertTrue(actual)
+
+  def test_validate_plugin_name_4(self):
+    """tests the plugin name validation."""
+    helper = SQLitePluginHelper()
+    plugin_name = "This"
+    actual = helper.valide_plugin_name(plugin_name)
+    self.assertFalse(actual)
+
+  def test_validate_plugin_name_5(self):
+    """tests the plugin name validation."""
+    helper = SQLitePluginHelper()
+    plugin_name = "this3"
+    actual = helper.valide_plugin_name(plugin_name)
+    self.assertFalse(actual)
 
 if __name__ == '__main__':
   unittest.main()

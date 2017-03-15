@@ -38,3 +38,14 @@ class MappingHelper(BaseMappingHelper):
        """
     return self._get_template_environment().get_template(
       template_filename).render(context)
+
+  def generate_class_name(self, plugin_name: str) -> str:
+    """Generates the class name.
+
+    Args:
+      plugin_name (str): the plugin name
+
+    Returns:
+      str: the class name
+    """
+    return plugin_name.replace('_',' ').title().replace(' ','')

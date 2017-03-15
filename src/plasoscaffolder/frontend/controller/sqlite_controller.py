@@ -9,18 +9,19 @@ from plasoscaffolder.bll.services.sqlite_plugin_path_helper import \
   SQLitePluginPathHelper
 from plasoscaffolder.common.base_output_handler import BaseOutputHandler
 from plasoscaffolder.common.file_handler import FileHandler
+from plasoscaffolder.common.output_handler_click import OutputHandlerClick
 
 
 class SQLiteController(object):
   """Class representing the controller for the SQLite controller."""
 
-  def __init__(self, outputHandler: BaseOutputHandler):
+  def __init__(self, output_handler: BaseOutputHandler):
     super(SQLiteController, self).__init__()
     self.path = None
     self.name = None
     self.testfile = None
     self.plugin_helper = SQLitePluginHelper()
-    self.output_handler = outputHandler()
+    self.output_handler = output_handler
 
   def source_path(self, ctx: click.core.Context, param: click.core.Option,
       value: str) -> str:
@@ -56,12 +57,29 @@ class SQLiteController(object):
     Returns:
       str: the plugin name representing the same as value
     """
+    value = self._validate(value)
     while self.plugin_helper.plugin_exists(self.path, value,
         SQLitePluginPathHelper):
       value = self.output_handler.prompt_error(
         'Plugin exists. Choose new name: ')
+      value = self._validate(value)
+
     self.name = value
     return value
+
+  def _validate(self, plugin_name: str) -> str:
+    """Validate plugin name and prompt until name is valid
+
+    Args:
+      plugin_name: the name of the plugin
+
+    Returns:
+      a valid plugin name
+    """
+    while not self.plugin_helper.valide_plugin_name(plugin_name):
+      plugin_name = self.output_handler.prompt_error(
+        'Plugin is not in a valide format. Choose new name [plugin_name_...]: ')
+    return plugin_name
 
   def test_path(self, ctx: click.core.Context, param: click.core.Option,
       value: str) -> str:
@@ -90,8 +108,7 @@ class SQLiteController(object):
       template_path (str): the path to the template directory
     """
     generator = SQLiteGenerator(self.path, self.name, self.testfile,
-      lambda x: self.output_handler.print_info(
-        x), SQLitePluginHelper, SQLitePluginPathHelper)
+      OutputHandlerClick(), SQLitePluginHelper, SQLitePluginPathHelper)
 
     if not generator.init_formatter_exists or not generator.init_parser_exists:
       self.output_handler.confirm(

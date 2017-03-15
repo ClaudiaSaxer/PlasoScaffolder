@@ -53,7 +53,7 @@ class SQLitePluginPathHelperTest(unittest.TestCase):
 
   def test_database_file(self):
     """Tests the creation of the path for the database file."""
-    actual = self.helper.database_path()
+    actual = self.helper.database_path(".db")
     self.assertEqual(self.database, actual)
 
   def test_formatter_init_file(self):

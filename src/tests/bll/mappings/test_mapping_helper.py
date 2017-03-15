@@ -21,6 +21,11 @@ class MyTestCase(unittest.TestCase):
     expected = "# -*- coding: utf-8 -*-\ntest " + self.plugin_name
     self.assertEqual(expected, actual)
 
-
+  def test_generate_classname(self):
+    """Test the generation of the classname from the pluginname"""
+    name = "this_is_a_test"
+    expected = "ThisIsATest"
+    actual = self.helper.generate_class_name(name)
+    self.assertEqual(expected,actual)
 if __name__ == '__main__':
   unittest.main()
