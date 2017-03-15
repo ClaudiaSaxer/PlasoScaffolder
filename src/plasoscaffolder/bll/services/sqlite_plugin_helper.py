@@ -2,12 +2,12 @@
 import os
 
 from plasoscaffolder.bll.services.base_sqlite_plugin_helper import \
-  BaseSqlitePluginHelper
+  BaseSQLitePluginHelper
 from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
-  BaseSqlitePluginPathHelper
+  BaseSQLitePluginPathHelper
 
 
-class SqlitePluginHelper(BaseSqlitePluginHelper):
+class SQLitePluginHelper(BaseSQLitePluginHelper):
   """Class containing helper functions for the SQLite plugin"""
 
   def __init__(self):
@@ -15,7 +15,7 @@ class SqlitePluginHelper(BaseSqlitePluginHelper):
     super().__init__()
 
   def plugin_exists(self, path: str, plugin_name: str,
-      sqlitePluginPathHelper: BaseSqlitePluginPathHelper) -> bool:
+      sqlitePluginPathHelper: BaseSQLitePluginPathHelper) -> bool:
     """Checks if the plugin already exists.
 
     Args:

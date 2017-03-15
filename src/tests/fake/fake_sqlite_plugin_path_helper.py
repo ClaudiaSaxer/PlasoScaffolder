@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """Module containing helper functions for the SQLite plugin"""
 from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
-  BaseSqlitePluginPathHelper
+  BaseSQLitePluginPathHelper
 
 
-class FakeSqlitePluginPathHelper(BaseSqlitePluginPathHelper):
+class FakeSQLitePluginPathHelper(BaseSQLitePluginPathHelper):
 
   def __init__(self, path: str, plugin_name: str):
     self.path = str(path)

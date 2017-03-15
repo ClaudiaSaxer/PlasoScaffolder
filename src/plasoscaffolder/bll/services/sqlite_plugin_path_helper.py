@@ -2,10 +2,10 @@
 import os
 
 from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
-  BaseSqlitePluginPathHelper
+  BaseSQLitePluginPathHelper
 
 
-class SqlitePluginPathHelper(BaseSqlitePluginPathHelper):
+class SQLitePluginPathHelper(BaseSQLitePluginPathHelper):
   """Class containing helper functions for the SQLite plugin for the path"""
 
   def __init__(self, path: str, plugin_name: str):

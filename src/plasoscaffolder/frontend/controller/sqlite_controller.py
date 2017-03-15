@@ -3,23 +3,23 @@
 import click
 from plasoscaffolder.bll.mappings.init_mapping import InitMapper
 from plasoscaffolder.bll.mappings.mapping_helper import MappingHelper
-from plasoscaffolder.bll.services.sqlite_generator import SqliteGenerator
-from plasoscaffolder.bll.services.sqlite_plugin_helper import SqlitePluginHelper
+from plasoscaffolder.bll.services.sqlite_generator import SQLiteGenerator
+from plasoscaffolder.bll.services.sqlite_plugin_helper import SQLitePluginHelper
 from plasoscaffolder.bll.services.sqlite_plugin_path_helper import \
-  SqlitePluginPathHelper
+  SQLitePluginPathHelper
 from plasoscaffolder.common.base_output_handler import BaseOutputHandler
 from plasoscaffolder.common.file_handler import FileHandler
 
 
-class SqliteController(object):
+class SQLiteController(object):
   """Class representing the controller for the SQLite controller."""
 
   def __init__(self, outputHandler: BaseOutputHandler):
-    super(SqliteController, self).__init__()
+    super(SQLiteController, self).__init__()
     self.path = None
     self.name = None
     self.testfile = None
-    self.plugin_helper = SqlitePluginHelper()
+    self.plugin_helper = SQLitePluginHelper()
     self.output_handler = outputHandler()
 
   def source_path(self, ctx: click.core.Context, param: click.core.Option,
@@ -57,7 +57,7 @@ class SqliteController(object):
       str: the plugin name representing the same as value
     """
     while self.plugin_helper.plugin_exists(self.path, value,
-        SqlitePluginPathHelper):
+        SQLitePluginPathHelper):
       value = self.output_handler.prompt_error(
         'Plugin exists. Choose new name: ')
     self.name = value
@@ -89,9 +89,9 @@ class SqliteController(object):
     Args:
       template_path (str): the path to the template directory
     """
-    generator = SqliteGenerator(self.path, self.name, self.testfile,
+    generator = SQLiteGenerator(self.path, self.name, self.testfile,
       lambda x: self.output_handler.print_info(
-        x), SqlitePluginHelper, SqlitePluginPathHelper)
+        x), SQLitePluginHelper, SQLitePluginPathHelper)
 
     if not generator.init_formatter_exists or not generator.init_parser_exists:
       self.output_handler.confirm(

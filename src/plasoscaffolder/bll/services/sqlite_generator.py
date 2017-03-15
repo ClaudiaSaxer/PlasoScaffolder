@@ -4,22 +4,22 @@ import os
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
 from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
 from plasoscaffolder.bll.services.base_sqlite_generator import \
-  BaseSqliteGenerator
+  BaseSQLiteGenerator
 from plasoscaffolder.bll.services.base_sqlite_generator import \
-  BaseSqlitePluginHelper
+  BaseSQLitePluginHelper
 from plasoscaffolder.bll.services.base_sqlite_generator import \
-  BaseSqlitePluginPathHelper
+  BaseSQLitePluginPathHelper
 from plasoscaffolder.common.base_file_handler import BaseFileHandler
 from plasoscaffolder.common.base_output_handler import BaseOutputHandler
 
 
-class SqliteGenerator(BaseSqliteGenerator):
+class SQLiteGenerator(BaseSQLiteGenerator):
   """ Generator for SQLite Files """
 
   def __init__(self, path: os.path, name: str, database: str,
       output_handler: BaseOutputHandler,
-      pluginHelper: BaseSqlitePluginHelper,
-      pathHelper=BaseSqlitePluginPathHelper):
+      pluginHelper: BaseSQLitePluginHelper,
+      pathHelper=BaseSQLitePluginPathHelper):
     """Initializes a SQLite Generator.
 
     Args:

@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
-import unittest
 import os
+import unittest
+
 from plasoscaffolder.bll.services.sqlite_plugin_path_helper import \
-  SqlitePluginPathHelper
+  SQLitePluginPathHelper
 
 
-class SqlitePluginPathHelperTest(unittest.TestCase):
+class SQLitePluginPathHelperTest(unittest.TestCase):
   """  Class representing a test case testing the SQLite plugin helper"""
 
   def setUp(self):
     path = "temp"
     plugin_name = "plugin_test"
-    self.helper = SqlitePluginPathHelper(path, plugin_name)
+    self.helper = SQLitePluginPathHelper(path, plugin_name)
     plugin_file = plugin_name + ".py"
-    self.formatter = path + os.sep + "plaso" + os.sep + "formatters" + os.sep\
+    self.formatter = path + os.sep + "plaso" + os.sep + "formatters" + os.sep \
                      + \
                      plugin_file
     self.formatter_test = path + os.sep + "tests" + os.sep + "formatters" + \

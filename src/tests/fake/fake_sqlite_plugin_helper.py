@@ -2,11 +2,11 @@
 """Fake Module containing helper functions for the SQLite plugin"""
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
 from plasoscaffolder.bll.services.base_sqlite_plugin_helper import \
-  BaseSqlitePluginHelper
+  BaseSQLitePluginHelper
 from plasoscaffolder.common.base_file_handler import BaseFileHandler
 
 
-class FakeSqlitePluginHelper(BaseSqlitePluginHelper):
+class FakeSQLitePluginHelper(BaseSQLitePluginHelper):
 
   def plugin_exists(self, template_path: str,
       fileHandler: BaseFileHandler, init_mapper: BaseInitMapper) -> bool:

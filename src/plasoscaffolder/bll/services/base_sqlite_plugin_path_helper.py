@@ -3,7 +3,7 @@ from abc import ABCMeta
 from abc import abstractmethod
 
 
-class BaseSqlitePluginPathHelper(metaclass=ABCMeta):
+class BaseSQLitePluginPathHelper(metaclass=ABCMeta):
   """Class representing the base class for the sqlite plugin path helper"""
 
   def __init__(self, path: str, plugin_name: str):
