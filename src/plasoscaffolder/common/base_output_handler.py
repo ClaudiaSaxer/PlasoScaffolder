@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from abc import ABCMeta
-from abc import abstractmethod
+import abc
 
 
-class BaseOutputHandler(metaclass=ABCMeta):
+class BaseOutputHandler(object):
   """Clase representing the Base class for the output handler class"""
+  __metaclass__ = abc.ABCMeta
 
-  @abstractmethod
+  @abc.abstractmethod
   def prompt_info(self, text: str) -> str:
     """A prompt for information.
 
@@ -17,7 +17,7 @@ class BaseOutputHandler(metaclass=ABCMeta):
       str: the user input
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def prompt_error(self, text: str) -> str:
     """A prompt for errors.
 
@@ -28,7 +28,7 @@ class BaseOutputHandler(metaclass=ABCMeta):
       str: the user input
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def print_info(self, text: str):
     """A echo for infos.
 
@@ -36,7 +36,7 @@ class BaseOutputHandler(metaclass=ABCMeta):
       text (str): the text to print
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def print_error(self, text: str):
     """A echo for errors.
 
@@ -44,7 +44,7 @@ class BaseOutputHandler(metaclass=ABCMeta):
       text (str): the text to print
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def confirm(self, text: str):
     """A confirm, Default Y, if no abort execution.
 

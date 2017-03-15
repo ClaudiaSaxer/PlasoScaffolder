@@ -18,7 +18,7 @@ class InitMapper(BaseInitMapper):
     Args:
       template_path (str): the path to the template directory
     """
-    super(InitMapper, self).__init__()
+    super().__init__()
     self.helper = mapping_helper(template_path)
 
   def get_formatter_init_create(self, plugin_name: str) -> str:

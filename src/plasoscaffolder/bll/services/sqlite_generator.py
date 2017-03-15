@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
 
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
 from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
@@ -16,7 +15,7 @@ from plasoscaffolder.common.base_output_handler import BaseOutputHandler
 class SQLiteGenerator(BaseSQLiteGenerator):
   """ Generator for SQLite Files """
 
-  def __init__(self, path: os.path, name: str, database: str,
+  def __init__(self, path: str, name: str, database: str,
       output_handler: BaseOutputHandler,
       pluginHelper: BaseSQLitePluginHelper,
       pathHelper=BaseSQLitePluginPathHelper):
@@ -28,21 +27,23 @@ class SQLiteGenerator(BaseSQLiteGenerator):
       database (str): the path to the database
       output_handler (BaseOutputHandler: the output handler for the
       generation information
+      pluginHelper (BaseSQLitePluginHelper): the plugin helper
+      pathHelper (BaseSQLitePluginPathHelper): the plugin path helper
     """
-    super().__init__(path, name, database, output_handler, pluginHelper,
-      pathHelper)
-
+    super().__init__()
     self.path = path
     self.name = name
     self.database = database
-    path_helper = pathHelper(path, name)
-    helper = pluginHelper()
-    self.init_formatter_exists = helper.file_exists(
-      path_helper.formatter_init_file_path())
-    self.init_parser_exists = helper.file_exists(
-      path_helper.parser_init_file_path())
+    self.path_helper = pathHelper(path, name)
     self.output = output_handler.print_info
-    self.path_helper = path_helper
+    self.plugin_helper = pluginHelper()
+
+    self.init_formatter_exists = self.plugin_helper.file_exists(
+      self.path_helper.formatter_init_file_path())
+    self.init_parser_exists = self.plugin_helper.file_exists(
+      self.path_helper.parser_init_file_path())
+    self.output = output_handler.print_info
+    self.path_helper = self.path_helper
 
   def generate_sqlite_plugin(self, template_path: str,
       fileHandler: BaseFileHandler, init_mapper: BaseInitMapper,

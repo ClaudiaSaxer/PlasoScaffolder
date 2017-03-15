@@ -14,7 +14,7 @@ class MappingHelper(BaseMappingHelper):
     Args:
       template_path (str): the path to the template directory
     """
-    super(MappingHelper, self).__init__()
+    super().__init__()
     self.template_path = template_path
 
   def _get_template_environment(self) -> Environment:

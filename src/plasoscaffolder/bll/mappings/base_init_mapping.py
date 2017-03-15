@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """ Module representing function for the different files. """
-from abc import ABCMeta
-from abc import abstractmethod
+import abc
 
 
-class BaseInitMapper(metaclass=ABCMeta):
+class BaseInitMapper(object):
   """Class representing Base class for the init mapper."""
+  __metaclass__ = abc.ABCMeta
 
-  @abstractmethod
+  @abc.abstractmethod
   def get_formatter_init_create(self, plugin_name: str) -> str:
     """Renders formatter init if you want to create new init file.
 
@@ -18,7 +18,7 @@ class BaseInitMapper(metaclass=ABCMeta):
       str: rendered template
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def get_formatter_init_edit(self, plugin_name: str) -> str:
     """Renders formatter init if you want to create new init file.
 
@@ -29,7 +29,7 @@ class BaseInitMapper(metaclass=ABCMeta):
       str: the rendered template
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def get_parser_init_create(self, plugin_name: str) -> str:
     """Renders formatter init if you want to edit an existing init file.
 
@@ -40,7 +40,7 @@ class BaseInitMapper(metaclass=ABCMeta):
       str: the rendered template
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def get_parser_init_edit(self, plugin_name: str) -> str:
     """Renders parser init if you want to create new init file.
 
@@ -51,7 +51,7 @@ class BaseInitMapper(metaclass=ABCMeta):
       str: the rendered template
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def _render_init(self, file_name: str, plugin_name: str) -> str:
     """Renders parser init if you want to edit an existing init file.
 

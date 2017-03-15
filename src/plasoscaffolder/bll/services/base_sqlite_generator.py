@@ -1,18 +1,23 @@
 # -*- coding: utf-8 -*-
-from abc import ABCMeta
-from abc import abstractmethod
+import abc
+import os
 
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
 from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
-from plasoscaffolder.bll.services.sqlite_plugin_helper import *
+from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
+  BaseSQLitePluginPathHelper
+from plasoscaffolder.bll.services.sqlite_plugin_helper import \
+  BaseSQLitePluginHelper
 from plasoscaffolder.common.base_file_handler import BaseFileHandler
+from plasoscaffolder.common.base_output_handler import BaseOutputHandler
 from plasoscaffolder.common.file_handler import FileHandler
 
 
-class BaseSQLiteGenerator(metaclass=ABCMeta):
+class BaseSQLiteGenerator(object):
   """Class representing the base class for the base sqlite generator."""
+  __metaclass__ = abc.ABCMeta
 
-  @abstractmethod
+  @abc.abstractmethod
   def generate_sqlite_plugin(self, template_path: str,
       fileHandler: BaseFileHandler, init_mapper: BaseInitMapper,
       mappingHelper: BaseMappingHelper):
@@ -25,7 +30,7 @@ class BaseSQLiteGenerator(metaclass=ABCMeta):
       template_path (str): the path to the template directory
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def _print(self, formatter: str, parser: str, formatter_test: str,
       parser_test: str, database: str, parser_init: str,
       formatter_init: str):
@@ -41,7 +46,7 @@ class BaseSQLiteGenerator(metaclass=ABCMeta):
       formatter_init(str): the formatter init file
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def _print_copy(self, file: str):
     """Print for copy file.
 
@@ -49,7 +54,7 @@ class BaseSQLiteGenerator(metaclass=ABCMeta):
       file (str): the file path
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def _print_edit(self, file: str):
     """print for edit file.
 
@@ -57,7 +62,7 @@ class BaseSQLiteGenerator(metaclass=ABCMeta):
       file (str): the file path
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def _print_create(self, file: os.path):
     """print for create file.
 

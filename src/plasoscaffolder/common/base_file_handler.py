@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from abc import ABCMeta
-from abc import abstractmethod
+import abc
 
 
-class BaseFileHandler(metaclass=ABCMeta):
+class BaseFileHandler(object):
   """ Class representing the base class for the file handler."""
+  __metaclass__ = abc.ABCMeta
 
   @staticmethod
-  @abstractmethod
+  @abc.abstractmethod
   def create_file_path(cls, path: str, name: str, suffix: str) -> str:
     """Creates the file path out of the directory path, filename and suffix.
 
@@ -21,7 +21,7 @@ class BaseFileHandler(metaclass=ABCMeta):
     """
 
   @staticmethod
-  @abstractmethod
+  @abc.abstractmethod
   def _create_folder(cls, directory_path):
     """Creates a folder only to be called if the target folder does not yet
     exists.
@@ -30,7 +30,7 @@ class BaseFileHandler(metaclass=ABCMeta):
       directory_path (str): the path to the directory to create
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def create_file(self, directory_path: str, file_name: str,
       filename_suffix: str):
     """Creates a empty file.
@@ -45,7 +45,7 @@ class BaseFileHandler(metaclass=ABCMeta):
       str: the path of the created file
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def create_file_from_path(self, file_path: str) -> str:
     """Creates a empty file.
 
@@ -56,7 +56,7 @@ class BaseFileHandler(metaclass=ABCMeta):
       str: the path of the created file
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def copy_file(self, source: str, destination: str) -> str:
     """Copies a file.
 
@@ -68,7 +68,7 @@ class BaseFileHandler(metaclass=ABCMeta):
       str: the path of the copied file
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def create_or_modify_file_with_content(self, source: str, content: str):
     """Add content to file or modify file and create folder if they don't exist.
 
@@ -78,7 +78,7 @@ class BaseFileHandler(metaclass=ABCMeta):
     """
 
   @classmethod
-  @abstractmethod
+  @abc.abstractmethod
   def add_content(cls, source: str, content: str) -> str:
     """Add content to a file and create file if non existing.
 
@@ -90,7 +90,7 @@ class BaseFileHandler(metaclass=ABCMeta):
       str: the path of the edited file.
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def _create_folder_for_file_path_if_not_exist(self, file_path: str):
     """Creates folders for the given file if it does not exist.
 

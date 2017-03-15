@@ -15,7 +15,7 @@ class SQLitePluginPathHelper(BaseSQLitePluginPathHelper):
        path (str): the plaso folder path
        plugin_name (str): The name of the plugin to check.
      """
-    super().__init__(path, plugin_name)
+    super().__init__()
     self.path = path
     self.plugin_name = plugin_name
     self.file_name = '{0:s}.py'.format(self.plugin_name)

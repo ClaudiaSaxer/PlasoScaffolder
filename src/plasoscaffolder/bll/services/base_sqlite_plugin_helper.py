@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
-from abc import ABCMeta
-from abc import abstractmethod
+import abc
+
 from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
-  BaseSqlitePluginPathHelper
+  BaseSQLitePluginPathHelper
 
 
-class BaseSqlitePluginHelper(metaclass=ABCMeta):
+class BaseSQLitePluginHelper(object):
   """Class representing the base class for the sqlite plugin helper."""
+  __metaclass__ = abc.ABCMeta
 
-  @abstractmethod
+  @abc.abstractmethod
   def plugin_exists(self, path: str, plugin_name: str,
-      sqlitePluginPathHelper: BaseSqlitePluginPathHelper) -> bool:
+      sqlitePluginPathHelper: BaseSQLitePluginPathHelper) -> bool:
     """Checks if the plugin already exists.
 
     Args:
@@ -22,7 +23,7 @@ class BaseSqlitePluginHelper(metaclass=ABCMeta):
       bool: True if the plugin already exists. False if it does not.
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def file_exists(self, path: str) -> bool:
     """Checks if the file exists.
 
@@ -30,7 +31,7 @@ class BaseSqlitePluginHelper(metaclass=ABCMeta):
        path (str): the file path
     """
 
-  @abstractmethod
+  @abc.abstractmethod
   def folder_exists(self, path: str) -> bool:
     """Checks if folder exists.
 
