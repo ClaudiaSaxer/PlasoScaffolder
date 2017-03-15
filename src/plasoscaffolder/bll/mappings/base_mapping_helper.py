@@ -2,16 +2,19 @@
 """Helper methods for mapping"""
 from abc import ABCMeta
 from abc import abstractmethod
+
 from jinja2 import Environment
 
 
 class BaseMappingHelper(metaclass=ABCMeta):
+  """Base Mapping Helper base class."""
+
   @abstractmethod
   def _get_template_environment(self) -> Environment:
     """Returns the template environment.
 
     Returns:
-      Environment: the Environment
+      jinja2.Environment: jinja2 template environment.
     """
 
   @abstractmethod

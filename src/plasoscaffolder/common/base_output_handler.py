@@ -2,6 +2,7 @@
 from abc import ABCMeta
 from abc import abstractmethod
 
+
 class BaseOutputHandler(metaclass=ABCMeta):
   """Clase representing the Base class for the output handler class"""
 

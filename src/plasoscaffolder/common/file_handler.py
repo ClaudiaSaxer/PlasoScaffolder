@@ -2,6 +2,7 @@
 import os
 from pathlib import Path
 from shutil import copyfile
+
 from plasoscaffolder.common.base_file_handler import BaseFileHandler
 
 
@@ -37,7 +38,8 @@ class FileHandler(BaseFileHandler):
      """
     os.makedirs(directory_path)
 
-  def create_file(self, directory_path: str, file_name: str, filename_suffix: str):
+  def create_file(self, directory_path: str, file_name: str,
+      filename_suffix: str):
     """Creates a empty file.
 
     Args:
@@ -70,7 +72,7 @@ class FileHandler(BaseFileHandler):
     Path(file_path).touch()
     return file_path
 
-  def copy_file(self, source:str, destination:str) -> str:
+  def copy_file(self, source: str, destination: str) -> str:
     """Copies a file.
 
       Args:

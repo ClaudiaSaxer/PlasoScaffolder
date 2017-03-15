@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from abc import ABCMeta
 from abc import abstractmethod
+
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
 from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
 from plasoscaffolder.bll.services.sqlite_plugin_helper import *

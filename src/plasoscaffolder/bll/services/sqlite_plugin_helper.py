@@ -14,8 +14,8 @@ class SqlitePluginHelper(BaseSqlitePluginHelper):
     """Initializes the sqlite plugin halper"""
     super().__init__()
 
-
-  def plugin_exists(self, path: str, plugin_name: str, sqlitePluginPathHelper: BaseSqlitePluginPathHelper) -> bool:
+  def plugin_exists(self, path: str, plugin_name: str,
+      sqlitePluginPathHelper: BaseSqlitePluginPathHelper) -> bool:
     """Checks if the plugin already exists.
 
     Args:

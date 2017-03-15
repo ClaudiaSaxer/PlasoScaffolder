@@ -27,8 +27,10 @@ class SqliteController(object):
     """Saving the source path.
 
     Args:
-      ctx (click.core.Context): the click context (automatically given via callback)
-      param (click.core.Option): the click command (automatically given via callback)
+      ctx (click.core.Context): the click context (automatically given via
+      callback)
+      param (click.core.Option): the click command (automatically given via
+      callback)
       value (str): the source path (automatically given via callback)
 
     Returns:
@@ -45,8 +47,10 @@ class SqliteController(object):
     """Saving the plugin name.
 
     Args:
-      ctx (click.core.Context): the click context (automatically given via callback)
-      param (click.core.Option): the click command (automatically given via callback)
+      ctx (click.core.Context): the click context (automatically given via
+      callback)
+      param (click.core.Option): the click command (automatically given via
+      callback)
       value (str): the source path (automatically given via callback)
 
     Returns:
@@ -64,8 +68,10 @@ class SqliteController(object):
     """Saving the path to the test file.
 
     Args:
-      ctx (click.core.Context): the click context (automatically given via callback)
-      param (click.core.Option): the click command (automatically given via callback)
+      ctx (click.core.Context): the click context (automatically given via
+      callback)
+      param (click.core.Option): the click command (automatically given via
+      callback)
       value (str): the source path (automatically given via callback)
 
     Returns:

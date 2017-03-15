@@ -49,7 +49,7 @@ class OutputHandlerFile(BaseOutputHandler):
     """
     return self.file_handler.add_content(self.path, text)
 
-  def print_error(self, text: str)-> str:
+  def print_error(self, text: str) -> str:
     """A echo for errors with click.
 
     Args:

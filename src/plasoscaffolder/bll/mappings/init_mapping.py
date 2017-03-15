@@ -3,10 +3,11 @@
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
 from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
 
+
 class InitMapper(BaseInitMapper):
   """Class representing the init mapper."""
 
-  def __init__(self, template_path:str, mapping_helper: BaseMappingHelper):
+  def __init__(self, template_path: str, mapping_helper: BaseMappingHelper):
     """Initializing the init mapper class.
 
     Args:
@@ -27,7 +28,6 @@ class InitMapper(BaseInitMapper):
     file_name = 'formatter_init_create_template.jinja2'
     return self._render_init(file_name, plugin_name)
 
-
   def get_formatter_init_edit(self, plugin_name: str) -> str:
     """Renders formatter init if you want to create new init file.
 
@@ -39,7 +39,6 @@ class InitMapper(BaseInitMapper):
     """
     file_name = 'formatter_init_edit_template.jinja2'
     return self._render_init(file_name, plugin_name)
-
 
   def get_parser_init_create(self, plugin_name: str) -> str:
     """Renders formatter init if you want to edit an existing init file.
@@ -53,7 +52,6 @@ class InitMapper(BaseInitMapper):
     file_name = 'parser_init_create_template.jinja2'
     return self._render_init(file_name, plugin_name)
 
-
   def get_parser_init_edit(self, plugin_name: str) -> str:
     """Renders parser init if you want to create new init file.
 
@@ -65,7 +63,6 @@ class InitMapper(BaseInitMapper):
     """
     file_name = 'parser_init_edit_template.jinja2'
     return self._render_init(file_name, plugin_name)
-
 
   def _render_init(self, file_name: str, plugin_name: str) -> str:
     """Renders parser init if you want to edit an existing init file.

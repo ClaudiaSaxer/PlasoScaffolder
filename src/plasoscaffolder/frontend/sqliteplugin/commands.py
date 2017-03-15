@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """The commands for the SQLite plugin."""
+import os
+
+import click
 from plasoscaffolder.common.output_handler_click import OutputHandlerClick
 from plasoscaffolder.frontend.controller.sqlite_controller import \
   SqliteController
-import click
-import os
 
 # Since os.path.abspath() uses the current working directory (cwd)
 # os.path.abspath(__file__) will point to a different location if

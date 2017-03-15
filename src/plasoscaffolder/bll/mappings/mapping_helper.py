@@ -6,6 +6,8 @@ from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
 
 
 class MappingHelper(BaseMappingHelper):
+  """Mapping Helper class."""
+
   def __init__(self, template_path: str):
     """Initializing the mapping helper class.
 
@@ -19,7 +21,7 @@ class MappingHelper(BaseMappingHelper):
     """Returns the template environment.
 
     Returns:
-      Environment: the Environment
+      jinja2.Environment: jinja2 template environment.
     """
     return Environment(autoescape=False,
       loader=FileSystemLoader(self.template_path), trim_blocks=False)

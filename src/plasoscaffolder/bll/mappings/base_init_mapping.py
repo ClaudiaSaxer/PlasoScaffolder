@@ -3,8 +3,9 @@
 from abc import ABCMeta
 from abc import abstractmethod
 
+
 class BaseInitMapper(metaclass=ABCMeta):
-  """Class representing the init mapper."""
+  """Class representing Base class for the init mapper."""
 
   @abstractmethod
   def get_formatter_init_create(self, plugin_name: str) -> str:

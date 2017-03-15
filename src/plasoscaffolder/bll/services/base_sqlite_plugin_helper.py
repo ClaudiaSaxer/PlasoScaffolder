@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from abc import ABCMeta
 from abc import abstractmethod
+
 from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
   BaseSqlitePluginPathHelper
 
