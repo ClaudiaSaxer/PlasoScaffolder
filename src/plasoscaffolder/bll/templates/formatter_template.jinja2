@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""{{ file_description }}
+"""TODO"""
 
 from plaso.formatters import interface
 from plaso.formatters import manager
@@ -7,7 +7,7 @@ from plaso.lib import errors
 
 {% for event in events %}
 class {{ class_name }}{{ event }}Formatter(interface.ConditionalEventFormatter):
-  {{ event.class_description }}
+  """TODO"""
 
   FORMAT_STRING_PIECES = [
     TODO
@@ -19,7 +19,7 @@ class {{ class_name }}{{ event }}Formatter(interface.ConditionalEventFormatter):
 
   [DATA_TYPE = u'TODO' ]
 
-  SOURCE_LONG = u'todo’
+  SOURCE_LONG = u'todo'
   SOURCE_SHORT = u'todo'
 
   def GetMessages(self, unused_formatter_mediator, event):
@@ -49,5 +49,5 @@ class {{ class_name }}{{ event }}Formatter(interface.ConditionalEventFormatter):
 
 {% endfor %}
 manager.FormattersManager.RegisterFormatter([
-{% for event in events %}{{ class_name }}{{ event }}Formatter{% endfor %}
-])
+  {% for event in events %}{{ class_name }}{{ event }}Formatter{% if not loop.last %},{% endif %}
+  {% endfor %}])

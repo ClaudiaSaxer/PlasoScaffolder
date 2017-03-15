@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 import os
 
+from plasoscaffolder.bll.mappings.base_formatter_mapping import \
+  BaseFormatterMapper
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
 from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
+from plasoscaffolder.bll.mappings.base_parser_mapping import BaseParserMapper
 from plasoscaffolder.bll.services.base_sqlite_generator import \
   BaseSQLiteGenerator
 from plasoscaffolder.bll.services.base_sqlite_generator import \
@@ -16,7 +19,7 @@ from plasoscaffolder.common.base_output_handler import BaseOutputHandler
 class SQLiteGenerator(BaseSQLiteGenerator):
   """ Generator for SQLite Files """
 
-  def __init__(self, path: str, name: str, database: str,
+  def __init__(self, path: str, name: str, database: str, events: list,
       output_handler: BaseOutputHandler,
       pluginHelper: BaseSQLitePluginHelper,
       pathHelper=BaseSQLitePluginPathHelper):
@@ -26,6 +29,7 @@ class SQLiteGenerator(BaseSQLiteGenerator):
       path (str): the path of the plaso folder
       name (str): the name of the plugin
       database (str): the path to the database
+      events (list): the events of the plugin
       output_handler (BaseOutputHandler: the output handler for the
       generation information
       pluginHelper (BaseSQLitePluginHelper): the plugin helper
@@ -38,6 +42,7 @@ class SQLiteGenerator(BaseSQLiteGenerator):
     self.path_helper = pathHelper(path, name)
     self.output = output_handler.print_info
     self.plugin_helper = pluginHelper()
+    self.events = events
 
     self.init_formatter_exists = self.plugin_helper.file_exists(
       self.path_helper.formatter_init_file_path())
@@ -46,18 +51,23 @@ class SQLiteGenerator(BaseSQLiteGenerator):
 
   def generate_sqlite_plugin(self, template_path: str,
       fileHandler: BaseFileHandler, init_mapper: BaseInitMapper,
+      parser_mapper: BaseParserMapper, formatter_mapper: BaseFormatterMapper,
       mappingHelper: BaseMappingHelper):
+
     """Generate the whole sqlite plugin.
 
     Args:
       fileHandler (FileHandler): the Filehandler class
       mappingHelper (BaseMappingHelper): the mapping helper
+      parser_mapper (BaseParserMapper): the parser mapper
       init_mapper (BaseInitMapper): the init mapper
       template_path (str): the path to the template directory
     """
 
     file_handler = fileHandler()
     init_mapper = init_mapper(template_path, mappingHelper)
+    parser_mapper = parser_mapper(template_path, mappingHelper)
+    formatter_mapper = formatter_mapper(template_path, mappingHelper)
 
     file = file_handler.create_file_from_path
     copy = file_handler.copy_file
@@ -73,9 +83,11 @@ class SQLiteGenerator(BaseSQLiteGenerator):
     else:
       content_init_parser = init_mapper.get_parser_init_create(self.name)
 
-    formatter_file = self.path_helper.formatter_file_path()
-    formatter = file_handler.create_file_from_path(formatter_file)
-    parser = file(self.path_helper.parser_file_path())
+    content_parser = parser_mapper.get_parser(self.name, self.events)
+    content_formatter = formatter_mapper.get_formatter(self.name, self.events)
+
+    formatter = edit(self.path_helper.formatter_file_path(), content_formatter)
+    parser = edit(self.path_helper.parser_file_path(), content_parser)
     formatter_test = file(self.path_helper.formatter_test_file_path())
     parser_test = file(self.path_helper.parser_test_file_path())
     database = copy(self.database,
