@@ -8,20 +8,20 @@ from jinja2 import Environment
 class BaseMappingHelper(metaclass=ABCMeta):
   @abstractmethod
   def _get_template_environment(self) -> Environment:
-    """template environment
+    """Returns the template environment.
 
-    Returns: the Environment
+    Returns:
+      Environment: the Environment
     """
-    pass
 
   @abstractmethod
   def render_template(self, template_filename: str, context: dict) -> str:
-    """render the template
+    """Renders the template.
 
     Args:
-      template_filename: the name of the template
-      context: the context of the template
+      template_filename (str): the name of the template
+      context (dict): the context of the template
 
-    Returns: the rendered template
+    Returns:
+      str: the rendered template
     """
-    pass

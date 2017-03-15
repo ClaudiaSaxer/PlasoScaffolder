@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""The start point of the plasoscaffolder"""
+"""The start point of the plasoscaffolder."""
 import click
 from plasoscaffolder.frontend.sqliteplugin import commands as sqliteplugin
 

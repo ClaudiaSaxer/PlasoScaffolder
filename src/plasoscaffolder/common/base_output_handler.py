@@ -7,49 +7,46 @@ class BaseOutputHandler(metaclass=ABCMeta):
 
   @abstractmethod
   def prompt_info(self, text: str) -> str:
-    """A prompt for information
+    """A prompt for information.
 
     Args:
-      text: the text to prompt
+      text (str): the text to prompt
 
-    Returns: the user input
+    Returns:
+      str: the user input
     """
-    pass
 
   @abstractmethod
   def prompt_error(self, text: str) -> str:
-    """A prompt for errors
+    """A prompt for errors.
 
     Args:
-      text: the text to prompt
+      text (str): the text to prompt
 
-    Returns: the user input
+    Returns:
+      str: the user input
     """
-    pass
 
   @abstractmethod
   def print_info(self, text: str):
-    """A echo for infos
+    """A echo for infos.
 
     Args:
-      text: the text to print
+      text (str): the text to print
     """
-    pass
 
   @abstractmethod
   def print_error(self, text: str):
-    """A echo for errors
+    """A echo for errors.
 
     Args:
-      text: the text to print
+      text (str): the text to print
     """
-    pass
 
   @abstractmethod
   def confirm(self, text: str):
-    """A confirm, Default Y, if no abort execution
+    """A confirm, Default Y, if no abort execution.
 
     Args:
-      text: The text to confirm
+      text (str): The text to confirm
     """
-    pass

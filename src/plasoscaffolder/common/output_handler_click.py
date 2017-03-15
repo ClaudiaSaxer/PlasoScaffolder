@@ -5,51 +5,53 @@ from plasoscaffolder.common.base_output_handler import BaseOutputHandler
 
 
 class OutputHandlerClick(BaseOutputHandler):
-  """Clase representing the output handler for click"""
+  """Class representing the output handler for click."""
 
   def __init__(self):
     super().__init__()
 
   def prompt_info(self, text: str) -> str:
-    """A prompt for information with click
+    """A prompt for information with click.
 
     Args:
-      text: the text to  prompt
+      text (str): the text to  prompt
 
-    Returns: the user input
+    Returns:
+      str: the user input
     """
     click.prompt(text, type=str)
 
   def prompt_error(self, text: str) -> str:
-    """A prompt for errors with click
+    """A prompt for errors with click.
 
     Args:
-      text: the text to prompt
+      text (str): the text to prompt
 
-    Returns: the user input
+    Returns:
+      str: the user input
     """
     return click.prompt(click.style(text, fg='red'), type=str)
 
   def print_info(self, text: str):
-    """A echo for infos with click
+    """A echo for infos with click.
 
     Args:
-      text: the text to print
+      text (str): the text to print
     """
     click.echo(text)
 
   def print_error(self, text: str):
-    """A echo for errors with click
+    """A echo for errors with click.
 
     Args:
-      text: the text to print
+      text (str): the text to print
     """
     click.echo(text, color='red')
 
   def confirm(self, text: str):
-    """A confirm, Default Y, if no abort execution
+    """A confirm, Default Y, if no abort execution.
 
     Args:
-      text: The text to confirm
+      text (str): The text to confirm
     """
     click.confirm(text, abort=True, default=True)

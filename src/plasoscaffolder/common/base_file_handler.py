@@ -3,7 +3,7 @@ from abc import ABCMeta, abstractmethod
 
 
 class BaseFileHandler(metaclass=ABCMeta):
-  """ Class representing the base class for the file handler"""
+  """ Class representing the base class for the file handler."""
 
   @staticmethod
   @abstractmethod
@@ -11,92 +11,91 @@ class BaseFileHandler(metaclass=ABCMeta):
     """Creates the file path out of the directory path, filename and suffix.
 
     Args:
-      path: the path to the file directory
-      name: the filename
-      suffix: the suffix
+      path (str): the path to the file directory
+      name (str): the filename
+      suffix (str): the suffix
 
-    Returns: the joined path to the file
+    Returns:
+      str: the joined path to the file
     """
-    pass
 
   @staticmethod
   @abstractmethod
   def _create_folder(cls, directory_path):
-    """creates a folder only to be called if the target folder does not yet
-    exists
+    """Creates a folder only to be called if the target folder does not yet
+    exists.
 
     Args:
-      directory_path: the path to the directory to create
+      directory_path (str): the path to the directory to create
     """
-    pass
 
   @abstractmethod
   def create_file(self, directory_path: str, file_name: str,
       filename_suffix: str):
-    """creates a empty file
+    """Creates a empty file.
 
     Args:
-      directory_path: The path to the directory the file should be created.
-      file_name: the name of the new file.
-      filename_suffix: the suffix of the new file.
+      directory_path (str): The path to the directory the file should be
+      created.
+      file_name (str): the name of the new file.
+      filename_suffix (str): the suffix of the new file.
 
-    Returns: the path of the created file
+    Returns:
+      str: the path of the created file
     """
-    pass
 
   @abstractmethod
   def create_file_from_path(self, file_path: str) -> str:
-    """creates a empty file
+    """Creates a empty file.
 
     Args:
-      file_path: the path to the file.
+      file_path (str): the path to the file.
 
-    Returns: the path of the created file
+    Returns:
+      str: the path of the created file
     """
-    pass
 
   @abstractmethod
   def copy_file(self, source: str, destination: str) -> str:
-    """Copies a file
+    """Copies a file.
 
     Args:
-      source: path of the file to copy
-      destination: path to copy the file to.
+      source (str): path of the file to copy
+      destination (str): path to copy the file to.
 
-    Returns: the path of the copied file
+    Returns:
+      str: the path of the copied file
     """
-    pass
 
   @abstractmethod
   def create_or_modify_file_with_content(self, source: str, content: str):
-    """Add content to file or modify file and create folder if they dont exist
+    """Add content to file or modify file and create folder if they don't exist.
 
     Args:
-      source: the file to edit / create
-      content: the content to add to the file
+      source (str): the file to edit / create
+      content (str): the content to add to the file
     """
-    pass
 
   @classmethod
   @abstractmethod
   def add_content(cls, source: str, content: str) -> str:
-    """Add content to a file and create file if non existing
+    """Add content to a file and create file if non existing.
 
     Args:
-      source: The path of the file to edit.
-      content: The content to append to the file.
+      source (str): The path of the file to edit.
+      content (str): The content to append to the file.
 
-    Returns: The path of the edited file.
+    Returns:
+      str: the path of the edited file.
     """
-    pass
 
   @abstractmethod
   def _create_folder_for_file_path_if_not_exist(self, file_path: str):
-    """Creates folders for the given file if it does not exist
+    """Creates folders for the given file if it does not exist.
 
     Args:
-      file_path: the path to the file
+      file_path (str): the path to the file
 
-    Returns: the directory path of the created directory
+    Returns:
+      str: the directory path of the created directory
     """
-    pass

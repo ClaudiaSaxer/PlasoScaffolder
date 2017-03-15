@@ -2,36 +2,40 @@
 from abc import ABCMeta, abstractmethod
 
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
+from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
+  BaseSqlitePluginPathHelper
 from plasoscaffolder.common.base_file_handler import BaseFileHandler
 
 
 class BaseSqlitePluginHelper(metaclass=ABCMeta):
-  """Class representing the base class for the sqlite plugin helper"""
+  """Class representing the base class for the sqlite plugin helper."""
 
   @abstractmethod
-  def plugin_exists(self, template_path: str,
-      fileHandler: BaseFileHandler, init_mapper: BaseInitMapper) -> bool:
+  def plugin_exists(self, path: str, plugin_name: str,
+      sqlitePluginPathHelper: BaseSqlitePluginPathHelper) -> bool:
     """Checks if the plugin already exists.
 
-    Returns: Boolean True if the plugin already exists. False if it does not.
+    Args:
+      path (str): the path of the plaso source
+      plugin_name (str): the name of the plugin
+      sqlitePluginPathHelper (BaseSqlitePluginHelper) : the sqlite plugin helper
+
+    Returns:
+      bool: True if the plugin already exists. False if it does not.
     """
-    pass
 
   @abstractmethod
   def file_exists(self, path: str) -> bool:
-    """Checks if the file exists
+    """Checks if the file exists.
 
     Args:
-       path the file path
+       path (str): the file path
     """
-    pass
 
   @abstractmethod
   def folder_exists(self, path: str) -> bool:
-    """Checks if folder exists
+    """Checks if folder exists.
 
     Args:
-      path: the folder path
+      path (str): the folder path
     """
-    pass
-

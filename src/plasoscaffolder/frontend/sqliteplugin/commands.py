@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""The commands for the SQLite plugin"""
+"""The commands for the SQLite plugin."""
 from plasoscaffolder.common.output_handler_click import OutputHandlerClick
 from plasoscaffolder.frontend.controller.sqlite_controller import *
 import click

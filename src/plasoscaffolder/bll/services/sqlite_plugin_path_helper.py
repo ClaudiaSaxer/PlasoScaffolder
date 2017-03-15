@@ -9,13 +9,12 @@ class SqlitePluginPathHelper(BaseSqlitePluginPathHelper):
   """Class containing helper functions for the SQLite plugin for the path"""
 
   def __init__(self, path: str, plugin_name: str):
-    """Initializes the sqlite plugin halper
+    """Initializes the sqlite plugin halper.
 
-     Args:
-      path: the plaso folder path
-      plugin_name: The name of the plugin to check.
-
-    """
+      Args:
+       path (str): the plaso folder path
+       plugin_name (str): The name of the plugin to check.
+     """
     super().__init__(path,plugin_name)
     self.path = path
     self.plugin_name = plugin_name
@@ -25,7 +24,8 @@ class SqlitePluginPathHelper(BaseSqlitePluginPathHelper):
   def formatter_file_path(self) -> str:
     """The formatter file path for the SQLite plugin for the plaso folder.
 
-    Returns: The path of the new file.
+    Returns:
+      str: path of the new file.
     """
 
     return os.path.join(self.path, 'plaso', 'formatters', self.file_name)
@@ -33,7 +33,8 @@ class SqlitePluginPathHelper(BaseSqlitePluginPathHelper):
   def parser_file_path(self) -> str:
     """ The parser file path for the SQLite plugin for the plaso folder.
 
-    Returns: The path of the new file.
+    Returns:
+      str: path of the new file.
     """
     return os.path.join(self.path, 'plaso', 'parsers', 'sqlite_plugins',
       self.file_name)
@@ -41,14 +42,16 @@ class SqlitePluginPathHelper(BaseSqlitePluginPathHelper):
   def formatter_test_file_path(self) -> str:
     """ The formatter test file path for the SQLite plugin for the plaso folder.
 
-    Returns: The path of the new file.
+    Returns:
+      str:  path of the new file.
     """
     return os.path.join(self.path, 'tests', 'formatters',self.file_name)
 
   def parser_test_file_path(self) -> str:
     """ The parser test file path for the sqlite plugin for the plaso folder.
 
-    Returns: The path of the new file.
+    Returns:
+      str:  path of the new file.
     """
     return os.path.join(self.path, 'tests', 'parsers', 'sqlite_plugins',
       self.file_name)
@@ -56,14 +59,16 @@ class SqlitePluginPathHelper(BaseSqlitePluginPathHelper):
   def database_path(self) -> str:
     """The database file path for the SQLite plugin for the plaso folder.
 
-    Returns: The path of the new file.
+    Returns:
+      str:  path of the new file.
     """
     return os.path.join(self.path, 'test_data', self.plugin_name + '.db')
 
   def parser_init_file_path(self) -> str:
     """ The parser init file path for the sqlite plugin for the plaso folder.
 
-    Returns: The path of the init file.
+    Returns:
+      str:  path of the init file.
     """
     return os.path.join(self.path, 'plaso', 'parsers', 'sqlite_plugins',
       '__init__.py')
@@ -71,6 +76,7 @@ class SqlitePluginPathHelper(BaseSqlitePluginPathHelper):
   def formatter_init_file_path(self) -> str:
     """ The parser init file path for the sqlite plugin for the plaso folder.
 
-    References: The path of the init file.
+    References:
+      str:  path of the init file.
     """
     return os.path.join(self.path, 'plaso', 'formatters', '__init__.py')

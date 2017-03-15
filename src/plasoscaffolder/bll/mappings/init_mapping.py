@@ -1,76 +1,81 @@
 # -*- coding: utf-8 -*-
-""" Module representing function for the different files """
+""" Module representing function for the different files. """
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
 from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
 
 class InitMapper(BaseInitMapper):
-  """class representing the init mapper"""
+  """Class representing the init mapper."""
 
   def __init__(self, template_path:str, mapping_helper: BaseMappingHelper):
-    """Initializing the init mapper class
+    """Initializing the init mapper class.
 
     Args:
-      template_path: the path to the template directory
+      template_path (str): the path to the template directory
     """
     super(InitMapper, self).__init__()
     self.helper = mapping_helper(template_path)
 
   def get_formatter_init_create(self, plugin_name: str) -> str:
-    """renders formatter init if you want to create new init file
+    """Renders formatter init if you want to create new init file.
 
     Args:
-      plugin_name: the plugin name
+      plugin_name (str): the plugin name
 
-    Returns: string of the rendered template
+    Returns:
+      str: the rendered template
     """
     file_name = 'formatter_init_create_template.jinja2'
     return self._render_init(file_name, plugin_name)
 
 
   def get_formatter_init_edit(self, plugin_name: str) -> str:
-    """renders formatter init if you want to create new init file
+    """Renders formatter init if you want to create new init file.
 
     Args:
-      plugin_name: the plugin name
+      plugin_name (str): the plugin name
 
-    Returns: string of the rendered template
+    Returns:
+       str: the rendered template
     """
     file_name = 'formatter_init_edit_template.jinja2'
     return self._render_init(file_name, plugin_name)
 
 
   def get_parser_init_create(self, plugin_name: str) -> str:
-    """renders formatter init if you want to edit an existing init file
+    """Renders formatter init if you want to edit an existing init file.
 
     Args:
-      plugin_name: the plugin name
+      plugin_name (str): the plugin name
 
-    Returns: string of the rendered template
+    Returns:
+       str: the rendered template
     """
     file_name = 'parser_init_create_template.jinja2'
     return self._render_init(file_name, plugin_name)
 
 
   def get_parser_init_edit(self, plugin_name: str) -> str:
-    """renders parser init if you want to create new init file
+    """Renders parser init if you want to create new init file.
 
     Args:
-      plugin_name: the plugin name
+      plugin_name (str): the plugin name
 
-    Returns: string of the rendered template
+    Returns:
+       str: the rendered template
     """
     file_name = 'parser_init_edit_template.jinja2'
     return self._render_init(file_name, plugin_name)
 
 
   def _render_init(self, file_name: str, plugin_name: str) -> str:
-    """renders parser init if you want to edit an existing init file
+    """Renders parser init if you want to edit an existing init file.
 
     Args:
-      file_name: name of the file in the templates folder
-      plugin_name: the name of the plugin
+      file_name (str): name of the file in the templates folder
+      plugin_name (str): the name of the plugin
 
-    Returns:string of the rendered template
+    Returns:
+       str: the rendered template
     """
     context = {'plugin_name': plugin_name}
     rendered = self.helper.render_template(file_name, context)

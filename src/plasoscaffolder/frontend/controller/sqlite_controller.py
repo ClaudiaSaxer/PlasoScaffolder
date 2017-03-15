@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""File representing the controller for SQLite plugin"""
+"""File representing the controller for SQLite plugin."""
 import click
 from plasoscaffolder.bll.mappings.init_mapping import InitMapper
 from plasoscaffolder.bll.mappings.mapping_helper import MappingHelper
@@ -27,11 +27,12 @@ class SqliteController(object):
     """Saving the source path.
 
     Args:
-      ctx: the click context (automatically given via callback)
-      param: the click command (automatically given via callback)
-      value: the source path (automatically given via callback)
+      ctx (click.core.Context): the click context (automatically given via callback)
+      param (click.core.Option): the click command (automatically given via callback)
+      value (str): the source path (automatically given via callback)
 
-    Returns: the source path representing the same as value
+    Returns:
+      str: the source path representing the same as value
     """
     while not self.plugin_helper.folder_exists(value):
       value = self.output_handler.prompt_error(
@@ -44,11 +45,12 @@ class SqliteController(object):
     """Saving the plugin name.
 
     Args:
-      ctx: the click context (automatically given via callback)
-      param: the click command (automatically given via callback)
-      value: the plugin name (automatically given via callback)
+      ctx (click.core.Context): the click context (automatically given via callback)
+      param (click.core.Option): the click command (automatically given via callback)
+      value (str): the source path (automatically given via callback)
 
-    Returns: the plugin name representing the same as value
+    Returns:
+      str: the plugin name representing the same as value
     """
     while self.plugin_helper.plugin_exists(self.path, value,
         SqlitePluginPathHelper):
@@ -62,11 +64,12 @@ class SqliteController(object):
     """Saving the path to the test file.
 
     Args:
-      ctx: the click context (automatically given via callback)
-      param: the click command (automatically given via callback)
-      value: the test file path (automatically given via callback)
+      ctx (click.core.Context): the click context (automatically given via callback)
+      param (click.core.Option): the click command (automatically given via callback)
+      value (str): the source path (automatically given via callback)
 
-    Returns: the test file path representing the same as the value
+    Returns:
+      str: the test file path representing the same as the value
     """
     while not self.plugin_helper.file_exists(value):
       value = self.output_handler.prompt_error(
@@ -78,7 +81,7 @@ class SqliteController(object):
     """Generating the files.
 
     Args:
-      template_path: the path to the template directory
+      template_path (str): the path to the template directory
     """
     generator = SqliteGenerator(self.path, self.name, self.testfile,
       lambda x: self.output_handler.print_info(

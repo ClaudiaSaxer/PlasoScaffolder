@@ -15,17 +15,18 @@ class SqlitePluginHelper(BaseSqlitePluginHelper):
     super().__init__()
 
 
-  def plugin_exists(self, path: str, plugin_name: str, SqlitePluginPathHelper: BaseSqlitePluginPathHelper) -> bool:
+  def plugin_exists(self, path: str, plugin_name: str, sqlitePluginPathHelper: BaseSqlitePluginPathHelper) -> bool:
     """Checks if the plugin already exists.
 
     Args:
-      path: the plaso folder path
-      plugin_name: The name of the plugin to check.
-      helper: A Sqlite Plugin Path Helper
+      path (str): the path of the plaso source
+      plugin_name (str): the name of the plugin
+      sqlitePluginPathHelper (BaseSqlitePluginHelper) : the sqlite plugin helper
 
-    Returns: Boolean True if the plugin already exists. False if it does not.
+    Returns:
+      bool: True if the plugin already exists. False if it does not.
     """
-    helper = SqlitePluginPathHelper(path, plugin_name)
+    helper = sqlitePluginPathHelper(path, plugin_name)
     return os.path.isfile(helper.formatter_file_path()) or os.path.isfile(
       helper.parser_file_path()) or os.path.isfile(
       helper.formatter_test_file_path()) or os.path.isfile(
