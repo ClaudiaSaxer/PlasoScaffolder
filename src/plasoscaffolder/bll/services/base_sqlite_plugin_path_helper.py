@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import os
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
+from abc import abstractmethod
 
 
 class BaseSqlitePluginPathHelper(metaclass=ABCMeta):

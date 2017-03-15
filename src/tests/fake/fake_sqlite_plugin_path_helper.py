@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """Module containing helper functions for the SQLite plugin"""
-import os
-
 from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
   BaseSqlitePluginPathHelper
 

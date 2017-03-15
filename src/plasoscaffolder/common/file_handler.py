@@ -2,7 +2,6 @@
 import os
 from pathlib import Path
 from shutil import copyfile
-
 from plasoscaffolder.common.base_file_handler import BaseFileHandler
 
 

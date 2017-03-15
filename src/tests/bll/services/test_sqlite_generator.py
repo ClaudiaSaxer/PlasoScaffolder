@@ -5,7 +5,6 @@ import unittest
 from plasoscaffolder.bll.services.sqlite_generator import SqliteGenerator
 from plasoscaffolder.common.file_handler import FileHandler
 from plasoscaffolder.common.output_handler_file import OutputHandlerFile
-
 from tests.fake.fake_file_handler import FakeFileHandler
 from tests.fake.fake_init_mapping import FakeInitMapper
 from tests.fake.fake_mapping_helper import FakeMappingHelper

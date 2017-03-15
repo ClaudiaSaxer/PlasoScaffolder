@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
 import tempfile
-
 from plasoscaffolder.bll.services.sqlite_plugin_helper import *
 from tests.fake.fake_sqlite_plugin_path_helper import FakeSqlitePluginPathHelper
 

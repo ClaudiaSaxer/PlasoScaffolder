@@ -3,8 +3,8 @@ import filecmp
 import shutil
 import tempfile
 import unittest
-
-from plasoscaffolder.common.file_handler import *
+import os
+from plasoscaffolder.common.file_handler import FileHandler
 
 
 class FileHandlerTest(unittest.TestCase):

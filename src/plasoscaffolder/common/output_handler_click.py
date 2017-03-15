@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from click._unicodefun import click
+import click
 from plasoscaffolder.common.base_output_handler import BaseOutputHandler
 
 

@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 import unittest
-import shutil
-import tempfile
-from pathlib import Path
-
-from plasoscaffolder.bll.services.sqlite_plugin_path_helper import *
+import os
+from plasoscaffolder.bll.services.sqlite_plugin_path_helper import \
+  SqlitePluginPathHelper
 
 
 class SqlitePluginPathHelperTest(unittest.TestCase):
@@ -15,19 +13,22 @@ class SqlitePluginPathHelperTest(unittest.TestCase):
     plugin_name = "plugin_test"
     self.helper = SqlitePluginPathHelper(path, plugin_name)
     plugin_file = plugin_name + ".py"
-    self.formatter = path + os.sep + "plaso" + os.sep + "formatters" + os.sep + \
-                plugin_file
-    self.formatter_test = path + os.sep + "tests" + os.sep + "formatters" + os.sep + \
+    self.formatter = path + os.sep + "plaso" + os.sep + "formatters" + os.sep\
+                     + \
                      plugin_file
+    self.formatter_test = path + os.sep + "tests" + os.sep + "formatters" + \
+                          os.sep + \
+                          plugin_file
     self.parser = path + os.sep + "plaso" + os.sep + "parsers" + os.sep + \
-             "sqlite_plugins" + os.sep + plugin_file
-    self.parser_test = path + os.sep + "tests" + os.sep + "parsers" + os.sep + \
                   "sqlite_plugins" + os.sep + plugin_file
+    self.parser_test = path + os.sep + "tests" + os.sep + "parsers" + os.sep + \
+                       "sqlite_plugins" + os.sep + plugin_file
     self.database = path + os.sep + "test_data" + os.sep + plugin_name + ".db"
     self.parser_init = path + os.sep + "plaso" + os.sep + "parsers" + os.sep + \
-                  "sqlite_plugins" + os.sep + "__init__.py"
-    self.formatter_init = path + os.sep + "plaso" + os.sep + "formatters" + os.sep +\
-                     "__init__.py"
+                       "sqlite_plugins" + os.sep + "__init__.py"
+    self.formatter_init = path + os.sep + "plaso" + os.sep + "formatters" + \
+                          os.sep + \
+                          "__init__.py"
 
   def test_formatter_file(self):
     """Tests the creation of the path for the formatter file."""
@@ -63,8 +64,6 @@ class SqlitePluginPathHelperTest(unittest.TestCase):
     """Tests the creation of the path for the parser init file."""
     actual = self.helper.parser_init_file_path()
     self.assertEqual(self.parser_init, actual)
-
-
 
 
 if __name__ == '__main__':

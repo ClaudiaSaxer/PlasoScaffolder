@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Helper methods for mapping"""
-from abc import ABCMeta, abstractmethod
-
+from abc import ABCMeta
+from abc import abstractmethod
 from jinja2 import Environment
 
 

@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
-import os
-from plasoscaffolder.bll.mappings.init_mapping import *
+from plasoscaffolder.bll.mappings.init_mapping import InitMapper
 from tests.fake.fake_mapping_helper import FakeMappingHelper
-from tests.test_helper.path_helper import template_path
 
 
 class InitMappingTest(unittest.TestCase):

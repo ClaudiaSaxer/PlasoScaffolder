@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """ Module representing function for the different files. """
-from abc import ABCMeta, abstractmethod
-
+from abc import ABCMeta
+from abc import abstractmethod
 
 class BaseInitMapper(metaclass=ABCMeta):
   """Class representing the init mapper."""

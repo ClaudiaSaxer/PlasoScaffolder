@@ -4,7 +4,11 @@ import os
 from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
 from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
 from plasoscaffolder.bll.services.base_sqlite_generator import \
-  BaseSqliteGenerator, BaseSqlitePluginHelper, BaseSqlitePluginPathHelper
+  BaseSqliteGenerator
+from plasoscaffolder.bll.services.base_sqlite_generator import \
+  BaseSqlitePluginHelper
+from plasoscaffolder.bll.services.base_sqlite_generator import \
+  BaseSqlitePluginPathHelper
 from plasoscaffolder.common.base_file_handler import BaseFileHandler
 from plasoscaffolder.common.base_output_handler import BaseOutputHandler
 
@@ -12,7 +16,8 @@ from plasoscaffolder.common.base_output_handler import BaseOutputHandler
 class SqliteGenerator(BaseSqliteGenerator):
   """ Generator for SQLite Files """
 
-  def __init__(self, path: os.path, name: str, database: str, output_handler: BaseOutputHandler,
+  def __init__(self, path: os.path, name: str, database: str,
+      output_handler: BaseOutputHandler,
       pluginHelper: BaseSqlitePluginHelper,
       pathHelper=BaseSqlitePluginPathHelper):
     """Initializes a SQLite Generator.
@@ -21,9 +26,11 @@ class SqliteGenerator(BaseSqliteGenerator):
       path (str): the path of the plaso folder
       name (str): the name of the plugin
       database (str): the path to the database
-      output_handler (BaseOutputHandler: the output handler for the generation information
+      output_handler (BaseOutputHandler: the output handler for the
+      generation information
     """
-    super().__init__(path, name, database, output_handler, pluginHelper, pathHelper)
+    super().__init__(path, name, database, output_handler, pluginHelper,
+      pathHelper)
 
     self.path = path
     self.name = name

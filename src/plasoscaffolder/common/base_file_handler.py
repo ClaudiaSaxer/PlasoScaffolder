@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from abc import ABCMeta, abstractmethod
-
+from abc import ABCMeta
+from abc import abstractmethod
 
 class BaseFileHandler(metaclass=ABCMeta):
   """ Class representing the base class for the file handler."""

@@ -1,5 +1,4 @@
 import unittest
-
 from click.testing import CliRunner
 from plasoscaffolder.frontend.sqliteplugin.commands import sqlite
 
