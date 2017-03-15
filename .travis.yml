@@ -5,6 +5,7 @@ matrix:
     dist: trusty
     sudo: required
     python: 3.6
+  exclude:
   - os: osx
     language: generic
     env: PYTHONPATH=/Library/Python/3.6/site-packages/
@@ -12,6 +13,11 @@ matrix:
     sudo: required
     python: 3.6
 cache: pip
-install: "pip install -r src/requirements.txt"
+install: 
+  - pip install -r src/requirements.txt
+  - pip install coveralls
 script: 
   - python src/run_tests.py
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then coverage run --source=src/plasoscaffolder src/run_tests.py test ; fi
+after_success:
+  if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then coveralls ; fi

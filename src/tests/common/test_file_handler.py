@@ -1,8 +1,10 @@
-import unittest
-
-from plasoscaffolder.bll.services.file_handler import *
-import shutil
+# -*- coding: utf-8 -*-
 import filecmp
+import shutil
+import tempfile
+import unittest
+import os
+from plasoscaffolder.common.file_handler import FileHandler
 
 
 class FileHandlerTest(unittest.TestCase):
@@ -25,8 +27,10 @@ class FileHandlerTest(unittest.TestCase):
     """Tests if the creation of a folder works."""
     self.assertFalse(os.path.exists(self.path))
     creator = FileHandler()
-    creator._create_folder(self.path)
-    self.assertTrue(os.path.exists(self.path))
+    with tempfile.TemporaryDirectory() as tmpdir:
+      creator._create_folder(os.path.join(tmpdir,"temp"))
+      actual = os.path.exists(os.path.join(tmpdir,"temp"))
+    self.assertTrue(actual)
 
   def test_get_folder_path(self):
     """Tests if the construction of the folder path works."""
@@ -65,7 +69,7 @@ class FileHandlerTest(unittest.TestCase):
   def test_edit_and_create_file_1(self):
     """Tests if the editing of a file existing works."""
     content = "this is test content. "
-    expected = content + "\n" + content
+    expected = content + content
     source = self.file
 
     with open(source, "a") as f:
@@ -73,7 +77,7 @@ class FileHandlerTest(unittest.TestCase):
 
     creator = FileHandler()
     self.assertTrue(os.path.exists(source))
-    creator.add_content(source, content, True)
+    creator.add_content(source, content)
     self.assertTrue(os.path.exists(source))
 
     with open(source, "r") as f:
@@ -84,12 +88,12 @@ class FileHandlerTest(unittest.TestCase):
   def test_edit_and_create_file_2(self):
     """Tests if the editing of a file not existing works."""
     content = "this is test content. "
-    expected = "# -*- coding: utf-8 -*-\n"+content
+    expected = content
     source = self.file
 
     creator = FileHandler()
     self.assertFalse(os.path.exists(source))
-    creator.add_content(source, content, False)
+    creator.add_content(source, content)
     self.assertTrue(os.path.exists(source))
 
     with open(source, "r") as f:
