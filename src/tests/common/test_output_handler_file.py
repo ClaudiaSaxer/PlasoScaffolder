@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+"""test class"""
 import unittest
 
 from plasoscaffolder.common.output_handler_file import OutputHandlerFile
@@ -5,6 +7,7 @@ from tests.fake.fake_file_handler import FakeFileHandler
 
 
 class FileOutputHandler(unittest.TestCase):
+  """testing the file output handler"""
   def setUp(self):
     self.file_path = "testpath"
     self.output = OutputHandlerFile(self.file_path, FakeFileHandler)

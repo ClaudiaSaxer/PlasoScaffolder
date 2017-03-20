@@ -2,6 +2,7 @@
 """Helper methods for mapping."""
 from jinja2 import Environment
 from jinja2 import FileSystemLoader
+
 from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
 
 
@@ -17,6 +18,7 @@ class MappingHelper(BaseMappingHelper):
     super().__init__()
     self.template_path = template_path
 
+  @property
   def _get_template_environment(self) -> Environment:
     """Returns the template environment.
 
@@ -24,7 +26,8 @@ class MappingHelper(BaseMappingHelper):
       jinja2.Environment: jinja2 template environment.
     """
     return Environment(autoescape=False,
-      loader=FileSystemLoader(self.template_path), trim_blocks=False)
+                       loader=FileSystemLoader(self.template_path),
+                       trim_blocks=False)
 
   def render_template(self, template_filename: str, context: dict) -> str:
     """Renders the template.
@@ -36,8 +39,8 @@ class MappingHelper(BaseMappingHelper):
        Returns:
          str: the rendered template
        """
-    return self._get_template_environment().get_template(
-      template_filename).render(context)
+    return self._get_template_environment.get_template(
+        template_filename).render(context)
 
   def generate_class_name(self, plugin_name: str) -> str:
     """Generates the class name.
@@ -48,4 +51,4 @@ class MappingHelper(BaseMappingHelper):
     Returns:
       str: the class name
     """
-    return plugin_name.replace('_',' ').title().replace(' ','')
+    return plugin_name.replace('_', ' ').title().replace(' ', '')

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""fake for parser mapping"""
 from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
 from plasoscaffolder.bll.mappings.base_parser_mapping import BaseParserMapper
 

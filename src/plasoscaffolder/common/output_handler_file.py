@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""output file handler for files"""
 from plasoscaffolder.common.base_file_handler import BaseFileHandler
 from plasoscaffolder.common.base_output_handler import BaseOutputHandler
 

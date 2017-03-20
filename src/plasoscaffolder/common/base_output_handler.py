@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""base output handler"""
 import abc
 
 

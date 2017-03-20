@@ -31,6 +31,6 @@ class FormatterMapper(BaseFormatterMapper):
     """
     class_name = self.helper.generate_class_name(plugin_name)
     context = {'plugin_name': plugin_name, 'class_name': class_name,
-               'events': events}
+               'events'     : events}
     rendered = self.helper.render_template(self._FORMATTER_TEMPLATE, context)
     return rendered

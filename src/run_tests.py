@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-import unittest
+"""runs all tests"""
 import sys
+import unittest
 
 if __name__ == '__main__':
   test_suite = unittest.TestLoader().discover('tests', pattern='*.py')

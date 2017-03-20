@@ -3,6 +3,7 @@
 import os
 
 import click
+
 from plasoscaffolder.common.output_handler_click import OutputHandlerClick
 from plasoscaffolder.frontend.controller.sqlite_controller import \
   SQLiteController
@@ -17,15 +18,17 @@ controller = SQLiteController(OutputHandlerClick())
 
 @click.command()
 @click.option('--path', prompt='What\'s the path to the plaso project?',
-  help='The path to plaso', callback=controller.source_path)
+              help='The path to plaso', callback=controller.source_path)
 @click.option('--name', prompt='What\'s the name of the plugin?',
-  help='The plugin name', callback=controller.plugin_name)
+              help='The plugin name', callback=controller.plugin_name)
 @click.option('--testfile', prompt='What\'s the path to your test file?',
-  help='The testfile path', callback=controller.test_path)
-@click.option('--event', prompt='Please enter the main events of the plugin. [event event ...]',
-  help='The plugin events', callback=controller.event)
+              help='The testfile path', callback=controller.test_path)
+@click.option('--event',
+              prompt='Please enter the main events of the plugin. [event '
+                     'event ...]',
+              help='The plugin events', callback=controller.event)
 def sqlite(path, name, testfile, event):
   template_path = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-    'bll', 'templates')
+      os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+      'bll', 'templates')
   controller.generate(template_path)

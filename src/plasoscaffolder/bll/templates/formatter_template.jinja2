@@ -6,40 +6,40 @@ from plaso.formatters import manager
 from plaso.lib import errors
 
 {% for event in events %}
-class {{ class_name }}{{ event }}Formatter(interface.ConditionalEventFormatter):
-  """TODO"""
+    class {{ class_name }}{{ event }}Formatter(interface.ConditionalEventFormatter):
+    """TODO"""
 
-  FORMAT_STRING_PIECES = [
+    FORMAT_STRING_PIECES = [
     TODO
-  ]
+    ]
 
-  FORMAT_STRING_SHORT_PIECES = [
-  TODO
-  ]
+    FORMAT_STRING_SHORT_PIECES = [
+    TODO
+    ]
 
-  [DATA_TYPE = u'TODO' ]
+    [DATA_TYPE = u'TODO' ]
 
-  SOURCE_LONG = u'todo'
-  SOURCE_SHORT = u'todo'
+    SOURCE_LONG = u'todo'
+    SOURCE_SHORT = u'todo'
 
-  def GetMessages(self, unused_formatter_mediator, event):
+    def GetMessages(self, unused_formatter_mediator, event):
     """Determines the formatted message strings for an event object.
 
     Args:
-      formatter_mediator (FormatterMediator): mediates the interactions between
-          formatters and other components, such as storage and Windows EventLog
-          resources.
-      event (EventObject): event.
+    formatter_mediator (FormatterMediator): mediates the interactions between
+    formatters and other components, such as storage and Windows EventLog
+    resources.
+    event (EventObject): event.
 
     Returns:
-      tuple(str, str): formatted message string and short message string.
+    tuple(str, str): formatted message string and short message string.
 
     Raises:
-      WrongFormatter: if the event object cannot be formatted by the formatter.
+    WrongFormatter: if the event object cannot be formatted by the formatter.
     """
     if self.DATA_TYPE != event.data_type:
-      raise errors.WrongFormatter(u'Unsupported data type: {0:s}.'.format(
-          event.data_type))
+    raise errors.WrongFormatter(u'Unsupported data type: {0:s}.'.format(
+    event.data_type))
 
     event_values = event.CopyToDict()
 
@@ -49,5 +49,5 @@ class {{ class_name }}{{ event }}Formatter(interface.ConditionalEventFormatter):
 
 {% endfor %}
 manager.FormattersManager.RegisterFormatter([
-  {% for event in events %}{{ class_name }}{{ event }}Formatter{% if not loop.last %},{% endif %}
-  {% endfor %}])
+{% for event in events %}{{ class_name }}{{ event }}Formatter{% if not loop.last %},{% endif %}
+{% endfor %}])

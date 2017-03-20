@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+"""test class"""
 import unittest
+
 from plasoscaffolder.bll.mappings.init_mapping import InitMapper
 from tests.fake.fake_mapping_helper import FakeMappingHelper
 
@@ -9,7 +11,7 @@ class InitMappingTest(unittest.TestCase):
 
   def setUp(self):
     self.plugin_name = "the_one_and_only"
-    self.mapper = InitMapper("template ",FakeMappingHelper)
+    self.mapper = InitMapper("template ", FakeMappingHelper)
 
   def test_get_formatter_init_create(self):
     """test the render for creating a new formatter init file"""

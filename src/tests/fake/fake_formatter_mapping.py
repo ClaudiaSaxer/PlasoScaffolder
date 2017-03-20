@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""fake formatter mapper"""
 from plasoscaffolder.bll.mappings.base_formatter_mapping import \
   BaseFormatterMapper
 from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
@@ -12,5 +13,3 @@ class FakeFormatterMapper(BaseFormatterMapper):
 
   def get_formatter(self, plugin_name: str, events: str) -> str:
     return plugin_name
-
-

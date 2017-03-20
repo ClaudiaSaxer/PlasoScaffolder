@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """File representing the controller for SQLite plugin."""
 import click
+
 from plasoscaffolder.bll.mappings.formatter_mapping import FormatterMapper
 from plasoscaffolder.bll.mappings.init_mapping import InitMapper
 from plasoscaffolder.bll.mappings.mapping_helper import MappingHelper
@@ -26,8 +27,9 @@ class SQLiteController(object):
     self.plugin_helper = SQLitePluginHelper()
     self.output_handler = output_handler
 
-  def source_path(self, ctx: click.core.Context, param: click.core.Option,
-      value: str) -> str:
+
+  def source_path(self, _ctx: click.core.Context, _param: click.core.Option,
+                  value: str) -> str:
     """Saving the source path.
 
     Args:
@@ -42,12 +44,12 @@ class SQLiteController(object):
     """
     while not self.plugin_helper.folder_exists(value):
       value = self.output_handler.prompt_error(
-        'Folder does not exists. Enter correct one: ')
+          'Folder does not exists. Enter correct one: ')
     self.path = value
     return value
 
-  def plugin_name(self, ctx: click.core.Context, param: click.core.Option,
-      value: str) -> str:
+  def plugin_name(self, _ctx: click.core.Context, _param: click.core.Option,
+                  value: str) -> str:
     """Saving the plugin name.
 
     Args:
@@ -62,16 +64,16 @@ class SQLiteController(object):
     """
     value = self._validate(value)
     while self.plugin_helper.plugin_exists(self.path, value,
-        SQLitePluginPathHelper):
+                                           SQLitePluginPathHelper):
       value = self.output_handler.prompt_error(
-        'Plugin exists. Choose new name: ')
+          'Plugin exists. Choose new name: ')
       value = self._validate(value)
 
     self.name = value
     return value
 
-  def test_path(self, ctx: click.core.Context, param: click.core.Option,
-      value: str) -> str:
+  def test_path(self, _ctx: click.core.Context, _param: click.core.Option,
+                value: str) -> str:
     """Saving the path to the test file.
 
     Args:
@@ -86,12 +88,12 @@ class SQLiteController(object):
     """
     while not self.plugin_helper.file_exists(value):
       value = self.output_handler.prompt_error(
-        'File does not exists. Choose another: ')
+          'File does not exists. Choose another: ')
     self.testfile = value
     return value
 
-  def event(self, ctx: click.core.Context, param: click.core.Option,
-      value: str) -> str:
+  def event(self, _ctx: click.core.Context, _param: click.core.Option,
+            value: str) -> str:
     """The events of the plugin
 
     Args:
@@ -114,18 +116,21 @@ class SQLiteController(object):
       template_path (str): the path to the template directory
     """
     generator = SQLiteGenerator(self.path, self.name, self.testfile,
-      self.events, OutputHandlerClick(), SQLitePluginHelper,
-      SQLitePluginPathHelper)
+                                self.events, OutputHandlerClick(),
+                                SQLitePluginHelper,
+                                SQLitePluginPathHelper)
 
     if not generator.init_formatter_exists or not generator.init_parser_exists:
       self.output_handler.confirm(
-        'At least one init file does not exist. Do you want the create them ( '
-        'or else abort)?')
+          'At least one init file does not exist. Do you want the create them '
+          '( '
+          'or else abort)?')
 
     self.output_handler.confirm('Do you want to generate the files?')
 
     generator.generate_sqlite_plugin(template_path, FileHandler, InitMapper,
-      ParserMapper, FormatterMapper, MappingHelper)
+                                     ParserMapper, FormatterMapper,
+                                     MappingHelper)
 
   def _validate(self, plugin_name: str) -> str:
     """Validate plugin name and prompt until name is valid
@@ -138,5 +143,6 @@ class SQLiteController(object):
     """
     while not self.plugin_helper.valide_plugin_name(plugin_name):
       plugin_name = self.output_handler.prompt_error(
-        'Plugin is not in a valide format. Choose new name [plugin_name_...]: ')
+          'Plugin is not in a valide format. Choose new name ['
+          'plugin_name_...]: ')
     return plugin_name

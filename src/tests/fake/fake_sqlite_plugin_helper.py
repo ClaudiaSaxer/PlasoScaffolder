@@ -7,9 +7,11 @@ from plasoscaffolder.common.base_file_handler import BaseFileHandler
 
 
 class FakeSQLitePluginHelper(BaseSQLitePluginHelper):
+  """fake for the sqlite plugin helper"""
 
-  def plugin_exists(self, template_path: str,
-      fileHandler: BaseFileHandler, init_mapper: BaseInitMapper) -> bool:
+  def plugin_exists(self, _template_path: str,
+                    _fileHandler: BaseFileHandler,
+                    _init_mapper: BaseInitMapper) -> bool:
     return False
 
   def file_exists(self, path: str) -> bool:
@@ -17,3 +19,6 @@ class FakeSQLitePluginHelper(BaseSQLitePluginHelper):
 
   def folder_exists(self, path: str) -> bool:
     return False
+
+  def valide_plugin_name(self, plugin_name: str) -> bool:
+    return True

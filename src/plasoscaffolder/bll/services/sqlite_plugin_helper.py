@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""SQLite plugin helper"""
 import os
 import re
 
@@ -16,7 +17,7 @@ class SQLitePluginHelper(BaseSQLitePluginHelper):
     super().__init__()
 
   def plugin_exists(self, path: str, plugin_name: str,
-      sqlitePluginPathHelper: BaseSQLitePluginPathHelper) -> bool:
+                    sqlitePluginPathHelper: BaseSQLitePluginPathHelper) -> bool:
     """Checks if the plugin already exists.
 
     Args:
@@ -28,11 +29,12 @@ class SQLitePluginHelper(BaseSQLitePluginHelper):
       bool: True if the plugin already exists. False if it does not.
     """
     helper = sqlitePluginPathHelper(path, plugin_name)
-    return os.path.isfile(helper.formatter_file_path()) or os.path.isfile(
-      helper.parser_file_path()) or os.path.isfile(
-      helper.formatter_test_file_path()) or os.path.isfile(
-      helper.parser_test_file_path()) or os.path.isfile(
-      helper.database_path(""))
+
+    return (os.path.isfile(helper.formatter_file_path())
+            or os.path.isfile(helper.parser_file_path())
+            or os.path.isfile(helper.formatter_test_file_path())
+            or os.path.isfile(helper.parser_test_file_path())
+            or os.path.isfile(helper.database_path("")))
 
   def valide_plugin_name(self, plugin_name: str) -> bool:
     """Validates the plugin name.

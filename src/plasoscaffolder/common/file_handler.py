@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""the file handler"""
 import os
 from pathlib import Path
 from shutil import copyfile
@@ -38,8 +39,8 @@ class FileHandler(BaseFileHandler):
      """
     os.makedirs(directory_path)
 
-  def create_file(self, directory_path: str, file_name: str,
-      filename_suffix: str):
+  def create_file(
+      self, directory_path: str, file_name: str, filename_suffix: str):
     """Creates a empty file.
 
     Args:
@@ -52,7 +53,7 @@ class FileHandler(BaseFileHandler):
       str: the path of the created file
     """
     file_path = self.create_file_path(directory_path, file_name,
-      filename_suffix)
+                                      filename_suffix)
     if not os.path.exists(file_path):
       self._create_folder(directory_path)
 

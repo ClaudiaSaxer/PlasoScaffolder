@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+"""test class"""
 import filecmp
+import os
 import shutil
 import tempfile
 import unittest
-import os
+
 from plasoscaffolder.common.file_handler import FileHandler
 
 
@@ -28,8 +30,8 @@ class FileHandlerTest(unittest.TestCase):
     self.assertFalse(os.path.exists(self.path))
     creator = FileHandler()
     with tempfile.TemporaryDirectory() as tmpdir:
-      creator._create_folder(os.path.join(tmpdir,"temp"))
-      actual = os.path.exists(os.path.join(tmpdir,"temp"))
+      creator._create_folder(os.path.join(tmpdir, "t"))  # pylint: disable=W0212
+      actual = os.path.exists(os.path.join(tmpdir, "t"))
     self.assertTrue(actual)
 
   def test_get_folder_path(self):

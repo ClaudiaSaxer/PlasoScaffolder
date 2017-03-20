@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
-import unittest
+"""Test class"""
+import os
 import tempfile
-from plasoscaffolder.bll.services.sqlite_plugin_helper import *
+import unittest
+
+from plasoscaffolder.bll.services.sqlite_plugin_helper import SQLitePluginHelper
 from tests.fake.fake_sqlite_plugin_path_helper import FakeSQLitePluginPathHelper
 
 
@@ -14,19 +17,20 @@ class SQLitePluginHelperTest(unittest.TestCase):
   def test_plugin_exists_false(self):
     """Tests the plugin exists method if none exists."""
 
-    actual = self.helper.plugin_exists('temp', 'plugin_test', FakeSQLitePluginPathHelper)
+    actual = self.helper.plugin_exists('temp', 'plugin_test',
+                                       FakeSQLitePluginPathHelper)
     self.assertFalse(actual)
 
   def test_plugin_exists_true(self):
     """Tests the plugin exists"""
     with tempfile.TemporaryDirectory() as tmpdir:
-      file_path = os.path.join(tmpdir,'test')
-      new_file = open(file_path,'a')
+      file_path = os.path.join(tmpdir, 'test')
+      new_file = open(file_path, 'a')
       helper = SQLitePluginHelper()
-      actual = helper.plugin_exists(tmpdir, new_file.name, FakeSQLitePluginPathHelper)
+      actual = helper.plugin_exists(tmpdir, new_file.name,
+                                    FakeSQLitePluginPathHelper)
       new_file.close()
       os.remove(file_path)
-
 
     self.assertTrue(actual)
 
@@ -82,6 +86,7 @@ class SQLitePluginHelperTest(unittest.TestCase):
     plugin_name = "this3"
     actual = helper.valide_plugin_name(plugin_name)
     self.assertFalse(actual)
+
 
 if __name__ == '__main__':
   unittest.main()

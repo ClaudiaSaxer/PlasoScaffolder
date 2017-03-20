@@ -1,15 +1,18 @@
+# -*- coding: utf-8 -*-
+"""test class"""
 import os
 import unittest
 
 from plasoscaffolder.bll.mappings.mapping_helper import MappingHelper
+
 
 class MyTestCase(unittest.TestCase):
   """ Class representing a test case for the mapping helper functions. """
 
   def setUp(self):
     self.template_path = os.path.join(
-      os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-      "test_template")
+        os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+        "test_template")
     self.plugin_name = "the_one_and_only"
     self.file = "test_template.jinja2"
     self.helper = MappingHelper(self.template_path)
@@ -26,6 +29,8 @@ class MyTestCase(unittest.TestCase):
     name = "this_is_a_test"
     expected = "ThisIsATest"
     actual = self.helper.generate_class_name(name)
-    self.assertEqual(expected,actual)
+    self.assertEqual(expected, actual)
+
+
 if __name__ == '__main__':
   unittest.main()

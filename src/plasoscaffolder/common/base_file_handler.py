@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Base file handler"""
 import abc
 
 
@@ -6,7 +7,7 @@ class BaseFileHandler(object):
   """ Class representing the base class for the file handler."""
   __metaclass__ = abc.ABCMeta
 
-  @staticmethod
+  @classmethod
   @abc.abstractmethod
   def create_file_path(cls, path: str, name: str, suffix: str) -> str:
     """Creates the file path out of the directory path, filename and suffix.
@@ -20,7 +21,7 @@ class BaseFileHandler(object):
       str: the joined path to the file
     """
 
-  @staticmethod
+  @classmethod
   @abc.abstractmethod
   def _create_folder(cls, directory_path):
     """Creates a folder only to be called if the target folder does not yet
@@ -32,7 +33,7 @@ class BaseFileHandler(object):
 
   @abc.abstractmethod
   def create_file(self, directory_path: str, file_name: str,
-      filename_suffix: str):
+                  filename_suffix: str):
     """Creates a empty file.
 
     Args:
