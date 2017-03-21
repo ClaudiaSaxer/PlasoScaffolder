@@ -21,7 +21,7 @@ class BaseMappingHelper(object):
     """Renders the template.
 
     Args:
-      template_filename (str): the __name of the template
+      template_filename (str): the name of the template
       context (dict): the context of the template
 
     Returns:
@@ -30,11 +30,11 @@ class BaseMappingHelper(object):
 
   @abc.abstractmethod
   def GenerateClassName(self, plugin_name: str) -> str:
-    """Generates the class __name.
+    """Generates the class name.
 
     Args:
-      plugin_name (str): the plugin __name
+      plugin_name (str): the plugin name
 
     Returns:
-      str: the class __name
+      str: the class name
     """

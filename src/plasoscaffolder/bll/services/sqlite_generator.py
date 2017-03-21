@@ -24,14 +24,14 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     """Initializes a SQLite Generator.
 
     Args:
-      path (str): the __path of the plaso folder
-      name (str): the __name of the plugin
-      database (str): the __path to the database
-      events (list): the __events of the plugin
+      path (str): the path of the plaso folder
+      name (str): the name of the plugin
+      database (str): the path to the database
+      events (list): the events of the plugin
       output_handler (BaseOutputHandler: the output handler for the
       generation information
-      pluginHelper (BaseSQLitePluginHelper): the plugin __helper
-      pathHelper (BaseSQLitePluginPathHelper): the plugin __path __helper
+      pluginHelper (BaseSQLitePluginHelper): the plugin helper
+      pathHelper (BaseSQLitePluginPathHelper): the plugin path helper
     """
     super().__init__()
     database_suffix = os.path.splitext(database)[1]
@@ -64,10 +64,10 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     Args:
       formatter_mapper (BaseFormatterMapper): the mapper for the formatter
       fileHandler (FileHandler): the handler for the file
-      mappingHelper (BaseMappingHelper): the mapping __helper
+      mappingHelper (BaseMappingHelper): the mapping helper
       parser_mapper (BaseParserMapper): the parser mapper
       init_mapper (BaseInitMapper): the init mapper
-      template_path (str): the __path to the template directory
+      template_path (str): the path to the template directory
     """
 
     file_handler = fileHandler()
@@ -138,7 +138,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     """Print for copy file.
 
     Args:
-      file (str): the file __path
+      file (str): the file path
     """
     self.output('copy ' + file)
 
@@ -146,7 +146,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     """Print for edit file.
 
     Args:
-      file (str): the file __path
+      file (str): the file path
     """
     self.output('edit ' + file)
 
@@ -154,6 +154,6 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     """Print for create file.
 
     Args:
-      file (str): the file __path
+      file (str): the file path
     """
     self.output('create ' + file)

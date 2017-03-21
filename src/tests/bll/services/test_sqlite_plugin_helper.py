@@ -9,7 +9,7 @@ from tests.fake.fake_sqlite_plugin_path_helper import FakeSQLitePluginPathHelper
 
 
 class SQLitePluginHelperTest(unittest.TestCase):
-  """  Class representing a test case testing the SQLite plugin __helper"""
+  """  Class representing a test case testing the SQLite plugin helper"""
 
   def setUp(self):
     self.helper = SQLitePluginHelper()
@@ -53,35 +53,35 @@ class SQLitePluginHelperTest(unittest.TestCase):
     self.assertTrue(actual)
 
   def testIsValidPluginNameExpected(self):
-    """tests the plugin __name validation."""
+    """tests the plugin name validation."""
     helper = SQLitePluginHelper()
     plugin_name = "this_is_a_test"
     actual = helper.IsValidPluginName(plugin_name)
     self.assertTrue(actual)
 
   def testIsValidPluginNameWithEndingUnderscore(self):
-    """tests the plugin __name validation."""
+    """tests the plugin name validation."""
     helper = SQLitePluginHelper()
     plugin_name = "this_is_a_"
     actual = helper.IsValidPluginName(plugin_name)
     self.assertFalse(actual)
 
   def testIsValidPluginNameOnlyOneWordLowercase(self):
-    """tests the plugin __name validation."""
+    """tests the plugin name validation."""
     helper = SQLitePluginHelper()
     plugin_name = "this"
     actual = helper.IsValidPluginName(plugin_name)
     self.assertTrue(actual)
 
   def testIsValidPluginNameOneWordUppercase(self):
-    """tests the plugin __name validation."""
+    """tests the plugin name validation."""
     helper = SQLitePluginHelper()
     plugin_name = "This"
     actual = helper.IsValidPluginName(plugin_name)
     self.assertFalse(actual)
 
   def testIsValidPluginNameWithNumber(self):
-    """tests the plugin __name validation."""
+    """tests the plugin name validation."""
     helper = SQLitePluginHelper()
     plugin_name = "this3"
     actual = helper.IsValidPluginName(plugin_name)

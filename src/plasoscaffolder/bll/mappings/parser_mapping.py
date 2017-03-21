@@ -14,7 +14,7 @@ class ParserMapper(base_parser_mapping.BaseParserMapper):
     """Initializing the init mapper class.
 
     Args:
-      template_path (str): the __path to the template directory
+      template_path (str): the path to the template directory
     """
     super().__init__()
     self.__helper = mapping_helper(template_path)
@@ -23,8 +23,8 @@ class ParserMapper(base_parser_mapping.BaseParserMapper):
     """Renders the parser.
 
     Args:
-      plugin_name (str): the __name of the plugin
-      events (list): the list of the __events
+      plugin_name (str): the name of the plugin
+      events (list): the list of the events
 
     Returns:
       str: the rendered template

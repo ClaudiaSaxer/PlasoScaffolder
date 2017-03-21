@@ -7,14 +7,14 @@ from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 
 class SQLitePluginPathHelper(
     base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper):
-  """Class containing __helper functions for the SQLite plugin for the __path"""
+  """Class containing __helper functions for the SQLite plugin for the path"""
 
   def __init__(self, path: str, plugin_name: str, database_suffix: str):
     """Initializes the sqlite plugin halper.
 
       Args:
-       path (str): the plaso folder __path
-       plugin_name (str): The __name of the plugin to check.
+       path (str): the plaso folder path
+       plugin_name (str): The name of the plugin to check.
        database_suffix (str): the file suffix of the database file
      """
     super().__init__()

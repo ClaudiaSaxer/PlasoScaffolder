@@ -4,7 +4,7 @@ from plasoscaffolder.bll.mappings import base_mapping_helper
 
 
 class FakeMappingHelper(base_mapping_helper.BaseMappingHelper):
-  """Fake for the mapping __helper."""
+  """Fake for the mapping helper."""
 
   def __init__(self, template_path: str):
     self.template_path = template_path

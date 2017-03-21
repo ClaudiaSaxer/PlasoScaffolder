@@ -18,7 +18,7 @@ class InitMapper(base_init_mapping.BaseInitMapper):
     """Initializing the init mapper class.
 
     Args:
-      template_path (str): the __path to the template directory
+      template_path (str): the path to the template directory
     """
     super().__init__()
     self.__helper = mapping_helper(template_path)
@@ -27,7 +27,7 @@ class InitMapper(base_init_mapping.BaseInitMapper):
     """Renders formatter init if you want to create new init file.
 
     Args:
-      plugin_name (str): the plugin __name
+      plugin_name (str): the plugin name
 
     Returns:
       str: the rendered template
@@ -38,7 +38,7 @@ class InitMapper(base_init_mapping.BaseInitMapper):
     """Renders formatter init if you want to create new init file.
 
     Args:
-      plugin_name (str): the plugin __name
+      plugin_name (str): the plugin name
 
     Returns:
        str: the rendered template
@@ -49,7 +49,7 @@ class InitMapper(base_init_mapping.BaseInitMapper):
     """Renders formatter init if you want to edit an existing init file.
 
     Args:
-      plugin_name (str): the plugin __name
+      plugin_name (str): the plugin name
 
     Returns:
        str: the rendered template
@@ -60,7 +60,7 @@ class InitMapper(base_init_mapping.BaseInitMapper):
     """Renders parser init if you want to create new init file.
 
     Args:
-      plugin_name (str): the plugin __name
+      plugin_name (str): the plugin name
 
     Returns:
        str: the rendered template
@@ -71,8 +71,8 @@ class InitMapper(base_init_mapping.BaseInitMapper):
     """Renders parser init if you want to edit an existing init file.
 
     Args:
-      file_name (str): __name of the file in the templates folder
-      plugin_name (str): the __name of the plugin
+      file_name (str): name of the file in the templates folder
+      plugin_name (str): the name of the plugin
 
     Returns:
        str: the rendered template

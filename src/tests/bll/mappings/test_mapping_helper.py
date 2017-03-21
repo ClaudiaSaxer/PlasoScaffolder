@@ -7,7 +7,7 @@ from plasoscaffolder.bll.mappings.mapping_helper import MappingHelper
 
 
 class MyTestCase(unittest.TestCase):
-  """ Class representing a test case for the mapping __helper functions. """
+  """ Class representing a test case for the mapping helper functions. """
 
   def setUp(self):
     self.template_path = os.path.join(

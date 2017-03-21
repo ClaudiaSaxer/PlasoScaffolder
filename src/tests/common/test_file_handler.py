@@ -25,7 +25,7 @@ class FileHandlerTest(unittest.TestCase):
     self.assertTrue(actual)
 
   def testCreateFilePath(self):
-    """Tests if the construction of the folder __path works."""
+    """Tests if the construction of the folder path works."""
     with tempfile.TemporaryDirectory() as tmpdir:
       new_path = os.path.join(tmpdir, "temp")
       path = file_handler.FileHandler.CreateFilePath(new_path,

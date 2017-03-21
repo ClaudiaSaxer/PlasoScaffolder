@@ -8,10 +8,10 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
   """Mapping Helper class."""
 
   def __init__(self, template_path: str):
-    """Initializing the mapping __helper class.
+    """Initializing the mapping helper class.
 
     Args:
-      template_path (str): the __path to the template directory
+      template_path (str): the path to the template directory
     """
     super().__init__()
     self.__template_path = template_path
@@ -32,7 +32,7 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
     """Renders the template.
 
        Args:
-         template_filename (str): the __name of the template
+         template_filename (str): the name of the template
          context (dict): the context of the template
 
        Returns:
@@ -42,12 +42,12 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
         template_filename).render(context)
 
   def GenerateClassName(self, plugin_name: str) -> str:
-    """Generates the class __name.
+    """Generates the class name.
 
     Args:
-      plugin_name (str): the plugin __name
+      plugin_name (str): the plugin name
 
     Returns:
-      str: the class __name
+      str: the class name
     """
     return plugin_name.replace('_', ' ').title().replace(' ', '')
