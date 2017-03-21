@@ -27,8 +27,7 @@ class FakeFileHandler(base_file_handler.BaseFileHandler):
   def CreateOrModifyFileWithContent(self, source: str, content: str):
     return source
 
-  @classmethod
-  def AddContent(cls, source: str, content: str) -> str:
+  def AddContent(self, source: str, content: str) -> str:
     return source
 
   def CreateFolderForFilePathIfNotExist(self, file_path: str):

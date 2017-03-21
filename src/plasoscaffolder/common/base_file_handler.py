@@ -78,9 +78,8 @@ class BaseFileHandler(object):
       content (str): the content to add to the file
     """
 
-  @classmethod
   @abc.abstractmethod
-  def AddContent(cls, source: str, content: str) -> str:
+  def AddContent(self, source: str, content: str) -> str:
     """Add content to a file and create file if non existing.
 
     Args:

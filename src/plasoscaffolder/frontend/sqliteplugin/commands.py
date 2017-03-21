@@ -3,6 +3,7 @@
 import os
 
 import click
+from plasoscaffolder.bll.services import sqlite_plugin_helper
 from plasoscaffolder.common import output_handler_click
 from plasoscaffolder.frontend.controller import sqlite_controller
 
@@ -12,7 +13,7 @@ from plasoscaffolder.frontend.controller import sqlite_controller
 __file__ = os.path.abspath(__file__)
 
 Controller = sqlite_controller.SQLiteController(
-    output_handler_click.OutputHandlerClick())
+    output_handler_click.OutputHandlerClick(), sqlite_plugin_helper.SQLitePluginHelper())
 
 
 @click.command()
@@ -22,7 +23,7 @@ Controller = sqlite_controller.SQLiteController(
               help='The plugin name', callback=Controller.PluginName)
 @click.option('--testfile', prompt='What\'s the path to your test file?',
               help='The testfile path', callback=Controller.TestPath)
-@click.option('--Event',
+@click.option('--event',
               prompt='Please enter the main events of the plugin. [Event '
                      'Event ...]',
               help='The plugin events', callback=Controller.Event)

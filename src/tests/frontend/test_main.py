@@ -34,7 +34,7 @@ class MainTest(unittest.TestCase):
                        '  --path TEXT      The path to plaso\n'
                        '  --name TEXT      The plugin name\n'
                        '  --testfile TEXT  The testfile path\n'
-                       '  --Event TEXT     The plugin events\n'
+                       '  --event TEXT     The plugin events\n'
                        '  --help           Show this message and exit.\n')
     self.assertEqual(expected_output, str(result.output))
     self.assertEqual(0, result.exit_code)

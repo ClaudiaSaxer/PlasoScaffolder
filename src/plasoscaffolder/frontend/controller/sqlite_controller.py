@@ -7,6 +7,7 @@ from plasoscaffolder.bll.mappings import formatter_mapping
 from plasoscaffolder.bll.mappings import init_mapping
 from plasoscaffolder.bll.mappings import mapping_helper
 from plasoscaffolder.bll.mappings import parser_mapping
+from plasoscaffolder.bll.services import base_sqlite_plugin_helper
 from plasoscaffolder.bll.services import sqlite_generator
 from plasoscaffolder.bll.services import sqlite_plugin_helper
 from plasoscaffolder.bll.services import sqlite_plugin_path_helper
@@ -18,18 +19,25 @@ from plasoscaffolder.common import output_handler_click
 class SQLiteController(object):
   """Class representing the Controller for the SQLite Controller."""
 
-  def __init__(self, output_handler: base_output_handler.BaseOutputHandler()):
+  def __init__(self, output_handler: base_output_handler.BaseOutputHandler(),
+               plugin_helper: base_sqlite_plugin_helper.BaseSQLitePluginHelper):
+    """
+    Initializes the SQLite Controller
+    Args:
+      output_handler (BaseOutputHandler): the handler for the output
+      plugin_helper (BaseSQLitePluginHelper): the helper for the SQLite plugin
+    """
     super(SQLiteController, self).__init__()
-    self.__path = None
-    self.__name = None
-    self.__testfile = None
-    self.__events = None
-    self.__plugin_helper = sqlite_plugin_helper.SQLitePluginHelper()
-    self.__output_handler = output_handler
+    self._path = None
+    self._name = None
+    self._testfile = None
+    self._events = None
+    self._plugin_helper = plugin_helper
+    self._output_handler = output_handler
 
   def SourcePath(self, _ctx: click.core.Context, _param: click.core.Option,
                  value: str) -> str:
-    """Saving the source __path.
+    """Saving the source path.
 
     Args:
       ctx (click.core.Context): the click context (automatically given via
@@ -41,10 +49,10 @@ class SQLiteController(object):
     Returns:
       str: the source path representing the same as value
     """
-    while not self.__plugin_helper.FolderExists(value):
-      value = self.__output_handler.PromptError(
+    while not self._plugin_helper.FolderExists(value):
+      value = self._output_handler.PromptError(
           'Folder does not exists. Enter correct one: ')
-    self.__path = value
+    self._path = value
     return value
 
   def PluginName(self, _ctx: click.core.Context, _param: click.core.Option,
@@ -62,15 +70,15 @@ class SQLiteController(object):
       str: the plugin __name representing the same as value
     """
     value = self._ValidatePluginName(value)
-    while self.__plugin_helper.PluginExists(
-        self.__path, value, "",
-        sqlite_plugin_path_helper.SQLitePluginPathHelper(self.__path, value,
+    while self._plugin_helper.PluginExists(
+        self._path, value,
+        sqlite_plugin_path_helper.SQLitePluginPathHelper(self._path, value,
                                                          "", )):
-      value = self.__output_handler.PromptError(
+      value = self._output_handler.PromptError(
           'Plugin exists. Choose new name: ')
       value = self._ValidatePluginName(value)
 
-    self.__name = value
+    self._name = value
     return value
 
   def TestPath(self, _ctx: click.core.Context, _param: click.core.Option,
@@ -87,10 +95,10 @@ class SQLiteController(object):
     Returns:
       str: the test file path representing the same as the value
     """
-    while not self.__plugin_helper.FileExists(value):
-      value = self.__output_handler.PromptError(
+    while not self._plugin_helper.FileExists(value):
+      value = self._output_handler.PromptError(
           'File does not exists. Choose another: ')
-    self.__testfile = value
+    self._testfile = value
     return value
 
   def Event(self, _ctx: click.core.Context, _param: click.core.Option,
@@ -107,8 +115,8 @@ class SQLiteController(object):
     Returns:
       str: the events of the plugin
     """
-    self.__events = value.title().split()
-    return self.__events
+    self._events = value.title().split()
+    return self._events
 
   def Generate(self, template_path: str):
     """Generating the files.
@@ -116,21 +124,21 @@ class SQLiteController(object):
     Args:
       template_path (str): the path to the template directory
     """
-    database_suffix = os.path.splitext(self.__testfile)[1]
+    database_suffix = os.path.splitext(self._testfile)[1]
     helper = mapping_helper.MappingHelper(template_path)
 
     generator = sqlite_generator.SQLiteGenerator(
-        self.__path,
-        self.__name,
-        self.__testfile,
-        self.__events,
+        self._path,
+        self._name,
+        self._testfile,
+        self._events,
         output_handler_click.OutputHandlerClick(),
         sqlite_plugin_helper.SQLitePluginHelper(),
-        sqlite_plugin_path_helper.SQLitePluginPathHelper(self.__path,
-                                                         self.__name,
+        sqlite_plugin_path_helper.SQLitePluginPathHelper(self._path,
+                                                         self._name,
                                                          database_suffix))
 
-    self.__output_handler.Confirm('Do you want to Generate the files?')
+    self._output_handler.Confirm('Do you want to Generate the files?')
 
     generator.GenerateSQLitePlugin(
         template_path, file_handler.FileHandler(),
@@ -148,8 +156,8 @@ class SQLiteController(object):
     Returns:
       a valid plugin name
     """
-    while not self.__plugin_helper.IsValidPluginName(plugin_name):
-      plugin_name = self.__output_handler.PromptError(
+    while not self._plugin_helper.IsValidPluginName(plugin_name):
+      plugin_name = self._output_handler.PromptError(
           'Plugin is not in a valide format. Choose new name ['
           'plugin_name_...]: ')
     return plugin_name
