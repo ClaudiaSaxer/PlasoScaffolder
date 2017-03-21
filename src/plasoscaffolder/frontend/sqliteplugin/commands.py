@@ -6,8 +6,8 @@ import click
 from plasoscaffolder.common import output_handler_click
 from plasoscaffolder.frontend.controller import sqlite_controller
 
-# Since os.__path.abspath() uses the current working directory (cwd)
-# os.__path.abspath(__file__) will point to a different location if
+# Since os.path.abspath() uses the current working directory (cwd)
+# os.path.abspath(__file__) will point to a different location if
 # cwd has been changed. Hence we preserve the absolute location of __file__.
 __file__ = os.path.abspath(__file__)
 
