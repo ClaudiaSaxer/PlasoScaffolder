@@ -2,15 +2,18 @@
 """test class"""
 import unittest
 
-from plasoscaffolder.common.output_handler_file import OutputHandlerFile
-from tests.fake.fake_file_handler import FakeFileHandler
+from plasoscaffolder.common import output_handler_file
+from tests.fake import fake_file_handler
 
 
 class FileOutputHandler(unittest.TestCase):
   """testing the file output handler"""
+
   def setUp(self):
     self.file_path = "testpath"
-    self.output = OutputHandlerFile(self.file_path, FakeFileHandler)
+    self.output = output_handler_file.OutputHandlerFile(
+        self.file_path,
+        fake_file_handler.FakeFileHandler)
 
   def testPromptInfo(self):
     """test prompt info, should raise not implemented error"""

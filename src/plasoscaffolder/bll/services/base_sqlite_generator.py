@@ -3,12 +3,11 @@
 import abc
 import os
 
-from plasoscaffolder.bll.mappings.base_formatter_mapping import \
-  BaseFormatterMapper
-from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
-from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
-from plasoscaffolder.bll.mappings.base_parser_mapping import BaseParserMapper
-from plasoscaffolder.common.base_file_handler import BaseFileHandler
+from plasoscaffolder.bll.mappings import base_formatter_mapping
+from plasoscaffolder.bll.mappings import base_init_mapping
+from plasoscaffolder.bll.mappings import base_mapping_helper
+from plasoscaffolder.bll.mappings import base_parser_mapping
+from plasoscaffolder.common import base_file_handler
 
 
 class BaseSQLiteGenerator(object):
@@ -16,12 +15,14 @@ class BaseSQLiteGenerator(object):
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def GenerateSQLitePlugin(self, template_path: str,
-                             fileHandler: BaseFileHandler,
-                             init_mapper: BaseInitMapper,
-                             parser_mapper: BaseParserMapper,
-                             formatter_mapper: BaseFormatterMapper,
-                             mappingHelper: BaseMappingHelper):
+  def GenerateSQLitePlugin(
+      self,
+      template_path: str,
+      fileHandler: base_file_handler.BaseFileHandler,
+      init_mapper: base_init_mapping.BaseInitMapper,
+      parser_mapper: base_parser_mapping.BaseParserMapper,
+      formatter_mapper: base_formatter_mapping.BaseFormatterMapper,
+      mappingHelper: base_mapping_helper.BaseMappingHelper):
     """Generate the whole sqlite plugin.
 
     Args:

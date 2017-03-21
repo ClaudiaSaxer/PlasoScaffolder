@@ -4,7 +4,7 @@ import unittest
 
 from click.testing import CliRunner
 
-from plasoscaffolder.frontend.main import entry_point
+from plasoscaffolder.frontend import main
 
 
 class MainTest(unittest.TestCase):
@@ -13,7 +13,7 @@ class MainTest(unittest.TestCase):
   def testMainHelp(self):
     """testing the help of the main"""
     runner = CliRunner()
-    result = runner.invoke(entry_point, ['--help'])
+    result = runner.invoke(main.entry_point, ['--help'])
     expected_output = ('Usage: entry_point [OPTIONS] COMMAND [ARGS]...\n'
                        '\n'
                        'Options:\n'
@@ -28,7 +28,7 @@ class MainTest(unittest.TestCase):
   def testSQLiteHelp(self):
     """testing the main of the sqlite"""
     runner = CliRunner()
-    result = runner.invoke(entry_point, ['sqlite', '--help'])
+    result = runner.invoke(main.entry_point, ['sqlite', '--help'])
     expected_output = ('Usage: entry_point sqlite [OPTIONS]\n'
                        '\n'
                        'Options:\n'

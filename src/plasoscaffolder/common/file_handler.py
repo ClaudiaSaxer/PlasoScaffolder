@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """the file handler"""
 import os
-from pathlib import Path
-from shutil import copyfile
+import pathlib
+import shutil
 
-from plasoscaffolder.common.base_file_handler import BaseFileHandler
+from plasoscaffolder.common import base_file_handler
 
 
-class FileHandler(BaseFileHandler):
+class FileHandler(base_file_handler.BaseFileHandler):
   """ Class handles the creation of Files"""
 
   def __init__(self):
@@ -53,12 +53,12 @@ class FileHandler(BaseFileHandler):
       str: the path of the created file
     """
     file_path = self.CreateFilePath(directory_path, file_name,
-                                      filename_suffix)
+                                    filename_suffix)
 
     if not os.path.exists(directory_path):
       self._CreateFolder(directory_path)
 
-    Path(file_path).touch()
+    pathlib.Path(file_path).touch()
     return file_path
 
   def CreateFileFromPath(self, file_path: str) -> str:
@@ -71,7 +71,7 @@ class FileHandler(BaseFileHandler):
       str: the path of the created file
     """
     self.CreateFolderForFilePathIfNotExist(file_path)
-    Path(file_path).touch()
+    pathlib.Path(file_path).touch()
     return file_path
 
   def CopyFile(self, source: str, destination: str) -> str:
@@ -85,7 +85,7 @@ class FileHandler(BaseFileHandler):
         str: the path of the copied file
       """
     self.CreateFolderForFilePathIfNotExist(destination)
-    copyfile(source, destination)
+    shutil.copyfile(source, destination)
     return destination
 
   def CreateOrModifyFileWithContent(self, source: str, content: str):

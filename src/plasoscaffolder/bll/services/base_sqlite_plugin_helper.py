@@ -2,8 +2,7 @@
 """Base class for sqlite plugin helper"""
 import abc
 
-from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
-  BaseSQLitePluginPathHelper
+from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 
 
 class BaseSQLitePluginHelper(object):
@@ -11,14 +10,18 @@ class BaseSQLitePluginHelper(object):
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def PluginExists(self, path: str, plugin_name: str,
-                    sqlitePluginPathHelper: BaseSQLitePluginPathHelper) -> bool:
+  def PluginExists(
+      self,
+      path: str,
+      plugin_name: str,
+      path_helper: base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper
+  ) -> bool:
     """Checks if the plugin already exists.
 
     Args:
       path (str): the path of the plaso source
       plugin_name (str): the name of the plugin
-      sqlitePluginPathHelper (BaseSqlitePluginHelper) : the sqlite plugin helper
+      path_helper (BaseSqlitePluginHelper) : the sqlite plugin helper
 
     Returns:
       bool: True if the plugin already exists. False if it does not.

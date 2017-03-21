@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 """Helper methods for mapping."""
-from jinja2 import Environment
-from jinja2 import FileSystemLoader
-
-from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
+import jinja2
+from plasoscaffolder.bll.mappings import base_mapping_helper
 
 
-class MappingHelper(BaseMappingHelper):
+class MappingHelper(base_mapping_helper.BaseMappingHelper):
   """Mapping Helper class."""
 
   def __init__(self, template_path: str):
@@ -19,15 +17,16 @@ class MappingHelper(BaseMappingHelper):
     self.template_path = template_path
 
   @property
-  def _GetTemplateEnvironment(self) -> Environment:
+  def _GetTemplateEnvironment(self) -> jinja2.Environment:
     """Returns the template environment.
 
     Returns:
       jinja2.Environment: jinja2 template environment.
     """
-    return Environment(autoescape=False,
-                       loader=FileSystemLoader(self.template_path),
-                       trim_blocks=False)
+    return jinja2.Environment(autoescape=False,
+                              loader=jinja2.FileSystemLoader(
+                                  self.template_path),
+                              trim_blocks=False)
 
   def RenderTemplate(self, template_filename: str, context: dict) -> str:
     """Renders the template.

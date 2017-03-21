@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """Helper methods for mapping"""
 import abc
-
-from jinja2 import Environment
+import jinja2
 
 
 class BaseMappingHelper(object):
@@ -10,7 +9,7 @@ class BaseMappingHelper(object):
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def _GetTemplateEnvironment(self) -> Environment:
+  def _GetTemplateEnvironment(self) -> jinja2.Environment:
     """Returns the template environment.
 
     Returns:

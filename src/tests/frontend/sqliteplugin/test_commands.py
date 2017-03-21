@@ -4,7 +4,7 @@ import unittest
 
 from click.testing import CliRunner
 
-from plasoscaffolder.frontend.sqliteplugin.commands import sqlite
+from plasoscaffolder.frontend.sqliteplugin import commands
 
 
 class SqliteCommandsTest(unittest.TestCase):
@@ -12,7 +12,7 @@ class SqliteCommandsTest(unittest.TestCase):
   def test_sqlite_help(self):
     """testing the help argument"""
     runner = CliRunner()
-    result = runner.invoke(sqlite, ['--help'])
+    result = runner.invoke(commands.sqlite, ['--help'])
     expected_output = ('Usage: sqlite [OPTIONS]\n'
                        '\n'
                        'Options:\n'

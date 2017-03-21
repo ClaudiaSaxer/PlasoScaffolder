@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 """fake for parser mapping"""
-from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
-from plasoscaffolder.bll.mappings.base_parser_mapping import BaseParserMapper
+from plasoscaffolder.bll.mappings import base_mapping_helper
+from plasoscaffolder.bll.mappings import base_parser_mapping
 
 
-class FakeParserMapper(BaseParserMapper):
+class FakeParserMapper(base_parser_mapping.BaseParserMapper):
   """class representing the fake parser mapper"""
 
-  def __init__(self, template_path: str, mapping_helper: BaseMappingHelper):
+  def __init__(self, template_path: str,
+               mapping_helper: base_mapping_helper.BaseMappingHelper):
     pass
 
   def GetParser(self, plugin_name: str, events: str) -> str:

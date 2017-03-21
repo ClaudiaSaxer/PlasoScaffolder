@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 """the output file handler for click"""
 import click
+from plasoscaffolder.common import base_output_handler
 
-from plasoscaffolder.common.base_output_handler import BaseOutputHandler
 
-
-class OutputHandlerClick(BaseOutputHandler):
+class OutputHandlerClick(base_output_handler.BaseOutputHandler):
   """Class representing the output handler for click."""
 
   def __init__(self):

@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 """ fake for module representing function for the different files """
-from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
-from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
+from plasoscaffolder.bll.mappings import base_init_mapping
+from plasoscaffolder.bll.mappings import base_mapping_helper
 
 
-class FakeInitMapper(BaseInitMapper):
+class FakeInitMapper(base_init_mapping.BaseInitMapper):
   """class representing the init mapper"""
 
-  def __init__(self, template_path: str, mapping_helper: BaseMappingHelper):
+  def __init__(self, template_path: str,
+               mapping_helper: base_mapping_helper.BaseMappingHelper):
     pass
 
   def GetFormatterInitCreate(self, plugin_name: str) -> str:

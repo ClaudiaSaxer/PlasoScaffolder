@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 """output file handler for files"""
-from plasoscaffolder.common.base_file_handler import BaseFileHandler
-from plasoscaffolder.common.base_output_handler import BaseOutputHandler
+from plasoscaffolder.common import base_file_handler
+from plasoscaffolder.common import base_output_handler
 
 
-class OutputHandlerFile(BaseOutputHandler):
+class OutputHandlerFile(base_output_handler.BaseOutputHandler):
   """Class representing the output handler for a file."""
 
-  def __init__(self, filepath: str, fileHandler: BaseFileHandler):
+  def __init__(
+      self,
+      filepath: str,
+      fileHandler: base_file_handler.BaseFileHandler):
     """Initializes File Output Handler.
 
     Args:

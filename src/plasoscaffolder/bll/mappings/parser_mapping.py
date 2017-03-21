@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 """ Module representing function for the different files. """
-from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
-from plasoscaffolder.bll.mappings.base_parser_mapping import BaseParserMapper
+from plasoscaffolder.bll.mappings import base_mapping_helper
+from plasoscaffolder.bll.mappings import base_parser_mapping
 
 
-class ParserMapper(BaseParserMapper):
+class ParserMapper(base_parser_mapping.BaseParserMapper):
   """Class representing the parser mapper."""
 
   _PARSER_TEMPLATE = 'parser_template.jinja2'
 
-  def __init__(self, template_path: str, mapping_helper: BaseMappingHelper):
+  def __init__(self, template_path: str,
+               mapping_helper: base_mapping_helper.BaseMappingHelper):
     """Initializing the init mapper class.
 
     Args:
@@ -30,6 +31,6 @@ class ParserMapper(BaseParserMapper):
     """
     class_name = self.helper.GenerateClassName(plugin_name)
     context = {'PluginName': plugin_name, 'class_name': class_name,
-               'events'     : events}
+               'events': events}
     rendered = self.helper.RenderTemplate(self._PARSER_TEMPLATE, context)
     return rendered

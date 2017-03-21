@@ -3,17 +3,16 @@
 import os
 
 import click
-
-from plasoscaffolder.common.output_handler_click import OutputHandlerClick
-from plasoscaffolder.frontend.controller.sqlite_controller import \
-  SQLiteController
+from plasoscaffolder.common import output_handler_click
+from plasoscaffolder.frontend.controller import sqlite_controller
 
 # Since os.path.abspath() uses the current working directory (cwd)
 # os.path.abspath(__file__) will point to a different location if
 # cwd has been changed. Hence we preserve the absolute location of __file__.
 __file__ = os.path.abspath(__file__)
 
-Controller = SQLiteController(OutputHandlerClick())
+Controller = sqlite_controller.SQLiteController(
+  output_handler_click.OutputHandlerClick())
 
 
 @click.command()

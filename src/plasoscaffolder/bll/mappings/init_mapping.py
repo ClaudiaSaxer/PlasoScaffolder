@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """ Module representing function for the different files. """
-from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
-from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
+from plasoscaffolder.bll.mappings import base_init_mapping
+from plasoscaffolder.bll.mappings import base_mapping_helper
 
 
-class InitMapper(BaseInitMapper):
+class InitMapper(base_init_mapping.BaseInitMapper):
   """Class representing the init mapper."""
 
   _FORMATTER_INIT_CREATE_TEMPLATE = 'formatter_init_create_template.jinja2'
@@ -12,7 +12,9 @@ class InitMapper(BaseInitMapper):
   _PARSER_INIT_CREATE_TEMPLATE = 'parser_init_create_template.jinja2'
   _PARSER_INIT_EDIT_TEMPLATE = 'parser_init_edit_template.jinja2'
 
-  def __init__(self, template_path: str, mapping_helper: BaseMappingHelper):
+  def __init__(self,
+               template_path: str,
+               mapping_helper: base_mapping_helper.BaseMappingHelper):
     """Initializing the init mapper class.
 
     Args:

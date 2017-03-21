@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """fake for helper methods for mapping"""
-from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
+from plasoscaffolder.bll.mappings import base_mapping_helper
 
 
-class FakeMappingHelper(BaseMappingHelper):
+class FakeMappingHelper(base_mapping_helper.BaseMappingHelper):
   """Fake for the mapping helper."""
 
   def __init__(self, template_path: str):
