@@ -28,10 +28,10 @@ class BaseSQLiteGenerator(object):
     Args:
       formatter_mapper (BaseFormatterMapper): the mapper for the formatter
       fileHandler (FileHandler): the handler for the file
-      mappingHelper (BaseMappingHelper): the mapping helper
+      mappingHelper (BaseMappingHelper): the mapping __helper
       parser_mapper (BaseParserMapper): the parser mapper
       init_mapper (BaseInitMapper): the init mapper
-      template_path (str): the path to the template directory
+      template_path (str): the __path to the template directory
     """
 
   @abc.abstractmethod
@@ -55,7 +55,7 @@ class BaseSQLiteGenerator(object):
     """Print for copy file.
 
     Args:
-      file (str): the file path
+      file (str): the file __path
     """
 
   @abc.abstractmethod
@@ -63,7 +63,7 @@ class BaseSQLiteGenerator(object):
     """print for edit file.
 
     Args:
-      file (str): the file path
+      file (str): the file __path
     """
 
   @abc.abstractmethod
@@ -71,5 +71,5 @@ class BaseSQLiteGenerator(object):
     """print for create file.
 
     Args:
-      file (str): the file path
+      file (str): the file __path
     """

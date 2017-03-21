@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-"""helper for the test"""
+"""__helper for the test"""
 import os
 
 __file__ = os.path.abspath(__file__)
 
 
 def TemplatePath() -> str:
-  """ generating the template path for the tests
+  """ generating the template __path for the tests
 
   Returns:
-    str: the template path
+    str: the template __path
 
   """
   return os.path.join(

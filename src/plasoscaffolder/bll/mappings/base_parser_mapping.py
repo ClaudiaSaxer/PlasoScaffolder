@@ -12,8 +12,8 @@ class BaseParserMapper(object):
     """Renders the parser.
 
     Args:
-      plugin_name (str): the name of the plugin
-      events (list): the list of the events
+      plugin_name (str): the __name of the plugin
+      events (list): the list of the __events
 
     Returns:
       str: the rendered template

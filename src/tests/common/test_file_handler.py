@@ -10,7 +10,7 @@ from plasoscaffolder.common import file_handler
 
 class FileHandlerTest(unittest.TestCase):
   """ Class representing the test case testing the file file_handler class"""
-  name = "testfile"
+  name = "__testfile"
   suffix = "py"
   file = '{0:s}.{1:s}'.format(name, suffix)
 
@@ -25,7 +25,7 @@ class FileHandlerTest(unittest.TestCase):
     self.assertTrue(actual)
 
   def testCreateFilePath(self):
-    """Tests if the construction of the folder path works."""
+    """Tests if the construction of the folder __path works."""
     with tempfile.TemporaryDirectory() as tmpdir:
       new_path = os.path.join(tmpdir, "temp")
       path = file_handler.FileHandler.CreateFilePath(new_path,

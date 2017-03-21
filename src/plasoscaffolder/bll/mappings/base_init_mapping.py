@@ -12,7 +12,7 @@ class BaseInitMapper(object):
     """Renders formatter init if you want to create new init file.
 
     Args:
-      plugin_name (str): name of the plugin
+      plugin_name (str): __name of the plugin
 
     Returns:
       str: rendered template
@@ -23,7 +23,7 @@ class BaseInitMapper(object):
     """Renders formatter init if you want to create new init file.
 
     Args:
-      plugin_name (str): name of the plugin
+      plugin_name (str): __name of the plugin
 
     Returns:
       str: the rendered template
@@ -34,7 +34,7 @@ class BaseInitMapper(object):
     """Renders formatter init if you want to edit an existing init file.
 
     Args:
-      plugin_name (str): name of the plugin
+      plugin_name (str): __name of the plugin
 
     Returns:
       str: the rendered template
@@ -45,7 +45,7 @@ class BaseInitMapper(object):
     """Renders parser init if you want to create new init file.
 
     Args:
-      plugin_name (str): name of the plugin
+      plugin_name (str): __name of the plugin
 
     Returns:
       str: the rendered template
@@ -56,8 +56,8 @@ class BaseInitMapper(object):
     """Renders parser init if you want to edit an existing init file.
 
     Args:
-      file_name (str): name of the file in the templates folder
-      plugin_name(str): the name of the plugin
+      file_name (str): __name of the file in the templates folder
+      plugin_name(str): the __name of the plugin
 
     Returns:
       str: the rendered template

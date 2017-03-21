@@ -14,12 +14,12 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
     """Initializes File Output Handler.
 
     Args:
-      filepath (str): the path to the file
+      filepath (str): the __path to the file
       fileHandler (BaseFileHandler): the file Handler
     """
     super().__init__()
-    self.file_handler = fileHandler()
-    self.path = filepath
+    self.__file_handler = fileHandler()
+    self.__path = filepath
 
   def PromptInfo(self, text: str) -> str:
     """A prompt for information with click.
@@ -51,7 +51,7 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
 
     Returns: the file the content was added
     """
-    return self.file_handler.AddContent(self.path, text)
+    return self.__file_handler.AddContent(self.__path, text)
 
   def PrintError(self, text: str) -> str:
     """A echo for errors with click.
@@ -61,7 +61,7 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
 
     Returns: the file the content was added
     """
-    return self.file_handler.AddContent(self.path, text)
+    return self.__file_handler.AddContent(self.__path, text)
 
   def Confirm(self, text: str):
     """A Confirm, Default Y, if no abort execution.

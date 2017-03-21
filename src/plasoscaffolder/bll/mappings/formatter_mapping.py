@@ -14,23 +14,23 @@ class FormatterMapper(base_formatter_mapping.BaseFormatterMapper):
     """Initializing the init mapper class.
 
     Args:
-      template_path (str): the path to the template directory
+      template_path (str): the __path to the template directory
     """
     super().__init__()
-    self.helper = mapping_helper(template_path)
+    self.__helper = mapping_helper(template_path)
 
   def GetFormatter(self, plugin_name: str, events: list) -> str:
     """Renders the formatter.
 
     Args:
-      plugin_name (str): the name of the plugin
-      events (list): the list of the events
+      plugin_name (str): the __name of the plugin
+      events (list): the list of the __events
 
     Returns:
       str: the rendered template
     """
-    class_name = self.helper.GenerateClassName(plugin_name)
+    class_name = self.__helper.GenerateClassName(plugin_name)
     context = {'PluginName': plugin_name, 'class_name': class_name,
-               'events': events}
-    rendered = self.helper.RenderTemplate(self._FORMATTER_TEMPLATE, context)
+               '__events': events}
+    rendered = self.__helper.RenderTemplate(self._FORMATTER_TEMPLATE, context)
     return rendered

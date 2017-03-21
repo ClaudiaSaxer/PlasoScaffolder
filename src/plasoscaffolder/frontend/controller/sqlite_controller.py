@@ -19,111 +19,111 @@ class SQLiteController(object):
 
   def __init__(self, output_handler: base_output_handler.BaseOutputHandler):
     super(SQLiteController, self).__init__()
-    self.path = None
-    self.name = None
-    self.testfile = None
-    self.events = None
-    self.plugin_helper = sqlite_plugin_helper.SQLitePluginHelper()
-    self.output_handler = output_handler
+    self.__path = None
+    self.__name = None
+    self.__testfile = None
+    self.__events = None
+    self.__plugin_helper = sqlite_plugin_helper.SQLitePluginHelper()
+    self.__output_handler = output_handler
 
   def SourcePath(self, _ctx: click.core.Context, _param: click.core.Option,
                  value: str) -> str:
-    """Saving the source path.
+    """Saving the source __path.
 
     Args:
       ctx (click.core.Context): the click context (automatically given via
       callback)
       param (click.core.Option): the click command (automatically given via
       callback)
-      value (str): the source path (automatically given via callback)
+      value (str): the source __path (automatically given via callback)
 
     Returns:
-      str: the source path representing the same as value
+      str: the source __path representing the same as value
     """
-    while not self.plugin_helper.FolderExists(value):
-      value = self.output_handler.PromptError(
+    while not self.__plugin_helper.FolderExists(value):
+      value = self.__output_handler.PromptError(
           'Folder does not exists. Enter correct one: ')
-    self.path = value
+    self.__path = value
     return value
 
   def PluginName(self, _ctx: click.core.Context, _param: click.core.Option,
                  value: str) -> str:
-    """Saving the plugin name.
+    """Saving the plugin __name.
 
     Args:
       ctx (click.core.Context): the click context (automatically given via
       callback)
       param (click.core.Option): the click command (automatically given via
       callback)
-      value (str): the source path (automatically given via callback)
+      value (str): the source __path (automatically given via callback)
 
     Returns:
-      str: the plugin name representing the same as value
+      str: the plugin __name representing the same as value
     """
     value = self._ValidatePluginName(value)
-    while self.plugin_helper.PluginExists(
-        self.path, value,
+    while self.__plugin_helper.PluginExists(
+        self.__path, value,
         sqlite_plugin_path_helper.SQLitePluginPathHelper):
-      value = self.output_handler.PromptError(
-          'Plugin exists. Choose new name: ')
+      value = self.__output_handler.PromptError(
+          'Plugin exists. Choose new __name: ')
       value = self._ValidatePluginName(value)
 
-    self.name = value
+    self.__name = value
     return value
 
   def TestPath(self, _ctx: click.core.Context, _param: click.core.Option,
                value: str) -> str:
-    """Saving the path to the test file.
+    """Saving the __path to the test file.
 
     Args:
       ctx (click.core.Context): the click context (automatically given via
       callback)
       param (click.core.Option): the click command (automatically given via
       callback)
-      value (str): the source path (automatically given via callback)
+      value (str): the source __path (automatically given via callback)
 
     Returns:
-      str: the test file path representing the same as the value
+      str: the test file __path representing the same as the value
     """
-    while not self.plugin_helper.FileExists(value):
-      value = self.output_handler.PromptError(
+    while not self.__plugin_helper.FileExists(value):
+      value = self.__output_handler.PromptError(
           'File does not exists. Choose another: ')
-    self.testfile = value
+    self.__testfile = value
     return value
 
   def Event(self, _ctx: click.core.Context, _param: click.core.Option,
             value: str) -> str:
-    """The events of the plugin
+    """The __events of the plugin
 
     Args:
       ctx (click.core.Context): the click context (automatically given via
       callback)
       param (click.core.Option): the click command (automatically given via
       callback)
-      value (str): the source path (automatically given via callback)
+      value (str): the source __path (automatically given via callback)
 
     Returns:
-      str: the events of the plugin
+      str: the __events of the plugin
     """
-    self.events = value.title().split()
-    return self.events
+    self.__events = value.title().split()
+    return self.__events
 
   def Generate(self, template_path: str):
     """Generating the files.
 
     Args:
-      template_path (str): the path to the template directory
+      template_path (str): the __path to the template directory
     """
     generator = sqlite_generator.SQLiteGenerator(
-        self.path,
-        self.name,
-        self.testfile,
-        self.events,
+        self.__path,
+        self.__name,
+        self.__testfile,
+        self.__events,
         output_handler_click.OutputHandlerClick(),
         sqlite_plugin_helper.SQLitePluginHelper,
         sqlite_plugin_path_helper.SQLitePluginPathHelper)
 
-    self.output_handler.Confirm('Do you want to Generate the files?')
+    self.__output_handler.Confirm('Do you want to Generate the files?')
 
     generator.GenerateSQLitePlugin(template_path, file_handler.FileHandler,
                                    init_mapping.InitMapper,
@@ -132,16 +132,16 @@ class SQLiteController(object):
                                    mapping_helper.MappingHelper)
 
   def _ValidatePluginName(self, plugin_name: str) -> str:
-    """Validate plugin name and prompt until name is valid
+    """Validate plugin __name and prompt until __name is valid
 
     Args:
-      plugin_name: the name of the plugin
+      plugin_name: the __name of the plugin
 
     Returns:
-      a valid plugin name
+      a valid plugin __name
     """
-    while not self.plugin_helper.IsValidPluginName(plugin_name):
-      plugin_name = self.output_handler.PromptError(
-          'Plugin is not in a valide format. Choose new name ['
+    while not self.__plugin_helper.IsValidPluginName(plugin_name):
+      plugin_name = self.__output_handler.PromptError(
+          'Plugin is not in a valide format. Choose new __name ['
           'plugin_name_...]: ')
     return plugin_name
