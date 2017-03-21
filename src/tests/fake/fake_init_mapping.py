@@ -10,17 +10,17 @@ class FakeInitMapper(BaseInitMapper):
   def __init__(self, template_path: str, mapping_helper: BaseMappingHelper):
     pass
 
-  def get_formatter_init_create(self, plugin_name: str) -> str:
+  def GetFormatterInitCreate(self, plugin_name: str) -> str:
     return plugin_name
 
-  def get_formatter_init_edit(self, plugin_name: str) -> str:
+  def GetFormatterInitEdit(self, plugin_name: str) -> str:
     return plugin_name
 
-  def get_parser_init_create(self, plugin_name: str) -> str:
+  def GetParserInitCreate(self, plugin_name: str) -> str:
     return plugin_name
 
-  def get_parser_init_edit(self, plugin_name: str) -> str:
+  def GetParserInitEdit(self, plugin_name: str) -> str:
     return plugin_name
 
-  def _render_init(self, file_name: str, plugin_name: str) -> str:
+  def _RenderInit(self, file_name: str, plugin_name: str) -> str:
     return plugin_name

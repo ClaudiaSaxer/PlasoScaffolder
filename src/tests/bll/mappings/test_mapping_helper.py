@@ -17,18 +17,18 @@ class MyTestCase(unittest.TestCase):
     self.file = "test_template.jinja2"
     self.helper = MappingHelper(self.template_path)
 
-  def test_render(self):
+  def testRender(self):
     """test the render """
-    context = {'plugin_name': self.plugin_name}
-    actual = self.helper.render_template(self.file, context)
+    context = {'PluginName': self.plugin_name}
+    actual = self.helper.RenderTemplate(self.file, context)
     expected = "# -*- coding: utf-8 -*-\ntest " + self.plugin_name
     self.assertEqual(expected, actual)
 
-  def test_generate_classname(self):
+  def testGenerateClassName(self):
     """Test the generation of the classname from the pluginname"""
     name = "this_is_a_test"
     expected = "ThisIsATest"
-    actual = self.helper.generate_class_name(name)
+    actual = self.helper.GenerateClassName(name)
     self.assertEqual(expected, actual)
 
 

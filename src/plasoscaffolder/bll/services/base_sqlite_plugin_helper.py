@@ -11,7 +11,7 @@ class BaseSQLitePluginHelper(object):
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def plugin_exists(self, path: str, plugin_name: str,
+  def PluginExists(self, path: str, plugin_name: str,
                     sqlitePluginPathHelper: BaseSQLitePluginPathHelper) -> bool:
     """Checks if the plugin already exists.
 
@@ -25,7 +25,7 @@ class BaseSQLitePluginHelper(object):
     """
 
   @abc.abstractmethod
-  def file_exists(self, path: str) -> bool:
+  def FileExists(self, path: str) -> bool:
     """Checks if the file exists.
 
     Args:
@@ -33,7 +33,7 @@ class BaseSQLitePluginHelper(object):
     """
 
   @abc.abstractmethod
-  def folder_exists(self, path: str) -> bool:
+  def FolderExists(self, path: str) -> bool:
     """Checks if folder exists.
 
     Args:
@@ -41,7 +41,7 @@ class BaseSQLitePluginHelper(object):
     """
 
   @abc.abstractmethod
-  def valide_plugin_name(self, plugin_name: str) -> bool:
+  def IsValidPluginName(self, plugin_name: str) -> bool:
     """Validates the plugin name.
 
     Args:

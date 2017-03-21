@@ -19,7 +19,7 @@ class MappingHelper(BaseMappingHelper):
     self.template_path = template_path
 
   @property
-  def _get_template_environment(self) -> Environment:
+  def _GetTemplateEnvironment(self) -> Environment:
     """Returns the template environment.
 
     Returns:
@@ -29,7 +29,7 @@ class MappingHelper(BaseMappingHelper):
                        loader=FileSystemLoader(self.template_path),
                        trim_blocks=False)
 
-  def render_template(self, template_filename: str, context: dict) -> str:
+  def RenderTemplate(self, template_filename: str, context: dict) -> str:
     """Renders the template.
 
        Args:
@@ -39,10 +39,10 @@ class MappingHelper(BaseMappingHelper):
        Returns:
          str: the rendered template
        """
-    return self._get_template_environment.get_template(
+    return self._GetTemplateEnvironment.get_template(
         template_filename).render(context)
 
-  def generate_class_name(self, plugin_name: str) -> str:
+  def GenerateClassName(self, plugin_name: str) -> str:
     """Generates the class name.
 
     Args:

@@ -10,7 +10,7 @@ class BaseMappingHelper(object):
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def _get_template_environment(self) -> Environment:
+  def _GetTemplateEnvironment(self) -> Environment:
     """Returns the template environment.
 
     Returns:
@@ -18,7 +18,7 @@ class BaseMappingHelper(object):
     """
 
   @abc.abstractmethod
-  def render_template(self, template_filename: str, context: dict) -> str:
+  def RenderTemplate(self, template_filename: str, context: dict) -> str:
     """Renders the template.
 
     Args:
@@ -30,7 +30,7 @@ class BaseMappingHelper(object):
     """
 
   @abc.abstractmethod
-  def generate_class_name(self, plugin_name: str) -> str:
+  def GenerateClassName(self, plugin_name: str) -> str:
     """Generates the class name.
 
     Args:

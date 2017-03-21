@@ -18,7 +18,7 @@ class OutputHandlerFile(BaseOutputHandler):
     self.file_handler = fileHandler()
     self.path = filepath
 
-  def prompt_info(self, text: str) -> str:
+  def PromptInfo(self, text: str) -> str:
     """A prompt for information with click.
 
     Args:
@@ -29,7 +29,7 @@ class OutputHandlerFile(BaseOutputHandler):
     """
     raise NotImplementedError
 
-  def prompt_error(self, text: str) -> str:
+  def PromptError(self, text: str) -> str:
     """A prompt for errors with click.
 
     Args:
@@ -40,7 +40,7 @@ class OutputHandlerFile(BaseOutputHandler):
     """
     raise NotImplementedError
 
-  def print_info(self, text: str) -> str:
+  def PrintInfo(self, text: str) -> str:
     """A echo for infos with click.
 
     Args:
@@ -48,9 +48,9 @@ class OutputHandlerFile(BaseOutputHandler):
 
     Returns: the file the content was added
     """
-    return self.file_handler.add_content(self.path, text)
+    return self.file_handler.AddContent(self.path, text)
 
-  def print_error(self, text: str) -> str:
+  def PrintError(self, text: str) -> str:
     """A echo for errors with click.
 
     Args:
@@ -58,12 +58,12 @@ class OutputHandlerFile(BaseOutputHandler):
 
     Returns: the file the content was added
     """
-    return self.file_handler.add_content(self.path, text)
+    return self.file_handler.AddContent(self.path, text)
 
-  def confirm(self, text: str):
-    """A confirm, Default Y, if no abort execution.
+  def Confirm(self, text: str):
+    """A Confirm, Default Y, if no abort execution.
 
     Args:
-      text (str): The text to confirm
+      text (str): The text to Confirm
     """
     raise NotImplementedError

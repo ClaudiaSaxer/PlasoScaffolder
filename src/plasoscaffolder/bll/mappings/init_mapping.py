@@ -21,7 +21,7 @@ class InitMapper(BaseInitMapper):
     super().__init__()
     self.helper = mapping_helper(template_path)
 
-  def get_formatter_init_create(self, plugin_name: str) -> str:
+  def GetFormatterInitCreate(self, plugin_name: str) -> str:
     """Renders formatter init if you want to create new init file.
 
     Args:
@@ -30,9 +30,9 @@ class InitMapper(BaseInitMapper):
     Returns:
       str: the rendered template
     """
-    return self._render_init(self._FORMATTER_INIT_CREATE_TEMPLATE, plugin_name)
+    return self._RenderInit(self._FORMATTER_INIT_CREATE_TEMPLATE, plugin_name)
 
-  def get_formatter_init_edit(self, plugin_name: str) -> str:
+  def GetFormatterInitEdit(self, plugin_name: str) -> str:
     """Renders formatter init if you want to create new init file.
 
     Args:
@@ -41,9 +41,9 @@ class InitMapper(BaseInitMapper):
     Returns:
        str: the rendered template
     """
-    return self._render_init(self._FORMATTER_INIT_EDIT_TEMPLATE, plugin_name)
+    return self._RenderInit(self._FORMATTER_INIT_EDIT_TEMPLATE, plugin_name)
 
-  def get_parser_init_create(self, plugin_name: str) -> str:
+  def GetParserInitCreate(self, plugin_name: str) -> str:
     """Renders formatter init if you want to edit an existing init file.
 
     Args:
@@ -52,9 +52,9 @@ class InitMapper(BaseInitMapper):
     Returns:
        str: the rendered template
     """
-    return self._render_init(self._PARSER_INIT_CREATE_TEMPLATE, plugin_name)
+    return self._RenderInit(self._PARSER_INIT_CREATE_TEMPLATE, plugin_name)
 
-  def get_parser_init_edit(self, plugin_name: str) -> str:
+  def GetParserInitEdit(self, plugin_name: str) -> str:
     """Renders parser init if you want to create new init file.
 
     Args:
@@ -63,9 +63,9 @@ class InitMapper(BaseInitMapper):
     Returns:
        str: the rendered template
     """
-    return self._render_init(self._PARSER_INIT_EDIT_TEMPLATE, plugin_name)
+    return self._RenderInit(self._PARSER_INIT_EDIT_TEMPLATE, plugin_name)
 
-  def _render_init(self, file_name: str, plugin_name: str) -> str:
+  def _RenderInit(self, file_name: str, plugin_name: str) -> str:
     """Renders parser init if you want to edit an existing init file.
 
     Args:
@@ -75,6 +75,6 @@ class InitMapper(BaseInitMapper):
     Returns:
        str: the rendered template
     """
-    context = {'plugin_name': plugin_name}
-    rendered = self.helper.render_template(file_name, context)
+    context = {'PluginName': plugin_name}
+    rendered = self.helper.RenderTemplate(file_name, context)
     return rendered

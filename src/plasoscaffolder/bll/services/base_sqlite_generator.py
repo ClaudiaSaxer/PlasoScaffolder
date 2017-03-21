@@ -16,7 +16,7 @@ class BaseSQLiteGenerator(object):
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def generate_sqlite_plugin(self, template_path: str,
+  def GenerateSQLitePlugin(self, template_path: str,
                              fileHandler: BaseFileHandler,
                              init_mapper: BaseInitMapper,
                              parser_mapper: BaseParserMapper,
@@ -34,7 +34,7 @@ class BaseSQLiteGenerator(object):
     """
 
   @abc.abstractmethod
-  def _print(self, formatter: str, parser: str, formatter_test: str,
+  def _Print(self, formatter: str, parser: str, formatter_test: str,
              parser_test: str, database: str, parser_init: str,
              formatter_init: str):
     """Printing the information to the generated files.
@@ -50,7 +50,7 @@ class BaseSQLiteGenerator(object):
     """
 
   @abc.abstractmethod
-  def _print_copy(self, file: str):
+  def _PrintCopy(self, file: str):
     """Print for copy file.
 
     Args:
@@ -58,7 +58,7 @@ class BaseSQLiteGenerator(object):
     """
 
   @abc.abstractmethod
-  def _print_edit(self, file: str):
+  def _PrintEdit(self, file: str):
     """print for edit file.
 
     Args:
@@ -66,7 +66,7 @@ class BaseSQLiteGenerator(object):
     """
 
   @abc.abstractmethod
-  def _print_create(self, file: os.path):
+  def _PrintCreate(self, file: os.path):
     """print for create file.
 
     Args:

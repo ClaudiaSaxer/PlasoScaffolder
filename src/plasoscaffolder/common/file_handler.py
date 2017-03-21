@@ -15,7 +15,7 @@ class FileHandler(BaseFileHandler):
     super().__init__()
 
   @classmethod
-  def create_file_path(cls, path: str, name: str, suffix: str) -> str:
+  def CreateFilePath(cls, path: str, name: str, suffix: str) -> str:
     """Creates the file path out of the directory path, filename and suffix.
 
     Args:
@@ -30,7 +30,7 @@ class FileHandler(BaseFileHandler):
     return os.path.join(path, file_name)
 
   @classmethod
-  def _create_folder(cls, directory_path):
+  def _CreateFolder(cls, directory_path):
     """Creates a folder only to be called if the target folder does not yet
      exists.
 
@@ -39,7 +39,7 @@ class FileHandler(BaseFileHandler):
      """
     os.makedirs(directory_path)
 
-  def create_file(
+  def CreateFile(
       self, directory_path: str, file_name: str, filename_suffix: str):
     """Creates a empty file.
 
@@ -52,15 +52,15 @@ class FileHandler(BaseFileHandler):
     Returns:
       str: the path of the created file
     """
-    file_path = self.create_file_path(directory_path, file_name,
+    file_path = self.CreateFilePath(directory_path, file_name,
                                       filename_suffix)
     if not os.path.exists(file_path):
-      self._create_folder(directory_path)
+      self._CreateFolder(directory_path)
 
     Path(file_path).touch()
     return file_path
 
-  def create_file_from_path(self, file_path: str) -> str:
+  def CreateFileFromPath(self, file_path: str) -> str:
     """Creates a empty file.
 
     Args:
@@ -69,11 +69,11 @@ class FileHandler(BaseFileHandler):
     Returns:
       str: the path of the created file
     """
-    self._create_folder_for_file_path_if_not_exist(file_path)
+    self.CreateFolderForFilePathIfNotExist(file_path)
     Path(file_path).touch()
     return file_path
 
-  def copy_file(self, source: str, destination: str) -> str:
+  def CopyFile(self, source: str, destination: str) -> str:
     """Copies a file.
 
       Args:
@@ -83,16 +83,16 @@ class FileHandler(BaseFileHandler):
       Returns:
         str: the path of the copied file
       """
-    self._create_folder_for_file_path_if_not_exist(destination)
+    self.CreateFolderForFilePathIfNotExist(destination)
     copyfile(source, destination)
     return destination
 
-  def create_or_modify_file_with_content(self, source: str, content: str):
-    self._create_folder_for_file_path_if_not_exist(source)
-    self._add_content_to_file(source, content)
+  def CreateOrModifyFileWithContent(self, source: str, content: str):
+    self.CreateFolderForFilePathIfNotExist(source)
+    self.AddContent(source, content)
 
   @classmethod
-  def add_content(cls, source: str, content: str) -> str:
+  def AddContent(cls, source: str, content: str) -> str:
     """Add content to a file and create file if non existing.
 
     Args:
@@ -107,7 +107,7 @@ class FileHandler(BaseFileHandler):
 
     return source
 
-  def _create_folder_for_file_path_if_not_exist(self, file_path: str):
+  def CreateFolderForFilePathIfNotExist(self, file_path: str):
     """Creates folders for the given file if it does not exist.
 
     Args:
@@ -118,5 +118,5 @@ class FileHandler(BaseFileHandler):
     """
     directory_path = os.path.dirname(file_path)
     if not os.path.exists(directory_path):
-      self._create_folder(directory_path)
+      self._CreateFolder(directory_path)
     return directory_path

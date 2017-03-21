@@ -5,7 +5,7 @@ import os
 __file__ = os.path.abspath(__file__)
 
 
-def template_path() -> str:
+def TemplatePath() -> str:
   """ generating the template path for the tests
 
   Returns:

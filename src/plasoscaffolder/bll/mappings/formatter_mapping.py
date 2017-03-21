@@ -19,7 +19,7 @@ class FormatterMapper(BaseFormatterMapper):
     super().__init__()
     self.helper = mapping_helper(template_path)
 
-  def get_formatter(self, plugin_name: str, events: list) -> str:
+  def GetFormatter(self, plugin_name: str, events: list) -> str:
     """Renders the formatter.
 
     Args:
@@ -29,8 +29,8 @@ class FormatterMapper(BaseFormatterMapper):
     Returns:
       str: the rendered template
     """
-    class_name = self.helper.generate_class_name(plugin_name)
-    context = {'plugin_name': plugin_name, 'class_name': class_name,
+    class_name = self.helper.GenerateClassName(plugin_name)
+    context = {'PluginName': plugin_name, 'class_name': class_name,
                'events'     : events}
-    rendered = self.helper.render_template(self._FORMATTER_TEMPLATE, context)
+    rendered = self.helper.RenderTemplate(self._FORMATTER_TEMPLATE, context)
     return rendered

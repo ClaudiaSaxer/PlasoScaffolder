@@ -27,7 +27,7 @@ class SQLiteGeneratorTest(unittest.TestCase):
     if os.path.isfile(self.testfile):
       os.remove(self.testfile)
 
-  def test_print_copy(self):
+  def testPrintCopy(self):
     """test the print for a copy"""
     with tempfile.TemporaryDirectory() as tmpdir:
       path_helper = FakeSQLitePluginPathHelper
@@ -35,12 +35,12 @@ class SQLiteGeneratorTest(unittest.TestCase):
       generator = SQLiteGenerator(tmpdir, 'test', 'test', ['test'],
                                   OutputHandlerFile(file, FileHandler),
                                   self.plugin_helper, path_helper)
-      generator._print_copy(file)  # pylint: disable=W0212
+      generator._PrintCopy(file)  # pylint: disable=W0212
       expected = "copy " + file
-      actual = self._readFromFile(file)
+      actual = self._ReadFromFile(file)
     self.assertEqual(expected, actual)
 
-  def test_print_edit(self):
+  def testPrintEdit(self):
     """test the print for a edit"""
     with tempfile.TemporaryDirectory() as tmpdir:
       path_helper = FakeSQLitePluginPathHelper
@@ -48,12 +48,12 @@ class SQLiteGeneratorTest(unittest.TestCase):
       generator = SQLiteGenerator(tmpdir, 'test', 'test', ['test'],
                                   OutputHandlerFile(file, FileHandler),
                                   self.plugin_helper, path_helper)
-      generator._print_edit(file)  # pylint: disable=W0212
+      generator._PrintEdit(file)  # pylint: disable=W0212
       expected = "edit " + file
-      actual = self._readFromFile(file)
+      actual = self._ReadFromFile(file)
     self.assertEqual(expected, actual)
 
-  def test_print_create(self):
+  def testPrintCreate(self):
     """test the print for a create"""
     with tempfile.TemporaryDirectory() as tmpdir:
       path_helper = FakeSQLitePluginPathHelper
@@ -61,12 +61,12 @@ class SQLiteGeneratorTest(unittest.TestCase):
       generator = SQLiteGenerator(tmpdir, 'test', 'test', ['test'],
                                   OutputHandlerFile(file, FileHandler),
                                   self.plugin_helper, path_helper)
-      generator._print_create(file)  # pylint: disable=W0212
+      generator._PrintCreate(file)  # pylint: disable=W0212
       expected = "create " + file
-      actual = self._readFromFile(file)
+      actual = self._ReadFromFile(file)
     self.assertEqual(expected, actual)
 
-  def test_generate_sqlite_plugin(self):
+  def testGenerateSQLitePlugin(self):
     """test the output of a generation of a sqlite plugin"""
     file_handler = FakeFileHandler
     init_mapper = FakeInitMapper
@@ -79,15 +79,15 @@ class SQLiteGeneratorTest(unittest.TestCase):
       generator = SQLiteGenerator(tmpdir, 'test', 'test', ['test'],
                                   OutputHandlerFile(file, FileHandler),
                                   self.plugin_helper, path_helper)
-      generator.generate_sqlite_plugin(tmpdir, file_handler, init_mapper,
+      generator.GenerateSQLitePlugin(tmpdir, file_handler, init_mapper,
                                        parser_mapper, formatter_mapper,
                                        mapping_helper)
       expected = ("create testcreate testcreate testcreate testcopy testcreate "
                   "testcreate test")
-      actual = self._readFromFile(file)
+      actual = self._ReadFromFile(file)
     self.assertEqual(expected, actual)
 
-  def test_print(self):
+  def testPrint(self):
     """test print"""
     with tempfile.TemporaryDirectory() as tmpdir:
       path_helper = FakeSQLitePluginPathHelper
@@ -95,15 +95,15 @@ class SQLiteGeneratorTest(unittest.TestCase):
       generator = SQLiteGenerator(tmpdir, 'test', 'test', ['test'],
                                   OutputHandlerFile(file, FileHandler),
                                   self.plugin_helper, path_helper)
-      generator._print("test1", "test2", "test3", "test4", "test5", "test6",
+      generator._Print("test1", "test2", "test3", "test4", "test5", "test6",
                        "test7")  # pylint: disable=W0212
-      actual = self._readFromFile(file)
+      actual = self._ReadFromFile(file)
 
     expected = "create test1create test2create test3create test4copy " \
                "test5create test6create test7"
     self.assertEqual(expected, actual)
 
-  def _readFromFile(self, path: str):
+  def _ReadFromFile(self, path: str):
     """read from file helper"""
     with open(path, 'r') as f:
       return f.read()

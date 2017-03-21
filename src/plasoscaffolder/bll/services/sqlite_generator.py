@@ -41,16 +41,16 @@ class SQLiteGenerator(BaseSQLiteGenerator):
     self.name = name
     self.database = database
     self.path_helper = pathHelper(path, name)
-    self.output = output_handler.print_info
+    self.output = output_handler.PrintInfo
     self.plugin_helper = pluginHelper()
     self.events = events
 
-    self.init_formatter_exists = self.plugin_helper.file_exists(
-        self.path_helper.formatter_init_file_path())
-    self.init_parser_exists = self.plugin_helper.file_exists(
-        self.path_helper.parser_init_file_path())
+    self.init_formatter_exists = self.plugin_helper.FileExists(
+        self.path_helper.FormatterInitFilePath())
+    self.init_parser_exists = self.plugin_helper.FileExists(
+        self.path_helper.ParserInitFilePath())
 
-  def generate_sqlite_plugin(self, template_path: str,
+  def GenerateSQLitePlugin(self, template_path: str,
                              fileHandler: BaseFileHandler,
                              init_mapper: BaseInitMapper,
                              parser_mapper: BaseParserMapper,
@@ -73,39 +73,39 @@ class SQLiteGenerator(BaseSQLiteGenerator):
     parser_mapper = parser_mapper(template_path, mappingHelper)
     formatter_mapper = formatter_mapper(template_path, mappingHelper)
 
-    file = file_handler.create_file_from_path
-    copy = file_handler.copy_file
-    edit = file_handler.add_content
+    file = file_handler.CreateFileFromPath
+    copy = file_handler.CopyFile
+    edit = file_handler.AddContent
 
     if self.init_formatter_exists:
-      content_init_formatter = init_mapper.get_formatter_init_edit(self.name)
+      content_init_formatter = init_mapper.GetFormatterInitEdit(self.name)
     else:
-      content_init_formatter = init_mapper.get_formatter_init_create(self.name)
+      content_init_formatter = init_mapper.GetFormatterInitCreate(self.name)
 
     if self.init_parser_exists:
-      content_init_parser = init_mapper.get_parser_init_edit(self.name)
+      content_init_parser = init_mapper.GetParserInitEdit(self.name)
     else:
-      content_init_parser = init_mapper.get_parser_init_create(self.name)
+      content_init_parser = init_mapper.GetParserInitCreate(self.name)
 
-    content_parser = parser_mapper.get_parser(self.name, self.events)
-    content_formatter = formatter_mapper.get_formatter(self.name, self.events)
+    content_parser = parser_mapper.GetParser(self.name, self.events)
+    content_formatter = formatter_mapper.GetFormatter(self.name, self.events)
 
-    formatter = edit(self.path_helper.formatter_file_path(), content_formatter)
-    parser = edit(self.path_helper.parser_file_path(), content_parser)
-    formatter_test = file(self.path_helper.formatter_test_file_path())
-    parser_test = file(self.path_helper.parser_test_file_path())
+    formatter = edit(self.path_helper.FormatterFilePath(), content_formatter)
+    parser = edit(self.path_helper.ParserFilePath(), content_parser)
+    formatter_test = file(self.path_helper.FormatterTestFilePath())
+    parser_test = file(self.path_helper.ParserTestFilePath())
     database = copy(self.database,
-                    self.path_helper.database_path(
+                    self.path_helper.DatabasePath(
                         os.path.splitext(self.database)[1]))
-    parser_init = edit(self.path_helper.parser_init_file_path(),
+    parser_init = edit(self.path_helper.ParserInitFilePath(),
                        content_init_parser)
-    formatter_init = edit(self.path_helper.formatter_init_file_path(),
+    formatter_init = edit(self.path_helper.FormatterInitFilePath(),
                           content_init_formatter)
 
-    self._print(formatter, parser, formatter_test, parser_test, database,
+    self._Print(formatter, parser, formatter_test, parser_test, database,
                 parser_init, formatter_init)
 
-  def _print(
+  def _Print(
       self, formatter: str, parser: str, formatter_test: str,
       parser_test: str, database: str, parser_init: str,
       formatter_init: str):
@@ -120,21 +120,21 @@ class SQLiteGenerator(BaseSQLiteGenerator):
       parser_init(str): the parser init file
       formatter_init(str): the formatter init file
     """
-    self._print_create(formatter)
-    self._print_create(parser)
-    self._print_create(formatter_test)
-    self._print_create(parser_test)
-    self._print_copy(database)
+    self._PrintCreate(formatter)
+    self._PrintCreate(parser)
+    self._PrintCreate(formatter_test)
+    self._PrintCreate(parser_test)
+    self._PrintCopy(database)
     if self.init_parser_exists:
-      self._print_edit(parser_init)
+      self._PrintEdit(parser_init)
     else:
-      self._print_create(parser_init)
+      self._PrintCreate(parser_init)
     if self.init_formatter_exists:
-      self._print_edit(formatter_init)
+      self._PrintEdit(formatter_init)
     else:
-      self._print_create(formatter_init)
+      self._PrintCreate(formatter_init)
 
-  def _print_copy(self, file: str):
+  def _PrintCopy(self, file: str):
     """Print for copy file.
 
     Args:
@@ -142,7 +142,7 @@ class SQLiteGenerator(BaseSQLiteGenerator):
     """
     self.output('copy ' + file)
 
-  def _print_edit(self, file: str):
+  def _PrintEdit(self, file: str):
     """Print for edit file.
 
     Args:
@@ -150,7 +150,7 @@ class SQLiteGenerator(BaseSQLiteGenerator):
     """
     self.output('edit ' + file)
 
-  def _print_create(self, file: str):
+  def _PrintCreate(self, file: str):
     """Print for create file.
 
     Args:

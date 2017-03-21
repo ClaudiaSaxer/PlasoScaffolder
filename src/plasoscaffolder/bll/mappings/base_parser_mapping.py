@@ -8,7 +8,7 @@ class BaseParserMapper(object):
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def get_parser(self, plugin_name: str, events: list) -> str:
+  def GetParser(self, plugin_name: str, events: list) -> str:
     """Renders the parser.
 
     Args:

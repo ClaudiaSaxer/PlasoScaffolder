@@ -8,7 +8,7 @@ class BaseOutputHandler(object):
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def prompt_info(self, text: str) -> str:
+  def PromptInfo(self, text: str) -> str:
     """A prompt for information.
 
     Args:
@@ -19,7 +19,7 @@ class BaseOutputHandler(object):
     """
 
   @abc.abstractmethod
-  def prompt_error(self, text: str) -> str:
+  def PromptError(self, text: str) -> str:
     """A prompt for errors.
 
     Args:
@@ -30,7 +30,7 @@ class BaseOutputHandler(object):
     """
 
   @abc.abstractmethod
-  def print_info(self, text: str):
+  def PrintInfo(self, text: str):
     """A echo for infos.
 
     Args:
@@ -38,7 +38,7 @@ class BaseOutputHandler(object):
     """
 
   @abc.abstractmethod
-  def print_error(self, text: str):
+  def PrintError(self, text: str):
     """A echo for errors.
 
     Args:
@@ -46,9 +46,9 @@ class BaseOutputHandler(object):
     """
 
   @abc.abstractmethod
-  def confirm(self, text: str):
-    """A confirm, Default Y, if no abort execution.
+  def Confirm(self, text: str):
+    """A Confirm, Default Y, if no abort execution.
 
     Args:
-      text (str): The text to confirm
+      text (str): The text to Confirm
     """

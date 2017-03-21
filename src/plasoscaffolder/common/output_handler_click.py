@@ -11,7 +11,7 @@ class OutputHandlerClick(BaseOutputHandler):
   def __init__(self):
     super().__init__()
 
-  def prompt_info(self, text: str) -> str:
+  def PromptInfo(self, text: str) -> str:
     """A prompt for information with click.
 
     Args:
@@ -22,7 +22,7 @@ class OutputHandlerClick(BaseOutputHandler):
     """
     click.prompt(text, type=str)
 
-  def prompt_error(self, text: str) -> str:
+  def PromptError(self, text: str) -> str:
     """A prompt for errors with click.
 
     Args:
@@ -33,7 +33,7 @@ class OutputHandlerClick(BaseOutputHandler):
     """
     return click.prompt(click.style(text, fg='red'), type=str)
 
-  def print_info(self, text: str):
+  def PrintInfo(self, text: str):
     """A echo for infos with click.
 
     Args:
@@ -41,7 +41,7 @@ class OutputHandlerClick(BaseOutputHandler):
     """
     click.echo(text)
 
-  def print_error(self, text: str):
+  def PrintError(self, text: str):
     """A echo for errors with click.
 
     Args:
@@ -49,10 +49,10 @@ class OutputHandlerClick(BaseOutputHandler):
     """
     click.echo(text, color='red')
 
-  def confirm(self, text: str):
-    """A confirm, Default Y, if no abort execution.
+  def Confirm(self, text: str):
+    """A Confirm, Default Y, if no abort execution.
 
     Args:
-      text (str): The text to confirm
+      text (str): The text to Confirm
     """
     click.confirm(text, abort=True, default=True)

@@ -10,23 +10,23 @@ class FakeSQLitePluginPathHelper(BaseSQLitePluginPathHelper):
     self.path = str(path)
     self.file_name = str(plugin_name)
 
-  def formatter_file_path(self) -> str:
+  def FormatterFilePath(self) -> str:
     return self.file_name
 
-  def parser_file_path(self) -> str:
+  def ParserFilePath(self) -> str:
     return self.file_name
 
-  def formatter_test_file_path(self) -> str:
+  def FormatterTestFilePath(self) -> str:
     return self.file_name
 
-  def parser_test_file_path(self) -> str:
+  def ParserTestFilePath(self) -> str:
     return self.file_name
 
-  def database_path(self, suffix: str) -> str:
+  def DatabasePath(self, suffix: str) -> str:
     return self.file_name
 
-  def parser_init_file_path(self) -> str:
+  def ParserInitFilePath(self) -> str:
     return self.file_name
 
-  def formatter_init_file_path(self) -> str:
+  def FormatterInitFilePath(self) -> str:
     return self.file_name

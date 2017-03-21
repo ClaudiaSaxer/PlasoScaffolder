@@ -8,7 +8,7 @@ class BaseSQLitePluginPathHelper(object):
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def formatter_file_path(self) -> str:
+  def FormatterFilePath(self) -> str:
     """The formatter file path for the SQLite plugin for the plaso folder.
 
     Returns:
@@ -16,7 +16,7 @@ class BaseSQLitePluginPathHelper(object):
     """
 
   @abc.abstractmethod
-  def parser_file_path(self) -> str:
+  def ParserFilePath(self) -> str:
     """ The parser file path for the SQLite plugin for the plaso folder.
 
     Returns:
@@ -24,7 +24,7 @@ class BaseSQLitePluginPathHelper(object):
     """
 
   @abc.abstractmethod
-  def formatter_test_file_path(self) -> str:
+  def FormatterTestFilePath(self) -> str:
     """ The formatter test file path for the SQLite plugin for the plaso folder.
 
     Returns:
@@ -32,7 +32,7 @@ class BaseSQLitePluginPathHelper(object):
     """
 
   @abc.abstractmethod
-  def parser_test_file_path(self) -> str:
+  def ParserTestFilePath(self) -> str:
     """ The parser test file path for the sqlite plugin for the plaso folder.
 
     Returns:
@@ -40,7 +40,7 @@ class BaseSQLitePluginPathHelper(object):
     """
 
   @abc.abstractmethod
-  def database_path(self, suffix: str) -> str:
+  def DatabasePath(self, suffix: str) -> str:
     """The database file path for the SQLite plugin for the plaso folder.
 
     Args:
@@ -51,7 +51,7 @@ class BaseSQLitePluginPathHelper(object):
     """
 
   @abc.abstractmethod
-  def parser_init_file_path(self) -> str:
+  def ParserInitFilePath(self) -> str:
     """ The parser init file path for the sqlite plugin for the plaso folder.
 
     Returns:
@@ -59,7 +59,7 @@ class BaseSQLitePluginPathHelper(object):
     """
 
   @abc.abstractmethod
-  def formatter_init_file_path(self) -> str:
+  def FormatterInitFilePath(self) -> str:
     """ The parser init file path for the sqlite plugin for the plaso folder.
 
     References:

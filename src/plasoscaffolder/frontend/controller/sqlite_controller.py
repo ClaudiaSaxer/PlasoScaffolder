@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""File representing the controller for SQLite plugin."""
+"""File representing the Controller for SQLite plugin."""
 import click
 
 from plasoscaffolder.bll.mappings.formatter_mapping import FormatterMapper
@@ -16,7 +16,7 @@ from plasoscaffolder.common.output_handler_click import OutputHandlerClick
 
 
 class SQLiteController(object):
-  """Class representing the controller for the SQLite controller."""
+  """Class representing the Controller for the SQLite Controller."""
 
   def __init__(self, output_handler: BaseOutputHandler):
     super(SQLiteController, self).__init__()
@@ -28,7 +28,7 @@ class SQLiteController(object):
     self.output_handler = output_handler
 
 
-  def source_path(self, _ctx: click.core.Context, _param: click.core.Option,
+  def SourcePath(self, _ctx: click.core.Context, _param: click.core.Option,
                   value: str) -> str:
     """Saving the source path.
 
@@ -42,13 +42,13 @@ class SQLiteController(object):
     Returns:
       str: the source path representing the same as value
     """
-    while not self.plugin_helper.folder_exists(value):
-      value = self.output_handler.prompt_error(
+    while not self.plugin_helper.FolderExists(value):
+      value = self.output_handler.PromptError(
           'Folder does not exists. Enter correct one: ')
     self.path = value
     return value
 
-  def plugin_name(self, _ctx: click.core.Context, _param: click.core.Option,
+  def PluginName(self, _ctx: click.core.Context, _param: click.core.Option,
                   value: str) -> str:
     """Saving the plugin name.
 
@@ -62,17 +62,17 @@ class SQLiteController(object):
     Returns:
       str: the plugin name representing the same as value
     """
-    value = self._validate(value)
-    while self.plugin_helper.plugin_exists(self.path, value,
+    value = self._ValidatePluginName(value)
+    while self.plugin_helper.PluginExists(self.path, value,
                                            SQLitePluginPathHelper):
-      value = self.output_handler.prompt_error(
+      value = self.output_handler.PromptError(
           'Plugin exists. Choose new name: ')
-      value = self._validate(value)
+      value = self._ValidatePluginName(value)
 
     self.name = value
     return value
 
-  def test_path(self, _ctx: click.core.Context, _param: click.core.Option,
+  def TestPath(self, _ctx: click.core.Context, _param: click.core.Option,
                 value: str) -> str:
     """Saving the path to the test file.
 
@@ -86,13 +86,13 @@ class SQLiteController(object):
     Returns:
       str: the test file path representing the same as the value
     """
-    while not self.plugin_helper.file_exists(value):
-      value = self.output_handler.prompt_error(
+    while not self.plugin_helper.FileExists(value):
+      value = self.output_handler.PromptError(
           'File does not exists. Choose another: ')
     self.testfile = value
     return value
 
-  def event(self, _ctx: click.core.Context, _param: click.core.Option,
+  def Event(self, _ctx: click.core.Context, _param: click.core.Option,
             value: str) -> str:
     """The events of the plugin
 
@@ -109,7 +109,7 @@ class SQLiteController(object):
     self.events = value.title().split()
     return self.events
 
-  def generate(self, template_path: str):
+  def Generate(self, template_path: str):
     """Generating the files.
 
     Args:
@@ -121,18 +121,18 @@ class SQLiteController(object):
                                 SQLitePluginPathHelper)
 
     if not generator.init_formatter_exists or not generator.init_parser_exists:
-      self.output_handler.confirm(
+      self.output_handler.Confirm(
           'At least one init file does not exist. Do you want the create them '
           '( '
           'or else abort)?')
 
-    self.output_handler.confirm('Do you want to generate the files?')
+    self.output_handler.Confirm('Do you want to Generate the files?')
 
-    generator.generate_sqlite_plugin(template_path, FileHandler, InitMapper,
+    generator.GenerateSQLitePlugin(template_path, FileHandler, InitMapper,
                                      ParserMapper, FormatterMapper,
                                      MappingHelper)
 
-  def _validate(self, plugin_name: str) -> str:
+  def _ValidatePluginName(self, plugin_name: str) -> str:
     """Validate plugin name and prompt until name is valid
 
     Args:
@@ -141,8 +141,8 @@ class SQLiteController(object):
     Returns:
       a valid plugin name
     """
-    while not self.plugin_helper.valide_plugin_name(plugin_name):
-      plugin_name = self.output_handler.prompt_error(
+    while not self.plugin_helper.IsValidPluginName(plugin_name):
+      plugin_name = self.output_handler.PromptError(
           'Plugin is not in a valide format. Choose new name ['
           'plugin_name_...]: ')
     return plugin_name

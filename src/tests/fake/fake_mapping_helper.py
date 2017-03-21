@@ -9,11 +9,11 @@ class FakeMappingHelper(BaseMappingHelper):
   def __init__(self, template_path: str):
     self.template_path = template_path
 
-  def _get_template_environment(self):
+  def _GetTemplateEnvironment(self):
     pass
 
-  def render_template(self, template_filename: str, context: dict) -> str:
+  def RenderTemplate(self, template_filename: str, context: dict) -> str:
     return "fake string " + template_filename
 
-  def generate_class_name(self, plugin_name: str) -> str:
+  def GenerateClassName(self, plugin_name: str) -> str:
     return "fake class name " + plugin_name

@@ -18,7 +18,7 @@ class ParserMapper(BaseParserMapper):
     super().__init__()
     self.helper = mapping_helper(template_path)
 
-  def get_parser(self, plugin_name: str, events: list) -> str:
+  def GetParser(self, plugin_name: str, events: list) -> str:
     """Renders the parser.
 
     Args:
@@ -28,8 +28,8 @@ class ParserMapper(BaseParserMapper):
     Returns:
       str: the rendered template
     """
-    class_name = self.helper.generate_class_name(plugin_name)
-    context = {'plugin_name': plugin_name, 'class_name': class_name,
+    class_name = self.helper.GenerateClassName(plugin_name)
+    context = {'PluginName': plugin_name, 'class_name': class_name,
                'events'     : events}
-    rendered = self.helper.render_template(self._PARSER_TEMPLATE, context)
+    rendered = self.helper.RenderTemplate(self._PARSER_TEMPLATE, context)
     return rendered

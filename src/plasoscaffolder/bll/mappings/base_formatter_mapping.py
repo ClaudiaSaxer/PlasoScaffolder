@@ -8,7 +8,7 @@ class BaseFormatterMapper(object):
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def get_formatter(self, plugin_name: str, events: list) -> str:
+  def GetFormatter(self, plugin_name: str, events: list) -> str:
     """Renders the formatter.
 
     Args:

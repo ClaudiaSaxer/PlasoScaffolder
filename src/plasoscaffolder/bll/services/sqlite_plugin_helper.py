@@ -16,7 +16,7 @@ class SQLitePluginHelper(BaseSQLitePluginHelper):
     """Initializes the sqlite plugin halper"""
     super().__init__()
 
-  def plugin_exists(self, path: str, plugin_name: str,
+  def PluginExists(self, path: str, plugin_name: str,
                     sqlitePluginPathHelper: BaseSQLitePluginPathHelper) -> bool:
     """Checks if the plugin already exists.
 
@@ -30,13 +30,13 @@ class SQLitePluginHelper(BaseSQLitePluginHelper):
     """
     helper = sqlitePluginPathHelper(path, plugin_name)
 
-    return (os.path.isfile(helper.formatter_file_path())
-            or os.path.isfile(helper.parser_file_path())
-            or os.path.isfile(helper.formatter_test_file_path())
-            or os.path.isfile(helper.parser_test_file_path())
-            or os.path.isfile(helper.database_path("")))
+    return (os.path.isfile(helper.FormatterFilePath())
+            or os.path.isfile(helper.ParserFilePath())
+            or os.path.isfile(helper.FormatterTestFilePath())
+            or os.path.isfile(helper.ParserTestFilePath())
+            or os.path.isfile(helper.DatabasePath("")))
 
-  def valide_plugin_name(self, plugin_name: str) -> bool:
+  def IsValidPluginName(self, plugin_name: str) -> bool:
     """Validates the plugin name.
 
     Args:
@@ -48,7 +48,7 @@ class SQLitePluginHelper(BaseSQLitePluginHelper):
     pattern = re.compile("[a-z]+((_)[a-z]+)*")
     return pattern.fullmatch(plugin_name)
 
-  def file_exists(self, path: str) -> bool:
+  def FileExists(self, path: str) -> bool:
     """Checks if the file exists
 
     Args:
@@ -58,7 +58,7 @@ class SQLitePluginHelper(BaseSQLitePluginHelper):
     """
     return os.path.isfile(path)
 
-  def folder_exists(self, path: str) -> bool:
+  def FolderExists(self, path: str) -> bool:
     """Checks if folder exists
 
     Args:

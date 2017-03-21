@@ -12,27 +12,27 @@ class FileOutputHandler(unittest.TestCase):
     self.file_path = "testpath"
     self.output = OutputHandlerFile(self.file_path, FakeFileHandler)
 
-  def test_prompt_info(self):
+  def testPromptInfo(self):
     """test prompt info, should raise not implemented error"""
     with self.assertRaises(NotImplementedError):
-      self.output.prompt_info("")
+      self.output.PromptInfo("")
 
   def test_prompt_error(self):
     """test prompt error, should raise not implemented error"""
     with self.assertRaises(NotImplementedError):
-      self.output.prompt_error("")
+      self.output.PromptError("")
 
-  def test_print_info(self):
+  def testPrintInfo(self):
     """test print info. should return the edited file"""
-    actual_file = self.output.print_info("the mighty")
+    actual_file = self.output.PrintInfo("the mighty")
     self.assertEqual(self.file_path, actual_file)
 
-  def test_print_error(self):
+  def testPrintError(self):
     """test print error. should return the edited file"""
-    actual_file = self.output.print_error("the mighty")
+    actual_file = self.output.PrintError("the mighty")
     self.assertEqual(self.file_path, actual_file)
 
-  def test_confirm(self):
-    """test confirm, should raise not implemented error"""
+  def testConfirm(self):
+    """test Confirm, should raise not implemented error"""
     with self.assertRaises(NotImplementedError):
-      self.output.confirm("")
+      self.output.Confirm("")

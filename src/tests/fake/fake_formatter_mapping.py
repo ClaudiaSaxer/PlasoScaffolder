@@ -11,5 +11,5 @@ class FakeFormatterMapper(BaseFormatterMapper):
   def __init__(self, template_path: str, mapping_helper: BaseMappingHelper):
     pass
 
-  def get_formatter(self, plugin_name: str, events: str) -> str:
+  def GetFormatter(self, plugin_name: str, events: str) -> str:
     return plugin_name
