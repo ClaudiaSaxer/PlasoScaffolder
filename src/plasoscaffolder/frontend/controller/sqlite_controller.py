@@ -120,12 +120,6 @@ class SQLiteController(object):
                                 SQLitePluginHelper,
                                 SQLitePluginPathHelper)
 
-    if not generator.init_formatter_exists or not generator.init_parser_exists:
-      self.output_handler.Confirm(
-          'At least one init file does not exist. Do you want the create them '
-          '( '
-          'or else abort)?')
-
     self.output_handler.Confirm('Do you want to Generate the files?')
 
     generator.GenerateSQLitePlugin(template_path, FileHandler, InitMapper,
