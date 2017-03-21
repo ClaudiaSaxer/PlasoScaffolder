@@ -10,11 +10,11 @@ from plaso.lib import errors
     """TODO"""
 
     FORMAT_STRING_PIECES = [
-    TODO
+      TODO
     ]
 
     FORMAT_STRING_SHORT_PIECES = [
-    TODO
+      TODO
     ]
 
     [DATA_TYPE = u'TODO' ]
@@ -37,15 +37,15 @@ from plaso.lib import errors
     Raises:
     WrongFormatter: if the Event object cannot be formatted by the formatter.
     """
-    if self.DATA_TYPE != Event.data_type:
-    raise errors.WrongFormatter(u'Unsupported data type: {0:s}.'.format(
-    Event.data_type))
+        if self.DATA_TYPE != Event.data_type:
+        raise errors.WrongFormatter(u'Unsupported data type: {0:s}.'.format(
+        Event.data_type))
 
-    event_values = Event.CopyToDict()
+        event_values = Event.CopyToDict()
 
-    #TODO
+        #TODO
 
-    return self._ConditionalFormatMessages(event_values)
+        return self._ConditionalFormatMessages(event_values)
 
 {% endfor %}
 manager.FormattersManager.RegisterFormatter([

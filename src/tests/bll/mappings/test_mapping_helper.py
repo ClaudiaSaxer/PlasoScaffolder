@@ -19,7 +19,7 @@ class MyTestCase(unittest.TestCase):
 
   def testRender(self):
     """test the render """
-    context = {'PluginName': self.plugin_name}
+    context = {'plugin_name': self.plugin_name}
     actual = self.helper.RenderTemplate(self.file, context)
     expected = "# -*- coding: utf-8 -*-\ntest " + self.plugin_name
     self.assertEqual(expected, actual)

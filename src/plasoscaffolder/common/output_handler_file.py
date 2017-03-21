@@ -10,7 +10,7 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
   def __init__(
       self,
       filepath: str,
-      fileHandler: base_file_handler.BaseFileHandler):
+      fileHandler: base_file_handler.BaseFileHandler()):
     """Initializes File Output Handler.
 
     Args:

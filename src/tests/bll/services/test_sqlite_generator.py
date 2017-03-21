@@ -14,14 +14,16 @@ from tests.fake.fake_mapping_helper import FakeMappingHelper
 from tests.fake.fake_parser_mapping import FakeParserMapper
 from tests.fake.fake_sqlite_plugin_helper import FakeSQLitePluginHelper
 from tests.fake.fake_sqlite_plugin_path_helper import FakeSQLitePluginPathHelper
+from tests.test_helper import path_helper
 
 
 class SQLiteGeneratorTest(unittest.TestCase):
   """the sqlite generator test"""
 
   def setUp(self):
-    self.plugin_helper = FakeSQLitePluginHelper
+    self.plugin_helper = FakeSQLitePluginHelper()
     self.testfile = "temp"
+    self.template_path = path_helper.TemplatePath()
 
   def tearDown(self):
     if os.path.isfile(self.testfile):
@@ -30,8 +32,8 @@ class SQLiteGeneratorTest(unittest.TestCase):
   def testPrintCopy(self):
     """test the print for a copy"""
     with tempfile.TemporaryDirectory() as tmpdir:
-      path_helper = FakeSQLitePluginPathHelper
-      file = os.path.join(tmpdir, '__testfile')
+      path_helper = FakeSQLitePluginPathHelper(self.template_path, 'test', 'db')
+      file = os.path.join(tmpdir, 'testfile')
       generator = SQLiteGenerator(tmpdir, 'test', 'test', ['test'],
                                   OutputHandlerFile(file, FileHandler),
                                   self.plugin_helper, path_helper)
@@ -43,8 +45,8 @@ class SQLiteGeneratorTest(unittest.TestCase):
   def testPrintEdit(self):
     """test the print for a edit"""
     with tempfile.TemporaryDirectory() as tmpdir:
-      path_helper = FakeSQLitePluginPathHelper
-      file = os.path.join(tmpdir, '__testfile')
+      path_helper = FakeSQLitePluginPathHelper(self.template_path,'test','db')
+      file = os.path.join(tmpdir, 'testfile')
       generator = SQLiteGenerator(tmpdir, 'test', 'test', ['test'],
                                   OutputHandlerFile(file, FileHandler),
                                   self.plugin_helper, path_helper)
@@ -56,8 +58,8 @@ class SQLiteGeneratorTest(unittest.TestCase):
   def testPrintCreate(self):
     """test the print for a create"""
     with tempfile.TemporaryDirectory() as tmpdir:
-      path_helper = FakeSQLitePluginPathHelper
-      file = os.path.join(tmpdir, '__testfile')
+      path_helper = FakeSQLitePluginPathHelper(self.template_path,'test','db')
+      file = os.path.join(tmpdir, 'testfile')
       generator = SQLiteGenerator(tmpdir, 'test', 'test', ['test'],
                                   OutputHandlerFile(file, FileHandler),
                                   self.plugin_helper, path_helper)
@@ -68,14 +70,14 @@ class SQLiteGeneratorTest(unittest.TestCase):
 
   def testGenerateSQLitePlugin(self):
     """test the output of a generation of a sqlite plugin"""
-    file_handler = FakeFileHandler
-    init_mapper = FakeInitMapper
-    parser_mapper = FakeParserMapper
-    formatter_mapper = FakeFormatterMapper
-    mapping_helper = FakeMappingHelper
+    file_handler = FakeFileHandler()
+    mapping_helper = FakeMappingHelper(self.template_path)
+    init_mapper = FakeInitMapper(self.template_path, mapping_helper)
+    parser_mapper = FakeParserMapper(self.template_path, mapping_helper)
+    formatter_mapper = FakeFormatterMapper(self.template_path, mapping_helper)
     with tempfile.TemporaryDirectory() as tmpdir:
-      path_helper = FakeSQLitePluginPathHelper
-      file = os.path.join(tmpdir, '__testfile')
+      path_helper = FakeSQLitePluginPathHelper(self.template_path,'test','db')
+      file = os.path.join(tmpdir, 'testfile')
       generator = SQLiteGenerator(tmpdir, 'test', 'test', ['test'],
                                   OutputHandlerFile(file, FileHandler),
                                   self.plugin_helper, path_helper)
@@ -90,8 +92,8 @@ class SQLiteGeneratorTest(unittest.TestCase):
   def testPrint(self):
     """test print"""
     with tempfile.TemporaryDirectory() as tmpdir:
-      path_helper = FakeSQLitePluginPathHelper
-      file = os.path.join(tmpdir, '__testfile')
+      path_helper = FakeSQLitePluginPathHelper(self.template_path,'test','db')
+      file = os.path.join(tmpdir, 'testfile')
       generator = SQLiteGenerator(tmpdir, 'test', 'test', ['test'],
                                   OutputHandlerFile(file, FileHandler),
                                   self.plugin_helper, path_helper)

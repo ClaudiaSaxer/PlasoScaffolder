@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """Sqlite Generator"""
-import os
 
 from plasoscaffolder.bll.mappings import base_formatter_mapping
 from plasoscaffolder.bll.mappings import base_init_mapping
@@ -18,9 +17,9 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
 
   def __init__(
       self, path: str, name: str, database: str, events: list,
-      output_handler: base_output_handler.BaseOutputHandler,
-      pluginHelper: base_sqlite_plugin_helper.BaseSQLitePluginHelper,
-      pathHelper=base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper):
+      output_handler: base_output_handler.BaseOutputHandler(),
+      pluginHelper: base_sqlite_plugin_helper.BaseSQLitePluginHelper(),
+      pathHelper=base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper()):
     """Initializes a SQLite Generator.
 
     Args:
@@ -34,15 +33,14 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       pathHelper (BaseSQLitePluginPathHelper): the plugin path helper
     """
     super().__init__()
-    database_suffix = os.path.splitext(database)[1]
 
     self.path = path
     self.name = name
     self.database = database
 
-    self.path_helper = pathHelper(path, name, database_suffix)
-    self.output = output_handler.PrintInfo
-    self.plugin_helper = pluginHelper()
+    self.path_helper = pathHelper
+    self.output = output_handler
+    self.plugin_helper = pluginHelper
     self.events = events
 
     self.init_formatter_exists = self.plugin_helper.FileExists(
@@ -70,10 +68,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       template_path (str): the path to the template directory
     """
 
-    file_handler = fileHandler()
-    init_mapper = init_mapper(template_path, mappingHelper)
-    parser_mapper = parser_mapper(template_path, mappingHelper)
-    formatter_mapper = formatter_mapper(template_path, mappingHelper)
+    file_handler = fileHandler
 
     file = file_handler.CreateFileFromPath
     copy = file_handler.CopyFile
@@ -140,7 +135,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     Args:
       file (str): the file path
     """
-    self.output('copy ' + file)
+    self.output.PrintInfo('copy ' + file)
 
   def _PrintEdit(self, file: str):
     """Print for edit file.
@@ -148,7 +143,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     Args:
       file (str): the file path
     """
-    self.output('edit ' + file)
+    self.output.PrintInfo('edit ' + file)
 
   def _PrintCreate(self, file: str):
     """Print for create file.
@@ -156,4 +151,4 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     Args:
       file (str): the file path
     """
-    self.output('create ' + file)
+    self.output.PrintInfo('create ' + file)

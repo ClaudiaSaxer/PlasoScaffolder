@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """File representing the Controller for SQLite plugin."""
-import click
+import os
 
+import click
 from plasoscaffolder.bll.mappings import formatter_mapping
 from plasoscaffolder.bll.mappings import init_mapping
 from plasoscaffolder.bll.mappings import mapping_helper
@@ -17,7 +18,7 @@ from plasoscaffolder.common import output_handler_click
 class SQLiteController(object):
   """Class representing the Controller for the SQLite Controller."""
 
-  def __init__(self, output_handler: base_output_handler.BaseOutputHandler):
+  def __init__(self, output_handler: base_output_handler.BaseOutputHandler()):
     super(SQLiteController, self).__init__()
     self.__path = None
     self.__name = None
@@ -63,9 +64,10 @@ class SQLiteController(object):
     value = self._ValidatePluginName(value)
     while self.__plugin_helper.PluginExists(
         self.__path, value, "",
-        sqlite_plugin_path_helper.SQLitePluginPathHelper):
+        sqlite_plugin_path_helper.SQLitePluginPathHelper(self.__path, value,
+                                                         "", )):
       value = self.__output_handler.PromptError(
-          'Plugin exists. Choose new __name: ')
+          'Plugin exists. Choose new name: ')
       value = self._ValidatePluginName(value)
 
     self.__name = value
@@ -114,22 +116,28 @@ class SQLiteController(object):
     Args:
       template_path (str): the path to the template directory
     """
+    database_suffix = os.path.splitext(self.__testfile)[1]
+    helper = mapping_helper.MappingHelper(template_path)
+
     generator = sqlite_generator.SQLiteGenerator(
         self.__path,
         self.__name,
         self.__testfile,
         self.__events,
         output_handler_click.OutputHandlerClick(),
-        sqlite_plugin_helper.SQLitePluginHelper,
-        sqlite_plugin_path_helper.SQLitePluginPathHelper)
+        sqlite_plugin_helper.SQLitePluginHelper(),
+        sqlite_plugin_path_helper.SQLitePluginPathHelper(self.__path,
+                                                         self.__name,
+                                                         database_suffix))
 
     self.__output_handler.Confirm('Do you want to Generate the files?')
 
-    generator.GenerateSQLitePlugin(template_path, file_handler.FileHandler,
-                                   init_mapping.InitMapper,
-                                   parser_mapping.ParserMapper,
-                                   formatter_mapping.FormatterMapper,
-                                   mapping_helper.MappingHelper)
+    generator.GenerateSQLitePlugin(
+        template_path, file_handler.FileHandler(),
+        init_mapping.InitMapper(helper),
+        parser_mapping.ParserMapper(helper),
+        formatter_mapping.FormatterMapper(helper),
+        mapping_helper.MappingHelper(template_path))
 
   def _ValidatePluginName(self, plugin_name: str) -> str:
     """Validate plugin name and prompt until name is valid
@@ -142,6 +150,6 @@ class SQLiteController(object):
     """
     while not self.__plugin_helper.IsValidPluginName(plugin_name):
       plugin_name = self.__output_handler.PromptError(
-          'Plugin is not in a valide format. Choose new __name ['
+          'Plugin is not in a valide format. Choose new name ['
           'plugin_name_...]: ')
     return plugin_name

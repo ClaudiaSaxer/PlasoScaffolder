@@ -6,6 +6,7 @@ import unittest
 
 from plasoscaffolder.bll.services.sqlite_plugin_helper import SQLitePluginHelper
 from tests.fake.fake_sqlite_plugin_path_helper import FakeSQLitePluginPathHelper
+from tests.test_helper import path_helper
 
 
 class SQLitePluginHelperTest(unittest.TestCase):
@@ -13,12 +14,13 @@ class SQLitePluginHelperTest(unittest.TestCase):
 
   def setUp(self):
     self.helper = SQLitePluginHelper()
+    self.template_path = path_helper.TemplatePath()
 
   def test_PluginExistsIfFalse(self):
     """Tests the plugin exists method if none exists."""
 
     actual = self.helper.PluginExists('temp', 'plugin_test', 'db',
-                                      FakeSQLitePluginPathHelper)
+                                      FakeSQLitePluginPathHelper(self.template_path,'test','db'))
     self.assertFalse(actual)
 
   def test_PluginExistsIfTrue(self):
@@ -28,7 +30,7 @@ class SQLitePluginHelperTest(unittest.TestCase):
       new_file = open(file_path, 'a')
       helper = SQLitePluginHelper()
       actual = helper.PluginExists(tmpdir, new_file.name, 'db',
-                                   FakeSQLitePluginPathHelper)
+                                   FakeSQLitePluginPathHelper(self.template_path,new_file.name,'db'))
       new_file.close()
       os.remove(file_path)
 

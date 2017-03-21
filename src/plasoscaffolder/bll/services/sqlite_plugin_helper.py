@@ -19,7 +19,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
       path: str,
       plugin_name: str,
       database_suffix: str,
-      path_helper: base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper
+      path_helper: base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper()
   ) -> bool:
     """Checks if the plugin already exists.
 
@@ -33,7 +33,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
       bool: True if the plugin already exists. False if it does not.
     """
 
-    helper = path_helper(path, plugin_name, database_suffix)
+    helper = path_helper
 
     return (os.path.isfile(helper.formatter_file_path)
             or os.path.isfile(helper.parser_file_path)

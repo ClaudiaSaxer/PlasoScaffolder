@@ -92,8 +92,8 @@ class FileHandler(base_file_handler.BaseFileHandler):
     self.CreateFolderForFilePathIfNotExist(source)
     self.AddContent(source, content)
 
-  @classmethod
-  def AddContent(cls, source: str, content: str) -> str:
+
+  def AddContent(self, source: str, content: str) -> str:
     """Add content to a file and create file if non existing.
 
     Args:
@@ -103,6 +103,7 @@ class FileHandler(base_file_handler.BaseFileHandler):
     Returns:
       str: the path of the edited file.
     """
+    self.CreateFolderForFilePathIfNotExist(source)
     with open(source, 'a') as file_object:
       file_object.write(content)
 
