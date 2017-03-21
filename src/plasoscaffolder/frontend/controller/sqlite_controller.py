@@ -62,7 +62,7 @@ class SQLiteController(object):
     """
     value = self._ValidatePluginName(value)
     while self.__plugin_helper.PluginExists(
-        self.__path, value,
+        self.__path, value, "",
         sqlite_plugin_path_helper.SQLitePluginPathHelper):
       value = self.__output_handler.PromptError(
           'Plugin exists. Choose new __name: ')

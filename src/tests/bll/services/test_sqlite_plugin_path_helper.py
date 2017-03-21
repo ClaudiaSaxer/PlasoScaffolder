@@ -30,42 +30,35 @@ class SQLitePluginPathHelperTest(unittest.TestCase):
     self.formatter_init = (path + os.sep + "plaso" + os.sep + "formatters" +
                            os.sep + "__init__.py")
 
-
   def testFormatterFilePath(self):
     """Tests the creation of the path for the formatter file."""
     actual = self.helper.formatter_file_path
     self.assertEqual(actual, self.formatter)
-
 
   def testFormatterTestFilePath(self):
     """Tests the creation of the path for the formatter test file."""
     actual = self.helper.formatter_test_file_path
     self.assertEqual(self.formatter_test, actual)
 
-
   def testParserFilePath(self):
     """Tests the creation of the path for the parser file."""
     actual = self.helper.parser_file_path
     self.assertEqual(self.parser, actual)
-
 
   def test_parser_test_file(self):
     """Tests the creation of the path for the parser test file."""
     actual = self.helper.parser_test_file_path
     self.assertEqual(self.parser_test, actual)
 
-
   def test_database_file(self):
     """Tests the creation of the path for the database file."""
     actual = self.helper.database_path
     self.assertEqual(self.database, actual)
 
-
   def test_formatter_init_file(self):
     """Tests the creation of the path for the formatter init file."""
     actual = self.helper.formatter_init_file_path
     self.assertEqual(self.formatter_init, actual)
-
 
   def test_parser_init__file(self):
     """Tests the creation of the path for the parser init file."""

@@ -3,7 +3,6 @@
 import unittest
 
 from click.testing import CliRunner
-
 from plasoscaffolder.frontend import main
 
 

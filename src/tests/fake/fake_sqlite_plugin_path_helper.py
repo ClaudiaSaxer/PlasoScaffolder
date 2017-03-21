@@ -16,4 +16,3 @@ class FakeSQLitePluginPathHelper(
     self.database_path = plugin_name
     self.parser_init_file_path = plugin_name
     self.formatter_init_file_path = plugin_name
-

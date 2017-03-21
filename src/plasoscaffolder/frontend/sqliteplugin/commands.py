@@ -12,7 +12,7 @@ from plasoscaffolder.frontend.controller import sqlite_controller
 __file__ = os.path.abspath(__file__)
 
 Controller = sqlite_controller.SQLiteController(
-  output_handler_click.OutputHandlerClick())
+    output_handler_click.OutputHandlerClick())
 
 
 @click.command()

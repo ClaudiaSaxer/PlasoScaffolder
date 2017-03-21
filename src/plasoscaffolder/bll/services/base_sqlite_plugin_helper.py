@@ -14,11 +14,13 @@ class BaseSQLitePluginHelper(object):
       self,
       path: str,
       plugin_name: str,
+      database_suffix: str,
       path_helper: base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper
   ) -> bool:
     """Checks if the plugin already exists.
 
     Args:
+      database_suffix: the suffix of the database file
       path (str): the path of the plaso source
       plugin_name (str): the name of the plugin
       path_helper (BaseSqlitePluginHelper) : the sqlite plugin helper

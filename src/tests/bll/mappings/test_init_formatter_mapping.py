@@ -11,7 +11,8 @@ class InitMappingTest(unittest.TestCase):
 
   def setUp(self):
     self.plugin_name = "the_one_and_only"
-    self.mapper = init_mapping.InitMapper("template ", fake_mapping_helper.FakeMappingHelper)
+    self.mapper = init_mapping.InitMapper("template ",
+                                          fake_mapping_helper.FakeMappingHelper)
 
   def testGetFormatterInitCreate(self):
     """test the render for creating a new formatter init file"""

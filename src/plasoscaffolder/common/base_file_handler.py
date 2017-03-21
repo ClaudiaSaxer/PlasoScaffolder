@@ -33,7 +33,7 @@ class BaseFileHandler(object):
 
   @abc.abstractmethod
   def CreateFile(self, directory_path: str, file_name: str,
-                  filename_suffix: str):
+                 filename_suffix: str):
     """Creates a empty file.
 
     Args:

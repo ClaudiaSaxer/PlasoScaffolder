@@ -29,8 +29,8 @@ class FileHandlerTest(unittest.TestCase):
     with tempfile.TemporaryDirectory() as tmpdir:
       new_path = os.path.join(tmpdir, "temp")
       path = file_handler.FileHandler.CreateFilePath(new_path,
-                                                               self.name,
-                                                               self.suffix)
+                                                     self.name,
+                                                     self.suffix)
       self.assertEqual(path, os.path.join(new_path, self.file))
 
   def testCreateFile(self):
