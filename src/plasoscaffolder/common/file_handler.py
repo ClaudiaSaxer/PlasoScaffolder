@@ -54,7 +54,8 @@ class FileHandler(BaseFileHandler):
     """
     file_path = self.CreateFilePath(directory_path, file_name,
                                       filename_suffix)
-    if not os.path.exists(file_path):
+
+    if not os.path.exists(directory_path):
       self._CreateFolder(directory_path)
 
     Path(file_path).touch()
