@@ -31,6 +31,6 @@ class FormatterMapper(base_formatter_mapping.BaseFormatterMapper):
     """
     class_name = self.__helper.GenerateClassName(plugin_name)
     context = {'PluginName': plugin_name, 'class_name': class_name,
-               '__events': events}
+               'events': events}
     rendered = self.__helper.RenderTemplate(self._FORMATTER_TEMPLATE, context)
     return rendered

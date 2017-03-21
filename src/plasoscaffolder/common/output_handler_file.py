@@ -14,7 +14,7 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
     """Initializes File Output Handler.
 
     Args:
-      filepath (str): the __path to the file
+      filepath (str): the path to the file
       fileHandler (BaseFileHandler): the file Handler
     """
     super().__init__()

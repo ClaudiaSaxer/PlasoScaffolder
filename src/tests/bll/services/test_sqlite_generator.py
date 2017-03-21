@@ -104,7 +104,7 @@ class SQLiteGeneratorTest(unittest.TestCase):
     self.assertEqual(expected, actual)
 
   def _ReadFromFile(self, path: str):
-    """read from file __helper"""
+    """read from file helper"""
     with open(path, 'r') as f:
       return f.read()
 

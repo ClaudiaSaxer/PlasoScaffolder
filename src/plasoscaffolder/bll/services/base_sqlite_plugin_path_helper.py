@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Base class for sqlite plugin __path __helper"""
+"""Base class for sqlite plugin path helper"""
 import abc
 
 class BaseSQLitePluginPathHelper(object):
-  """Class representing the base class for the sqlite plugin __path __helper"""
+  """Class representing the base class for the sqlite plugin path helper"""
   __metaclass__ = abc.ABCMeta
 
   def __init__(self):

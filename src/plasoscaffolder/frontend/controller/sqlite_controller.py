@@ -35,10 +35,10 @@ class SQLiteController(object):
       callback)
       param (click.core.Option): the click command (automatically given via
       callback)
-      value (str): the source __path (automatically given via callback)
+      value (str): the source path (automatically given via callback)
 
     Returns:
-      str: the source __path representing the same as value
+      str: the source path representing the same as value
     """
     while not self.__plugin_helper.FolderExists(value):
       value = self.__output_handler.PromptError(
@@ -48,14 +48,14 @@ class SQLiteController(object):
 
   def PluginName(self, _ctx: click.core.Context, _param: click.core.Option,
                  value: str) -> str:
-    """Saving the plugin __name.
+    """Saving the plugin_name.
 
     Args:
       ctx (click.core.Context): the click context (automatically given via
       callback)
       param (click.core.Option): the click command (automatically given via
       callback)
-      value (str): the source __path (automatically given via callback)
+      value (str): the source path (automatically given via callback)
 
     Returns:
       str: the plugin __name representing the same as value
@@ -80,10 +80,10 @@ class SQLiteController(object):
       callback)
       param (click.core.Option): the click command (automatically given via
       callback)
-      value (str): the source __path (automatically given via callback)
+      value (str): the source path (automatically given via callback)
 
     Returns:
-      str: the test file __path representing the same as the value
+      str: the test file path representing the same as the value
     """
     while not self.__plugin_helper.FileExists(value):
       value = self.__output_handler.PromptError(
@@ -100,10 +100,10 @@ class SQLiteController(object):
       callback)
       param (click.core.Option): the click command (automatically given via
       callback)
-      value (str): the source __path (automatically given via callback)
+      value (str): the source path (automatically given via callback)
 
     Returns:
-      str: the __events of the plugin
+      str: the events of the plugin
     """
     self.__events = value.title().split()
     return self.__events
@@ -112,7 +112,7 @@ class SQLiteController(object):
     """Generating the files.
 
     Args:
-      template_path (str): the __path to the template directory
+      template_path (str): the path to the template directory
     """
     generator = sqlite_generator.SQLiteGenerator(
         self.__path,
@@ -132,13 +132,13 @@ class SQLiteController(object):
                                    mapping_helper.MappingHelper)
 
   def _ValidatePluginName(self, plugin_name: str) -> str:
-    """Validate plugin __name and prompt until __name is valid
+    """Validate plugin name and prompt until name is valid
 
     Args:
-      plugin_name: the __name of the plugin
+      plugin_name: the name of the plugin
 
     Returns:
-      a valid plugin __name
+      a valid plugin name
     """
     while not self.__plugin_helper.IsValidPluginName(plugin_name):
       plugin_name = self.__output_handler.PromptError(

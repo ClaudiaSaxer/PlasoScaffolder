@@ -16,15 +16,15 @@ class FileHandler(base_file_handler.BaseFileHandler):
 
   @classmethod
   def CreateFilePath(cls, path: str, name: str, suffix: str) -> str:
-    """Creates the file __path out of the directory __path, filename and suffix.
+    """Creates the file path out of the directory path, filename and suffix.
 
     Args:
-      path (str): the __path to the file directory
+      path (str): the path to the file directory
       name (str): the filename
       suffix (str): the suffix
 
     Returns:
-      str: the joined __path to the file
+      str: the joined path to the file
     """
     file_name = '{0:s}.{1:s}'.format(name, suffix)
     return os.path.join(path, file_name)
@@ -35,7 +35,7 @@ class FileHandler(base_file_handler.BaseFileHandler):
      exists.
 
      Args:
-       directory_path (str): the __path to the directory to create
+       directory_path (str): the path to the directory to create
      """
     os.makedirs(directory_path)
 
@@ -44,13 +44,13 @@ class FileHandler(base_file_handler.BaseFileHandler):
     """Creates a empty file.
 
     Args:
-      directory_path (str): The __path to the directory the file should be
+      directory_path (str): The path to the directory the file should be
       created.
-      file_name (str): the __name of the new file.
+      file_name (str): the name of the new file.
       filename_suffix (str): the suffix of the new file.
 
     Returns:
-      str: the __path of the created file
+      str: the path of the created file
     """
     file_path = self.CreateFilePath(directory_path, file_name,
                                     filename_suffix)
@@ -65,10 +65,10 @@ class FileHandler(base_file_handler.BaseFileHandler):
     """Creates a empty file.
 
     Args:
-      file_path (str): the __path to the file.
+      file_path (str): the path to the file.
 
     Returns:
-      str: the __path of the created file
+      str: the path of the created file
     """
     self.CreateFolderForFilePathIfNotExist(file_path)
     pathlib.Path(file_path).touch()
@@ -78,11 +78,11 @@ class FileHandler(base_file_handler.BaseFileHandler):
     """Copies a file.
 
       Args:
-        source (str): __path of the file to copy
-        destination (str): __path to copy the file to.
+        source (str): path of the file to copy
+        destination (str): path to copy the file to.
 
       Returns:
-        str: the __path of the copied file
+        str: the path of the copied file
       """
     self.CreateFolderForFilePathIfNotExist(destination)
     shutil.copyfile(source, destination)
@@ -97,11 +97,11 @@ class FileHandler(base_file_handler.BaseFileHandler):
     """Add content to a file and create file if non existing.
 
     Args:
-      source (str): The __path of the file to edit.
+      source (str): The path of the file to edit.
       content (str): The content to append to the file.
 
     Returns:
-      str: the __path of the edited file.
+      str: the path of the edited file.
     """
     with open(source, 'a') as file_object:
       file_object.write(content)
@@ -112,10 +112,10 @@ class FileHandler(base_file_handler.BaseFileHandler):
     """Creates folders for the given file if it does not exist.
 
     Args:
-      file_path (str): the __path to the file
+      file_path (str): the path to the file
 
     Returns:
-      str: the directory __path of the created directory
+      str: the directory path of the created directory
     """
     directory_path = os.path.dirname(file_path)
     if not os.path.exists(directory_path):

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""SQLite plugin __helper"""
+"""SQLite plugin helper"""
 import os
 import re
 
@@ -8,7 +8,7 @@ from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 
 
 class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
-  """Class containing __helper functions for the SQLite plugin"""
+  """Class containing helper functions for the SQLite plugin"""
 
   def __init__(self):
     """Initializes the sqlite plugin halper"""
@@ -25,9 +25,9 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
 
     Args:
       database_suffix: the suffix of the database file
-      path (str): the __path of the plaso source
-      plugin_name (str): the __name of the plugin
-      path_helper (BaseSqlitePluginHelper) : the sqlite plugin __helper
+      path (str): the path of the plaso source
+      plugin_name (str): the name of the plugin
+      path_helper (BaseSqlitePluginHelper) : the sqlite plugin helper
 
     Returns:
       bool: True if the plugin already exists. False if it does not.
@@ -42,13 +42,13 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
             or os.path.isfile(helper.database_path))
 
   def IsValidPluginName(self, plugin_name: str) -> bool:
-    """Validates the plugin __name.
+    """Validates the plugin name.
 
     Args:
-      plugin_name (str): the plugin __name
+      plugin_name (str): the plugin name
 
     Returns:
-      bool: true if the plugin __name is valid
+      bool: true if the plugin name is valid
     """
     pattern = re.compile("[a-z]+((_)[a-z]+)*")
     return pattern.fullmatch(plugin_name)
@@ -57,7 +57,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     """Checks if the file exists
 
     Args:
-      path: the plaso folder __path
+      path: the plaso folder path
 
     Returns: true if the file exists
     """
@@ -67,7 +67,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     """Checks if folder exists
 
     Args:
-      path: the plaso folder __path
+      path: the plaso folder path
 
     Returns: true if the folder exists
     """

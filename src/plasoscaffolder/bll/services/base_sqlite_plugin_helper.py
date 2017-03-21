@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Base class for sqlite plugin __helper"""
+"""Base class for sqlite plugin helper"""
 import abc
 
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 
 
 class BaseSQLitePluginHelper(object):
-  """Class representing the base class for the sqlite plugin __helper."""
+  """Class representing the base class for the sqlite plugin helper."""
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
@@ -19,9 +19,9 @@ class BaseSQLitePluginHelper(object):
     """Checks if the plugin already exists.
 
     Args:
-      path (str): the __path of the plaso source
-      plugin_name (str): the __name of the plugin
-      path_helper (BaseSqlitePluginHelper) : the sqlite plugin __helper
+      path (str): the path of the plaso source
+      plugin_name (str): the name of the plugin
+      path_helper (BaseSqlitePluginHelper) : the sqlite plugin helper
 
     Returns:
       bool: True if the plugin already exists. False if it does not.
@@ -32,7 +32,7 @@ class BaseSQLitePluginHelper(object):
     """Checks if the file exists.
 
     Args:
-       path (str): the file __path
+       path (str): the file path
     """
 
   @abc.abstractmethod
@@ -40,16 +40,16 @@ class BaseSQLitePluginHelper(object):
     """Checks if folder exists.
 
     Args:
-      path (str): the folder __path
+      path (str): the folder path
     """
 
   @abc.abstractmethod
   def IsValidPluginName(self, plugin_name: str) -> bool:
-    """Validates the plugin __name.
+    """Validates the plugin name.
 
     Args:
-      plugin_name (str): the plugin __name
+      plugin_name (str): the plugin name
 
     Returns:
-      bool: true if the plugin __name is valid
+      bool: true if the plugin name is valid
     """
