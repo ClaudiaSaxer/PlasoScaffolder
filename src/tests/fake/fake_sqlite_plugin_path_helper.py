@@ -1,32 +1,18 @@
 # -*- coding: utf-8 -*-
-"""Module containing helper functions for the SQLite plugin"""
-from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
-  BaseSQLitePluginPathHelper
+"""Fake module containing helper functions for the SQLite plugin"""
+from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 
 
-class FakeSQLitePluginPathHelper(BaseSQLitePluginPathHelper):
+class FakeSQLitePluginPathHelper(
+    base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper):
+  """fake for the sqlite plugin path helper"""
 
-  def __init__(self, path: str, plugin_name: str):
-    self.path = str(path)
-    self.file_name = str(plugin_name)
-
-  def formatter_file_path(self) -> str:
-    return self.file_name
-
-  def parser_file_path(self) -> str:
-    return self.file_name
-
-  def formatter_test_file_path(self) -> str:
-    return self.file_name
-
-  def parser_test_file_path(self) -> str:
-    return self.file_name
-
-  def database_path(self) -> str:
-    return self.file_name
-
-  def parser_init_file_path(self) -> str:
-    return self.file_name
-
-  def formatter_init_file_path(self) -> str:
-    return self.file_name
+  def __init__(self, path: str, plugin_name: str, database_suffix: str):
+    super().__init__()
+    self.formatter_file_path = plugin_name
+    self.parser_file_path = plugin_name
+    self.formatter_test_file_path = plugin_name
+    self.parser_test_file_path = plugin_name
+    self.database_path = plugin_name
+    self.parser_init_file_path = plugin_name
+    self.formatter_init_file_path = plugin_name

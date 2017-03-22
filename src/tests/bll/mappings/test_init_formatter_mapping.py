@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+"""test class"""
 import unittest
-from plasoscaffolder.bll.mappings.init_mapping import InitMapper
-from tests.fake.fake_mapping_helper import FakeMappingHelper
+
+from plasoscaffolder.bll.mappings import init_mapping
+from tests.fake import fake_mapping_helper
 
 
 class InitMappingTest(unittest.TestCase):
@@ -9,30 +11,31 @@ class InitMappingTest(unittest.TestCase):
 
   def setUp(self):
     self.plugin_name = "the_one_and_only"
-    self.mapper = InitMapper("template ",FakeMappingHelper)
+    self.mapper = init_mapping.InitMapper(
+      fake_mapping_helper.FakeMappingHelper("template path"))
 
-  def test_get_formatter_init_create(self):
+  def testGetFormatterInitCreate(self):
     """test the render for creating a new formatter init file"""
-    actual = self.mapper.get_formatter_init_create(self.plugin_name)
+    actual = self.mapper.GetFormatterInitCreate(self.plugin_name)
     expected = "fake string formatter_init_create_template.jinja2"
     self.assertEqual(expected, actual)
 
-  def test_get_formatter_init_edit(self):
+  def testGetFormatterInitEdit(self):
     """test the render for editing a existing formatter init file"""
-    actual = self.mapper.get_formatter_init_edit(self.plugin_name)
+    actual = self.mapper.GetFormatterInitEdit(self.plugin_name)
     expected = "fake string formatter_init_edit_template.jinja2"
     self.assertEqual(expected, actual)
 
-  def test_get_parser_init_create(self):
+  def testGetParserInitCreate(self):
     """test the render for creating a new parser init file"""
-    actual = self.mapper.get_parser_init_create(self.plugin_name)
+    actual = self.mapper.GetParserInitCreate(self.plugin_name)
     expected = "fake string parser_init_create_template.jinja2"
 
     self.assertEqual(expected, actual)
 
-  def test_get_parser_init_edit(self):
+  def testGetParserInitEdit(self):
     """test the render for editing a existing parser init file"""
-    actual = self.mapper.get_parser_init_edit(self.plugin_name)
+    actual = self.mapper.GetParserInitEdit(self.plugin_name)
     expected = "fake string parser_init_edit_template.jinja2"
     self.assertEqual(expected, actual)
 

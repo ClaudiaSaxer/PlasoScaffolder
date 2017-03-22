@@ -1,103 +1,107 @@
 # -*- coding: utf-8 -*-
+"""test class"""
 import filecmp
-import shutil
+import os
 import tempfile
 import unittest
-import os
-from plasoscaffolder.common.file_handler import FileHandler
+
+from plasoscaffolder.common import file_handler
 
 
 class FileHandlerTest(unittest.TestCase):
-  """ Class representing the test case testing the file creator class"""
-  path = "temp"
-  name = "testfile"
+  """ Class representing the test case testing the file file_handler class"""
+  name = "__testfile"
   suffix = "py"
-  file = name + "." + suffix
-  file_with_dir = path + os.sep + name + "." + suffix
+  file = '{0:s}.{1:s}'.format(name, suffix)
 
-  def tearDown(self):
-    if os.path.isfile(self.file):
-      os.remove(self.file)
-    if os.path.isfile(self.file_with_dir):
-      os.remove(self.file_with_dir)
-    if os.path.exists(self.path):
-      shutil.rmtree(self.path)
-
-  def test_create_folder(self):
+  def testCreateFolder(self):
     """Tests if the creation of a folder works."""
-    self.assertFalse(os.path.exists(self.path))
-    creator = FileHandler()
     with tempfile.TemporaryDirectory() as tmpdir:
-      creator._create_folder(os.path.join(tmpdir,"temp"))
-      actual = os.path.exists(os.path.join(tmpdir,"temp"))
+      new_path = os.path.join(tmpdir, "newfolder")
+      self.assertFalse(os.path.exists(new_path))
+      handler = file_handler.FileHandler()
+      handler._CreateFolder(new_path)  # pylint: disable=W0212
+      actual = os.path.exists(new_path)
     self.assertTrue(actual)
 
-  def test_get_folder_path(self):
+  def testCreateFilePath(self):
     """Tests if the construction of the folder path works."""
-    path = FileHandler.create_file_path(self.path, self.name, self.suffix)
-    self.assertEqual(path, self.file_with_dir)
+    with tempfile.TemporaryDirectory() as tmpdir:
+      new_path = os.path.join(tmpdir, "temp")
+      path = file_handler.FileHandler.CreateFilePath(new_path,
+                                                     self.name,
+                                                     self.suffix)
+      self.assertEqual(path, os.path.join(new_path, self.file))
 
-  def test_create_file(self):
+  def testCreateFile(self):
     """Tests if the creation of a file none existing beforehand works."""
-    creator = FileHandler()
-    self.assertFalse(os.path.exists(self.file_with_dir))
-    creator.create_file(self.path, self.name, self.suffix)
-    self.assertTrue(os.path.exists(self.file_with_dir))
+    with tempfile.TemporaryDirectory() as tmpdir:
+      handler = file_handler.FileHandler()
+      file_path = os.path.join(tmpdir, self.file)
+      self.assertFalse(os.path.exists(file_path))
+      handler.CreateFile(tmpdir, self.name, self.suffix)
+      self.assertTrue(os.path.exists(file_path))
 
-  def test_create_file_from_path(self):
+  def testCreateFileFromPath(self):
     """Tests if the creation of a file none existing beforhand works."""
-    creator = FileHandler()
-    self.assertFalse(os.path.exists(self.file_with_dir))
-    creator.create_file_from_path(self.file_with_dir)
-    self.assertTrue(os.path.exists(self.file_with_dir))
+    handler = file_handler.FileHandler()
+    with tempfile.TemporaryDirectory() as tmpdir:
+      source = os.path.join(tmpdir, self.file)
+      self.assertFalse(os.path.exists(source))
+      handler.CreateFileFromPath(source)
+      self.assertTrue(os.path.exists(source))
 
-  def test_copy_file(self):
+  def testCopyFile(self):
     """Tests if the copying of a file none existing beforhand works."""
     expected_content = "this is test content."
-    source = self.file
-    destination = self.file_with_dir
 
-    with open(source, "a") as f:
-      f.write(expected_content)
+    with tempfile.TemporaryDirectory() as tmpdir:
+      source = os.path.join(tmpdir, self.file)
+      destination = os.path.join(tmpdir, "copy", self.file)
 
-    creator = FileHandler()
-    self.assertFalse(os.path.exists(destination))
-    creator.copy_file(source, destination)
-    self.assertTrue(os.path.exists(destination))
-    self.assertTrue(filecmp.cmp(destination, source))
+      with open(source, "a") as f:
+        f.write(expected_content)
 
-  def test_edit_and_create_file_1(self):
+      handler = file_handler.FileHandler()
+      self.assertFalse(os.path.exists(destination))
+      handler.CopyFile(source, destination)
+      self.assertTrue(os.path.exists(destination))
+      self.assertTrue(filecmp.cmp(destination, source))
+
+  def testAddContentIfFileExists(self):
     """Tests if the editing of a file existing works."""
     content = "this is test content. "
     expected = content + content
-    source = self.file
 
-    with open(source, "a") as f:
-      f.write(content)
+    with tempfile.TemporaryDirectory() as tmpdir:
+      source = os.path.join(tmpdir, self.file)
+      with open(source, "a") as f:
+        f.write(content)
 
-    creator = FileHandler()
-    self.assertTrue(os.path.exists(source))
-    creator.add_content(source, content)
-    self.assertTrue(os.path.exists(source))
+      handler = file_handler.FileHandler()
+      self.assertTrue(os.path.exists(source))
+      handler.AddContent(source, content)
+      self.assertTrue(os.path.exists(source))
 
-    with open(source, "r") as f:
-      actual = f.read()
+      with open(source, "r") as f:
+        actual = f.read()
 
     self.assertEqual(expected, actual)
 
-  def test_edit_and_create_file_2(self):
+  def testAddContentIfFileDoesNotExist(self):
     """Tests if the editing of a file not existing works."""
     content = "this is test content. "
     expected = content
-    source = self.file
 
-    creator = FileHandler()
-    self.assertFalse(os.path.exists(source))
-    creator.add_content(source, content)
-    self.assertTrue(os.path.exists(source))
+    with tempfile.TemporaryDirectory() as tmpdir:
+      source = os.path.join(tmpdir, self.file)
+      handler = file_handler.FileHandler()
+      self.assertFalse(os.path.exists(source))
+      handler.AddContent(source, content)
+      self.assertTrue(os.path.exists(source))
 
-    with open(source, "r") as f:
-      actual = f.read()
+      with open(source, "r") as f:
+        actual = f.read()
 
     self.assertEqual(expected, actual)
 

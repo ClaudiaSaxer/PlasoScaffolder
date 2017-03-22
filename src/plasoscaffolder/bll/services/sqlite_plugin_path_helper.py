@@ -1,81 +1,46 @@
 # -*- coding: utf-8 -*-
+"""SQLite Plugin Path Helper"""
 import os
 
-from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
-  BaseSQLitePluginPathHelper
+from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 
 
-class SQLitePluginPathHelper(BaseSQLitePluginPathHelper):
-  """Class containing helper functions for the SQLite plugin for the path"""
+class SQLitePluginPathHelper(
+    base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper):
+  """Class containing __helper functions for the SQLite plugin for the path
 
-  def __init__(self, path: str, plugin_name: str):
+  Args:
+    formatter_file_path (str): the path to the formatter file
+    parser_file_path (str): the path to the parser file
+    formatter_test_file_path (str): the path to the formatter test file
+    parser_test_file_path (str): the path to the parser test file
+    database_path (str): the path to the database file
+    parser_init_file_path (str): the path to the parser init file
+    formatter_init_file_path (str): the path to the formatter init file
+  """
+
+  def __init__(self, path: str, plugin_name: str, database_suffix: str):
     """Initializes the sqlite plugin halper.
 
       Args:
        path (str): the plaso folder path
        plugin_name (str): The name of the plugin to check.
+       database_suffix (str): the file suffix of the database file
      """
     super().__init__()
-    self.path = path
-    self.plugin_name = plugin_name
-    self.file_name = '{0:s}.py'.format(self.plugin_name)
+    file_name = '{0:s}.py'.format(plugin_name)
+    database_name = '{0:s}.{1:s}'.format(plugin_name, database_suffix)
 
-  def formatter_file_path(self) -> str:
-    """The formatter file path for the SQLite plugin for the plaso folder.
-
-    Returns:
-      str: path of the new file.
-    """
-
-    return os.path.join(self.path, 'plaso', 'formatters', self.file_name)
-
-  def parser_file_path(self) -> str:
-    """ The parser file path for the SQLite plugin for the plaso folder.
-
-    Returns:
-      str: path of the new file.
-    """
-    return os.path.join(self.path, 'plaso', 'parsers', 'sqlite_plugins',
-      self.file_name)
-
-  def formatter_test_file_path(self) -> str:
-    """ The formatter test file path for the SQLite plugin for the plaso folder.
-
-    Returns:
-      str:  path of the new file.
-    """
-    return os.path.join(self.path, 'tests', 'formatters', self.file_name)
-
-  def parser_test_file_path(self) -> str:
-    """ The parser test file path for the sqlite plugin for the plaso folder.
-
-    Returns:
-      str:  path of the new file.
-    """
-    return os.path.join(self.path, 'tests', 'parsers', 'sqlite_plugins',
-      self.file_name)
-
-  def database_path(self) -> str:
-    """The database file path for the SQLite plugin for the plaso folder.
-
-    Returns:
-      str:  path of the new file.
-    """
-    return os.path.join(self.path, 'test_data', self.plugin_name + '.db')
-
-  def parser_init_file_path(self) -> str:
-    """ The parser init file path for the sqlite plugin for the plaso folder.
-
-    Returns:
-      str:  path of the init file.
-    """
-    return os.path.join(self.path, 'plaso', 'parsers', 'sqlite_plugins',
-      '__init__.py')
-
-  def formatter_init_file_path(self) -> str:
-    """ The parser init file path for the sqlite plugin for the plaso folder.
-
-    References:
-      str:  path of the init file.
-    """
-    return os.path.join(self.path, 'plaso', 'formatters', '__init__.py')
+    self.formatter_file_path = os.path.join(
+        path, 'plaso', 'formatters', file_name)
+    self.parser_file_path = os.path.join(
+        path, 'plaso', 'parsers', 'sqlite_plugins', file_name)
+    self.formatter_test_file_path = os.path.join(
+        path, 'tests', 'formatters', file_name)
+    self.parser_test_file_path = os.path.join(
+        path, 'tests', 'parsers', 'sqlite_plugins', file_name)
+    self.database_path = os.path.join(path, 'test_data', database_name)
+    self.parser_init_file_path = os.path.join(
+        path, 'plaso', 'parsers', 'sqlite_plugins', '__init__.py')
+    self.formatter_init_file_path = os.path.join(
+        path, 'plaso', 'formatters', '__init__.py')

@@ -1,34 +1,27 @@
 # -*- coding: utf-8 -*-
-""" Module representing function for the different files """
-from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
-from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
+""" fake for module representing function for the different files """
+from plasoscaffolder.bll.mappings import base_init_mapping
+from plasoscaffolder.bll.mappings import base_mapping_helper
 
 
-class FakeInitMapper(BaseInitMapper):
+class FakeInitMapper(base_init_mapping.BaseInitMapper):
   """class representing the init mapper"""
 
-  def __init__(self, template_path: str, mapping_helper: BaseMappingHelper):
+  def __init__(self, template_path: str,
+               mapping_helper: base_mapping_helper.BaseMappingHelper):
     pass
 
-  def get_formatter_init_create(self, plugin_name: str) -> str:
+  def GetFormatterInitCreate(self, plugin_name: str) -> str:
     return plugin_name
 
-
-  def get_formatter_init_edit(self, plugin_name: str) -> str:
+  def GetFormatterInitEdit(self, plugin_name: str) -> str:
     return plugin_name
 
-
-
-  def get_parser_init_create(self, plugin_name: str) -> str:
+  def GetParserInitCreate(self, plugin_name: str) -> str:
     return plugin_name
 
-
-
-  def get_parser_init_edit(self, plugin_name: str) -> str:
+  def GetParserInitEdit(self, plugin_name: str) -> str:
     return plugin_name
 
-
-
-  def _render_init(self, file_name: str, plugin_name: str) -> str:
+  def _RenderInit(self, file_name: str, plugin_name: str) -> str:
     return plugin_name
-

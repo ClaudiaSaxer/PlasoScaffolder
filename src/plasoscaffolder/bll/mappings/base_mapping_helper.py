@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """Helper methods for mapping"""
 import abc
-
-from jinja2 import Environment
+import jinja2
 
 
 class BaseMappingHelper(object):
@@ -10,7 +9,7 @@ class BaseMappingHelper(object):
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def _get_template_environment(self) -> Environment:
+  def _CreateTemplateEnvironment(self) -> jinja2.Environment:
     """Returns the template environment.
 
     Returns:
@@ -18,7 +17,7 @@ class BaseMappingHelper(object):
     """
 
   @abc.abstractmethod
-  def render_template(self, template_filename: str, context: dict) -> str:
+  def RenderTemplate(self, template_filename: str, context: dict) -> str:
     """Renders the template.
 
     Args:
@@ -27,4 +26,15 @@ class BaseMappingHelper(object):
 
     Returns:
       str: the rendered template
+    """
+
+  @abc.abstractmethod
+  def GenerateClassName(self, plugin_name: str) -> str:
+    """Generates the class name.
+
+    Args:
+      plugin_name (str): the plugin name
+
+    Returns:
+      str: the class name
     """

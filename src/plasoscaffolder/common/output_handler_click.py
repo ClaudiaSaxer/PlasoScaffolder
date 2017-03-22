@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-
+"""the output file handler for click"""
 import click
-from plasoscaffolder.common.base_output_handler import BaseOutputHandler
+from plasoscaffolder.common import base_output_handler
 
 
-class OutputHandlerClick(BaseOutputHandler):
+class OutputHandlerClick(base_output_handler.BaseOutputHandler):
   """Class representing the output handler for click."""
 
   def __init__(self):
     super().__init__()
 
-  def prompt_info(self, text: str) -> str:
+  def PromptInfo(self, text: str) -> str:
     """A prompt for information with click.
 
     Args:
@@ -21,7 +21,7 @@ class OutputHandlerClick(BaseOutputHandler):
     """
     click.prompt(text, type=str)
 
-  def prompt_error(self, text: str) -> str:
+  def PromptError(self, text: str) -> str:
     """A prompt for errors with click.
 
     Args:
@@ -32,7 +32,7 @@ class OutputHandlerClick(BaseOutputHandler):
     """
     return click.prompt(click.style(text, fg='red'), type=str)
 
-  def print_info(self, text: str):
+  def PrintInfo(self, text: str):
     """A echo for infos with click.
 
     Args:
@@ -40,7 +40,7 @@ class OutputHandlerClick(BaseOutputHandler):
     """
     click.echo(text)
 
-  def print_error(self, text: str):
+  def PrintError(self, text: str):
     """A echo for errors with click.
 
     Args:
@@ -48,10 +48,10 @@ class OutputHandlerClick(BaseOutputHandler):
     """
     click.echo(text, color='red')
 
-  def confirm(self, text: str):
-    """A confirm, Default Y, if no abort execution.
+  def Confirm(self, text: str):
+    """A confirmation, Default Y, if no abort execution.
 
     Args:
-      text (str): The text to confirm
+      text (str): Prompts the user for a confirmation.
     """
     click.confirm(text, abort=True, default=True)

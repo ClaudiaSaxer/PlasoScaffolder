@@ -1,35 +1,50 @@
+# -*- coding: utf-8 -*-
+"""test class"""
 import unittest
 
-from plasoscaffolder.common.output_handler_file import OutputHandlerFile
-from tests.fake.fake_file_handler import FakeFileHandler
+from plasoscaffolder.common import output_handler_file
+from tests.fake import fake_file_handler
 
 
 class FileOutputHandler(unittest.TestCase):
+  """testing the file output handler"""
+
   def setUp(self):
     self.file_path = "testpath"
-    self.output = OutputHandlerFile(self.file_path, FakeFileHandler)
+    self.output = output_handler_file.OutputHandlerFile(
+        self.file_path,
+        fake_file_handler.FakeFileHandler())
 
-  def test_prompt_info(self):
+  def testPromptInfo(self):
     """test prompt info, should raise not implemented error"""
-    with self.assertRaises(NotImplementedError):
-      self.output.prompt_info("")
+    actual_file = self.output.PrintInfo("the mighty")
+    self.assertEqual(self.file_path, actual_file)
 
   def test_prompt_error(self):
     """test prompt error, should raise not implemented error"""
-    with self.assertRaises(NotImplementedError):
-      self.output.prompt_error("")
+    actual_file = self.output.PrintInfo("the mighty")
+    self.assertEqual(self.file_path, actual_file)
 
-  def test_print_info(self):
+  def testPrintInfo(self):
     """test print info. should return the edited file"""
-    actual_file = self.output.print_info("the mighty")
+    actual_file = self.output.PrintInfo("the mighty")
     self.assertEqual(self.file_path, actual_file)
 
-  def test_print_error(self):
+  def testPrintError(self):
     """test print error. should return the edited file"""
-    actual_file = self.output.print_error("the mighty")
+    actual_file = self.output.PrintError("the mighty")
     self.assertEqual(self.file_path, actual_file)
 
-  def test_confirm(self):
-    """test confirm, should raise not implemented error"""
-    with self.assertRaises(NotImplementedError):
-      self.output.confirm("")
+  def testConfirmIfTrue(self):
+    """test Confirm if confirmed"""
+    actual = self.output.Confirm("some message")
+    self.assertEqual(self.file_path,actual)
+
+  def testConfirmIfFalse(self):
+    """test Confirm if not confirmed"""
+    output = output_handler_file.OutputHandlerFile(
+        None, None,
+        confirm=False)
+
+    with self.assertRaises(SystemExit):
+      output.Confirm("")

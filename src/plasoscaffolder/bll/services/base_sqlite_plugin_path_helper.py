@@ -1,63 +1,29 @@
 # -*- coding: utf-8 -*-
+"""Base class for sqlite plugin path helper"""
+
 import abc
 
-
 class BaseSQLitePluginPathHelper(object):
-  """Class representing the base class for the sqlite plugin path helper"""
+  """Class representing the base class for the sqlite plugin path helper
+
+  Args:
+    formatter_file_path (str): the path to the formatter file
+    parser_file_path (str): the path to the parser file
+    formatter_test_file_path (str): the path to the formatter test file
+    parser_test_file_path (str): the path to the parser test file
+    database_path (str): the path to the database file
+    parser_init_file_path (str): the path to the parser init file
+    formatter_init_file_path (str): the path to the formatter init file
+  """
   __metaclass__ = abc.ABCMeta
 
-  @abc.abstractmethod
-  def formatter_file_path(self) -> str:
-    """The formatter file path for the SQLite plugin for the plaso folder.
-
-    Returns:
-      str: path of the new file.
-    """
-
-  @abc.abstractmethod
-  def parser_file_path(self) -> str:
-    """ The parser file path for the SQLite plugin for the plaso folder.
-
-    Returns:
-       str: path of the new file.
-    """
-
-  @abc.abstractmethod
-  def formatter_test_file_path(self) -> str:
-    """ The formatter test file path for the SQLite plugin for the plaso folder.
-
-    Returns:
-       str: path of the new file.
-    """
-
-  @abc.abstractmethod
-  def parser_test_file_path(self) -> str:
-    """ The parser test file path for the sqlite plugin for the plaso folder.
-
-    Returns:
-       str: path of the new file.
-    """
-
-  @abc.abstractmethod
-  def database_path(self) -> str:
-    """The database file path for the SQLite plugin for the plaso folder.
-
-    Returns:
-      str: path of the new file.
-    """
-
-  @abc.abstractmethod
-  def parser_init_file_path(self) -> str:
-    """ The parser init file path for the sqlite plugin for the plaso folder.
-
-    Returns:
-       str: path of the init file.
-    """
-
-  @abc.abstractmethod
-  def formatter_init_file_path(self) -> str:
-    """ The parser init file path for the sqlite plugin for the plaso folder.
-
-    References:
-       str: path of the init file.
-    """
+  def __init__(self):
+    """Initializes the sqlite plugin halper."""
+    super().__init__()
+    self.formatter_file_path = None
+    self.parser_file_path = None
+    self.formatter_test_file_path = None
+    self.parser_test_file_path = None
+    self.database_path = None
+    self.parser_init_file_path = None
+    self.formatter_init_file_path = None

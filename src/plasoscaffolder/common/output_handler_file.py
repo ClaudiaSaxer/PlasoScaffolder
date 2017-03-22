@@ -1,24 +1,41 @@
 # -*- coding: utf-8 -*-
-from plasoscaffolder.common.base_file_handler import BaseFileHandler
-from plasoscaffolder.common.base_output_handler import BaseOutputHandler
+"""output file handler for files"""
+
+import sys
+
+from plasoscaffolder.common import base_file_handler
+from plasoscaffolder.common import base_output_handler
 
 
-class OutputHandlerFile(BaseOutputHandler):
+class OutputHandlerFile(base_output_handler.BaseOutputHandler):
   """Class representing the output handler for a file."""
 
-  def __init__(self, filepath: str, fileHandler: BaseFileHandler):
+  def __init__(
+      self,
+      file_path: str,
+      file_handler: base_file_handler.BaseFileHandler(),
+      prompt_info="",
+      prompt_error="",
+      confirm=True):
     """Initializes File Output Handler.
 
     Args:
-      filepath (str): the path to the file
+      confirm (bool): what the confirmation should be
+      file_path (str): the path to the file
       fileHandler (BaseFileHandler): the file Handler
+      prompt_error (str): what to return in a prompt error
+      prompt_info (str): what to return in a prompt info
     """
     super().__init__()
-    self.file_handler = fileHandler()
-    self.path = filepath
+    self.__prompt_info = prompt_info
+    self.__prompt_error = prompt_error
+    self.__file_handler = file_handler
+    self.__path = file_path
+    self.__confirm = confirm
 
-  def prompt_info(self, text: str) -> str:
+  def PromptInfo(self, text: str) -> str:
     """A prompt for information with click.
+    Use with caution. Endless Loops possible
 
     Args:
       text (str): the text to  prompt
@@ -26,10 +43,12 @@ class OutputHandlerFile(BaseOutputHandler):
     Returns:
       str: the user input
     """
-    raise NotImplementedError
+    self.__file_handler.AddContent(self.__path, text)
+    return self.__prompt_info
 
-  def prompt_error(self, text: str) -> str:
+  def PromptError(self, text: str) -> str:
     """A prompt for errors with click.
+    Use with caution. Endless Loops possible
 
     Args:
       text (str): the text to prompt
@@ -37,9 +56,10 @@ class OutputHandlerFile(BaseOutputHandler):
     Returns:
       str: the user input
     """
-    raise NotImplementedError
+    self.__file_handler.AddContent(self.__path, text)
+    return self.__prompt_error
 
-  def print_info(self, text: str) -> str:
+  def PrintInfo(self, text: str) -> str:
     """A echo for infos with click.
 
     Args:
@@ -47,9 +67,9 @@ class OutputHandlerFile(BaseOutputHandler):
 
     Returns: the file the content was added
     """
-    return self.file_handler.add_content(self.path, text)
+    return self.__file_handler.AddContent(self.__path, text)
 
-  def print_error(self, text: str) -> str:
+  def PrintError(self, text: str) -> str:
     """A echo for errors with click.
 
     Args:
@@ -57,12 +77,15 @@ class OutputHandlerFile(BaseOutputHandler):
 
     Returns: the file the content was added
     """
-    return self.file_handler.add_content(self.path, text)
+    return self.__file_handler.AddContent(self.__path, text)
 
-  def confirm(self, text: str):
-    """A confirm, Default Y, if no abort execution.
+  def Confirm(self, text: str):
+    """A confirmation, Default Y, if no abort execution. Use with caution
 
     Args:
-      text (str): The text to confirm
+      text (str): Prompts the user for a confirmation.
     """
-    raise NotImplementedError
+    if not self.__confirm:
+      sys.exit()
+    return self.__file_handler.AddContent(self.__path, text)
+

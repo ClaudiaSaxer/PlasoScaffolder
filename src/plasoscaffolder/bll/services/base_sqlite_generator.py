@@ -1,16 +1,13 @@
 # -*- coding: utf-8 -*-
+"""Baseclass for Generator for Sqlite"""
 import abc
 import os
 
-from plasoscaffolder.bll.mappings.base_init_mapping import BaseInitMapper
-from plasoscaffolder.bll.mappings.base_mapping_helper import BaseMappingHelper
-from plasoscaffolder.bll.services.base_sqlite_plugin_path_helper import \
-  BaseSQLitePluginPathHelper
-from plasoscaffolder.bll.services.sqlite_plugin_helper import \
-  BaseSQLitePluginHelper
-from plasoscaffolder.common.base_file_handler import BaseFileHandler
-from plasoscaffolder.common.base_output_handler import BaseOutputHandler
-from plasoscaffolder.common.file_handler import FileHandler
+from plasoscaffolder.bll.mappings import base_formatter_mapping
+from plasoscaffolder.bll.mappings import base_init_mapping
+from plasoscaffolder.bll.mappings import base_mapping_helper
+from plasoscaffolder.bll.mappings import base_parser_mapping
+from plasoscaffolder.common import base_file_handler
 
 
 class BaseSQLiteGenerator(object):
@@ -18,22 +15,29 @@ class BaseSQLiteGenerator(object):
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def generate_sqlite_plugin(self, template_path: str,
-      fileHandler: BaseFileHandler, init_mapper: BaseInitMapper,
-      mappingHelper: BaseMappingHelper):
+  def GenerateSQLitePlugin(
+      self,
+      template_path: str,
+      fileHandler: base_file_handler.BaseFileHandler(),
+      init_mapper: base_init_mapping.BaseInitMapper(),
+      parser_mapper: base_parser_mapping.BaseParserMapper(),
+      formatter_mapper: base_formatter_mapping.BaseFormatterMapper(),
+      mappingHelper: base_mapping_helper.BaseMappingHelper()):
     """Generate the whole sqlite plugin.
 
     Args:
-      fileHandler (FileHandler): the Filehandler class
+      formatter_mapper (BaseFormatterMapper): the mapper for the formatter
+      fileHandler (FileHandler): the handler for the file
       mappingHelper (BaseMappingHelper): the mapping helper
+      parser_mapper (BaseParserMapper): the parser mapper
       init_mapper (BaseInitMapper): the init mapper
       template_path (str): the path to the template directory
     """
 
   @abc.abstractmethod
-  def _print(self, formatter: str, parser: str, formatter_test: str,
-      parser_test: str, database: str, parser_init: str,
-      formatter_init: str):
+  def _Print(self, formatter: str, parser: str, formatter_test: str,
+             parser_test: str, database: str, parser_init: str,
+             formatter_init: str):
     """Printing the information to the generated files.
 
     Args:
@@ -47,7 +51,7 @@ class BaseSQLiteGenerator(object):
     """
 
   @abc.abstractmethod
-  def _print_copy(self, file: str):
+  def _PrintCopy(self, file: str):
     """Print for copy file.
 
     Args:
@@ -55,7 +59,7 @@ class BaseSQLiteGenerator(object):
     """
 
   @abc.abstractmethod
-  def _print_edit(self, file: str):
+  def _PrintEdit(self, file: str):
     """print for edit file.
 
     Args:
@@ -63,7 +67,7 @@ class BaseSQLiteGenerator(object):
     """
 
   @abc.abstractmethod
-  def _print_create(self, file: os.path):
+  def _PrintCreate(self, file: os.path):
     """print for create file.
 
     Args:
