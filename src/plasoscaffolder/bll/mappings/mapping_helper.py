@@ -14,19 +14,9 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
       template_path (str): the path to the template directory
     """
     super().__init__()
-    self.__template_path = template_path
-
-  @property
-  def _GetTemplateEnvironment(self) -> jinja2.Environment:
-    """Returns the template environment.
-
-    Returns:
-      jinja2.Environment: jinja2 template environment.
-    """
-    return jinja2.Environment(autoescape=False,
-                              loader=jinja2.FileSystemLoader(
-                                  self.__template_path),
-                              trim_blocks=False)
+    template_loader = jinja2.FileSystemLoader(template_path)
+    self._template_environment = jinja2.Environment(
+        autoescape=False, loader=template_loader, trim_blocks=False)
 
   def RenderTemplate(self, template_filename: str, context: dict) -> str:
     """Renders the template.
@@ -38,7 +28,7 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
        Returns:
          str: the rendered template
        """
-    return self._GetTemplateEnvironment.get_template(
+    return self._template_environment.get_template(
         template_filename).render(context)
 
   def GenerateClassName(self, plugin_name: str) -> str:

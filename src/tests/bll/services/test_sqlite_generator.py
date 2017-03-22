@@ -18,10 +18,10 @@ from tests.test_helper import path_helper
 
 
 class SQLiteGeneratorTest(unittest.TestCase):
-  """the sqlite generator test"""
+  """the SQLite generator test"""
 
   def setUp(self):
-    self.plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper( )
+    self.plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper()
     self.template_path = path_helper.TemplatePath()
 
   def testPrintCopy(self):
@@ -31,15 +31,15 @@ class SQLiteGeneratorTest(unittest.TestCase):
         fake_sqlite_plugin_path_helper.FakeSQLitePluginPathHelper(
             self.template_path, 'test',
             'db')
-      file = os.path.join(tmpdir, 'testfile')
+      path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
           tmpdir, 'test', 'test', ['test'],
-          output_handler_file.OutputHandlerFile(file,
+          output_handler_file.OutputHandlerFile(path,
                                                 file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
-      generator._PrintCopy(file)  # pylint: disable=W0212
-      expected = "copy " + file
-      actual = self._ReadFromFile(file)
+      generator._PrintCopy(path)  # pylint: disable=protected-access
+      expected = "copy " + path
+      actual = self._ReadFromFile(path)
     self.assertEqual(expected, actual)
 
   def testPrintEdit(self):
@@ -49,15 +49,15 @@ class SQLiteGeneratorTest(unittest.TestCase):
         fake_sqlite_plugin_path_helper.FakeSQLitePluginPathHelper(
             self.template_path, 'test',
             'db')
-      file = os.path.join(tmpdir, 'testfile')
+      path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
           tmpdir, 'test', 'test', ['test'],
-          output_handler_file.OutputHandlerFile(file,
+          output_handler_file.OutputHandlerFile(path,
                                                 file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
-      generator._PrintEdit(file)  # pylint: disable=W0212
-      expected = "edit " + file
-      actual = self._ReadFromFile(file)
+      generator._PrintEdit(path)  # pylint: disable=protected-access
+      expected = 'edit ' + path
+      actual = self._ReadFromFile(path)
     self.assertEqual(expected, actual)
 
   def testPrintCreate(self):
@@ -67,15 +67,15 @@ class SQLiteGeneratorTest(unittest.TestCase):
         fake_sqlite_plugin_path_helper.FakeSQLitePluginPathHelper(
             self.template_path, 'test',
             'db')
-      file = os.path.join(tmpdir, 'testfile')
+      path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
           tmpdir, 'test', 'test', ['test'],
-          output_handler_file.OutputHandlerFile(file,
+          output_handler_file.OutputHandlerFile(path,
                                                 file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
-      generator._PrintCreate(file)  # pylint: disable=W0212
-      expected = "create " + file
-      actual = self._ReadFromFile(file)
+      generator._PrintCreate(path)  # pylint: disable=protected-access
+      expected = 'create ' + path
+      actual = self._ReadFromFile(path)
     self.assertEqual(expected, actual)
 
   def testGenerateSQLitePlugin(self):
@@ -93,18 +93,18 @@ class SQLiteGeneratorTest(unittest.TestCase):
         fake_sqlite_plugin_path_helper.FakeSQLitePluginPathHelper(
             self.template_path, 'test',
             'db')
-      file = os.path.join(tmpdir, 'testfile')
+      path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
           tmpdir, 'test', 'test', ['test'],
-          output_handler_file.OutputHandlerFile(file,
+          output_handler_file.OutputHandlerFile(path,
                                                 file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
       generator.GenerateSQLitePlugin(tmpdir, fake_handler, init_mapper,
                                      parser_mapper, formatter_mapper,
                                      mapping_helper)
-      expected = ("create testcreate testcreate testcreate testcopy testcreate "
-                  "testcreate test")
-      actual = self._ReadFromFile(file)
+      expected = ('create testcreate testcreate testcreate testcopy testcreate '
+                  'testcreate test')
+      actual = self._ReadFromFile(path)
     self.assertEqual(expected, actual)
 
   def testPrint(self):
@@ -113,18 +113,18 @@ class SQLiteGeneratorTest(unittest.TestCase):
       fake_path_helper = \
         fake_sqlite_plugin_path_helper.FakeSQLitePluginPathHelper(
             self.template_path, 'test', 'db')
-      file = os.path.join(tmpdir, 'testfile')
+      path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
           tmpdir, 'test', 'test', ['test'],
-          output_handler_file.OutputHandlerFile(file,
+          output_handler_file.OutputHandlerFile(path,
                                                 file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
-      generator._Print("test1", "test2", "test3", "test4", "test5", "test6",
-                       "test7")  # pylint: disable=W0212
-      actual = self._ReadFromFile(file)
+      arguments = 'test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7'
+      generator._Print(*arguments)  # pylint: disable=protected-access
+      actual = self._ReadFromFile(path)
 
-    expected = "create test1create test2create test3create test4copy " \
-               "test5create test6create test7"
+    expected = 'create test1create test2create test3create test4copy ' \
+               'test5create test6create test7'
     self.assertEqual(expected, actual)
 
   def _ReadFromFile(self, path: str):

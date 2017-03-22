@@ -18,11 +18,11 @@ class BaseSQLiteGenerator(object):
   def GenerateSQLitePlugin(
       self,
       template_path: str,
-      fileHandler: base_file_handler.BaseFileHandler,
-      init_mapper: base_init_mapping.BaseInitMapper,
-      parser_mapper: base_parser_mapping.BaseParserMapper,
-      formatter_mapper: base_formatter_mapping.BaseFormatterMapper,
-      mappingHelper: base_mapping_helper.BaseMappingHelper):
+      fileHandler: base_file_handler.BaseFileHandler(),
+      init_mapper: base_init_mapping.BaseInitMapper(),
+      parser_mapper: base_parser_mapping.BaseParserMapper(),
+      formatter_mapper: base_formatter_mapping.BaseFormatterMapper(),
+      mappingHelper: base_mapping_helper.BaseMappingHelper()):
     """Generate the whole sqlite plugin.
 
     Args:

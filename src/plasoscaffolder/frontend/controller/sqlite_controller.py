@@ -17,7 +17,7 @@ from plasoscaffolder.common import output_handler_click
 
 
 class SQLiteController(object):
-  """Class representing the Controller for the SQLite Controller."""
+  """Class representing the SQLite Controller."""
 
   def __init__(self, output_handler: base_output_handler.BaseOutputHandler(),
                plugin_helper: base_sqlite_plugin_helper.BaseSQLitePluginHelper):
@@ -35,7 +35,7 @@ class SQLiteController(object):
     self._plugin_helper = plugin_helper
     self._output_handler = output_handler
 
-  def SourcePath(self, _ctx: click.core.Context, _param: click.core.Option,
+  def SourcePath(self, ctx: click.core.Context, param: click.core.Option,
                  value: str) -> str:
     """Saving the source path.
 
@@ -55,7 +55,7 @@ class SQLiteController(object):
     self._path = value
     return value
 
-  def PluginName(self, _ctx: click.core.Context, _param: click.core.Option,
+  def PluginName(self, ctx: click.core.Context, param: click.core.Option,
                  value: str) -> str:
     """Saving the plugin_name.
 
@@ -72,8 +72,8 @@ class SQLiteController(object):
     value = self._ValidatePluginName(value)
     while self._plugin_helper.PluginExists(
         self._path, value,
-        sqlite_plugin_path_helper.SQLitePluginPathHelper(self._path, value,
-                                                         "", )):
+        sqlite_plugin_path_helper.SQLitePluginPathHelper(
+            self._path, value, "", )):
       value = self._output_handler.PromptError(
           'Plugin exists. Choose new name: ')
       value = self._ValidatePluginName(value)
@@ -81,7 +81,7 @@ class SQLiteController(object):
     self._name = value
     return value
 
-  def TestPath(self, _ctx: click.core.Context, _param: click.core.Option,
+  def TestPath(self, ctx: click.core.Context, param: click.core.Option,
                value: str) -> str:
     """Saving the __path to the test file.
 
@@ -101,7 +101,7 @@ class SQLiteController(object):
     self._testfile = value
     return value
 
-  def Event(self, _ctx: click.core.Context, _param: click.core.Option,
+  def Event(self, ctx: click.core.Context, param: click.core.Option,
             value: str) -> str:
     """The __events of the plugin
 
@@ -134,9 +134,8 @@ class SQLiteController(object):
         self._events,
         output_handler_click.OutputHandlerClick(),
         sqlite_plugin_helper.SQLitePluginHelper(),
-        sqlite_plugin_path_helper.SQLitePluginPathHelper(self._path,
-                                                         self._name,
-                                                         database_suffix))
+        sqlite_plugin_path_helper.SQLitePluginPathHelper(
+            self._path, self._name, database_suffix))
 
     self._output_handler.Confirm('Do you want to Generate the files?')
 

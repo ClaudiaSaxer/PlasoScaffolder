@@ -8,7 +8,7 @@ from plasoscaffolder.frontend.sqliteplugin import commands as sqliteplugin
 def entry_point():
   pass
 
-#all plugin entrypoints for the scaffolder
+#handles the click initialization
 entry_point.add_command(sqliteplugin.sqlite)
 
 if __name__ == '__main__':

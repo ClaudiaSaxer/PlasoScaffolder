@@ -19,7 +19,7 @@ class ParserMapper(base_parser_mapping.BaseParserMapper):
     self.__helper = mapping_helper
 
   def GetParser(self, plugin_name: str, events: list) -> str:
-    """Renders the parser.
+    """Retrieves the parser.
 
     Args:
       plugin_name (str): the name of the plugin

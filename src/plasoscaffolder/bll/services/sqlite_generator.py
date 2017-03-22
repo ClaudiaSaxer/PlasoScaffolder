@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Sqlite Generator"""
+"""SQLite Generator"""
 
 from plasoscaffolder.bll.mappings import base_formatter_mapping
 from plasoscaffolder.bll.mappings import base_init_mapping
@@ -70,10 +70,6 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
 
     file_handler = fileHandler
 
-    file = file_handler.CreateFileFromPath
-    copy = file_handler.CopyFile
-    edit = file_handler.AddContent
-
     if self.init_formatter_exists:
       content_init_formatter = init_mapper.GetFormatterInitEdit(self.name)
     else:
@@ -87,15 +83,20 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     content_parser = parser_mapper.GetParser(self.name, self.events)
     content_formatter = formatter_mapper.GetFormatter(self.name, self.events)
 
-    formatter = edit(self.path_helper.formatter_file_path, content_formatter)
-    parser = edit(self.path_helper.parser_file_path, content_parser)
-    formatter_test = file(self.path_helper.formatter_test_file_path)
-    parser_test = file(self.path_helper.parser_test_file_path)
-    database = copy(self.database, self.path_helper.database_path)
-    parser_init = edit(self.path_helper.parser_init_file_path,
-                       content_init_parser)
-    formatter_init = edit(self.path_helper.formatter_init_file_path,
-                          content_init_formatter)
+    formatter = file_handler.AddContent(
+        self.path_helper.formatter_file_path, content_formatter)
+    parser = file_handler.AddContent(
+        self.path_helper.parser_file_path, content_parser)
+    formatter_test = file_handler.CreateFileFromPath(
+        self.path_helper.formatter_test_file_path)
+    parser_test = file_handler.CreateFileFromPath(
+        self.path_helper.parser_test_file_path)
+    database = file_handler.CopyFile(
+        self.database, self.path_helper.database_path)
+    parser_init = file_handler.AddContent(
+        self.path_helper.parser_init_file_path, content_init_parser)
+    formatter_init = file_handler.AddContent(
+        self.path_helper.formatter_init_file_path, content_init_formatter)
 
     self._Print(formatter, parser, formatter_test, parser_test, database,
                 parser_init, formatter_init)

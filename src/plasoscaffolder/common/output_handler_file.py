@@ -66,9 +66,9 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
     return self.__file_handler.AddContent(self.__path, text)
 
   def Confirm(self, text: str):
-    """A Confirm, Default Y, if no abort execution.
+    """A confirmation, Default Y, if no abort execution.
 
     Args:
-      text (str): The text to Confirm
+      text (str): Prompts the user for a confirmation.
     """
     raise NotImplementedError

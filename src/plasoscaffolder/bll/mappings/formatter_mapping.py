@@ -16,7 +16,7 @@ class FormatterMapper(base_formatter_mapping.BaseFormatterMapper):
       template_path (str): the path to the template directory
     """
     super().__init__()
-    self.__helper = mapping_helper
+    self._helper = mapping_helper
 
   def GetFormatter(self, plugin_name: str, events: list) -> str:
     """Renders the formatter.
@@ -28,8 +28,8 @@ class FormatterMapper(base_formatter_mapping.BaseFormatterMapper):
     Returns:
       str: the rendered template
     """
-    class_name = self.__helper.GenerateClassName(plugin_name)
+    class_name = self._helper.GenerateClassName(plugin_name)
     context = {'plugin_name': plugin_name, 'class_name': class_name,
                'events': events}
-    rendered = self.__helper.RenderTemplate(self._FORMATTER_TEMPLATE, context)
+    rendered = self._helper.RenderTemplate(self._FORMATTER_TEMPLATE, context)
     return rendered

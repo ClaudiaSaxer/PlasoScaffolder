@@ -9,7 +9,7 @@ class FakeMappingHelper(base_mapping_helper.BaseMappingHelper):
   def __init__(self, template_path: str):
     self.template_path = template_path
 
-  def _GetTemplateEnvironment(self):
+  def _CreateTemplateEnvironment(self):
     pass
 
   def RenderTemplate(self, template_filename: str, context: dict) -> str:

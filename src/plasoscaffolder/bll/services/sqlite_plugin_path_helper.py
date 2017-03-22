@@ -7,7 +7,17 @@ from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 
 class SQLitePluginPathHelper(
     base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper):
-  """Class containing __helper functions for the SQLite plugin for the path"""
+  """Class containing __helper functions for the SQLite plugin for the path
+
+  Args:
+    formatter_file_path (str): the path to the formatter file
+    parser_file_path (str): the path to the parser file
+    formatter_test_file_path (str): the path to the formatter test file
+    parser_test_file_path (str): the path to the parser test file
+    database_path (str): the path to the database file
+    parser_init_file_path (str): the path to the parser init file
+    formatter_init_file_path (str): the path to the formatter init file
+  """
 
   def __init__(self, path: str, plugin_name: str, database_suffix: str):
     """Initializes the sqlite plugin halper.

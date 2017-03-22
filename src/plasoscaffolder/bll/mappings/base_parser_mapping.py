@@ -9,7 +9,7 @@ class BaseParserMapper(object):
 
   @abc.abstractmethod
   def GetParser(self, plugin_name: str, events: list) -> str:
-    """Renders the parser.
+    """Retrieves the parser.
 
     Args:
       plugin_name (str): the name of the plugin
