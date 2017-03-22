@@ -83,7 +83,7 @@ class SQLiteController(object):
 
   def TestPath(self, ctx: click.core.Context, param: click.core.Option,
                value: str) -> str:
-    """Saving the __path to the test file.
+    """Saving the path to the test file.
 
     Args:
       ctx (click.core.Context): the click context (automatically given via
@@ -103,7 +103,7 @@ class SQLiteController(object):
 
   def Event(self, ctx: click.core.Context, param: click.core.Option,
             value: str) -> str:
-    """The __events of the plugin
+    """The events of the plugin
 
     Args:
       ctx (click.core.Context): the click context (automatically given via
@@ -124,6 +124,8 @@ class SQLiteController(object):
     Args:
       template_path (str): the path to the template directory
     """
+    self._output_handler.Confirm('Do you want to Generate the files?')
+
     database_suffix = os.path.splitext(self._testfile)[1]
     helper = mapping_helper.MappingHelper(template_path)
 
@@ -132,12 +134,10 @@ class SQLiteController(object):
         self._name,
         self._testfile,
         self._events,
-        output_handler_click.OutputHandlerClick(),
+        self._output_handler,
         sqlite_plugin_helper.SQLitePluginHelper(),
         sqlite_plugin_path_helper.SQLitePluginPathHelper(
             self._path, self._name, database_suffix))
-
-    self._output_handler.Confirm('Do you want to Generate the files?')
 
     generator.GenerateSQLitePlugin(
         template_path, file_handler.FileHandler(),

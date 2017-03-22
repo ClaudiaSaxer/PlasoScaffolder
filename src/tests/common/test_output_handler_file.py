@@ -35,7 +35,16 @@ class FileOutputHandler(unittest.TestCase):
     actual_file = self.output.PrintError("the mighty")
     self.assertEqual(self.file_path, actual_file)
 
-  def testConfirm(self):
-    """test Confirm, should raise not implemented error"""
-    with self.assertRaises(NotImplementedError):
-      self.output.Confirm("")
+  def testConfirmIfTrue(self):
+    """test Confirm if confirmed"""
+    actual = self.output.Confirm("some message")
+    self.assertEqual(self.file_path,actual)
+
+  def testConfirmIfFalse(self):
+    """test Confirm if not confirmed"""
+    output = output_handler_file.OutputHandlerFile(
+        None, None,
+        confirm=False)
+
+    with self.assertRaises(SystemExit):
+      output.Confirm("")
