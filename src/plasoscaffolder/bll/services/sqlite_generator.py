@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""SQLite Generator"""
+"""A SQLite Generator"""
 
 from plasoscaffolder.bll.mappings import base_formatter_mapping
 from plasoscaffolder.bll.mappings import base_init_mapping

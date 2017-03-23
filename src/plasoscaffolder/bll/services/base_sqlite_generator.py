@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Baseclass for Generator for Sqlite"""
+"""Baseclass for a Generator for Sqlite"""
 import abc
 import os
 

@@ -35,14 +35,17 @@ class SQLiteController(object):
     self._plugin_helper = plugin_helper
     self._output_handler = output_handler
 
-  def SourcePath(self, ctx: click.core.Context, param: click.core.Option,
+  def SourcePath(self, unused_ctx: click.core.Context,
+                 unused_param: click.core.Option,
                  value: str) -> str:
     """Saving the source path.
 
     Args:
-      ctx (click.core.Context): the click context (automatically given via
+      unused_ctx (click.core.Context): the click context (automatically given
+      via
       callback)
-      param (click.core.Option): the click command (automatically given via
+      unused_param (click.core.Option): the click command (automatically
+      given via
       callback)
       value (str): the source path (automatically given via callback)
 
@@ -55,14 +58,17 @@ class SQLiteController(object):
     self._path = value
     return value
 
-  def PluginName(self, ctx: click.core.Context, param: click.core.Option,
+  def PluginName(self, unused_ctx: click.core.Context,
+                 unused_param: click.core.Option,
                  value: str) -> str:
     """Saving the plugin_name.
 
     Args:
-      ctx (click.core.Context): the click context (automatically given via
+      unused_ctx (click.core.Context): the click context (automatically given
+      via
       callback)
-      param (click.core.Option): the click command (automatically given via
+      unused_param (click.core.Option): the click command (automatically
+      given via
       callback)
       value (str): the source path (automatically given via callback)
 
@@ -81,14 +87,17 @@ class SQLiteController(object):
     self._name = value
     return value
 
-  def TestPath(self, ctx: click.core.Context, param: click.core.Option,
+  def TestPath(self, unused_ctx: click.core.Context,
+               unused_param: click.core.Option,
                value: str) -> str:
     """Saving the path to the test file.
 
     Args:
-      ctx (click.core.Context): the click context (automatically given via
+      unused_ctx (click.core.Context): the click context (automatically given
+      via
       callback)
-      param (click.core.Option): the click command (automatically given via
+      unused_param (click.core.Option): the click command (automatically
+      given via
       callback)
       value (str): the source path (automatically given via callback)
 
@@ -101,14 +110,17 @@ class SQLiteController(object):
     self._testfile = value
     return value
 
-  def Event(self, ctx: click.core.Context, param: click.core.Option,
+  def Event(self, unused_ctx: click.core.Context,
+            unused_param: click.core.Option,
             value: str) -> str:
     """The events of the plugin
 
     Args:
-      ctx (click.core.Context): the click context (automatically given via
+      unused_ctx (click.core.Context): the click context (automatically given
+      via
       callback)
-      param (click.core.Option): the click command (automatically given via
+      unused_param (click.core.Option): the click command (automatically
+      given via
       callback)
       value (str): the source path (automatically given via callback)
 
