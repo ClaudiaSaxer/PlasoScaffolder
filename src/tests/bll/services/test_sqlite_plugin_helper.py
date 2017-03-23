@@ -20,7 +20,8 @@ class SQLitePluginHelperTest(unittest.TestCase):
     """Tests the plugin exists method if none exists."""
 
     actual = self.helper.PluginExists('temp', 'plugin_test', 'db',
-                                      FakeSQLitePluginPathHelper(self.template_path,'test','db'))
+                                      FakeSQLitePluginPathHelper(
+                                          self.template_path, 'test', 'db'))
     self.assertFalse(actual)
 
   def test_PluginExistsIfTrue(self):
@@ -30,7 +31,8 @@ class SQLitePluginHelperTest(unittest.TestCase):
       new_file = open(file_path, 'a')
       helper = SQLitePluginHelper()
       actual = helper.PluginExists(tmpdir, new_file.name, 'db',
-                                   FakeSQLitePluginPathHelper(self.template_path,new_file.name,'db'))
+                                   FakeSQLitePluginPathHelper(
+                                       self.template_path, new_file.name, 'db'))
       new_file.close()
       os.remove(file_path)
 

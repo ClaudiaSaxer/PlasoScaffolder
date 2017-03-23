@@ -71,7 +71,7 @@ class SQLiteController(object):
     """
     value = self._ValidatePluginName(value)
     while self._plugin_helper.PluginExists(
-        self._path, value,
+        self._path, value, "",
         sqlite_plugin_path_helper.SQLitePluginPathHelper(
             self._path, value, "", )):
       value = self._output_handler.PromptError(
