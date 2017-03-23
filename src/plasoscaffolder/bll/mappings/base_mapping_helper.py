@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Helper methods for mapping"""
 import abc
-import jinja2
 
 
 class BaseMappingHelper(object):
