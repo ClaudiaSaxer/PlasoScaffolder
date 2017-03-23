@@ -88,4 +88,3 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
     if not self.__confirm:
       sys.exit()
     return self.__file_handler.AddContent(self.__path, text)
-

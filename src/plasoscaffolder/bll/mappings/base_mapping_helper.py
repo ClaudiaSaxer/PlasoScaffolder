@@ -9,14 +9,6 @@ class BaseMappingHelper(object):
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def _CreateTemplateEnvironment(self) -> jinja2.Environment:
-    """Returns the template environment.
-
-    Returns:
-      jinja2.Environment: jinja2 template environment.
-    """
-
-  @abc.abstractmethod
   def RenderTemplate(self, template_filename: str, context: dict) -> str:
     """Renders the template.
 
