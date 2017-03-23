@@ -6,7 +6,7 @@ from plaso.formatters import manager
 from plaso.lib import errors
 
 {% for event in events %}
-class {{ class_name }}{{ event }}Formatter(interface.ConditionalEventFormatter):
+class {{ class_name }}{{ event.name }}Formatter(interface.ConditionalEventFormatter):
   """TODO"""
 
   FORMAT_STRING_PIECES = [
@@ -21,7 +21,7 @@ class {{ class_name }}{{ event }}Formatter(interface.ConditionalEventFormatter):
 
   SOURCE_LONG = u'todo'
   SOURCE_SHORT = u'todo'
-
+{% if event.needs_customizing %}
   def GetMessages(self, unused_formatter_mediator, event):
     """Determines the formatted message strings for an event object.
 
@@ -46,8 +46,8 @@ class {{ class_name }}{{ event }}Formatter(interface.ConditionalEventFormatter):
     #TODO
 
     return self._ConditionalFormatMessages(event_values)
-
+{% endif %}
 {% endfor %}
 manager.FormattersManager.RegisterFormatter([
-  {% for event in events %}{{ class_name }}{{ event }}Formatter{% if not loop.last %},{% endif %}
+  {% for event in events %}{{ class_name }}{{ event.name }}Formatter{% if not loop.last %},{% endif %}
   {% endfor %}])

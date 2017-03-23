@@ -7,6 +7,7 @@ import unittest
 from plasoscaffolder.common import file_handler
 from plasoscaffolder.common import output_handler_file
 from plasoscaffolder.frontend.controller import sqlite_controller
+from plasoscaffolder.model import event_model
 from tests.fake import fake_sqlite_plugin_helper
 from tests.test_helper import path_helper
 
@@ -18,11 +19,11 @@ class SQLiteControllerTest(unittest.TestCase):
     """test method after getting the plugin name from the user if the plugin
     name already exists"""
     with tempfile.TemporaryDirectory() as tmpdir:
-      file = os.path.join(tmpdir, 'testfile')
-      pathlib.Path(file).touch()
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          file, file_handler.FileHandler(), prompt_info='the_plugin',
+          path, file_handler.FileHandler(), prompt_info='the_plugin',
           prompt_error='the_plugin', )
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
           plugin_exists=True, change_bool_after_every_call_plugin_exists=True,
@@ -33,9 +34,8 @@ class SQLiteControllerTest(unittest.TestCase):
       controller._path = 'somepath'
       controller.PluginName(None, None, actualName)
       expected = 'Plugin exists. Choose new name: '
-      actual = self._ReadFromFile(file)
+      actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
-      os.remove(file)
 
   def testPluginNameIfNotExisting(self):
     """test method after getting tplugin name from the user if the plugin
@@ -68,11 +68,11 @@ class SQLiteControllerTest(unittest.TestCase):
   def testSourcePathIfNotExisting(self):
     """test method after getting the source path from the user"""
     with tempfile.TemporaryDirectory() as tmpdir:
-      file = os.path.join(tmpdir, 'testfile')
-      pathlib.Path(file).touch()
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          file, file_handler.FileHandler())
+          path, file_handler.FileHandler())
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
           folder_exists=False, change_bool_after_every_call_folder_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
@@ -80,9 +80,8 @@ class SQLiteControllerTest(unittest.TestCase):
       actualPath = 'testpath'
       controller.SourcePath(None, None, actualPath)
       expected = 'Folder does not exists. Enter correct one: '
-      actual = self._ReadFromFile(file)
+      actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
-      os.remove(file)
 
   def testTestPathIfExisting(self):
     """test method after getting the source path from the user"""
@@ -100,11 +99,11 @@ class SQLiteControllerTest(unittest.TestCase):
   def testTestPathIfNotExisting(self):
     """test method after getting the source path from the user"""
     with tempfile.TemporaryDirectory() as tmpdir:
-      file = os.path.join(tmpdir, 'testfile')
-      pathlib.Path(file).touch()
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          file, file_handler.FileHandler())
+          path, file_handler.FileHandler())
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
           file_exists=False, change_bool_after_every_call_file_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
@@ -112,24 +111,87 @@ class SQLiteControllerTest(unittest.TestCase):
       actualPath = 'testpath'
       controller.TestPath(None, None, actualPath)
       expected = 'File does not exists. Choose another: '
-      actual = self._ReadFromFile(file)
+      actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
-      os.remove(file)
 
   def testEvent(self):
     """test method after getting the events from the user"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
 
-    output_handler = output_handler_file.OutputHandlerFile(
-        'somefile', file_handler.FileHandler())
-    plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
-        folder_exists=True)
-    controller = sqlite_controller.SQLiteController(output_handler,
-                                                    plugin_helper)
-    event = 'event1 event2 event3'
-    controller.Event(None, None, event)
-    actual = controller._events
-    expected = ['Event1', 'Event2', 'Event3']
-    self.assertEqual(actual, expected)
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(),prompt_info=False)
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+          folder_exists=True)
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+      event = 'event1 event2 event3'
+      controller.Event(None, None, event)
+      actual = controller._events
+      expected = [event_model.EventModel('Event1'),
+                  event_model.EventModel('Event2'),
+                  event_model.EventModel('Event3')]
+      actual_prompt_output = self._ReadFromFile(path)
+      expected_prompt_output = 'Does the event Event1 need customizing?' \
+                               'Does the event Event2 need customizing?' \
+                               'Does the event Event3 need customizing?'
+
+
+    self.assertEqual(actual[0].name, expected[0].name)
+    self.assertEqual(actual[1].name, expected[1].name)
+    self.assertEqual(actual[2].name, expected[2].name)
+    self.assertEqual(actual[0].needs_customizing, expected[0].needs_customizing)
+    self.assertEqual(actual[1].needs_customizing, expected[1].needs_customizing)
+    self.assertEqual(actual[2].needs_customizing, expected[2].needs_customizing)
+    self.assertEqual(actual_prompt_output, expected_prompt_output)
+
+  def testCreateEventModelWithUserInputIfTrue(self):
+    """test method create event model with user input"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      event_name = 'Event'
+      customize = True
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_info=customize)
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+          folder_exists=True)
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+      actual = controller._CreateEventModelWithUserInput(event_name)
+      prompt_output_actual = self._ReadFromFile(path)
+      prompt_output_expected = 'Does the event Event need customizing?'
+
+      expected = event_model.EventModel(event_name, customize)
+
+    self.assertEqual(actual.name, expected.name)
+    self.assertEqual(actual.needs_customizing, expected.needs_customizing)
+    self.assertEqual(prompt_output_actual, prompt_output_expected)
+
+  def testCreateEventModelWithUserInputIfFalse(self):
+    """test method create event model with user input"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      event_name = 'Event'
+      customize = False
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_info=customize)
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+          folder_exists=True)
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+      actual = controller._CreateEventModelWithUserInput(event_name)
+      prompt_output_actual = self._ReadFromFile(path)
+      prompt_output_expected = 'Does the event Event need customizing?'
+
+      expected = event_model.EventModel(event_name, customize)
+    self.assertEqual(actual.name, expected.name)
+    self.assertEqual(actual.needs_customizing, expected.needs_customizing)
+    self.assertEqual(prompt_output_actual, prompt_output_expected)
 
   def testValidatePluginNameIfOk(self):
     """test the validate plugin name method if ok"""
@@ -142,11 +204,11 @@ class SQLiteControllerTest(unittest.TestCase):
   def testValidatePluginNameIfNotOk(self):
     """test the validate plugin name method if not ok"""
     with tempfile.TemporaryDirectory() as tmpdir:
-      file = os.path.join(tmpdir, 'testfile')
-      pathlib.Path(file).touch()
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          file, file_handler.FileHandler())
+          path, file_handler.FileHandler())
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
           valid_name=False, change_bool_after_every_call_valid_name=True)
       controller = sqlite_controller.SQLiteController(output_handler,
@@ -154,9 +216,8 @@ class SQLiteControllerTest(unittest.TestCase):
       controller._ValidatePluginName("the_wrong_plugin_")
       expected = 'Plugin is not in a valide format. Choose new name [' \
                  'plugin_name_...]: '
-      actual = self._ReadFromFile(file)
+      actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
-      os.remove(file)
 
   def testGenerateIfConfirmed(self):
     """test the generate if confirmed"""
@@ -197,7 +258,6 @@ class SQLiteControllerTest(unittest.TestCase):
                                            '__init__.py'))
 
       actual = self._ReadFromFile(file)
-      os.remove(file)
 
     self.assertEqual(expected, actual)
 
@@ -222,9 +282,17 @@ class SQLiteControllerTest(unittest.TestCase):
         self.output.Confirm(template_path)
 
   def _ReadFromFile(self, path: str):
-    """read from file helper"""
+    """Read from file and remove it afterwards.
+
+    Args:
+      path (str): the file path
+
+    Returns:
+      (str): the file content.
+    """
     with open(path, 'r') as f:
       return f.read()
+    os.remove(path)
 
   if __name__ == '__main__':
     unittest.main()

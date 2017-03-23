@@ -17,6 +17,18 @@ class BaseOutputHandler(object):
     Returns:
       str: the user input
     """
+  @abc.abstractmethod
+  def PromptInfoWithDefault(self, text: str, text_type: object, default: object) -> str:
+    """A prompt for information, with a default value and a required type.
+
+    Args:
+      text (str): the text to prompt
+      text_type (object): the type of the input
+      default (object): the default value
+
+    Returns:
+      str: the user input
+    """
 
   @abc.abstractmethod
   def PromptError(self, text: str) -> str:

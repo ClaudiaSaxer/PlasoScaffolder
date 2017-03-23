@@ -46,8 +46,23 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
     self.__file_handler.AddContent(self.__path, text)
     return self.__prompt_info
 
+  def PromptInfoWithDefault(self, text: str, text_type: object,
+                            default: object) -> str:
+    """A prompt for information, with a default value and a required type.
+
+    Args:
+      text (str): the text to prompt
+      text_type (object): the type of the input
+      default (object): the default value
+
+    Returns:
+      str: the user input
+    """
+    self.__file_handler.AddContent(self.__path, text)
+    return self.__prompt_info
+
   def PromptError(self, text: str) -> str:
-    """A prompt for errors with click.
+    """A prompt for errors.
     Use with caution. Endless Loops possible
 
     Args:
@@ -60,7 +75,7 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
     return self.__prompt_error
 
   def PrintInfo(self, text: str) -> str:
-    """A echo for infos with click.
+    """A echo for infos.
 
     Args:
       text (str): the text to print
@@ -68,6 +83,8 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
     Returns: the file the content was added
     """
     return self.__file_handler.AddContent(self.__path, text)
+
+
 
   def PrintError(self, text: str) -> str:
     """A echo for errors with click.

@@ -3,7 +3,6 @@
 import os
 
 import click
-
 from plasoscaffolder.bll.mappings import formatter_mapping
 from plasoscaffolder.bll.mappings import init_mapping
 from plasoscaffolder.bll.mappings import mapping_helper
@@ -14,6 +13,7 @@ from plasoscaffolder.bll.services import sqlite_plugin_helper
 from plasoscaffolder.bll.services import sqlite_plugin_path_helper
 from plasoscaffolder.common import base_output_handler
 from plasoscaffolder.common import file_handler
+from plasoscaffolder.model import event_model
 
 
 class SQLiteController(object):
@@ -127,8 +127,26 @@ class SQLiteController(object):
     Returns:
       str: the events of the plugin
     """
-    self._events = value.title().split()
-    return self._events
+    event_model_list = []
+    for event_name in value.title().split():
+      event_model_list.append(self._CreateEventModelWithUserInput(event_name))
+    self._events = event_model_list
+
+    return event_model_list
+
+  def _CreateEventModelWithUserInput(self, name: str) -> event_model.EventModel:
+    """Asks the user if the event needs customizing
+
+    Args:
+      name (str): the name of the event
+
+    Returns:
+      (event_model.EventModel): a event
+    """
+    message = 'Does the event {0} need customizing?'.format(name)
+    needs_customizing = self._output_handler.PromptInfoWithDefault(
+        message, bool, False)
+    return event_model.EventModel(name, needs_customizing)
 
   def Generate(self, template_path: str):
     """Generating the files.
