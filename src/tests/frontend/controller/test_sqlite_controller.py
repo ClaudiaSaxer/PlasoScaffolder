@@ -65,6 +65,18 @@ class SQLiteControllerTest(unittest.TestCase):
     controller.SourcePath(None, None, actualPath)
     self.assertEqual(actualPath, controller._path)
 
+  def testSqlQuery(self):
+    """test method after getting the source path from the user"""
+
+    output_handler = output_handler_file.OutputHandlerFile(
+        'somefile', file_handler.FileHandler())
+    plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper()
+    controller = sqlite_controller.SQLiteController(output_handler,
+                                                    plugin_helper)
+    actual_query = 'the query'
+    controller.SQLQuery(None, None, actual_query)
+    self.assertEqual(actual_query, controller._sql_query)
+
   def testSourcePathIfNotExisting(self):
     """test method after getting the source path from the user"""
     with tempfile.TemporaryDirectory() as tmpdir:

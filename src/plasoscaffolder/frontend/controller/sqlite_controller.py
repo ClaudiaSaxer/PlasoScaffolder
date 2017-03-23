@@ -32,6 +32,7 @@ class SQLiteController(object):
     self._name = None
     self._testfile = None
     self._events = None
+    self._sql_query = None
     self._plugin_helper = plugin_helper
     self._output_handler = output_handler
 
@@ -133,6 +134,26 @@ class SQLiteController(object):
     self._events = event_model_list
 
     return event_model_list
+
+  def SQLQuery(self, unused_ctx: click.core.Context,
+               unused_param: click.core.Option,
+               value: str) -> str:
+    """The events of the plugin
+
+    Args:
+      unused_ctx (click.core.Context): the click context (automatically given
+      via
+      callback)
+      unused_param (click.core.Option): the click command (automatically
+      given via
+      callback)
+      value (str): the sql query (automatically given via callback)
+
+    Returns:
+      str: the sql query
+    """
+    self._sql_query = value
+    return value
 
   def _CreateEventModelWithUserInput(self, name: str) -> event_model.EventModel:
     """Asks the user if the event needs customizing
