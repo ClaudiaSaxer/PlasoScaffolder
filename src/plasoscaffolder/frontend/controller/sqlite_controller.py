@@ -153,6 +153,7 @@ class SQLiteController(object):
       str: the sql query
     """
     self._sql_query = value
+    print(value)
     return value
 
   def _CreateEventModelWithUserInput(self, name: str) -> event_model.EventModel:
@@ -165,8 +166,9 @@ class SQLiteController(object):
       (event_model.EventModel): a event
     """
     message = 'Does the event {0} need customizing?'.format(name)
-    needs_customizing = self._output_handler.PromptInfoWithDefault(
-        message, bool, False)
+    needs_customizing = self._output_handler.Confirm(
+        text=message, abort=False, default=False)
+    print(needs_customizing)
     return event_model.EventModel(name, needs_customizing)
 
   def Generate(self, template_path: str):
@@ -175,6 +177,7 @@ class SQLiteController(object):
     Args:
       template_path (str): the path to the template directory
     """
+    print(self._sql_query)
     self._output_handler.Confirm('Do you want to Generate the files?')
 
     database_suffix = os.path.splitext(self._testfile)[1][1:]

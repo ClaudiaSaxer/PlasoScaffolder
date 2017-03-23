@@ -62,10 +62,14 @@ class OutputHandlerClick(base_output_handler.BaseOutputHandler):
     """
     click.echo(text, color='red')
 
-  def Confirm(self, text: str):
+  def Confirm(self, text: str, default=True, abort=True):
     """A confirmation, Default Y, if no abort execution.
 
     Args:
       text (str): Prompts the user for a confirmation.
+      default (bool): the default value.
+      abort (bool): if the program should abort
+
+    Returns:
     """
-    click.confirm(text, abort=True, default=True)
+    return click.confirm(text, abort=abort, default=default)

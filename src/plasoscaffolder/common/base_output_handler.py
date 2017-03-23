@@ -58,9 +58,13 @@ class BaseOutputHandler(object):
     """
 
   @abc.abstractmethod
-  def Confirm(self, text: str):
+  def Confirm(self, text: str, default=True, abort=True):
     """A confirmation, Default Y, if no abort execution.
 
-    Args:
-      text (str): Prompts the user for a confirmation.
-    """
+     Args:
+       text (str): Prompts the user for a confirmation.
+       default (bool): the default value.
+       abort (bool): if the program should abort
+
+     Returns:
+     """

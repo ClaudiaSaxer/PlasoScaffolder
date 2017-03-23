@@ -133,7 +133,7 @@ class SQLiteControllerTest(unittest.TestCase):
       pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(),prompt_info=False)
+          path, file_handler.FileHandler(),confirm=False)
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
           folder_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
@@ -167,7 +167,7 @@ class SQLiteControllerTest(unittest.TestCase):
       event_name = 'Event'
       customize = True
       output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(), prompt_info=customize)
+          path, file_handler.FileHandler(), confirm=customize)
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
           folder_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
@@ -191,7 +191,7 @@ class SQLiteControllerTest(unittest.TestCase):
       event_name = 'Event'
       customize = False
       output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(), prompt_info=customize)
+          path, file_handler.FileHandler(), confirm=customize)
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
           folder_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,

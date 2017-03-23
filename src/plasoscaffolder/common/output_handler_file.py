@@ -84,8 +84,6 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
     """
     return self.__file_handler.AddContent(self.__path, text)
 
-
-
   def PrintError(self, text: str) -> str:
     """A echo for errors with click.
 
@@ -96,12 +94,17 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
     """
     return self.__file_handler.AddContent(self.__path, text)
 
-  def Confirm(self, text: str):
-    """A confirmation, Default Y, if no abort execution. Use with caution
+  def Confirm(self, text: str, default=True, abort=True):
+    """A confirmation, Default Y, if no abort execution. Use with caution.
 
-    Args:
-      text (str): Prompts the user for a confirmation.
-    """
-    if not self.__confirm:
+     Args:
+       text (str): Prompts the user for a confirmation.
+       default (bool): the default value.
+       abort (bool): if the program should abort
+
+     Returns:
+     """
+    if not self.__confirm and abort:
       sys.exit()
-    return self.__file_handler.AddContent(self.__path, text)
+    self.__file_handler.AddContent(self.__path, text)
+    return self.__confirm
