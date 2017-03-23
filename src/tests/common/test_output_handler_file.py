@@ -38,7 +38,7 @@ class FileOutputHandler(unittest.TestCase):
   def testConfirmIfTrue(self):
     """test Confirm if confirmed"""
     actual = self.output.Confirm("some message")
-    self.assertEqual(self.file_path,actual)
+    self.assertEqual(self.file_path, actual)
 
   def testConfirmIfFalse(self):
     """test Confirm if not confirmed"""

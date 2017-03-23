@@ -3,6 +3,7 @@
 import os
 
 import click
+
 from plasoscaffolder.bll.mappings import formatter_mapping
 from plasoscaffolder.bll.mappings import init_mapping
 from plasoscaffolder.bll.mappings import mapping_helper
@@ -13,7 +14,6 @@ from plasoscaffolder.bll.services import sqlite_plugin_helper
 from plasoscaffolder.bll.services import sqlite_plugin_path_helper
 from plasoscaffolder.common import base_output_handler
 from plasoscaffolder.common import file_handler
-from plasoscaffolder.common import output_handler_click
 
 
 class SQLiteController(object):
@@ -71,9 +71,9 @@ class SQLiteController(object):
     """
     value = self._ValidatePluginName(value)
     while self._plugin_helper.PluginExists(
-        self._path, value,
+        self._path, value, "",
         sqlite_plugin_path_helper.SQLitePluginPathHelper(
-            self._path, value, "", )):
+            self._path, value, "")):
       value = self._output_handler.PromptError(
           'Plugin exists. Choose new name: ')
       value = self._ValidatePluginName(value)
@@ -126,7 +126,7 @@ class SQLiteController(object):
     """
     self._output_handler.Confirm('Do you want to Generate the files?')
 
-    database_suffix = os.path.splitext(self._testfile)[1]
+    database_suffix = os.path.splitext(self._testfile)[1][1:]
     helper = mapping_helper.MappingHelper(template_path)
 
     generator = sqlite_generator.SQLiteGenerator(

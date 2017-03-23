@@ -178,20 +178,23 @@ class SQLiteControllerTest(unittest.TestCase):
       controller._testfile = file
       controller._events = ['Event1', 'Event2', 'Event3']
       controller.Generate(template_path)
-      expected = (
-        'Do you want to Generate the files?'
-        'create ' + os.path.join(tmpdir, 'plaso', 'formatters',
-                                 'the_plugin.py') +
-        'create ' + os.path.join(tmpdir, 'plaso', 'parsers', 'sqlite_plugins',
-                                 'the_plugin.py') +
-        'create ' + os.path.join(tmpdir, 'tests', 'formatters',
-                                 'the_plugin.py') +
-        'create ' + os.path.join(tmpdir, 'tests', 'parsers', 'sqlite_plugins',
-                                 'the_plugin.py') +
-        'copy ' + os.path.join(tmpdir, 'test_data', 'the_plugin.') +
-        'create ' + os.path.join(tmpdir, 'plaso', 'parsers', 'sqlite_plugins',
-                                 '__init__.py') +
-        'create ' + os.path.join(tmpdir, 'plaso', 'formatters', '__init__.py'))
+      expected = ('Do you want to Generate the files?'
+                  'create ' + os.path.join(tmpdir, 'plaso', 'formatters',
+                                           'the_plugin.py') +
+                  'create ' + os.path.join(tmpdir, 'plaso', 'parsers',
+                                           'sqlite_plugins',
+                                           'the_plugin.py') +
+                  'create ' + os.path.join(tmpdir, 'tests', 'formatters',
+                                           'the_plugin.py') +
+                  'create ' + os.path.join(tmpdir, 'tests', 'parsers',
+                                           'sqlite_plugins',
+                                           'the_plugin.py') +
+                  'copy ' + os.path.join(tmpdir, 'test_data', 'the_plugin.') +
+                  'create ' + os.path.join(tmpdir, 'plaso', 'parsers',
+                                           'sqlite_plugins',
+                                           '__init__.py') +
+                  'create ' + os.path.join(tmpdir, 'plaso', 'formatters',
+                                           '__init__.py'))
 
       actual = self._ReadFromFile(file)
       os.remove(file)
