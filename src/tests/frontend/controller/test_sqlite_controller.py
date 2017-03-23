@@ -8,6 +8,7 @@ from plasoscaffolder.common import file_handler
 from plasoscaffolder.common import output_handler_file
 from plasoscaffolder.frontend.controller import sqlite_controller
 from plasoscaffolder.model import event_model
+from plasoscaffolder.model import sql_query_model
 from tests.fake import fake_sqlite_plugin_helper
 from tests.test_helper import path_helper
 
@@ -65,17 +66,73 @@ class SQLiteControllerTest(unittest.TestCase):
     controller.SourcePath(None, None, actualPath)
     self.assertEqual(actualPath, controller._path)
 
+  def testCreateSQLQueryModelWithUserInput(self):
+    """test method CreateEventModelWithUserInput"""
+    sql_query = 'SELECT createdDate FROM Users ORDER BY createdDate'
+    name = 'Contact'
+    expected_name = 'Parse{0}Row'.format(name)
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_info=name)
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+          folder_exists=True)
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+      actual = controller._CreateSQLQueryModelWithUserInput(sql_query)
+      prompt_output_actual = self._ReadFromFile(path)
+      prompt_output_expected = 'What kind of row does this SQL query parse?' \
+                               ' Query: {0}'.format(sql_query)
+
+      expected = sql_query_model.SQLQueryModel(sql_query, expected_name)
+
+      self.assertEqual(expected.name, actual.name)
+      self.assertEqual(expected.query, actual.query)
+      self.assertEqual(prompt_output_expected, prompt_output_actual)
+
   def testSqlQuery(self):
     """test method after getting the source path from the user"""
+    sql_query_1 = 'SELECT createdDate1 FROM Users ORDER BY createdDate'
+    sql_query_2 = 'SELECT createdDate2 FROM Users ORDER BY createdDate'
+    sql_query_3 = 'SELECT createdDate3 FROM Users ORDER BY createdDate'
 
-    output_handler = output_handler_file.OutputHandlerFile(
-        'somefile', file_handler.FileHandler())
-    plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper()
-    controller = sqlite_controller.SQLiteController(output_handler,
-                                                    plugin_helper)
-    actual_query = 'the query'
-    controller.SQLQuery(None, None, actual_query)
-    self.assertEqual(actual_query, controller._sql_query)
+    name = 'Contact'
+    expected_name = 'Parse{0}Row'.format(name)
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_info=name)
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+          folder_exists=True)
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+
+      actual = controller.SQLQuery(None, None,
+                                   '{0} | {1} | {2}'.format(sql_query_1,
+                                                            sql_query_2,
+                                                            sql_query_3))
+
+      expected = [sql_query_model.SQLQueryModel(sql_query_1, expected_name),
+                  sql_query_model.SQLQueryModel(sql_query_2, expected_name),
+                  sql_query_model.SQLQueryModel(sql_query_3, expected_name)]
+
+      prompt_output_actual = self._ReadFromFile(path)
+      message = 'What kind of row does this SQL query parse?' \
+                ' Query: '
+      prompt_output_expected = '{0}{1}{0}{2}{0}{3}'.format(
+          message, sql_query_1, sql_query_2, sql_query_3)
+
+      self.assertEqual(actual[0].name, expected[0].name)
+      self.assertEqual(actual[1].name, expected[1].name)
+      self.assertEqual(actual[2].name, expected[2].name)
+      self.assertEqual(actual[0].query, expected[0].query)
+      self.assertEqual(actual[1].query, expected[1].query)
+      self.assertEqual(actual[2].query, expected[2].query)
+      self.assertEqual(prompt_output_actual, prompt_output_expected)
 
   def testSourcePathIfNotExisting(self):
     """test method after getting the source path from the user"""
@@ -133,7 +190,7 @@ class SQLiteControllerTest(unittest.TestCase):
       pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(),confirm=False)
+          path, file_handler.FileHandler(), confirm=False)
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
           folder_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
@@ -148,7 +205,6 @@ class SQLiteControllerTest(unittest.TestCase):
       expected_prompt_output = 'Does the event Event1 need customizing?' \
                                'Does the event Event2 need customizing?' \
                                'Does the event Event3 need customizing?'
-
 
     self.assertEqual(actual[0].name, expected[0].name)
     self.assertEqual(actual[1].name, expected[1].name)
@@ -306,5 +362,6 @@ class SQLiteControllerTest(unittest.TestCase):
       return f.read()
     os.remove(path)
 
-  if __name__ == '__main__':
-    unittest.main()
+
+if __name__ == '__main__':
+  unittest.main()

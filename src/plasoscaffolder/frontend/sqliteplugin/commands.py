@@ -29,8 +29,10 @@ Controller = sqlite_controller.SQLiteController(
                      'Event ...]',
               help='The plugin events', callback=Controller.Event)
 @click.option('--sql',
-              prompt='What is your plugin SQL Query?',
-              help='The SQL Query for the plugin.', callback=Controller.SQLQuery)
+              prompt='What is your plugin SQL Query? [first query | second '
+                     'query | ...]',
+              help='The SQL Query for the plugin.',
+              callback=Controller.SQLQuery)
 def sqlite(path, name, testfile, event, sql):
   template_path = os.path.join(
       os.path.dirname(os.path.dirname(os.path.dirname(__file__))),

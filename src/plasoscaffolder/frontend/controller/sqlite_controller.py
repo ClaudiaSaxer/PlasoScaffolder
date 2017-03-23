@@ -14,6 +14,7 @@ from plasoscaffolder.bll.services import sqlite_plugin_path_helper
 from plasoscaffolder.common import base_output_handler
 from plasoscaffolder.common import file_handler
 from plasoscaffolder.model import event_model
+from plasoscaffolder.model import sql_query_model
 
 
 class SQLiteController(object):
@@ -152,9 +153,28 @@ class SQLiteController(object):
     Returns:
       str: the sql query
     """
-    self._sql_query = value
-    print(value)
-    return value
+    sql_query_list = []
+    for query in value.split(' | '):
+      sql_query_list.append(self._CreateSQLQueryModelWithUserInput(query))
+    self._sql_query = sql_query_list
+    return sql_query_list
+
+  def _CreateSQLQueryModelWithUserInput(
+      self,
+      query: str) -> sql_query_model.SQLQueryModel:
+    """Asks the user information about the sql query
+
+    Args:
+      query (str): the sql query
+
+    Returns:
+      (sql_query_model.SQLQueryModel) a sql query model
+    """
+    message = 'What kind of row does this SQL query parse? Query: {0}'.format(
+        query)
+    name = self._output_handler.PromptInfo(text=message)
+    whole_name = 'Parse{0}Row'.format(name.title())
+    return sql_query_model.SQLQueryModel(query, whole_name)
 
   def _CreateEventModelWithUserInput(self, name: str) -> event_model.EventModel:
     """Asks the user if the event needs customizing
@@ -163,12 +183,11 @@ class SQLiteController(object):
       name (str): the name of the event
 
     Returns:
-      (event_model.EventModel): a event
+      (event_model.EventModel): a event model
     """
     message = 'Does the event {0} need customizing?'.format(name)
     needs_customizing = self._output_handler.Confirm(
         text=message, abort=False, default=False)
-    print(needs_customizing)
     return event_model.EventModel(name, needs_customizing)
 
   def Generate(self, template_path: str):
@@ -177,7 +196,6 @@ class SQLiteController(object):
     Args:
       template_path (str): the path to the template directory
     """
-    print(self._sql_query)
     self._output_handler.Confirm('Do you want to Generate the files?')
 
     database_suffix = os.path.splitext(self._testfile)[1][1:]
