@@ -1,15 +1,18 @@
+# -*- coding: utf-8 -*-
 """test class"""
+# pylint: disable=protected-access
+# because tests should access protected members
 import os
 import pathlib
 import tempfile
 import unittest
 
 from plasoscaffolder.common import file_handler
-from plasoscaffolder.common import output_handler_file
 from plasoscaffolder.frontend.controller import sqlite_controller
 from plasoscaffolder.model import event_model
 from plasoscaffolder.model import sql_query_model
 from tests.fake import fake_sqlite_plugin_helper
+from tests.test_helper import output_handler_file
 from tests.test_helper import path_helper
 
 
@@ -347,7 +350,7 @@ class SQLiteControllerTest(unittest.TestCase):
                                                         plugin_helper)
         controller.Generate('not used')
 
-        self.output.Confirm(template_path)
+        self.assertFalse(template_path)
 
   def _ReadFromFile(self, path: str):
     """Read from file and remove it afterwards.

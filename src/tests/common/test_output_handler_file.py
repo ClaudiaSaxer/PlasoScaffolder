@@ -2,8 +2,8 @@
 """test class"""
 import unittest
 
-from plasoscaffolder.common import output_handler_file
 from tests.fake import fake_file_handler
+from tests.test_helper import output_handler_file
 
 
 class FileOutputHandler(unittest.TestCase):

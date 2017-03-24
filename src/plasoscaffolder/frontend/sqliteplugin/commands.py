@@ -33,6 +33,8 @@ Controller = sqlite_controller.SQLiteController(
                      'query | ...]',
               help='The SQL Query for the plugin.',
               callback=Controller.SQLQuery)
+# pylint: disable=missing-docstring, unused-argument
+# because click does funny things with it
 def sqlite(path, name, testfile, event, sql):
   template_path = os.path.join(
       os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
