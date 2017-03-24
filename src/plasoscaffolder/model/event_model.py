@@ -3,6 +3,8 @@
 
 
 class EventModel(object):
+  "A event model."
+
   def __init__(self, name: str, needs_customizing=False):
     """ initializes the event model.
 
