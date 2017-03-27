@@ -3,6 +3,7 @@
 import abc
 
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
+from plasoscaffolder.dal import base_sql_query_validator
 
 
 class BaseSQLitePluginHelper(object):
@@ -55,3 +56,4 @@ class BaseSQLitePluginHelper(object):
     Returns:
       bool: true if the plugin name is valid
     """
+
