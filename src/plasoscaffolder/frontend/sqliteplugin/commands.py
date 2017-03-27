@@ -3,6 +3,7 @@
 import os
 
 import click
+
 from plasoscaffolder.bll.services import sqlite_plugin_helper
 from plasoscaffolder.common import output_handler_click
 from plasoscaffolder.frontend.controller import sqlite_controller
@@ -28,10 +29,9 @@ Controller = sqlite_controller.SQLiteController(
               prompt='Please enter the main events of the plugin. [Event '
                      'Event ...]',
               help='The plugin events', callback=Controller.Event)
-@click.option('--sql',
-              prompt='What is your plugin SQL Query? [first query | second '
-                     'query | ...]',
-              help='The SQL Query for the plugin.',
+@click.option('--sql', is_flag=True, expose_value=True, default=True,
+              prompt='Do you want to have a output example for your sql query?',
+              help='The output example flag for the SQL Query for the plugin.',
               callback=Controller.SQLQuery)
 # pylint: disable=missing-docstring, unused-argument
 # because click does funny things with it

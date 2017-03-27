@@ -3,6 +3,7 @@
 import os
 
 import click
+
 from plasoscaffolder.bll.mappings import formatter_mapping
 from plasoscaffolder.bll.mappings import init_mapping
 from plasoscaffolder.bll.mappings import mapping_helper
@@ -153,25 +154,34 @@ class SQLiteController(object):
     Returns:
       str: the sql query
     """
+    verbose = value
+    add_more_queries = True
     sql_query_list = []
-    for query in value.split(' | '):
-      sql_query_list.append(self._CreateSQLQueryModelWithUserInput(query))
+    while add_more_queries:
+      sql_query = self._output_handler.PromptInfo(
+          text='Please write your SQL script for the plugin')
+      sql_query_list.append(
+          self._CreateSQLQueryModelWithUserInput(sql_query, verbose))
+      add_more_queries = self._output_handler.Confirm(
+          text='Do you want to add another query?',
+          abort=False, default=True)
+
     self._sql_query = sql_query_list
     return sql_query_list
 
   def _CreateSQLQueryModelWithUserInput(
       self,
-      query: str) -> sql_query_model.SQLQueryModel:
+      query: str, with_examples: bool) -> sql_query_model.SQLQueryModel:
     """Asks the user information about the sql query
 
     Args:
       query (str): the sql query
+      with_examples (bool): if the user wants examples for the given query
 
     Returns:
       (sql_query_model.SQLQueryModel) a sql query model
     """
-    message = 'What kind of row does this SQL query parse? Query: {0}'.format(
-        query)
+    message = 'What kind of row does the SQL query parse?'
     name = self._output_handler.PromptInfo(text=message)
     whole_name = 'Parse{0}Row'.format(name.title())
     return sql_query_model.SQLQueryModel(query, whole_name)
