@@ -84,50 +84,48 @@ class SQLiteControllerTest(unittest.TestCase):
           folder_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
-      actual = controller._CreateSQLQueryModelWithUserInput(sql_query)
+      actual = controller._CreateSQLQueryModelWithUserInput(sql_query, False)
       prompt_output_actual = self._ReadFromFile(path)
-      prompt_output_expected = 'What kind of row does this SQL query parse?' \
-                               ' Query: {0}'.format(sql_query)
+      prompt_output_expected = 'What kind of row does the SQL query parse?'
 
       expected = sql_query_model.SQLQueryModel(sql_query, expected_name)
 
+      print(prompt_output_actual)
       self.assertEqual(expected.name, actual.name)
       self.assertEqual(expected.query, actual.query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
   def testSqlQuery(self):
     """test method after getting the source path from the user"""
-    sql_query_1 = 'SELECT createdDate1 FROM Users ORDER BY createdDate'
-    sql_query_2 = 'SELECT createdDate2 FROM Users ORDER BY createdDate'
-    sql_query_3 = 'SELECT createdDate3 FROM Users ORDER BY createdDate'
+    prompt_info = 'info'
+    sql_query = prompt_info
+    expected_name = 'Parse{0}Row'.format(prompt_info.title())
+    verbose = True
 
-    name = 'Contact'
-    expected_name = 'Parse{0}Row'.format(name)
     with tempfile.TemporaryDirectory() as tmpdir:
       path = os.path.join(tmpdir, 'testfile')
       pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(), prompt_info=name)
+          path, file_handler.FileHandler(), prompt_info, confirm=True,
+          confirm_amount_same=3)
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
           folder_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
 
       actual = controller.SQLQuery(None, None,
-                                   '{0} | {1} | {2}'.format(sql_query_1,
-                                                            sql_query_2,
-                                                            sql_query_3))
+                                   verbose)
 
-      expected = [sql_query_model.SQLQueryModel(sql_query_1, expected_name),
-                  sql_query_model.SQLQueryModel(sql_query_2, expected_name),
-                  sql_query_model.SQLQueryModel(sql_query_3, expected_name)]
+      expected = [sql_query_model.SQLQueryModel(prompt_info, expected_name),
+                  sql_query_model.SQLQueryModel(prompt_info, expected_name),
+                  sql_query_model.SQLQueryModel(prompt_info, expected_name)]
 
       prompt_output_actual = self._ReadFromFile(path)
-      message = 'What kind of row does this SQL query parse?' \
-                ' Query: '
-      prompt_output_expected = '{0}{1}{0}{2}{0}{3}'.format(
-          message, sql_query_1, sql_query_2, sql_query_3)
+      message = 'Please write your SQL script for the pluginWhat kind of row ' \
+                'does the SQL query parse?Do you want to add another query?'
+      prompt_output_expected = '{0}{0}{0}'.format(
+          message)
 
       self.assertEqual(actual[0].name, expected[0].name)
       self.assertEqual(actual[1].name, expected[1].name)

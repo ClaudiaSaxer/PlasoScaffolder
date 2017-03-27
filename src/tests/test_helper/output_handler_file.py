@@ -16,7 +16,8 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       file_handler: base_file_handler.BaseFileHandler(),
       prompt_info="",
       prompt_error="",
-      confirm=True):
+      confirm=True,
+      confirm_amount_same=100):
     """Initializes File Output Handler.
 
     Args:
@@ -25,6 +26,8 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       fileHandler (BaseFileHandler): the file Handler
       prompt_error (str): what to return in a prompt error
       prompt_info (str): what to return in a prompt info
+      confirm_amount_same (int): how many times to confirm the same amount. 
+      Default = 100
     """
     super().__init__()
     self.__prompt_info = prompt_info
@@ -32,6 +35,8 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
     self.__file_handler = file_handler
     self.__path = file_path
     self.__confirm = confirm
+    self.__confirm_counter = 1
+    self.__confirm_amount_same = confirm_amount_same
 
   def PromptInfo(self, text: str) -> str:
     """A prompt for information with click.
@@ -104,6 +109,12 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
 
      Returns:
      """
+    if self.__confirm_amount_same > self.__confirm_counter:
+      self.__confirm_counter += 1
+    else:
+      self.__confirm = not self.__confirm
+      self.__confirm_counter = 0
+
     if not self.__confirm and abort:
       sys.exit()
     self.__file_handler.AddContent(self.__path, text)
