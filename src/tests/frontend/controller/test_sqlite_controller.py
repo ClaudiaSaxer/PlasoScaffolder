@@ -6,12 +6,14 @@ import os
 import pathlib
 import tempfile
 import unittest
+from unittest import mock
 
 from plasoscaffolder.common import file_handler
+from plasoscaffolder.dal import base_sql_query_execution
 from plasoscaffolder.frontend.controller import sqlite_controller
 from plasoscaffolder.model import event_model
 from plasoscaffolder.model import sql_query_model
-from tests.fake import fake_sqlite_plugin_helper
+from tests.fake import fake_sqlite_plugin_helper, fake_sqlite_query_execution
 from tests.test_helper import output_handler_file
 from tests.test_helper import path_helper
 
@@ -37,7 +39,7 @@ class SQLiteControllerTest(unittest.TestCase):
       actualName = 'the_plugin'
       controller._path = 'somepath'
       controller.PluginName(None, None, actualName)
-      expected = 'Plugin exists. Choose new name: '
+      expected = 'Plugin exists. Choose new name'
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
 
@@ -69,8 +71,12 @@ class SQLiteControllerTest(unittest.TestCase):
     controller.SourcePath(None, None, actualPath)
     self.assertEqual(actualPath, controller._path)
 
-  def testCreateSQLQueryModelWithUserInput(self):
+  def testCreateSQLQueryModelWithUserInputNoError(self):
     """test method CreateEventModelWithUserInput"""
+
+    fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
+        base_sql_query_execution.SQLQueryData(has_error=False)
+    )
     sql_query = 'SELECT createdDate FROM Users ORDER BY createdDate'
     name = 'Contact'
     expected_name = 'Parse{0}Row'.format(name)
@@ -84,56 +90,108 @@ class SQLiteControllerTest(unittest.TestCase):
           folder_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
-      actual = controller._CreateSQLQueryModelWithUserInput(sql_query, False)
+      actual = controller._CreateSQLQueryModelWithUserInput(sql_query, False,
+                                                            fake_execution)
       prompt_output_actual = self._ReadFromFile(path)
       prompt_output_expected = 'What kind of row does the SQL query parse?'
 
       expected = sql_query_model.SQLQueryModel(sql_query, expected_name)
 
-      print(prompt_output_actual)
       self.assertEqual(expected.name, actual.name)
       self.assertEqual(expected.query, actual.query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
-  def testSqlQuery(self):
-    """test method after getting the source path from the user"""
-    prompt_info = 'info'
-    sql_query = prompt_info
-    expected_name = 'Parse{0}Row'.format(prompt_info.title())
-    verbose = True
-
+  def testCreateSQLQueryModelWithUserInputWithError(self):
+    """test method CreateEventModelWithUserInput"""
+    error_message = "Some Error..."
+    fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
+        base_sql_query_execution.SQLQueryData(has_error=True,
+                                              error_message=error_message)
+    )
+    sql_query = 'SELECT createdDate FROM Users ORDER BY createdDate'
+    name = 'Contact'
+    expected_name = 'Parse{0}Row'.format(name)
     with tempfile.TemporaryDirectory() as tmpdir:
       path = os.path.join(tmpdir, 'testfile')
       pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(), prompt_info, confirm=True,
-          confirm_amount_same=3)
+          path, file_handler.FileHandler(), prompt_info=name)
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
           folder_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
+      actual = controller._CreateSQLQueryModelWithUserInput(sql_query, False,
+                                                            fake_execution)
+      self.assertIsNone(actual)
 
-      actual = controller.SQLQuery(None, None,
-                                   verbose)
+  def testSqlQuery(self):
+    """test method after getting the source path from the user"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
 
-      expected = [sql_query_model.SQLQueryModel(prompt_info, expected_name),
-                  sql_query_model.SQLQueryModel(prompt_info, expected_name),
-                  sql_query_model.SQLQueryModel(prompt_info, expected_name)]
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), confirm=False)
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper()
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+
+      controller._CreateSQLQueryModelWithUserInput = mock.MagicMock(
+          return_value=base_sql_query_execution.SQLQueryData(
+              data='test', has_error=False, error_message=None))
+
+      actual = controller.SQLQuery(None, None, True)
 
       prompt_output_actual = self._ReadFromFile(path)
-      message = 'Please write your SQL script for the pluginWhat kind of row ' \
-                'does the SQL query parse?Do you want to add another query?'
-      prompt_output_expected = '{0}{0}{0}'.format(
-          message)
 
-      self.assertEqual(actual[0].name, expected[0].name)
-      self.assertEqual(actual[1].name, expected[1].name)
-      self.assertEqual(actual[2].name, expected[2].name)
-      self.assertEqual(actual[0].query, expected[0].query)
-      self.assertEqual(actual[1].query, expected[1].query)
-      self.assertEqual(actual[2].query, expected[2].query)
+      prompt_output_expected = (
+        'Please write your SQL script for the pluginDo you want to add another '
+        'query?')
+
+      self.assertEqual(len(actual), 1)
+      self.assertEqual(actual[0].data, 'test')
+      self.assertEqual(actual[0].has_error, False)
+      self.assertEqual(actual[0].error_message, None)
       self.assertEqual(prompt_output_actual, prompt_output_expected)
+
+  def testSqlQueryMultiple(self):
+    """test method after getting the source path from the user"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), confirm=True, confirm_amount_same=3)
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper()
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+
+      controller._CreateSQLQueryModelWithUserInput = mock.MagicMock(
+          return_value=base_sql_query_execution.SQLQueryData(
+              data='test', has_error=False, error_message=None))
+
+      actual = controller.SQLQuery(None, None, True)
+
+      prompt_output_actual = self._ReadFromFile(path)
+
+      prompt_output_expected = '{0}{0}{0}'.format(
+          'Please write your SQL script for the pluginDo you want to add '
+          'another '
+          'query?')
+
+      self.assertEqual(len(actual), 3)
+      self.assertEqual(actual[0].data, 'test')
+      self.assertEqual(actual[0].has_error, False)
+      self.assertEqual(actual[0].error_message, None)
+      self.assertEqual(actual[1].data, 'test')
+      self.assertEqual(actual[1].has_error, False)
+      self.assertEqual(actual[1].error_message, None)
+      self.assertEqual(actual[2].data, 'test')
+      self.assertEqual(actual[2].has_error, False)
+      self.assertEqual(actual[2].error_message, None)
+      self.assertEqual(prompt_output_actual, prompt_output_expected)
+
 
   def testSourcePathIfNotExisting(self):
     """test method after getting the source path from the user"""
@@ -149,7 +207,7 @@ class SQLiteControllerTest(unittest.TestCase):
                                                       plugin_helper)
       actualPath = 'testpath'
       controller.SourcePath(None, None, actualPath)
-      expected = 'Folder does not exists. Enter correct one: '
+      expected = 'Folder does not exists. Enter correct one'
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
 
@@ -180,7 +238,7 @@ class SQLiteControllerTest(unittest.TestCase):
                                                       plugin_helper)
       actualPath = 'testpath'
       controller.TestPath(None, None, actualPath)
-      expected = 'File does not exists. Choose another: '
+      expected = 'File does not exists. Choose another.'
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
 
@@ -288,8 +346,38 @@ class SQLiteControllerTest(unittest.TestCase):
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
 
+  def testCreateSQLQueryModelWithUserInput(self):
+    """test the creation of the sql query model with the user input"""
+    query = "select x"
+    with_examples = True
+    query_execution = fake_sqlite_query_execution.SQLQueryExecution(
+        base_sql_query_execution.SQLQueryData(
+            data=['first', 'second', 'third', 'fourth']))
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler())
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper()
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+      controller._CreateSQLQueryModelWithUserInput(
+          query, with_examples, query_execution
+      )
+      expected = 'Your query output could look like this.\n' \
+                 'first\n' \
+                 'second\n' \
+                 'third' \
+                 'Do you want to add this query?' \
+                 'What kind of row does the SQL query parse?'
+
+      actual = self._ReadFromFile(path)
+      self.assertEqual(expected, actual)
+
   def testGenerateIfConfirmed(self):
-    """test the generate if confirmed"""
+    """ test the generate if confirmed"""
     template_path = path_helper.TemplatePath()
 
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -319,7 +407,8 @@ class SQLiteControllerTest(unittest.TestCase):
                   'create ' + os.path.join(tmpdir, 'tests', 'parsers',
                                            'sqlite_plugins',
                                            'the_plugin.py') +
-                  'copy ' + os.path.join(tmpdir, 'test_data', 'the_plugin.') +
+                  'copy ' + os.path.join(tmpdir, 'test_data',
+                                         'the_plugin.') +
                   'create ' + os.path.join(tmpdir, 'plaso', 'parsers',
                                            'sqlite_plugins',
                                            '__init__.py') +
@@ -331,7 +420,7 @@ class SQLiteControllerTest(unittest.TestCase):
     self.assertEqual(expected, actual)
 
   def testGenerateIfNotConfirmed(self):
-    """test the generate if confirmed"""
+    """test the generate if confirmed """
     template_path = path_helper.TemplatePath()
 
     with self.assertRaises(SystemExit):
@@ -343,7 +432,8 @@ class SQLiteControllerTest(unittest.TestCase):
             file, file_handler.FileHandler(), confirm=False)
 
         plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
-            valid_name=False, change_bool_after_every_call_valid_name=True)
+            valid_name=False,
+            change_bool_after_every_call_valid_name=True)
         controller = sqlite_controller.SQLiteController(output_handler,
                                                         plugin_helper)
         controller.Generate('not used')
@@ -351,14 +441,13 @@ class SQLiteControllerTest(unittest.TestCase):
         self.assertFalse(template_path)
 
   def _ReadFromFile(self, path: str):
-    """Read from file and remove it afterwards.
-
+    """Read from file
+    
     Args:
-      path (str): the file path
-
+      path (str): the file path 
+ 
     Returns:
-      (str): the file content.
-    """
+      str: content of the file"""
     with open(path, 'r') as f:
       return f.read()
     os.remove(path)

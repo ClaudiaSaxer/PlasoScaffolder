@@ -49,6 +49,7 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       str: the user input
     """
     self.__file_handler.AddContent(self.__path, text)
+    print(text)
     return self.__prompt_info
 
   def PromptInfoWithDefault(self, text: str, text_type: object,
@@ -64,6 +65,7 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       str: the user input
     """
     self.__file_handler.AddContent(self.__path, text)
+    print(text)
     return self.__prompt_info
 
   def PromptError(self, text: str) -> str:
@@ -77,6 +79,7 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       str: the user input
     """
     self.__file_handler.AddContent(self.__path, text)
+    print(text)
     return self.__prompt_error
 
   def PrintInfo(self, text: str) -> str:
@@ -87,6 +90,7 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
 
     Returns: the file the content was added
     """
+    print(text)
     return self.__file_handler.AddContent(self.__path, text)
 
   def PrintError(self, text: str) -> str:
@@ -97,6 +101,7 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
 
     Returns: the file the content was added
     """
+    print(text)
     return self.__file_handler.AddContent(self.__path, text)
 
   def Confirm(self, text: str, default=True, abort=True):
@@ -109,6 +114,8 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
 
      Returns:
      """
+    print(text)
+
     if self.__confirm_amount_same > self.__confirm_counter:
       self.__confirm_counter += 1
     else:

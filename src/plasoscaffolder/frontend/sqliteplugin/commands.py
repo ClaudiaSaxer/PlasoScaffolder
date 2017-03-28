@@ -6,6 +6,7 @@ import click
 
 from plasoscaffolder.bll.services import sqlite_plugin_helper
 from plasoscaffolder.common import output_handler_click
+from plasoscaffolder.dal import sqlite_query_execution
 from plasoscaffolder.frontend.controller import sqlite_controller
 
 # Since os.path.abspath() uses the current working directory (cwd)
@@ -29,7 +30,7 @@ Controller = sqlite_controller.SQLiteController(
               prompt='Please enter the main events of the plugin. [Event '
                      'Event ...]',
               help='The plugin events', callback=Controller.Event)
-@click.option('--sql', is_flag=True, expose_value=True, default=True,
+@click.option('--sql', is_flag=True, default=True,
               prompt='Do you want to have a output example for your sql query?',
               help='The output example flag for the SQL Query for the plugin.',
               callback=Controller.SQLQuery)

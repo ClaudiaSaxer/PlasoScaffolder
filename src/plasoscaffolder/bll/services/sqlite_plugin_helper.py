@@ -5,7 +5,7 @@ import re
 
 from plasoscaffolder.bll.services import base_sqlite_plugin_helper
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
-from plasoscaffolder.dal import base_sql_query_validator
+from plasoscaffolder.dal import base_sql_query_execution
 
 
 class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
@@ -74,14 +74,15 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     """
     return os.path.isdir(path)
 
-  def IsValidSQLQuery(self, query: str,
-                      validator: base_sql_query_validator.SQLQueryValidator()):
+  def RunSQLQuery(self, query: str,
+                      executor: base_sql_query_execution.BaseSQLQueryExecution()):
     """ Validates the sql query
     
     Args:
-      validator (base_sql_query_validator.SQLQueryValidator()) the sql validator
+      executor (base_sql_query_execution.SQLQueryExection()) the sql executor
       query (str): the sql query 
 
     Returns:
+      base_sql_query_execution.SQLQueryData: the data to the executed query
     """
-    return validator.IsValid(query)
+    return executor.executeQuery(query)
