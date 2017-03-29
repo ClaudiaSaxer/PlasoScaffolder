@@ -2,8 +2,8 @@
 """test class"""
 import unittest
 
-from plasoscaffolder.common import output_handler_file
 from tests.fake import fake_file_handler
+from tests.test_helper import output_handler_file
 
 
 class FileOutputHandler(unittest.TestCase):
@@ -38,7 +38,7 @@ class FileOutputHandler(unittest.TestCase):
   def testConfirmIfTrue(self):
     """test Confirm if confirmed"""
     actual = self.output.Confirm("some message")
-    self.assertEqual(self.file_path, actual)
+    self.assertTrue(actual)
 
   def testConfirmIfFalse(self):
     """test Confirm if not confirmed"""

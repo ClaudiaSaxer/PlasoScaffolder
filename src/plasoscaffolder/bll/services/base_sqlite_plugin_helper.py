@@ -3,6 +3,7 @@
 import abc
 
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
+from plasoscaffolder.dal import base_sql_query_execution
 
 
 class BaseSQLitePluginHelper(object):
@@ -54,4 +55,17 @@ class BaseSQLitePluginHelper(object):
 
     Returns:
       bool: true if the plugin name is valid
+    """
+
+  @abc.abstractmethod
+  def RunSQLQuery(self, query: str,
+                  executor: base_sql_query_execution.BaseSQLQueryExecution()):
+    """ Validates the sql query
+
+    Args:
+      executor (base_sql_query_execution.SQLQueryExection()) the sql executor
+      query (str): the sql query 
+
+    Returns:
+      base_sql_query_execution.SQLQueryData: the data to the executed query
     """

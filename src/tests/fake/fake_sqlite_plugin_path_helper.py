@@ -7,7 +7,15 @@ class FakeSQLitePluginPathHelper(
     base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper):
   """fake for the sqlite plugin path helper"""
 
-  def __init__(self, path: str, plugin_name: str, database_suffix: str):
+  def __init__(self, unused_path: str, plugin_name: str,
+               unused_database_suffix: str):
+    """Initialises a fake plugin path helper
+
+    Args:
+      unused_path: the path
+      plugin_name: the name of the plugin. Will always be returned
+      unused_database_suffix: the database suffix.
+    """
     super().__init__()
     self.formatter_file_path = plugin_name
     self.parser_file_path = plugin_name

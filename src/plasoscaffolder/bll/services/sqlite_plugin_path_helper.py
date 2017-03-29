@@ -9,7 +9,7 @@ class SQLitePluginPathHelper(
     base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper):
   """Class containing __helper functions for the SQLite plugin for the path
 
-  Args:
+  Attributes:
     formatter_file_path (str): the path to the formatter file
     parser_file_path (str): the path to the parser file
     formatter_test_file_path (str): the path to the formatter test file

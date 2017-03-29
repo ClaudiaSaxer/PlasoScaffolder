@@ -10,6 +10,7 @@ from plasoscaffolder.bll.services import base_sqlite_plugin_helper
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.common import base_file_handler
 from plasoscaffolder.common import base_output_handler
+from plasoscaffolder.model import sql_query_model
 
 
 class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
@@ -17,6 +18,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
 
   def __init__(
       self, path: str, name: str, database: str, events: list,
+      queries: [sql_query_model.SQLQueryModel],
       output_handler: base_output_handler.BaseOutputHandler(),
       pluginHelper: base_sqlite_plugin_helper.BaseSQLitePluginHelper(),
       pathHelper=base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper()):
@@ -31,9 +33,11 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       generation information
       pluginHelper (BaseSQLitePluginHelper): the plugin helper
       pathHelper (BaseSQLitePluginPathHelper): the plugin path helper
+      queries [sql_query_model.SQLQueryModel]: list of queries
     """
     super().__init__()
 
+    self.queries = queries
     self.path = path
     self.name = name
     self.database = database
@@ -80,7 +84,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     else:
       content_init_parser = init_mapper.GetParserInitCreate(self.name)
 
-    content_parser = parser_mapper.GetParser(self.name, self.events)
+    content_parser = parser_mapper.GetParser(self.name, self.events, self.queries)
     content_formatter = formatter_mapper.GetFormatter(self.name, self.events)
 
     formatter = file_handler.AddContent(

@@ -16,7 +16,8 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       file_handler: base_file_handler.BaseFileHandler(),
       prompt_info="",
       prompt_error="",
-      confirm=True):
+      confirm=True,
+      confirm_amount_same=100):
     """Initializes File Output Handler.
 
     Args:
@@ -25,6 +26,8 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       fileHandler (BaseFileHandler): the file Handler
       prompt_error (str): what to return in a prompt error
       prompt_info (str): what to return in a prompt info
+      confirm_amount_same (int): how many times to confirm the same amount. 
+      Default = 100
     """
     super().__init__()
     self.__prompt_info = prompt_info
@@ -32,6 +35,8 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
     self.__file_handler = file_handler
     self.__path = file_path
     self.__confirm = confirm
+    self.__confirm_counter = 1
+    self.__confirm_amount_same = confirm_amount_same
 
   def PromptInfo(self, text: str) -> str:
     """A prompt for information with click.
@@ -44,10 +49,27 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       str: the user input
     """
     self.__file_handler.AddContent(self.__path, text)
+    print(text)
+    return self.__prompt_info
+
+  def PromptInfoWithDefault(self, text: str, text_type: object,
+                            default: object) -> str:
+    """A prompt for information, with a default value and a required type.
+
+    Args:
+      text (str): the text to prompt
+      text_type (object): the type of the input
+      default (object): the default value
+
+    Returns:
+      str: the user input
+    """
+    self.__file_handler.AddContent(self.__path, text)
+    print(text)
     return self.__prompt_info
 
   def PromptError(self, text: str) -> str:
-    """A prompt for errors with click.
+    """A prompt for errors.
     Use with caution. Endless Loops possible
 
     Args:
@@ -57,16 +79,18 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       str: the user input
     """
     self.__file_handler.AddContent(self.__path, text)
+    print(text)
     return self.__prompt_error
 
   def PrintInfo(self, text: str) -> str:
-    """A echo for infos with click.
+    """A echo for infos.
 
     Args:
       text (str): the text to print
 
     Returns: the file the content was added
     """
+    print(text)
     return self.__file_handler.AddContent(self.__path, text)
 
   def PrintError(self, text: str) -> str:
@@ -77,14 +101,28 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
 
     Returns: the file the content was added
     """
+    print(text)
     return self.__file_handler.AddContent(self.__path, text)
 
-  def Confirm(self, text: str):
-    """A confirmation, Default Y, if no abort execution. Use with caution
+  def Confirm(self, text: str, default=True, abort=True):
+    """A confirmation, Default Y, if no abort execution. Use with caution.
 
-    Args:
-      text (str): Prompts the user for a confirmation.
-    """
-    if not self.__confirm:
+     Args:
+       text (str): Prompts the user for a confirmation.
+       default (bool): the default value.
+       abort (bool): if the program should abort
+
+     Returns:
+     """
+    print(text)
+
+    if self.__confirm_amount_same > self.__confirm_counter:
+      self.__confirm_counter += 1
+    else:
+      self.__confirm = not self.__confirm
+      self.__confirm_counter = 0
+
+    if not self.__confirm and abort:
       sys.exit()
-    return self.__file_handler.AddContent(self.__path, text)
+    self.__file_handler.AddContent(self.__path, text)
+    return self.__confirm

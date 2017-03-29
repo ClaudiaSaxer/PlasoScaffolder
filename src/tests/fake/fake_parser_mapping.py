@@ -11,5 +11,5 @@ class FakeParserMapper(base_parser_mapping.BaseParserMapper):
                mapping_helper: base_mapping_helper.BaseMappingHelper):
     pass
 
-  def GetParser(self, plugin_name: str, events: str) -> str:
+  def GetParser(self, plugin_name: str, events: [], queries: []) -> str:
     return plugin_name

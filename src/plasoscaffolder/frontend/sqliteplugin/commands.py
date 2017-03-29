@@ -3,8 +3,10 @@
 import os
 
 import click
+
 from plasoscaffolder.bll.services import sqlite_plugin_helper
 from plasoscaffolder.common import output_handler_click
+from plasoscaffolder.dal import sqlite_query_execution
 from plasoscaffolder.frontend.controller import sqlite_controller
 
 # Since os.path.abspath() uses the current working directory (cwd)
@@ -28,7 +30,13 @@ Controller = sqlite_controller.SQLiteController(
               prompt='Please enter the main events of the plugin. [Event '
                      'Event ...]',
               help='The plugin events', callback=Controller.Event)
-def sqlite(path, name, testfile, event):
+@click.option('--sql', is_flag=True, default=True,
+              prompt='Do you want to have a output example for your sql query?',
+              help='The output example flag for the SQL Query for the plugin.',
+              callback=Controller.SQLQuery)
+# pylint: disable=missing-docstring, unused-argument
+# because click does funny things with it
+def sqlite(path, name, testfile, event, sql):
   template_path = os.path.join(
       os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
       'bll', 'templates')
