@@ -37,7 +37,7 @@ class SQLiteController(object):
     self._name = None
     self._testfile = None
     self._events = None
-    self._sql_query = None
+    self._sql_query = []
     self._plugin_helper = plugin_helper
     self._output_handler = output_handler
     self._query_execution = None
@@ -268,6 +268,7 @@ class SQLiteController(object):
         self._name,
         self._testfile,
         self._events,
+        self._sql_query,
         self._output_handler,
         sqlite_plugin_helper.SQLitePluginHelper(),
         sqlite_plugin_path_helper.SQLitePluginPathHelper(
