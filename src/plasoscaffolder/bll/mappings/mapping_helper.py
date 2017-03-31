@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Helper methods for mapping."""
 import jinja2
+
 from plasoscaffolder.bll.mappings import base_mapping_helper
 
 

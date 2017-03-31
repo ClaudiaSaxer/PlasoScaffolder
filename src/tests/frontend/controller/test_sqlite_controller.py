@@ -366,9 +366,9 @@ class SQLiteControllerTest(unittest.TestCase):
       controller._CreateSQLQueryModelWithUserInput(
           query, with_examples, query_execution
       )
-      expected = 'Your query output could look like this.\n' \
-                 'first\n' \
-                 'second\n' \
+      expected = 'Your query output could look like this.' \
+                 'first' \
+                 'second' \
                  'third' \
                  'Do you want to add this query?' \
                  'What kind of row does the SQL query parse?'

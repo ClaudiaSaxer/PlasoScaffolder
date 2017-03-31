@@ -4,6 +4,7 @@
 
 class SQLQueryModel(object):
   "A sql query Model."
+
   def __init__(self, query: str, name: str):
     """ initializes the sql query model.
 

@@ -3,6 +3,7 @@
 import os
 
 import click
+
 from plasoscaffolder.bll.services import sqlite_plugin_helper
 from plasoscaffolder.common import output_handler_click
 from plasoscaffolder.frontend.controller import sqlite_controller

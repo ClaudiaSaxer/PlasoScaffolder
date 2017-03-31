@@ -6,48 +6,48 @@ from plaso.formatters import manager
 from plaso.lib import errors
 
 {% for event in events %}
-class {{ class_name }}{{ event.name }}Formatter(interface.ConditionalEventFormatter):
-  """TODO"""
-
-  FORMAT_STRING_PIECES = [
+    class {{ class_name }}{{ event.name }}Formatter(interface.ConditionalEventFormatter):
     """TODO"""
-  ]
 
-  FORMAT_STRING_SHORT_PIECES = [
+    FORMAT_STRING_PIECES = [
     """TODO"""
-  ]
+    ]
 
-  [DATA_TYPE = u'TODO' ]
+    FORMAT_STRING_SHORT_PIECES = [
+    """TODO"""
+    ]
 
-  SOURCE_LONG = u'todo'
-  SOURCE_SHORT = u'todo'
-{% if event.needs_customizing %}
-  def GetMessages(self, unused_formatter_mediator, event):
-    """Determines the formatted message strings for an event object.
+    [DATA_TYPE = u'TODO' ]
 
-    Args:
-      formatter_mediator (FormatterMediator): mediates the interactions between
-          formatters and other components, such as storage and Windows EventLog
-          resources.
-      event (EventObject): event.
+    SOURCE_LONG = u'todo'
+    SOURCE_SHORT = u'todo'
+    {% if event.needs_customizing %}
+        def GetMessages(self, unused_formatter_mediator, event):
+        """Determines the formatted message strings for an event object.
 
-    Returns:
-      tuple(str, str): formatted message string and short message string.
+        Args:
+        formatter_mediator (FormatterMediator): mediates the interactions between
+        formatters and other components, such as storage and Windows EventLog
+        resources.
+        event (EventObject): event.
 
-    Raises:
-      WrongFormatter: if the event object cannot be formatted by the formatter.
-    """
-    if self.DATA_TYPE != event.data_type:
-      raise errors.WrongFormatter(u'Unsupported data type: {0:s}.'.format(
-          event.data_type))
+        Returns:
+        tuple(str, str): formatted message string and short message string.
 
-    event_values = event.CopyToDict()
+        Raises:
+        WrongFormatter: if the event object cannot be formatted by the formatter.
+        """
+        if self.DATA_TYPE != event.data_type:
+        raise errors.WrongFormatter(u'Unsupported data type: {0:s}.'.format(
+        event.data_type))
 
-    #TODO
+        event_values = event.CopyToDict()
 
-    return self._ConditionalFormatMessages(event_values)
-{% endif %}
+        #TODO
+
+        return self._ConditionalFormatMessages(event_values)
+    {% endif %}
 {% endfor %}
 manager.FormattersManager.RegisterFormatter([
-  {% for event in events %}{{ class_name }}{{ event.name }}Formatter{% if not loop.last %},{% endif %}
-  {% endfor %}])
+{% for event in events %}{{ class_name }}{{ event.name }}Formatter{% if not loop.last %},{% endif %}
+{% endfor %}])

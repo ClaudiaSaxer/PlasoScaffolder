@@ -84,7 +84,8 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     else:
       content_init_parser = init_mapper.GetParserInitCreate(self.name)
 
-    content_parser = parser_mapper.GetParser(self.name, self.events, self.queries)
+    content_parser = parser_mapper.GetParser(self.name, self.events,
+                                             self.queries)
     content_formatter = formatter_mapper.GetFormatter(self.name, self.events)
 
     formatter = file_handler.AddContent(

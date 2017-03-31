@@ -4,6 +4,7 @@ import os
 import sqlite3
 
 import click
+
 from plasoscaffolder.bll.mappings import formatter_mapping
 from plasoscaffolder.bll.mappings import init_mapping
 from plasoscaffolder.bll.mappings import mapping_helper
@@ -21,6 +22,8 @@ from plasoscaffolder.model import sql_query_model
 
 class SQLiteController(object):
   """Class representing the SQLite Controller."""
+
+  AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE = 3
 
   def __init__(self, output_handler: base_output_handler.BaseOutputHandler(),
                plugin_helper:
@@ -127,10 +130,10 @@ class SQLiteController(object):
 
   def _IsDatabaseFile(self, path: str) -> bool:
     """Try to open the database File
-    
+
     Args:
       path (str): the database file path
-      
+
     Returns:
       bool: if the file can be opened and is a database file"""
     try:
@@ -188,8 +191,8 @@ class SQLiteController(object):
     while add_more_queries:
       sql_query = self._output_handler.PromptInfo(
           text='Please write your SQL script for the plugin')
-      query_model = self._CreateSQLQueryModelWithUserInput(sql_query, verbose,
-                                                           self._query_execution)
+      query_model = self._CreateSQLQueryModelWithUserInput(
+          sql_query, verbose, self._query_execution)
       if query_model is not None:
         sql_query_list.append(query_model)
         add_more_queries = self._output_handler.Confirm(
@@ -205,11 +208,11 @@ class SQLiteController(object):
       query_execution: base_sql_query_execution.BaseSQLQueryExecution()
   ) -> sql_query_model.SQLQueryModel:
     """Asks the user information about the sql query
-  
+
     Args:
       query (str): the sql query
       with_examples (bool): if the user wants examples for the given query
-  
+
     Returns:
       (sql_query_model.SQLQueryModel) a sql query model
     """
@@ -223,15 +226,20 @@ class SQLiteController(object):
     else:
       if with_examples:
         length = len(query_data.data)
-        if length is 0 :
+        if length is 0:
           self._output_handler.PrintInfo('Your query does not return anything.')
         else:
-          first_line = '\n{0}'.format(query_data.data[0]) if 1 <= length else ''
-          second_line = '\n{0}'.format(query_data.data[1]) if 2 <= length else ''
-          third_line = '\n{0}'.format(query_data.data[2]) if 3 <= length else ''
           self._output_handler.PrintInfo(
-              'Your query output could look like this.{0}{1}{2}'.format(
-                  first_line, second_line, third_line))
+            'Your query output could look like this.')
+
+          if length < self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE:
+            amount = length
+          else:
+            amount = self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE
+
+          for i in range(0, amount):
+            self._output_handler.PrintInfo(query_data.data[i])
+
         add_query = self._output_handler.Confirm(
             'Do you want to add this query?',
             abort=False, default=True)
@@ -246,10 +254,10 @@ class SQLiteController(object):
 
   def _CreateEventModelWithUserInput(self, name: str) -> event_model.EventModel:
     """Asks the user if the event needs customizing
-  
+
     Args:
       name (str): the name of the event
-  
+
     Returns:
       (event_model.EventModel): a event model
     """
@@ -260,7 +268,7 @@ class SQLiteController(object):
 
   def Generate(self, template_path: str):
     """Generating the files.
-  
+
     Args:
       template_path (str): the path to the template directory
     """
@@ -289,10 +297,10 @@ class SQLiteController(object):
 
   def _ValidatePluginName(self, plugin_name: str) -> str:
     """Validate plugin name and prompt until name is valid
-  
+
     Args:
       plugin_name: the name of the plugin
-  
+
     Returns:
       a valid plugin name
     """

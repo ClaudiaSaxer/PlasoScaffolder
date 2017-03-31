@@ -92,7 +92,6 @@ class FileHandler(base_file_handler.BaseFileHandler):
     self.CreateFolderForFilePathIfNotExist(source)
     self.AddContent(source, content)
 
-
   def AddContent(self, source: str, content: str) -> str:
     """Add content to a file and create file if non existing.
 

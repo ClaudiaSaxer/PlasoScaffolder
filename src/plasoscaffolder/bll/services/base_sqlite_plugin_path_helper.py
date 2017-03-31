@@ -3,6 +3,7 @@
 
 import abc
 
+
 class BaseSQLitePluginPathHelper(object):
   """Class representing the base class for the sqlite plugin path helper
 

@@ -75,12 +75,12 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     return os.path.isdir(path)
 
   def RunSQLQuery(self, query: str,
-                      executor: base_sql_query_execution.BaseSQLQueryExecution()):
+                  executor: base_sql_query_execution.BaseSQLQueryExecution()):
     """ Validates the sql query
-    
+
     Args:
       executor (base_sql_query_execution.SQLQueryExection()) the sql executor
-      query (str): the sql query 
+      query (str): the sql query
 
     Returns:
       base_sql_query_execution.SQLQueryData: the data to the executed query

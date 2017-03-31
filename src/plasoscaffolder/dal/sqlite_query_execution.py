@@ -18,8 +18,7 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       database_path: the path to the sqlite database schema
     """
     self._connection = sqlite3.connect(database_path)
-    self._connection.isolation_level = None #no autocommit mode
-
+    self._connection.isolation_level = None  # no autocommit mode
 
   def executeQuery(self, query: str) -> base_sql_query_execution.SQLQueryData:
     """Executes the SQL query.
@@ -32,10 +31,10 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     query_data = base_sql_query_execution.SQLQueryData()
     try:
       with self._connection:
-        self._connection.execute("begin")
+        self._connection.execute("BEGIN")
         cursor = self._connection.execute(query)
         query_data.data = cursor.fetchall()
-        self._connection.execute('rollback')
+        self._connection.execute('ROLLBACK')
     except sqlite3.Error as error:
       query_data.error_message = error
       query_data.has_error = True
