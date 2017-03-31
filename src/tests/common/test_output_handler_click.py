@@ -22,6 +22,18 @@ class ClickOutputHandler(unittest.TestCase):
     result = self.click.PromptInfo('test')
     self.assertEqual('yes', result)
 
+  @patch('click.prompt', return_value='yes')
+  def testPromptError(self, prompt):
+    """test prompt info"""
+    result = self.click.PromptError('test')
+    self.assertEqual('yes', result)
+
+  @patch('click.prompt', return_value='yes')
+  def testPromptInfoWithDefault(self, prompt):
+    """test prompt info"""
+    result = self.click.PromptInfoWithDefault('text',int, 1)
+    self.assertEqual('yes', result)
+
   def testPrintInfo(self):
     """test print info."""
     try:
