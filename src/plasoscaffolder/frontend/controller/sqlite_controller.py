@@ -4,7 +4,6 @@ import os
 import sqlite3
 
 import click
-
 from plasoscaffolder.bll.mappings import formatter_mapping
 from plasoscaffolder.bll.mappings import init_mapping
 from plasoscaffolder.bll.mappings import mapping_helper
@@ -223,9 +222,16 @@ class SQLiteController(object):
 
     else:
       if with_examples:
-        self._output_handler.PrintInfo(
-            'Your query output could look like this.\n{0}\n{1}\n{2}'.format(
-                query_data.data[0], query_data.data[1], query_data.data[2]))
+        length = len(query_data.data)
+        if length is 0 :
+          self._output_handler.PrintInfo('Your query does not return anything.')
+        else:
+          first_line = '\n{0}'.format(query_data.data[0]) if 1 <= length else ''
+          second_line = '\n{0}'.format(query_data.data[1]) if 2 <= length else ''
+          third_line = '\n{0}'.format(query_data.data[2]) if 3 <= length else ''
+          self._output_handler.PrintInfo(
+              'Your query output could look like this.{0}{1}{2}'.format(
+                  first_line, second_line, third_line))
         add_query = self._output_handler.Confirm(
             'Do you want to add this query?',
             abort=False, default=True)
