@@ -33,7 +33,7 @@ class SQLiteGeneratorTest(unittest.TestCase):
             'db')
       path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
-          tmpdir, 'test', 'test', ['test'],[],
+          tmpdir, 'test', 'test', ['test'], [],
           output_handler_file.OutputHandlerFile(path,
                                                 file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
@@ -51,7 +51,7 @@ class SQLiteGeneratorTest(unittest.TestCase):
             'db')
       path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
-          tmpdir, 'test', 'test', ['test'],[],
+          tmpdir, 'test', 'test', ['test'], [],
           output_handler_file.OutputHandlerFile(path,
                                                 file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
@@ -69,7 +69,7 @@ class SQLiteGeneratorTest(unittest.TestCase):
             'db')
       path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
-          tmpdir, 'test', 'test', ['test'],[],
+          tmpdir, 'test', 'test', ['test'], [],
           output_handler_file.OutputHandlerFile(path,
                                                 file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
@@ -95,7 +95,7 @@ class SQLiteGeneratorTest(unittest.TestCase):
             'db')
       path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
-          tmpdir, 'test', 'test', ['test'],[],
+          tmpdir, 'test', 'test', ['test'], [],
           output_handler_file.OutputHandlerFile(
               path, file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
@@ -115,7 +115,7 @@ class SQLiteGeneratorTest(unittest.TestCase):
             self.template_path, 'test', 'db')
       path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
-          tmpdir, 'test', 'test', ['test'],[],
+          tmpdir, 'test', 'test', ['test'], [],
           output_handler_file.OutputHandlerFile(path,
                                                 file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)

@@ -6,27 +6,27 @@ from plaso.lib import eventdata
 from plaso.parsers import sqlite
 from plaso.parsers.sqlite_plugins import interface
 {% for event in events %}
-    class {{ class_name }}{{ event }}Event(time_events.PosixTimeEvent)
-    """TODO"""
-    def __init__(
-    #TODO
-    )
+class {{ class_name }}{{ event }}Event(time_events.PosixTimeEvent)
+  """TODO"""
+  def __init__(
+   #TODO
+  )
 
-    super().__init__(TODO)
-    #TODO
+  super().__init__(TODO)
+  #TODO
 
 {% endfor %}
 
 class {{ class_name }}Plugin(interface.SQLitePlugin):
-"""TODO"""
-NAME = u'{{ plugin_name }}'
-DESCRIPTION = u'TODO'
-QUERIES = [ {% for query in queries %}
-    ((u'{{ query.query|wordwrap(width=64,wrapstring="'\nu'")|indent(6) }})'),
-    u'{{ query.name }}'){% if not loop.last %},{% endif %}{% endfor %}]
+  """TODO"""
+  NAME = u'{{ plugin_name }}'
+  DESCRIPTION = u'TODO'
+  QUERIES = [ {% for query in queries %}
+    ((u'{{ query.query|wordwrap(width=64,wrapstring="'\nu'")|indent(6)}})'),
+     u'{{ query.name }}'){% if not loop.last %},{% endif %}{% endfor %}]
 
-REQUIRED_TABLES = frozenset([
-{% for table in required_tables %}u'{{ table }}'{% if not loop.last %},{% endif %}]{% endfor %}])
+  REQUIRED_TABLES = frozenset([
+      {% for table in required_tables %}u'{{ table }}'{% if not loop.last %},{% endif %}]{% endfor %}])
 
 
 sqlite.SQLiteParser.RegisterPlugin({{ class_name }}Plugin)

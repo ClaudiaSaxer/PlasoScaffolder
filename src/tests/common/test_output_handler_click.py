@@ -4,6 +4,7 @@ import unittest
 from unittest.mock import patch
 
 from click import testing
+
 from plasoscaffolder.common import output_handler_click
 
 
@@ -31,7 +32,7 @@ class ClickOutputHandler(unittest.TestCase):
   @patch('click.prompt', return_value='yes')
   def testPromptInfoWithDefault(self, prompt):
     """test prompt info"""
-    result = self.click.PromptInfoWithDefault('text',int, 1)
+    result = self.click.PromptInfoWithDefault('text', int, 1)
     self.assertEqual('yes', result)
 
   def testPrintInfo(self):
@@ -53,11 +54,11 @@ class ClickOutputHandler(unittest.TestCase):
   @patch('click.confirm', return_value='True')
   def testConfirmIfTrue(self, confirm):
     """test Confirm if confirmed"""
-    result = self.click.Confirm( default=True, abort=False, text='text')
+    result = self.click.Confirm(default=True, abort=False, text='text')
     self.assertEqual('True', result)
 
   @patch('click.confirm', return_value='False')
   def testConfirmIfFalse(self, confirm):
     """test Confirm if not confirmed"""
-    result = self.click.Confirm( default=False, abort=False, text='text')
+    result = self.click.Confirm(default=False, abort=False, text='text')
     self.assertEqual('False', result)

@@ -6,7 +6,6 @@ from unittest.mock import patch
 from click.testing import CliRunner
 
 from plasoscaffolder.frontend import main
-from plasoscaffolder.model import event_model
 
 
 class MainTest(unittest.TestCase):
@@ -38,19 +37,21 @@ class MainTest(unittest.TestCase):
                        '  --name TEXT      The plugin name\n'
                        '  --testfile TEXT  The testfile path\n'
                        '  --event TEXT     The plugin events\n'
-                       '  --sql            The output example flag for the SQL Query for the plugin.\n'
+                       '  --sql            The output example flag for the '
+                       'SQL Query for the plugin.\n'
                        '  --help           Show this message and exit.\n')
     self.assertEqual(expected_output, str(result.output))
     self.assertEqual(0, result.exit_code)
 
   @patch('plasoscaffolder.frontend.main.entry_point', return_value='run sqlite')
-  def testSQLiteRun(self,sqlite):
+  def testSQLiteRun(self, sqlite):
     """testing the interaction with main and sqlite"""
     runner = CliRunner()
     result = runner.invoke(main.entry_point, ['sqlite'])
-    self.assertEqual(0,result.exit_code)
+    self.assertEqual(0, result.exit_code)
     self.assertIsNone(result.exception)
     self.assertIsNone(result.exc_info)
-    
+
+
 if __name__ == '__main__':
   unittest.main()

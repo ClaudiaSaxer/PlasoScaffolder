@@ -230,7 +230,7 @@ class SQLiteController(object):
           self._output_handler.PrintInfo('Your query does not return anything.')
         else:
           self._output_handler.PrintInfo(
-            'Your query output could look like this.')
+              'Your query output could look like this.')
 
           if length < self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE:
             amount = length

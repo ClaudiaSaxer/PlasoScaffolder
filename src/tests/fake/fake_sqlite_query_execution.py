@@ -2,7 +2,6 @@
 # pylint: disable=no-member
 # pylint does not recognize connect and close as member
 """Base for sql query validators"""
-import sqlite3
 
 from plasoscaffolder.dal import base_sql_query_execution
 

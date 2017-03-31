@@ -192,7 +192,6 @@ class SQLiteControllerTest(unittest.TestCase):
       self.assertEqual(actual[2].error_message, None)
       self.assertEqual(prompt_output_actual, prompt_output_expected)
 
-
   def testSourcePathIfNotExisting(self):
     """test method after getting the source path from the user"""
     with tempfile.TemporaryDirectory() as tmpdir:
