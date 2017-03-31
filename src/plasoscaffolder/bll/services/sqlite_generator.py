@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """A SQLite Generator"""
+import os
 
 from plasoscaffolder.bll.mappings import base_formatter_mapping
 from plasoscaffolder.bll.mappings import base_init_mapping
@@ -10,7 +11,7 @@ from plasoscaffolder.bll.services import base_sqlite_plugin_helper
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.common import base_file_handler
 from plasoscaffolder.common import base_output_handler
-from plasoscaffolder.model import sql_query_model
+from plasoscaffolder.model import sql_query_model, parser_data_model
 
 
 class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
@@ -84,8 +85,16 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     else:
       content_init_parser = init_mapper.GetParserInitCreate(self.name)
 
-    content_parser = parser_mapper.GetParser(self.name, self.events,
-                                             self.queries)
+    #TODO pass data
+    parser_data = parser_data_model.ParserDataModel(
+        attributes=[],
+        database_name=os.path.basename(self.database),
+        events=self.events,
+        queries=self.queries,
+        plugin_name=self.name,
+        required_tables=[])
+
+    content_parser = parser_mapper.GetParser(parser_data)
     content_formatter = formatter_mapper.GetFormatter(self.name, self.events)
 
     formatter = file_handler.AddContent(

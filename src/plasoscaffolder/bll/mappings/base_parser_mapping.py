@@ -2,7 +2,7 @@
 """ Module representing function for the different files. """
 import abc
 
-from plasoscaffolder.model import sql_query_model
+from plasoscaffolder.model import parser_data_model
 
 
 class BaseParserMapper(object):
@@ -10,14 +10,11 @@ class BaseParserMapper(object):
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def GetParser(self, plugin_name: str, events: list,
-                queries: [sql_query_model.SQLQueryModel]) -> str:
+  def GetParser(self, parser_data: parser_data_model.ParserDataModel) -> str:
     """Retrieves the parser.
 
     Args:
-      plugin_name (str): the Name of the plugin
-      events (list): the list of the events
-      queries ([sql_query_model.SQLQueryModel]): list of queries
+      parser_data: the data for the parser
 
     Returns:
       str: the rendered template

@@ -6,29 +6,39 @@ from plasoscaffolder.model import sql_query_model
 class ParserDataModel(object):
   """Class for the data for the parser template"""
 
-  def __init__(self, class_name: str, file_name: str,
+  def __init__(self,
                attributes: [str],
-               events: [str], plugin_name: str,
+               events: [str],
+               plugin_name: str,
                queries: sql_query_model.SQLQueryModel,
-               required_tables: [str]):
+               required_tables: [str],
+               database_name: str):
     """Initialises the parser data model
 
     Args:
-      class_name (str): the name of the class
       file_name (str): the name of the file
       attributes ([str]): the attributes
+      database_name (str): the name of the database
       events ([str]): the events
       plugin_name (str): the name of the plugin
       queries (sql_query_model.SQLQueryModel): the queries
       required_tables ([str]): the tables that are required
     """
-    self._class_name = class_name
-    self._file_name = file_name
     self._attributes = attributes
     self._events = events
     self._plugin_name = plugin_name
     self._queries = queries
     self._required_tables = required_tables
+    self._database_name = database_name
+
+  @property
+  def DatabaseName(self) -> str:
+    """the database name
+
+    Returns:
+      str: the name of the database
+    """
+    return self._database_name
 
   @property
   def RequiredTables(self) -> str:
@@ -56,24 +66,6 @@ class ParserDataModel(object):
       str: the name of the plugin
     """
     return self._plugin_name
-
-  @property
-  def ClassName(self) -> str:
-    """the class name
-
-    Returns:
-      str: the name of the class
-    """
-    return self._class_name
-
-  @property
-  def FileName(self) -> str:
-    """the file name
-
-    Returns:
-      str: the name of the file
-    """
-    return self._file_name
 
   @property
   def Attributes(self) -> [str]:

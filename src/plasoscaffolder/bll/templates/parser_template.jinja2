@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Parser for {{ file_name|lower|replace('_',' ')}} database.
+"""Parser for {{ plugin_name|lower|replace('_',' ')}} database.
 
 SQLite database path:
 #TODO: remove comment and add database path
@@ -14,14 +14,14 @@ from plaso.parsers import sqlite
 from plaso.parsers.sqlite_plugins import interface
 {% for event in events %}
 class {{ class_name }}{{ event }}EventData(events.EventData)
-  """{{ file_name|lower|replace('_',' ')}} {{event}} event data.
+  """{{ plugin_name|lower|replace('_',' ')}} {{event}} event data.
 
   TODO: remove this line and add type and description of attributes
   Attributes:
   {% for attribute in attributes %} {{ attribute }} (None): TODO{% endfor %}
   """
 
-  DATA_TYPE = u'{{ file_name|lower|replace('_',':')}}:{{event|lower}}'
+  DATA_TYPE = u'{{ plugin_name|lower|replace('_',':')}}:{{event|lower}}'
 
   def __init__(self):
     """Initializes event data."""
