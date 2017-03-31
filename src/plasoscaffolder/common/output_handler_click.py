@@ -52,7 +52,7 @@ class OutputHandlerClick(base_output_handler.BaseOutputHandler):
     Args:
       text (str): the text to print
     """
-    click.echo(text)
+    click.secho(text, fg='cyan')
 
   def PrintError(self, text: str):
     """A echo for errors with click.
@@ -60,7 +60,7 @@ class OutputHandlerClick(base_output_handler.BaseOutputHandler):
     Args:
       text (str): the text to print
     """
-    click.echo(text, color='red')
+    click.secho(text, fg='red')
 
   def Confirm(self, text: str, default=True, abort=True):
     """A confirmation, Default Y, if no abort execution.

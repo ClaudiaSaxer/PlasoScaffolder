@@ -7,7 +7,6 @@ import click
 
 from plasoscaffolder.frontend.sqliteplugin import commands as sqliteplugin
 
-
 @click.group()
 def entry_point():
   pass

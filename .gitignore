@@ -39,3 +39,6 @@ docs/.build/
 tests-coverage.txt
 unittest
 sys
+
+# Build files
+/src/build

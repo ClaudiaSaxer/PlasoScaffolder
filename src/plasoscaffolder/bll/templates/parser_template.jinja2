@@ -26,7 +26,7 @@ class {{ class_name }}Plugin(interface.SQLitePlugin):
      u'{{ query.name }}'){% if not loop.last %},{% endif %}{% endfor %}]
 
   REQUIRED_TABLES = frozenset([
-      {% for table in required_tables %}u'{{ table }}'{% if not loop.last %},{% endif %}]{% endfor %})
+      {% for table in required_tables %}u'{{ table }}'{% if not loop.last %},{% endif %}]{% endfor %}])
 
 
 sqlite.SQLiteParser.RegisterPlugin({{ class_name }}Plugin)

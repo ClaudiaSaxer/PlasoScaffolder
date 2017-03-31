@@ -1,4 +1,4 @@
-click
+Click
 setuptools
 jinja2
 colorama

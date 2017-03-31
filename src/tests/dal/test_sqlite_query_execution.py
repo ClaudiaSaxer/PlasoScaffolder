@@ -15,6 +15,21 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     file_path = os.path.join(database_path, 'twitter_ios.db')
     self.execute = sqlite_query_execution.SQLQueryExecution(file_path)
 
+  def testRollbackWorks(self):
+    """testing if the rollback works"""
+    query_select_all_users = 'SELECT * FROM Users'
+    query_drop_table = 'DROP TABLE Users'
+    result_users_before = self.execute.executeQuery(query_select_all_users)
+    result_drop_table = self.execute.executeQuery(query_drop_table)
+    result_users_after = self.execute.executeQuery(query_select_all_users)
+
+    self.assertEqual(len(result_users_before.data),
+                     len(result_users_after.data))
+    self.assertTrue(len(result_users_after.data) is 25)
+    self.assertTrue(len(result_users_before.data) is 25)
+    self.assertFalse(result_drop_table.has_error)
+    self.assertIsNone(result_drop_table.error_message)
+
   def testMultipleTestAfterOneAnother(self):
     """test two querys after another to test the connection is still open"""
     query_simple = (
