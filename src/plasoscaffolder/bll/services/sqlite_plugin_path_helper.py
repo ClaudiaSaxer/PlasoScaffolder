@@ -24,7 +24,7 @@ class SQLitePluginPathHelper(
 
       Args:
        path (str): the plaso folder path
-       plugin_name (str): The name of the plugin to check.
+       plugin_name (str): The Name of the plugin to check.
        database_suffix (str): the file suffix of the database file
      """
     super().__init__()

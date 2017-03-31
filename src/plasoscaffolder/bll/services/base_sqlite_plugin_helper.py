@@ -23,7 +23,7 @@ class BaseSQLitePluginHelper(object):
     Args:
       database_suffix: the suffix of the database file
       path (str): the path of the plaso source
-      plugin_name (str): the name of the plugin
+      plugin_name (str): the Name of the plugin
       path_helper (BaseSqlitePluginHelper) : the sqlite plugin helper
 
     Returns:
@@ -48,24 +48,24 @@ class BaseSQLitePluginHelper(object):
 
   @abc.abstractmethod
   def IsValidPluginName(self, plugin_name: str) -> bool:
-    """Validates the plugin name.
+    """Validates the plugin Name.
 
     Args:
-      plugin_name (str): the plugin name
+      plugin_name (str): the plugin Name
 
     Returns:
-      bool: true if the plugin name is valid
+      bool: true if the plugin Name is valid
     """
 
   @abc.abstractmethod
   def RunSQLQuery(self, query: str,
                   executor: base_sql_query_execution.BaseSQLQueryExecution()):
-    """ Validates the sql query
+    """ Validates the sql Query
 
     Args:
       executor (base_sql_query_execution.SQLQueryExection()) the sql executor
-      query (str): the sql query
+      query (str): the sql Query
 
     Returns:
-      base_sql_query_execution.SQLQueryData: the data to the executed query
+      base_sql_query_execution.SQLQueryData: the data to the executed Query
     """

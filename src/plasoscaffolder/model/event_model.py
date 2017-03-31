@@ -9,23 +9,23 @@ class EventModel(object):
     """ initializes the event model.
 
     Args:
-      name (str): The name of the event.
+      name (str): The Name of the event.
       needs_customizing (bool): If the event needs customizing.
     """
     self._name = name
     self._needs_customizing = needs_customizing
 
   @property
-  def name(self) -> str:
-    """ the event name.
+  def Name(self) -> str:
+    """ the event Name.
 
     Returns:
-      (str): The name of the event.
+      (str): The Name of the event.
     """
     return self._name
 
   @property
-  def needs_customizing(self) -> bool:
+  def NeedsCustomizing(self) -> bool:
     """ If the event needs customizing.
 
     Returns:

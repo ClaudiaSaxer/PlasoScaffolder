@@ -12,7 +12,7 @@ class BaseFormatterMapper(object):
     """Renders the formatter.
 
     Args:
-      plugin_name (str): the name of the plugin
+      plugin_name (str): the Name of the plugin
       events (list): the list of the events
 
     Returns:

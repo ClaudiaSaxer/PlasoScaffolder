@@ -26,7 +26,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
 
     Args:
       path (str): the path of the plaso folder
-      name (str): the name of the plugin
+      name (str): the Name of the plugin
       database (str): the path to the database
       events (list): the events of the plugin
       output_handler (BaseOutputHandler: the output handler for the

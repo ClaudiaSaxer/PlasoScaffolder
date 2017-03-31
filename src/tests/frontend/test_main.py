@@ -34,7 +34,7 @@ class MainTest(unittest.TestCase):
                        '\n'
                        'Options:\n'
                        '  --path TEXT      The path to plaso\n'
-                       '  --name TEXT      The plugin name\n'
+                       '  --Name TEXT      The plugin Name\n'
                        '  --testfile TEXT  The testfile path\n'
                        '  --event TEXT     The plugin events\n'
                        '  --sql            The output example flag for the '

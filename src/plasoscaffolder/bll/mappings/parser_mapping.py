@@ -24,7 +24,7 @@ class ParserMapper(base_parser_mapping.BaseParserMapper):
     """Retrieves the parser.
 
     Args:
-      plugin_name (str): the name of the plugin
+      plugin_name (str): the Name of the plugin
       events (list): the list of the events
       queries ([sql_query_model.SQLQueryModel]): list of queries
 

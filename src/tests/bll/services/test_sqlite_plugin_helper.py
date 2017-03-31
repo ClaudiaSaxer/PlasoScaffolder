@@ -44,7 +44,7 @@ class SQLitePluginHelperTest(unittest.TestCase):
     with tempfile.TemporaryDirectory() as tmpdir:
       with tempfile.TemporaryFile(dir=tmpdir) as fp:
         helper = SQLitePluginHelper()
-        actual = helper.FileExists(fp.name)
+        actual = helper.FileExists(fp.Name)
 
     self.assertTrue(actual)
 
@@ -57,35 +57,35 @@ class SQLitePluginHelperTest(unittest.TestCase):
     self.assertTrue(actual)
 
   def testIsValidPluginNameExpected(self):
-    """tests the plugin name validation."""
+    """tests the plugin Name validation."""
     helper = SQLitePluginHelper()
     plugin_name = "this_is_a_test"
     actual = helper.IsValidPluginName(plugin_name)
     self.assertTrue(actual)
 
   def testIsValidPluginNameWithEndingUnderscore(self):
-    """tests the plugin name validation."""
+    """tests the plugin Name validation."""
     helper = SQLitePluginHelper()
     plugin_name = "this_is_a_"
     actual = helper.IsValidPluginName(plugin_name)
     self.assertFalse(actual)
 
   def testIsValidPluginNameOnlyOneWordLowercase(self):
-    """tests the plugin name validation."""
+    """tests the plugin Name validation."""
     helper = SQLitePluginHelper()
     plugin_name = "this"
     actual = helper.IsValidPluginName(plugin_name)
     self.assertTrue(actual)
 
   def testIsValidPluginNameOneWordUppercase(self):
-    """tests the plugin name validation."""
+    """tests the plugin Name validation."""
     helper = SQLitePluginHelper()
     plugin_name = "This"
     actual = helper.IsValidPluginName(plugin_name)
     self.assertFalse(actual)
 
   def testIsValidPluginNameWithNumber(self):
-    """tests the plugin name validation."""
+    """tests the plugin Name validation."""
     helper = SQLitePluginHelper()
     plugin_name = "this3"
     actual = helper.IsValidPluginName(plugin_name)

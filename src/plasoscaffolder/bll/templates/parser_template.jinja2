@@ -1,19 +1,33 @@
 # -*- coding: utf-8 -*-
-"""{{ file_description }}"""
+"""Parser for {{ file_name|lower|replace('_',' ')}} database.
+
+SQLite database path:
+#TODO: remove comment and add database path
+SQLite database Name: {{ database_name }}
+"""
+
+from dfdatetime import posix_time as dfdatetime_posix_time
 
 from plaso.containers import time_events
 from plaso.lib import eventdata
 from plaso.parsers import sqlite
 from plaso.parsers.sqlite_plugins import interface
 {% for event in events %}
-class {{ class_name }}{{ event }}Event(time_events.PosixTimeEvent)
-  """TODO"""
-  def __init__(
-   #TODO
-  )
+class {{ class_name }}{{ event }}EventData(events.EventData)
+  """{{ file_name|lower|replace('_',' ')}} {{event}} event data.
 
-  super().__init__(TODO)
-  #TODO
+  TODO: remove this line and add type and description of attributes
+  Attributes:
+  {% for attribute in attributes %} {{ attribute }} (None): TODO{% endfor %}
+  """
+
+  DATA_TYPE = u'{{ file_name|lower|replace('_',':')}}:{{event|lower}}'
+
+  def __init__(self):
+    """Initializes event data."""
+    super({{ class_name }}{{ event }}EventData(events.EventData), self).__init__(data_type=self.DATA_TYPE)
+    {% for attribute in attributes %}self.{{ attribute }} = None{% endfor %}
+
 
 {% endfor %}
 
@@ -21,12 +35,41 @@ class {{ class_name }}Plugin(interface.SQLitePlugin):
   """TODO"""
   NAME = u'{{ plugin_name }}'
   DESCRIPTION = u'TODO'
-  QUERIES = [ {% for query in queries %}
+  QUERIES = [ {% for Query in queries %}
     ((u'{{ query.query|wordwrap(width=64,wrapstring="'\nu'")|indent(6)}})'),
      u'{{ query.name }}'){% if not loop.last %},{% endif %}{% endfor %}]
 
   REQUIRED_TABLES = frozenset([
       {% for table in required_tables %}u'{{ table }}'{% if not loop.last %},{% endif %}]{% endfor %}])
+
+{% for Query in queries %}
+  def Parse{{ query.Name }}Row(self,  parser_mediator, row, Query=None, **unused_kwargs):
+    """Parses a contact row from the database.
+
+    Args:
+      parser_mediator (ParserMediator): mediates interactions between parsers
+          and other components, such as storage and dfvfs.
+      row (sqlite3.Row): row resulting from Query.
+      Query (Optional[str]): Query.
+    """
+    # Note that pysqlite does not accept a Unicode string in row['string'] and
+    # will raise "IndexError: Index must be int or string".
+
+    event_data = TwitterIOS{{ query.Name }}EventData()
+    {% for column in querie.Columns %}
+      event_data.{{ column.SQLColumn }} = row['{{ column.ColumnAsSnakeCase() }}']
+    {% endfor %}
+
+    timestamp = row['TODO']
+    if timestamp:
+    # Convert the floating point value to an integer.
+      timestamp = int(timestamp)
+      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
+      # TODO: remove comment, Add correct time field for None value.
+      # TODO: remove comment, Example: eventdata.EventTimestamp.UPDATE_TIME
+      event = time_events.DateTimeValuesEvent(date_time, None)
+      parser_mediator.ProduceEventWithEventData(event, event_data)
+{% endfor %}
 
 
 sqlite.SQLiteParser.RegisterPlugin({{ class_name }}Plugin)

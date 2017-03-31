@@ -90,7 +90,7 @@ class SQLiteController(object):
         sqlite_plugin_path_helper.SQLitePluginPathHelper(
             self._path, value, "")):
       value = self._output_handler.PromptError(
-          'Plugin exists. Choose new name')
+          'Plugin exists. Choose new Name')
       value = self._ValidatePluginName(value)
 
     self._name = value
@@ -179,10 +179,10 @@ class SQLiteController(object):
       unused_param (click.core.Option): the click command (automatically
       given via
       callback)
-      value (str): the sql query (automatically given via callback)
+      value (str): the sql Query (automatically given via callback)
 
     Returns:
-      str: the sql query
+      str: the sql Query
     """
 
     verbose = value
@@ -196,7 +196,7 @@ class SQLiteController(object):
       if query_model is not None:
         sql_query_list.append(query_model)
         add_more_queries = self._output_handler.Confirm(
-            text='Do you want to add another query?',
+            text='Do you want to add another Query?',
             abort=False, default=True)
 
     self._sql_query = sql_query_list
@@ -207,14 +207,14 @@ class SQLiteController(object):
       query: str, with_examples: bool,
       query_execution: base_sql_query_execution.BaseSQLQueryExecution()
   ) -> sql_query_model.SQLQueryModel:
-    """Asks the user information about the sql query
+    """Asks the user information about the sql Query
 
     Args:
-      query (str): the sql query
-      with_examples (bool): if the user wants examples for the given query
+      query (str): the sql Query
+      with_examples (bool): if the user wants examples for the given Query
 
     Returns:
-      (sql_query_model.SQLQueryModel) a sql query model
+      (sql_query_model.SQLQueryModel) a sql Query model
     """
     query_data = self._plugin_helper.RunSQLQuery(query, query_execution)
 
@@ -227,10 +227,10 @@ class SQLiteController(object):
       if with_examples:
         length = len(query_data.data)
         if length is 0:
-          self._output_handler.PrintInfo('Your query does not return anything.')
+          self._output_handler.PrintInfo('Your Query does not return anything.')
         else:
           self._output_handler.PrintInfo(
-              'Your query output could look like this.')
+              'Your Query output could look like this.')
 
           if length < self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE:
             amount = length
@@ -241,12 +241,12 @@ class SQLiteController(object):
             self._output_handler.PrintInfo(query_data.data[i])
 
         add_query = self._output_handler.Confirm(
-            'Do you want to add this query?',
+            'Do you want to add this Query?',
             abort=False, default=True)
         if not add_query:
           return None
 
-      message = 'What kind of row does the SQL query parse?'
+      message = 'What kind of row does the SQL Query parse?'
       name = self._output_handler.PromptInfo(text=message)
       whole_name = 'Parse{0}Row'.format(name.title())
 
@@ -256,7 +256,7 @@ class SQLiteController(object):
     """Asks the user if the event needs customizing
 
     Args:
-      name (str): the name of the event
+      name (str): the Name of the event
 
     Returns:
       (event_model.EventModel): a event model
@@ -296,16 +296,16 @@ class SQLiteController(object):
         mapping_helper.MappingHelper(template_path))
 
   def _ValidatePluginName(self, plugin_name: str) -> str:
-    """Validate plugin name and prompt until name is valid
+    """Validate plugin Name and prompt until Name is valid
 
     Args:
-      plugin_name: the name of the plugin
+      plugin_name: the Name of the plugin
 
     Returns:
-      a valid plugin name
+      a valid plugin Name
     """
     while not self._plugin_helper.IsValidPluginName(plugin_name):
       plugin_name = self._output_handler.PromptError(
-          'Plugin is not in a valide format. Choose new name ['
+          'Plugin is not in a valide format. Choose new Name ['
           'plugin_name_...]: ')
     return plugin_name
