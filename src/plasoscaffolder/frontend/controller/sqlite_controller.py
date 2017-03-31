@@ -250,7 +250,10 @@ class SQLiteController(object):
       name = self._output_handler.PromptInfo(text=message)
       whole_name = 'Parse{0}Row'.format(name.title())
 
-    return sql_query_model.SQLQueryModel(query, whole_name)
+      #TODO get columns
+      columns = [sql_query_model.SQLColumns('todo')]
+
+    return sql_query_model.SQLQueryModel(query, whole_name,columns)
 
   def _CreateEventModelWithUserInput(self, name: str) -> event_model.EventModel:
     """Asks the user if the event needs customizing
