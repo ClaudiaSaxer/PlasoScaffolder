@@ -1,26 +1,24 @@
 # -*- coding: utf-8 -*-
-"""the output file handler for click"""
-import click
-from plasoscaffolder.common import base_output_handler
+"""base output handler"""
+import abc
 
 
-class OutputHandlerClick(base_output_handler.BaseOutputHandler):
-  """Class representing the output handler for click."""
+class BaseOutputHandler(object):
+  """Clase representing the Base class for the output handler class"""
+  __metaclass__ = abc.ABCMeta
 
-  def __init__(self):
-    super().__init__()
-
+  @abc.abstractmethod
   def PromptInfo(self, text: str) -> str:
-    """A prompt for information with click.
+    """A prompt for information.
 
     Args:
-      text (str): the text to  prompt
+      text (str): the text to prompt
 
     Returns:
       str: the user input
     """
-    return click.prompt(text, type=str)
 
+  @abc.abstractmethod
   def PromptInfoWithDefault(self, text: str, text_type: object,
                             default: object) -> str:
     """A prompt for information, with a default value and a required type.
@@ -33,10 +31,10 @@ class OutputHandlerClick(base_output_handler.BaseOutputHandler):
     Returns:
       str: the user input
     """
-    return click.prompt(text, type=text_type, default=default)
 
+  @abc.abstractmethod
   def PromptError(self, text: str) -> str:
-    """A prompt for errors with click.
+    """A prompt for errors.
 
     Args:
       text (str): the text to prompt
@@ -44,32 +42,31 @@ class OutputHandlerClick(base_output_handler.BaseOutputHandler):
     Returns:
       str: the user input
     """
-    return click.prompt(click.style(text, fg='red'), type=str)
 
+  @abc.abstractmethod
   def PrintInfo(self, text: str):
-    """A echo for infos with click.
+    """A echo for infos.
 
     Args:
       text (str): the text to print
     """
-    click.secho(text, fg='cyan')
 
+  @abc.abstractmethod
   def PrintError(self, text: str):
-    """A echo for errors with click.
+    """A echo for errors.
 
     Args:
       text (str): the text to print
     """
-    click.secho(text, fg='red')
 
+  @abc.abstractmethod
   def Confirm(self, text: str, default=True, abort=True):
     """A confirmation, Default Y, if no abort execution.
 
-    Args:
-      text (str): Prompts the user for a confirmation.
-      default (bool): the default value.
-      abort (bool): if the program should abort
+     Args:
+       text (str): Prompts the user for a confirmation.
+       default (bool): the default value.
+       abort (bool): if the program should abort
 
-    Returns:
-    """
-    return click.confirm(text, abort=abort, default=default)
+     Returns:
+     """
