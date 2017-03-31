@@ -1,0 +1,51 @@
+# -*- coding: utf-8 -*-
+"""test class"""
+import unittest
+from unittest.mock import patch
+
+from click import testing
+from plasoscaffolder.common import output_handler_click
+
+
+class ClickOutputHandler(unittest.TestCase):
+  """testing the file output handler"""
+
+  def setUp(self):
+    self.click = output_handler_click.OutputHandlerClick()
+
+  def testPromptError(self):
+    """test prompt error"""
+
+  @patch('click.prompt', return_value='yes')
+  def testPromptInfo(self, prompt):
+    """test prompt info"""
+    result = self.click.PromptInfo('test')
+    self.assertEqual('yes', result)
+
+  def testPrintInfo(self):
+    """test print info."""
+    try:
+      runner = testing.CliRunner()
+      runner.invoke(self.click.PrintInfo('info'))
+    except:
+      self.assertTrue(False)
+
+  def testPrintError(self):
+    """test print error."""
+    try:
+      runner = testing.CliRunner()
+      runner.invoke(self.click.PrintError('info'))
+    except:
+      self.assertTrue(False)
+
+  @patch('click.confirm', return_value='True')
+  def testConfirmIfTrue(self, confirm):
+    """test Confirm if confirmed"""
+    result = self.click.Confirm( default=True, abort=False, text='text')
+    self.assertEqual('True', result)
+
+  @patch('click.confirm', return_value='False')
+  def testConfirmIfFalse(self, confirm):
+    """test Confirm if not confirmed"""
+    result = self.click.Confirm( default=False, abort=False, text='text')
+    self.assertEqual('False', result)
