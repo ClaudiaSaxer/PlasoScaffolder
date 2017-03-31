@@ -3,10 +3,8 @@
 import os
 
 import click
-
 from plasoscaffolder.bll.services import sqlite_plugin_helper
 from plasoscaffolder.common import output_handler_click
-from plasoscaffolder.dal import sqlite_query_execution
 from plasoscaffolder.frontend.controller import sqlite_controller
 
 # Since os.path.abspath() uses the current working directory (cwd)
