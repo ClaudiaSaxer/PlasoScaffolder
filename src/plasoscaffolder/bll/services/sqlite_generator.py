@@ -21,7 +21,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       queries: [sql_query_model.SQLQueryModel],
       output_handler: base_output_handler.BaseOutputHandler(),
       pluginHelper: base_sqlite_plugin_helper.BaseSQLitePluginHelper(),
-      pathHelper=base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper()):
+      pathHelper: base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper()):
     """Initializes a SQLite Generator.
 
     Args:
