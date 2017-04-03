@@ -94,6 +94,8 @@ class SQLiteGeneratorTest(unittest.TestCase):
             self.template_path, 'test',
             'db')
       path = os.path.join(tmpdir, 'testfile')
+
+
       generator = sqlite_generator.SQLiteGenerator(
           tmpdir, 'test', 'test', ['test'], [],
           output_handler_file.OutputHandlerFile(
@@ -116,8 +118,8 @@ class SQLiteGeneratorTest(unittest.TestCase):
       path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
           tmpdir, 'test', 'test', ['test'], [],
-          output_handler_file.OutputHandlerFile(path,
-                                                file_handler.FileHandler()),
+          output_handler_file.OutputHandlerFile(
+              path, file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
       arguments = 'test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7'
       generator._Print(*arguments)  # pylint: disable=protected-access

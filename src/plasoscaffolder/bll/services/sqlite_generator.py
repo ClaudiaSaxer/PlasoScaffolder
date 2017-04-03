@@ -11,14 +11,15 @@ from plasoscaffolder.bll.services import base_sqlite_plugin_helper
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.common import base_file_handler
 from plasoscaffolder.common import base_output_handler
-from plasoscaffolder.model import sql_query_model, parser_data_model
+from plasoscaffolder.model import sql_query_model, parser_data_model, \
+  event_model
 
 
 class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
   """ Generator for SQLite Files """
 
   def __init__(
-      self, path: str, name: str, database: str, events: list,
+      self, path: str, name: str, database: str, events: [event_model.EventModel],
       queries: [sql_query_model.SQLQueryModel],
       output_handler: base_output_handler.BaseOutputHandler(),
       pluginHelper: base_sqlite_plugin_helper.BaseSQLitePluginHelper(),

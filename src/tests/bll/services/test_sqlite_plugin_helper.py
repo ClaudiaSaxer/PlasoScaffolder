@@ -44,7 +44,7 @@ class SQLitePluginHelperTest(unittest.TestCase):
     with tempfile.TemporaryDirectory() as tmpdir:
       with tempfile.TemporaryFile(dir=tmpdir) as fp:
         helper = SQLitePluginHelper()
-        actual = helper.FileExists(fp.Name)
+        actual = helper.FileExists(fp.name)
 
     self.assertTrue(actual)
 
