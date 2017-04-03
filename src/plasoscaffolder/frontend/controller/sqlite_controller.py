@@ -4,7 +4,6 @@ import os
 import sqlite3
 
 import click
-
 from plasoscaffolder.bll.mappings import formatter_mapping
 from plasoscaffolder.bll.mappings import init_mapping
 from plasoscaffolder.bll.mappings import mapping_helper
@@ -138,7 +137,7 @@ class SQLiteController(object):
       bool: if the file can be opened and is a database file"""
     try:
       execution = sqlite_query_execution.SQLQueryExecution(path)
-    except sqlite3.OperationalError:
+    except sqlite3.OperationalError: #pylint: disable=no-member
       return False
     self._query_execution = execution
     return True
@@ -250,10 +249,10 @@ class SQLiteController(object):
       name = self._output_handler.PromptInfo(text=message)
       whole_name = 'Parse{0}Row'.format(name.title())
 
-      #TODO get columns
+      # TODO get columns
       columns = [sql_query_model.SQLColumns('todo')]
 
-    return sql_query_model.SQLQueryModel(query, whole_name,columns)
+    return sql_query_model.SQLQueryModel(query, whole_name, columns)
 
   def _CreateEventModelWithUserInput(self, name: str) -> event_model.EventModel:
     """Asks the user if the event needs customizing

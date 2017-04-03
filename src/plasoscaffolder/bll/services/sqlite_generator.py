@@ -19,7 +19,8 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
   """ Generator for SQLite Files """
 
   def __init__(
-      self, path: str, name: str, database: str, events: [event_model.EventModel],
+      self, path: str, name: str, database: str,
+      events: [event_model.EventModel],
       queries: [sql_query_model.SQLQueryModel],
       output_handler: base_output_handler.BaseOutputHandler(),
       pluginHelper: base_sqlite_plugin_helper.BaseSQLitePluginHelper(),
@@ -86,7 +87,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     else:
       content_init_parser = init_mapper.GetParserInitCreate(self.name)
 
-    #TODO pass data
+    # TODO pass data
     parser_data = parser_data_model.ParserDataModel(
         attributes=[],
         database_name=os.path.basename(self.database),
