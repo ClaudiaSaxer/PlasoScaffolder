@@ -2,8 +2,6 @@
 """The sql Query model class."""
 import re
 
-from build.lib.plasoscaffolder.model import sql_query_model
-
 
 class SQLQueryModel(object):
   "A sql Query Model."
@@ -25,7 +23,7 @@ class SQLQueryModel(object):
     """ the sql Query Name.
 
     Returns:
-      (str): The Name of the sql Query parser row.
+      str: The Name of the sql Query parser row.
     """
     return self._name
 
@@ -34,14 +32,20 @@ class SQLQueryModel(object):
     """ the sql Query
 
     Returns:
-      (str): The SQL Query.
+      str: The SQL Query.
 
     """
     return self._query
 
   @property
   def Columns(self) -> []:
-      return self._columns
+    """the columns of the query
+
+    Returns:
+      [SQLColumns]: list of columns
+    """
+    return self._columns
+
 
 class SQLColumns(object):
   """class for columns of a sql Query"""
@@ -50,7 +54,7 @@ class SQLColumns(object):
     """ initializes the sql column model.
 
     Args:
-      sqlcolum (str): the column Name of the sql Query
+      sql_column (str): the column Name of the sql Query
     """
     self._sql_column = sql_column
 
@@ -59,16 +63,15 @@ class SQLColumns(object):
     """the sql column
 
     Returns:
-      (str): the column of the sql
+      str: the column of the sql
     """
     return self._sql_column
 
-  #TODO write test
+  # TODO write test
   def ColumnAsSnakeCase(self) -> str:
     """sql column name to snake case
 
     Returns:
-      (str): the column name from the sql in snake case 
+      str: the column name from the sql in snake case
     """
     return '_'.join(re.findall('[A-Z][a-z]*', self._sql_column.lower()))
-
