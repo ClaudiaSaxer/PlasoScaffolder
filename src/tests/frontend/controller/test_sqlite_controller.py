@@ -95,7 +95,7 @@ class SQLiteControllerTest(unittest.TestCase):
       prompt_output_actual = self._ReadFromFile(path)
       prompt_output_expected = 'What kind of row does the SQL Query parse?'
 
-      expected = sql_query_model.SQLQueryModel(sql_query, expected_name,[])
+      expected = sql_query_model.SQLQueryModel(sql_query, expected_name, [])
 
       self.assertEqual(expected.Name, actual.Name)
       self.assertEqual(expected.Query, actual.Query)
@@ -110,7 +110,6 @@ class SQLiteControllerTest(unittest.TestCase):
     )
     sql_query = 'SELECT createdDate FROM Users ORDER BY createdDate'
     name = 'Contact'
-    expected_name = 'Parse{0}Row'.format(name)
     with tempfile.TemporaryDirectory() as tmpdir:
       path = os.path.join(tmpdir, 'testfile')
       pathlib.Path(path).touch()
@@ -145,9 +144,8 @@ class SQLiteControllerTest(unittest.TestCase):
 
       prompt_output_actual = self._ReadFromFile(path)
 
-      prompt_output_expected = (
-        'Please write your SQL script for the pluginDo you want to add another '
-        'Query?')
+      prompt_output_expected = ('Please write your SQL script for the '
+                                'pluginDo you want to add another Query?')
 
       self.assertEqual(len(actual), 1)
       self.assertEqual(actual[0].data, 'test')
@@ -441,10 +439,10 @@ class SQLiteControllerTest(unittest.TestCase):
 
   def _ReadFromFile(self, path: str):
     """Read from file
-    
+
     Args:
-      path (str): the file path 
- 
+      path (str): the file path
+
     Returns:
       str: content of the file"""
     with open(path, 'r') as f:

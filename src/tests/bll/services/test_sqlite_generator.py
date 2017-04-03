@@ -95,7 +95,6 @@ class SQLiteGeneratorTest(unittest.TestCase):
             'db')
       path = os.path.join(tmpdir, 'testfile')
 
-
       generator = sqlite_generator.SQLiteGenerator(
           tmpdir, 'test', 'test', [], [],
           output_handler_file.OutputHandlerFile(

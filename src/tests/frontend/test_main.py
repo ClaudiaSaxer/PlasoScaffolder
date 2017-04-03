@@ -4,7 +4,6 @@ import unittest
 from unittest.mock import patch
 
 from click.testing import CliRunner
-
 from plasoscaffolder.frontend import main
 
 
@@ -44,7 +43,7 @@ class MainTest(unittest.TestCase):
     self.assertEqual(0, result.exit_code)
 
   @patch('plasoscaffolder.frontend.main.entry_point', return_value='run sqlite')
-  def testSQLiteRun(self, sqlite):
+  def testSQLiteRun(self, sqlite): #pylint: disable=unused-argument
     """testing the interaction with main and sqlite"""
     runner = CliRunner()
     result = runner.invoke(main.entry_point, ['sqlite'])

@@ -85,7 +85,7 @@ class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
 
     Args:
       executor (base_sql_query_execution.SQLQueryExection()) the sql executor
-      query (str): the sql Query 
+      query (str): the sql Query
 
     Returns:
       base_sql_query_execution.SQLQueryData: the data to the executed Query

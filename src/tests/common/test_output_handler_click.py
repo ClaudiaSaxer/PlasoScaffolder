@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
+# disable pylint unused-argument because it is used for the mock
+# pylint: disable=unused-argument
+# disable pylint bare-except because it should fail at any exception
+# pylint: disable=bare-except
+# pylint: disable=redundant-unittest-assert
 """test class"""
 import unittest
 from unittest.mock import patch
 
 from click import testing
-
 from plasoscaffolder.common import output_handler_click
 
 
@@ -13,9 +17,6 @@ class ClickOutputHandler(unittest.TestCase):
 
   def setUp(self):
     self.click = output_handler_click.OutputHandlerClick()
-
-  def testPromptError(self):
-    """test prompt error"""
 
   @patch('click.prompt', return_value='yes')
   def testPromptInfo(self, prompt):
