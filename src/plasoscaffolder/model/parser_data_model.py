@@ -50,7 +50,7 @@ class ParserDataModel(object):
     return self._required_tables
 
   @property
-  def Queries(self) -> [(sql_query_model.SQLQueryModel)]:
+  def Queries(self) -> [sql_query_model.SQLQueryModel]:
     """the queries
 
     Returns:
