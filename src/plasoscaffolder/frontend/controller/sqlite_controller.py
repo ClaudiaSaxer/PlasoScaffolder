@@ -238,7 +238,7 @@ class SQLiteController(object):
             amount = self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE
 
           for i in range(0, amount):
-            self._output_handler.PrintInfo(query_data.data[i])
+            self._output_handler.PrintInfo(str(query_data.data[i]))
 
         add_query = self._output_handler.Confirm(
             'Do you want to add this Query?',

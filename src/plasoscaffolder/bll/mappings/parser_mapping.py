@@ -34,7 +34,6 @@ class ParserMapper(base_parser_mapping.BaseParserMapper):
                'events'   : parser_data.Events,
                'queries'    : parser_data.Queries,
                'attributes': parser_data.Attributes,
-               'file_name': parser_data.FileName,
                'database_name': parser_data.DatabaseName}
     rendered = self.__helper.RenderTemplate(self._PARSER_TEMPLATE, context)
     return rendered

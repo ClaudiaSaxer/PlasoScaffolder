@@ -10,7 +10,7 @@ class ParserDataModel(object):
                attributes: [str],
                events: [str],
                plugin_name: str,
-               queries: sql_query_model.SQLQueryModel,
+               queries: [sql_query_model.SQLQueryModel],
                required_tables: [str],
                database_name: str):
     """Initialises the parser data model

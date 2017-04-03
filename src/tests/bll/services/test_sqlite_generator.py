@@ -97,7 +97,7 @@ class SQLiteGeneratorTest(unittest.TestCase):
 
 
       generator = sqlite_generator.SQLiteGenerator(
-          tmpdir, 'test', 'test', ['test'], [],
+          tmpdir, 'test', 'test', [], [],
           output_handler_file.OutputHandlerFile(
               path, file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
