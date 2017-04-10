@@ -71,5 +71,6 @@ class OutputHandlerClick(base_output_handler.BaseOutputHandler):
       abort (bool): if the program should abort
 
     Returns:
+      bool: false if the user entered no, true if the user entered yes 
     """
     return click.confirm(text, abort=abort, default=default)

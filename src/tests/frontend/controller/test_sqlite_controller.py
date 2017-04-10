@@ -175,10 +175,8 @@ class SQLiteControllerTest(unittest.TestCase):
 
       prompt_output_actual = self._ReadFromFile(path)
 
-      prompt_output_expected = '{0}{0}{0}'.format(
-          'Please write your SQL script for the pluginDo you want to add '
-          'another '
-          'query?')
+      prompt_output_expected = ('Please write your SQL script for the '
+                                'pluginDo you want to add another query?') * 3
 
       self.assertEqual(len(actual), 3)
       self.assertEqual(actual[0].data, 'test')
@@ -191,7 +189,6 @@ class SQLiteControllerTest(unittest.TestCase):
       self.assertEqual(actual[2].has_error, False)
       self.assertEqual(actual[2].error_message, None)
       self.assertEqual(prompt_output_actual, prompt_output_expected)
-
 
   def testSourcePathIfNotExisting(self):
     """test method after getting the source path from the user"""
@@ -261,9 +258,9 @@ class SQLiteControllerTest(unittest.TestCase):
                   event_model.EventModel('Event2'),
                   event_model.EventModel('Event3')]
       actual_prompt_output = self._ReadFromFile(path)
-      expected_prompt_output = 'Does the event Event1 need customizing?' \
-                               'Does the event Event2 need customizing?' \
-                               'Does the event Event3 need customizing?'
+      expected_prompt_output = ('Does the event Event1 need customizing?'
+                                'Does the event Event2 need customizing?'
+                                'Does the event Event3 need customizing?')
 
     self.assertEqual(actual[0].name, expected[0].name)
     self.assertEqual(actual[1].name, expected[1].name)
@@ -341,8 +338,8 @@ class SQLiteControllerTest(unittest.TestCase):
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
       controller._ValidatePluginName("the_wrong_plugin_")
-      expected = 'Plugin is not in a valide format. Choose new name [' \
-                 'plugin_name_...]: '
+      expected = ('Plugin is not in a valide format. Choose new name ['
+                  'plugin_name_...]: ')
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
 
@@ -366,12 +363,12 @@ class SQLiteControllerTest(unittest.TestCase):
       controller._CreateSQLQueryModelWithUserInput(
           query, with_examples, query_execution
       )
-      expected = 'Your query output could look like this.\n' \
-                 'first\n' \
-                 'second\n' \
-                 'third' \
-                 'Do you want to add this query?' \
-                 'What kind of row does the SQL query parse?'
+      expected = ('Your query output could look like this.\n'
+                  'first\n'
+                  'second\n'
+                  'third'
+                  'Do you want to add this query?'
+                  'What kind of row does the SQL query parse?')
 
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
@@ -396,28 +393,22 @@ class SQLiteControllerTest(unittest.TestCase):
       controller._testfile = file
       controller._events = ['Event1', 'Event2', 'Event3']
       controller.Generate(template_path)
-      expected = ('Do you want to Generate the files?'
-                  'create ' + os.path.join(tmpdir, 'plaso', 'formatters',
-                                           'the_plugin.py') +
-                  'create ' + os.path.join(tmpdir, 'plaso', 'parsers',
-                                           'sqlite_plugins',
-                                           'the_plugin.py') +
-                  'create ' + os.path.join(tmpdir, 'tests', 'formatters',
-                                           'the_plugin.py') +
-                  'create ' + os.path.join(tmpdir, 'tests', 'parsers',
-                                           'sqlite_plugins',
-                                           'the_plugin.py') +
-                  'copy ' + os.path.join(tmpdir, 'test_data',
-                                         'the_plugin.') +
-                  'create ' + os.path.join(tmpdir, 'plaso', 'parsers',
-                                           'sqlite_plugins',
-                                           '__init__.py') +
-                  'create ' + os.path.join(tmpdir, 'plaso', 'formatters',
-                                           '__init__.py'))
+      file1 = os.path.join(tmpdir, 'plaso', 'formatters', 'the_plugin.py')
+      file2 = os.path.join(tmpdir, 'plaso', 'parsers', 'sqlite_plugins',
+                           'the_plugin.py')
+      file3 = os.path.join(tmpdir, 'tests', 'formatters', 'the_plugin.py')
+      file4 = os.path.join(tmpdir, 'tests', 'parsers', 'sqlite_plugins',
+                           'the_plugin.py')
+      file5 = os.path.join(tmpdir, 'test_data', 'the_plugin.')
+      file6 = os.path.join(tmpdir, 'plaso', 'parsers', 'sqlite_plugins',
+                           '__init__.py')
+      file7 = os.path.join(tmpdir, 'plaso', 'formatters', '__init__.py')
+      expected = ('Do you want to Generate the files?create {0}create {1}'
+                  'create {2}create {3}copy {4}create {5}create {6}'
+                  .format(file1, file2, file3, file4, file5, file6, file7))
 
       actual = self._ReadFromFile(file)
-
-    self.assertEqual(expected, actual)
+      self.assertEqual(expected, actual)
 
   def testGenerateIfNotConfirmed(self):
     """test the generate if confirmed """
@@ -445,7 +436,7 @@ class SQLiteControllerTest(unittest.TestCase):
     
     Args:
       path (str): the file path 
- 
+  
     Returns:
       str: content of the file"""
     with open(path, 'r') as f:

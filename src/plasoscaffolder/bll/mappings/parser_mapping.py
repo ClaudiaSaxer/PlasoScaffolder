@@ -3,6 +3,7 @@
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.bll.mappings import base_parser_mapping
 from plasoscaffolder.model import sql_query_model
+from plasoscaffolder.model import event_model
 
 
 class ParserMapper(base_parser_mapping.BaseParserMapper):
@@ -19,12 +20,12 @@ class ParserMapper(base_parser_mapping.BaseParserMapper):
     super().__init__()
     self.__helper = mapping_helper
 
-  def GetParser(self, plugin_name: str, events: list, queries: [sql_query_model.SQLQueryModel]) -> str:
+  def GetParser(self, plugin_name: str, events: [event_model.EventModel], queries: [sql_query_model.SQLQueryModel]) -> str:
     """Retrieves the parser.
 
     Args:
       plugin_name (str): the name of the plugin
-      events (list): the list of the events
+      events ([event_model.EventModel]): list of events
       queries ([sql_query_model.SQLQueryModel]): list of queries
 
     Returns:

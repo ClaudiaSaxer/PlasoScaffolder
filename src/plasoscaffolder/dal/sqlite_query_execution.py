@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=no-member
 # pylint does not recognize connect and close as member
-"""Base for sql query validators"""
+"""Base for sql query validators."""
 import sqlite3
 
 from plasoscaffolder.dal import base_sql_query_execution
 
 
 class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
-  """Class representing the SQLite query validator
+  """Class representing the SQLite query validator.
   """
 
   def __init__(self, database_path: str):

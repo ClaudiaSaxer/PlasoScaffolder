@@ -3,6 +3,7 @@
 import abc
 
 from plasoscaffolder.model import sql_query_model
+from plasoscaffolder.model import event_model
 
 
 class BaseParserMapper(object):
@@ -10,13 +11,13 @@ class BaseParserMapper(object):
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def GetParser(self, plugin_name: str, events: list,
+  def GetParser(self, plugin_name: str, events: [event_model.EventModel],
                 queries: [sql_query_model.SQLQueryModel]) -> str:
     """Retrieves the parser.
 
     Args:
       plugin_name (str): the name of the plugin
-      events (list): the list of the events
+      events ([event_model.EventModel]): list of events
       queries ([sql_query_model.SQLQueryModel]): list of queries
 
     Returns:
