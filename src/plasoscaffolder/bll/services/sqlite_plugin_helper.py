@@ -75,7 +75,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     return os.path.isdir(path)
 
   def RunSQLQuery(self, query: str,
-                      executor: base_sql_query_execution.BaseSQLQueryExecution()):
+                  executor: base_sql_query_execution.BaseSQLQueryExecution()):
     """ Validates the sql query
     
     Args:
@@ -83,6 +83,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
       query (str): the SQL query 
 
     Returns:
-      base_sql_query_execution.SQLQueryData: the data to the executed query
+      base_sql_query_execution.SQLQueryData: data returned by executing the 
+      query
     """
     return executor.executeQuery(query)

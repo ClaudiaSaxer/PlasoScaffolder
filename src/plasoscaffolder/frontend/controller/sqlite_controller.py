@@ -83,9 +83,9 @@ class SQLiteController(object):
     """
     value = self._ValidatePluginName(value)
     while self._plugin_helper.PluginExists(
-        self._path, value, "",
+        self._path, value, '',
         sqlite_plugin_path_helper.SQLitePluginPathHelper(
-            self._path, value, "")):
+            self._path, value, '')):
       value = self._output_handler.PromptError(
           'Plugin exists. Choose new name')
       value = self._ValidatePluginName(value)
@@ -223,7 +223,7 @@ class SQLiteController(object):
     else:
       if with_examples:
         length = len(query_data.data)
-        if length is 0 :
+        if length == 0 :
           self._output_handler.PrintInfo('Your query does not return anything.')
         else:
           first_line = '\n{0}'.format(query_data.data[0]) if 1 <= length else ''

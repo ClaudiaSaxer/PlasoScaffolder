@@ -68,5 +68,6 @@ class BaseSQLitePluginHelper(object):
       query (str): the SQL query 
 
     Returns:
-      base_sql_query_execution.SQLQueryData: the data to the executed query
+      base_sql_query_execution.SQLQueryData: data returned by executing the 
+      query
     """
