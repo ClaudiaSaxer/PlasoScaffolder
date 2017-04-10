@@ -65,7 +65,7 @@ class BaseSQLitePluginHelper(object):
     Args:
       executor (base_sql_query_execution.SQLQueryExecution): to validate the 
       SQL queries provided by the user
-      query (str): the sql query 
+      query (str): the SQL query 
 
     Returns:
       base_sql_query_execution.SQLQueryData: the data to the executed query

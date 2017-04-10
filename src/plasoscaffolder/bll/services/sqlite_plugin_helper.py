@@ -80,7 +80,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     
     Args:
       executor (base_sql_query_execution.SQLQueryExection()) the sql executor
-      query (str): the sql query 
+      query (str): the SQL query 
 
     Returns:
       base_sql_query_execution.SQLQueryData: the data to the executed query
