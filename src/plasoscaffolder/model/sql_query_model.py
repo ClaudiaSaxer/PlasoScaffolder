@@ -12,7 +12,7 @@ class SQLQueryModel(object):
     """ initializes the sql Query model.
 
     Args:
-      columns ([sql_query_column_model.SQLColumnModel]): list of columns for 
+      columns ([sql_query_column_model.SQLColumnModel]): list of columns for
         the Query
       name (str): The Name of the Query.
       query (str): The SQL Query.

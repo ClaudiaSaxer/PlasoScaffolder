@@ -1,5 +1,7 @@
-import re
+# -*- coding: utf-8 -*-
 """Model for sql column"""
+import re
+
 
 class SQLColumnModel(object):
   """class for columns of a sql Query"""
@@ -40,7 +42,8 @@ class SQLColumnModel(object):
     Returns:
       str: the column name from the sql in description form
     """
-    substitudeFirstPart = re.sub('(.)([A-Z][a-z]+)', r'\g<1> \g<2>', self._sql_column)
+    substitudeFirstPart = re.sub('(.)([A-Z][a-z]+)', r'\g<1> \g<2>',
+                                 self._sql_column)
     substitudeSecondPart = re.sub(
         '([a-z0-9])([A-Z])', r'\g<1> \g<2>', substitudeFirstPart)
     return substitudeSecondPart.title()

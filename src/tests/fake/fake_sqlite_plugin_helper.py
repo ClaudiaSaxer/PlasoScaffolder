@@ -13,22 +13,25 @@ class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
                change_bool_after_every_call_plugin_exists=False,
                change_bool_after_every_call_folder_exists=False,
                change_bool_after_every_call_file_exists=False,
-               change_bool_after_every_call_valid_name=False):
+               change_bool_after_every_call_valid_name=False,
+               distinct_columns=None):
     """
     Initializes the fake plugin helper
     Args:
       change_bool_after_every_call_plugin_exists (bool): if the function
-      boolean should change after every call.
+        boolean should change after every call.
       change_bool_after_every_call_file_exists (bool): if the function
-      boolean should change after every call.
+        boolean should change after every call.
       change_bool_after_every_call_folder_exists (bool): if the function
-      boolean should change after every call.
+        boolean should change after every call.
       change_bool_after_every_call_valid_name (bool): if the function
-      boolean should change after every call.
+        boolean should change after every call.
       file_exists (bool): what the FileExists function should return
       plugin_exists (bool): what the PluginExists function should return
       folder_exists (bool): what the FolderExists function should return
       valid_name (bool): what the IsValidPluginName function should return
+      distinct_columns ([]): what the GetDistinctColumnsFromSQLQueryData
+        function should return
     """
     self.change_valid_name = change_bool_after_every_call_valid_name
     self.change_file_exists = change_bool_after_every_call_file_exists
@@ -38,6 +41,7 @@ class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     self.folder_exists = folder_exists
     self.file_exists = file_exists
     self.valid_name = valid_name
+    self.distinct_columns = distinct_columns
 
   def PluginExists(self,
                    path: str,
@@ -91,3 +95,18 @@ class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
       base_sql_query_execution.SQLQueryData: the data to the executed Query
     """
     return executor.executeQuery(query)
+
+  def GetDistinctColumnsFromSQLQueryData(
+      self,
+      queries: [base_sql_query_execution.SQLQueryData]) -> [str]:
+    """
+    Get a distinct list of all attributes from multiple queries
+
+    Args:
+      queries ([base_sql_query_execution.SQLQueryData]): an array of multiple
+        sql query data objects
+
+    Returns:
+      [str]: a distinct list of all attributes used in the query
+    """
+    return self.distinct_columns

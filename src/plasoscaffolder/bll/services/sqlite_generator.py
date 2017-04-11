@@ -12,9 +12,11 @@ from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.common import base_file_handler
 from plasoscaffolder.common import base_output_handler
 from plasoscaffolder.dal import base_database_information
-from plasoscaffolder.model import sql_query_model
-from plasoscaffolder.model import parser_data_model
 from plasoscaffolder.model import formatter_data_model
+from plasoscaffolder.model import parser_data_model
+from plasoscaffolder.model import sql_query_model
+
+
 class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
   """ Generator for SQLite Files """
 
