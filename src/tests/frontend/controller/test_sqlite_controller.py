@@ -79,7 +79,6 @@ class SQLiteControllerTest(unittest.TestCase):
     )
     sql_query = 'SELECT createdDate FROM Users ORDER BY createdDate'
     name = 'Contact'
-    expected_name = 'Parse{0}Row'.format(name)
     with tempfile.TemporaryDirectory() as tmpdir:
       path = os.path.join(tmpdir, 'testfile')
       pathlib.Path(path).touch()
@@ -95,7 +94,7 @@ class SQLiteControllerTest(unittest.TestCase):
       prompt_output_actual = self._ReadFromFile(path)
       prompt_output_expected = 'What kind of row does the SQL Query parse?'
 
-      expected = sql_query_model.SQLQueryModel(sql_query, expected_name, [])
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [])
 
       self.assertEqual(expected.Name, actual.Name)
       self.assertEqual(expected.Query, actual.Query)

@@ -248,14 +248,13 @@ class SQLiteController(object):
 
       message = 'What kind of row does the SQL Query parse?'
       name = self._output_handler.PromptInfo(text=message)
-      whole_name = 'Parse{0}Row'.format(name.title())
       columns = list()
 
       for column in query_data.columns:
         columns.append(
           plasoscaffolder.model.sql_query_column_model.SQLColumnModel(column))
 
-    return sql_query_model.SQLQueryModel(query, whole_name, columns)
+    return sql_query_model.SQLQueryModel(query, name.title(), columns)
 
   def _CreateEventModelWithUserInput(self, name: str) -> event_model.EventModel:
     """Asks the user if the event needs customizing

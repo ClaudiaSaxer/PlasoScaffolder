@@ -95,7 +95,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     parser_data = parser_data_model.ParserDataModel(
         attributes=self.plugin_helper.GetDistinctColumnsFromSQLQueryData(
           self.queries),
-        database_name=os.path.basename(self.database),
+        database_name=os.path.basename(self.path_helper.database_path),
         events=self.events,
         queries=self.queries,
         plugin_name=self.name,
