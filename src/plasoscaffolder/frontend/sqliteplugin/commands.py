@@ -25,10 +25,6 @@ Controller = sqlite_controller.SQLiteController(
               help='The plugin Name', callback=Controller.PluginName)
 @click.option('--testfile', prompt='What\'s the path to your test file?',
               help='The testfile path', callback=Controller.TestPath)
-@click.option('--event',
-              prompt='Please enter the main events of the plugin. [Event '
-                     'Event ...]',
-              help='The plugin events', callback=Controller.Event)
 @click.option('--sql', is_flag=True, default=True,
               prompt='Do you want to have a output example for your sql Query?',
               help='The output example flag for the SQL Query for the plugin.',

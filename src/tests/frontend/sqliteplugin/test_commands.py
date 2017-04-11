@@ -19,7 +19,6 @@ class SqliteCommandsTest(unittest.TestCase):
                        '  --path TEXT      The path to plaso\n'
                        '  --Name TEXT      The plugin Name\n'
                        '  --testfile TEXT  The testfile path\n'
-                       '  --event TEXT     The plugin events\n'
                        '  --sql            The output example flag for the '
                        'SQL Query for the plugin.\n'
                        '  --help           Show this message and exit.\n')
