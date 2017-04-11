@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 """The sql Query model class."""
-import re
+from plasoscaffolder.model import sql_query_column_model
 
 
 class SQLQueryModel(object):
   "A sql Query Model."
 
-  def __init__(self, query: str, name: str, columns: []):
+  def __init__(self, query: str, name: str,
+               columns: [sql_query_column_model.SQLColumnModel]):
     """ initializes the sql Query model.
 
     Args:
-      columns ([SQLColumns]): list of columns for the Query
+      columns ([sql_query_column_model.SQLColumnModel]): list of columns for the 
+      Query
       name (str): The Name of the Query.
       query (str): The SQL Query.
     """
@@ -38,40 +40,10 @@ class SQLQueryModel(object):
     return self._query
 
   @property
-  def Columns(self) -> []:
+  def Columns(self) -> [sql_query_column_model.SQLColumnModel]:
     """the columns of the query
 
     Returns:
-      [SQLColumns]: list of columns
+      [sql_query_column_model.SQLColumnModel]: list of columns
     """
     return self._columns
-
-
-class SQLColumns(object):
-  """class for columns of a sql Query"""
-
-  def __init__(self, sql_column: str):
-    """ initializes the sql column model.
-
-    Args:
-      sql_column (str): the column Name of the sql Query
-    """
-    self._sql_column = sql_column
-
-  @property
-  def SQLColumn(self) -> str:
-    """the sql column
-
-    Returns:
-      str: the column of the sql
-    """
-    return self._sql_column
-
-  # TODO write test
-  def ColumnAsSnakeCase(self) -> str:
-    """sql column name to snake case
-
-    Returns:
-      str: the column name from the sql in snake case
-    """
-    return '_'.join(re.findall('[A-Z][a-z]*', self._sql_column.lower()))

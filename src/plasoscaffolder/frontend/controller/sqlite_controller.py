@@ -4,6 +4,7 @@ import os
 import sqlite3
 
 import click
+import plasoscaffolder.model.sql_query_column_model
 from plasoscaffolder.bll.mappings import formatter_mapping
 from plasoscaffolder.bll.mappings import init_mapping
 from plasoscaffolder.bll.mappings import mapping_helper
@@ -232,15 +233,13 @@ class SQLiteController(object):
         else:
           self._output_handler.PrintInfo(
               'Your Query output could look like this.')
-
+          self._output_handler.PrintInfo(str(query_data.columns))
           if length < self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE:
             amount = length
           else:
             amount = self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE
-
           for i in range(0, amount):
             self._output_handler.PrintInfo(str(query_data.data[i]))
-
         add_query = self._output_handler.Confirm(
             'Do you want to add this Query?',
             abort=False, default=True)
@@ -250,9 +249,11 @@ class SQLiteController(object):
       message = 'What kind of row does the SQL Query parse?'
       name = self._output_handler.PromptInfo(text=message)
       whole_name = 'Parse{0}Row'.format(name.title())
+      columns = list()
 
-      # TODO get columns
-      columns = [sql_query_model.SQLColumns('todo')]
+      for column in query_data.columns:
+        columns.append(
+          plasoscaffolder.model.sql_query_column_model.SQLColumnModel(column))
 
     return sql_query_model.SQLQueryModel(query, whole_name, columns)
 

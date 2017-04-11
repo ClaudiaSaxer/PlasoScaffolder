@@ -92,9 +92,9 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     else:
       content_init_parser = init_mapper.GetParserInitCreate(self.name)
 
-    # TODO pass data
     parser_data = parser_data_model.ParserDataModel(
-        attributes=[],
+        attributes=self.plugin_helper.GetDistinctColumnsFromSQLQueryData(
+          self.queries),
         database_name=os.path.basename(self.database),
         events=self.events,
         queries=self.queries,

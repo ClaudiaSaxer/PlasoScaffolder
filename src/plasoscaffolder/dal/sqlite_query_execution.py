@@ -35,6 +35,8 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
         self._connection.execute("BEGIN")
         cursor = self._connection.execute(query)
         query_data.data = cursor.fetchall()
+        if cursor.description is not None:
+          query_data.columns = list(map(lambda x: x[0], cursor.description))
         self._connection.execute('ROLLBACK')
     except sqlite3.Error as error:
       query_data.error_message = error

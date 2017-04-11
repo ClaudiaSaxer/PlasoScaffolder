@@ -17,8 +17,9 @@ class {{ class_name }}{{ event.Name }}EventData(events.EventData)
   """{{ plugin_name|lower|replace('_',' ')}} {{event.Name|lower}} event data.
 
   TODO: add type and description of attributes
-  Attributes:
-  {% for attribute in attributes %} {{ attribute }} (None): TODO{% endfor %}
+  Attributes:  {% for attribute in attributes %}
+
+      {{ attribute }} (None): TODO{% endfor %}
   """
 
   DATA_TYPE = u'{{ plugin_name|lower|replace('_',':')}}:{{event.Name|lower}}'
@@ -55,8 +56,7 @@ class {{ class_name }}Plugin(interface.SQLitePlugin):
     # will raise "IndexError: Index must be int or string".
 
     event_data = TwitterIOS{{ query.Name }}EventData()
-    {% for column in query.Columns %}
-      event_data.{{ column.SQLColumn }} = row['{{ column.ColumnAsSnakeCase() }}']
+    {% for column in query.Columns %}event_data.{{ column.SQLColumn }} = row['{{ column.ColumnAsSnakeCase() }}']
     {% endfor %}
 
     timestamp = row['TODO']

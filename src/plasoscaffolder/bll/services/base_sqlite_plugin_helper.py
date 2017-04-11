@@ -71,3 +71,17 @@ class BaseSQLitePluginHelper(object):
       base_sql_query_execution.SQLQueryData: data returned by executing the
       query
     """
+
+  @abc.abstractmethod
+  def GetDistinctColumnsFromSQLQueryData(self, queries: [
+    base_sql_query_execution.SQLQueryData]) -> [str]:
+    """
+    Get a distinct list of all attributes from multiple queries
+
+    Args:
+      queries ([base_sql_query_execution.SQLQueryData]): an array of multiple 
+      sql query data objects 
+
+    Returns:
+      [str]: a distinct list of all attributes used in the query
+    """

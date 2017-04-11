@@ -18,7 +18,6 @@ from tests.fake import fake_sqlite_query_execution
 from tests.test_helper import output_handler_file
 from tests.test_helper import path_helper
 
-
 class SQLiteControllerTest(unittest.TestCase):
   """Tests the SQLite controller"""
 
@@ -362,6 +361,7 @@ class SQLiteControllerTest(unittest.TestCase):
           query, with_examples, query_execution
       )
       expected = ('Your Query output could look like this.'
+                  '[]'
                   'first'
                   'second'
                   'third'
