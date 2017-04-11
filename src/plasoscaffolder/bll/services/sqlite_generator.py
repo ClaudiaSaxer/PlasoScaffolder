@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """A SQLite Generator"""
+import os
 
 from plasoscaffolder.bll.mappings import base_formatter_mapping
 from plasoscaffolder.bll.mappings import base_init_mapping
@@ -10,31 +11,33 @@ from plasoscaffolder.bll.services import base_sqlite_plugin_helper
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.common import base_file_handler
 from plasoscaffolder.common import base_output_handler
+from plasoscaffolder.dal import base_database_information
 from plasoscaffolder.model import sql_query_model
-
-
+from plasoscaffolder.model import parser_data_model
+from plasoscaffolder.model import formatter_data_model
 class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
   """ Generator for SQLite Files """
 
   def __init__(
-      self, path: str, name: str, database: str, events: list,
+      self, path: str, name: str, database: str,
       queries: [sql_query_model.SQLQueryModel],
       output_handler: base_output_handler.BaseOutputHandler(),
       pluginHelper: base_sqlite_plugin_helper.BaseSQLitePluginHelper(),
-      pathHelper=base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper()):
+      pathHelper: base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper()
+  ):
     """Initializes a SQLite Generator.
 
     Args:
       path (str): the path of the plaso folder
-      name (str): the name of the plugin
+      name (str): the Name of the plugin
       database (str): the path to the database
-      events (list): the events of the plugin
       output_handler (BaseOutputHandler: the output handler for the
       generation information
       pluginHelper (BaseSQLitePluginHelper): the plugin helper
       pathHelper (BaseSQLitePluginPathHelper): the plugin path helper
       queries [sql_query_model.SQLQueryModel]: list of queries
     """
+
     super().__init__()
 
     self.queries = queries
@@ -45,7 +48,6 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     self.path_helper = pathHelper
     self.output = output_handler
     self.plugin_helper = pluginHelper
-    self.events = events
 
     self.init_formatter_exists = self.plugin_helper.FileExists(
         self.path_helper.formatter_init_file_path)
@@ -59,8 +61,8 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       init_mapper: base_init_mapping.BaseInitMapper,
       parser_mapper: base_parser_mapping.BaseParserMapper,
       formatter_mapper: base_formatter_mapping.BaseFormatterMapper,
-      mappingHelper: base_mapping_helper.BaseMappingHelper):
-
+      mappingHelper: base_mapping_helper.BaseMappingHelper,
+      database_information: base_database_information.BaseDatabaseInformation):
     """Generate the whole sqlite plugin.
 
     Args:
@@ -70,6 +72,8 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       parser_mapper (BaseParserMapper): the parser mapper
       formatter_mapper (BaseFormatterMapper): the mapper for the formatter
       mappingHelper (BaseMappingHelper): the mapping helper
+      database_information (BaseDatabaseInformation): helper class for
+      information about the database
     """
 
     file_handler = fileHandler
@@ -84,8 +88,18 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     else:
       content_init_parser = init_mapper.GetParserInitCreate(self.name)
 
-    content_parser = parser_mapper.GetParser(self.name, self.events, self.queries)
-    content_formatter = formatter_mapper.GetFormatter(self.name, self.events)
+    parser_data = parser_data_model.ParserDataModel(
+        database_name=os.path.basename(self.path_helper.database_path),
+        queries=self.queries,
+        plugin_name=self.name,
+        required_tables=database_information.getTablesFromDatabase())
+
+    formatter_data = formatter_data_model.FormatterDataModel(
+        queries=self.queries,
+        plugin_name=self.name)
+
+    content_parser = parser_mapper.GetParser(parser_data)
+    content_formatter = formatter_mapper.GetFormatter(formatter_data)
 
     formatter = file_handler.AddContent(
         self.path_helper.formatter_file_path, content_formatter)

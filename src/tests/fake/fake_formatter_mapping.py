@@ -2,6 +2,7 @@
 """fake formatter mapper"""
 from plasoscaffolder.bll.mappings import base_formatter_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
+from plasoscaffolder.model import formatter_data_model
 
 
 class FakeFormatterMapper(base_formatter_mapping.BaseFormatterMapper):
@@ -11,5 +12,7 @@ class FakeFormatterMapper(base_formatter_mapping.BaseFormatterMapper):
                mapping_helper: base_mapping_helper.BaseMappingHelper):
     pass
 
-  def GetFormatter(self, plugin_name: str, events: str) -> str:
-    return plugin_name
+  def GetFormatter(
+      self,
+      formatter_data: formatter_data_model.FormatterDataModel) -> str:
+    return formatter_data.PluginName

@@ -26,7 +26,7 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       fileHandler (BaseFileHandler): the file Handler
       prompt_error (str): what to return in a prompt error
       prompt_info (str): what to return in a prompt info
-      confirm_amount_same (int): how many times to confirm the same amount. 
+      confirm_amount_same (int): how many times to confirm the same amount.
       Default = 100
     """
     super().__init__()
@@ -109,6 +109,7 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
 
      Returns:
      """
+
     if self.__confirm_amount_same > self.__confirm_counter:
       self.__confirm_counter += 1
     else:

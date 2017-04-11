@@ -46,7 +46,7 @@ class FileHandler(base_file_handler.BaseFileHandler):
     Args:
       directory_path (str): The path to the directory the file should be
       created.
-      file_name (str): the name of the new file.
+      file_name (str): the Name of the new file.
       filename_suffix (str): the suffix of the new file.
 
     Returns:
@@ -91,7 +91,6 @@ class FileHandler(base_file_handler.BaseFileHandler):
   def CreateOrModifyFileWithContent(self, source: str, content: str):
     self.CreateFolderForFilePathIfNotExist(source)
     self.AddContent(source, content)
-
 
   def AddContent(self, source: str, content: str) -> str:
     """Add content to a file and create file if non existing.

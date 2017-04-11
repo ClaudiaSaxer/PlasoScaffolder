@@ -6,7 +6,7 @@ import unittest
 
 from plasoscaffolder.bll.services import sqlite_generator
 from plasoscaffolder.common import file_handler
-from tests.fake import fake_file_handler
+from tests.fake import fake_file_handler, fake_sqlite_database_information
 from tests.fake import fake_formatter_mapping
 from tests.fake import fake_init_mapping
 from tests.fake import fake_mapping_helper
@@ -33,7 +33,7 @@ class SQLiteGeneratorTest(unittest.TestCase):
             'db')
       path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
-          tmpdir, 'test', 'test', ['test'],[],
+          tmpdir, 'test', 'test', ['test'],
           output_handler_file.OutputHandlerFile(path,
                                                 file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
@@ -51,7 +51,7 @@ class SQLiteGeneratorTest(unittest.TestCase):
             'db')
       path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
-          tmpdir, 'test', 'test', ['test'],[],
+          tmpdir, 'test', 'test', ['test'],
           output_handler_file.OutputHandlerFile(path,
                                                 file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
@@ -69,7 +69,7 @@ class SQLiteGeneratorTest(unittest.TestCase):
             'db')
       path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
-          tmpdir, 'test', 'test', ['test'],[],
+          tmpdir, 'test', 'test', ['test'],
           output_handler_file.OutputHandlerFile(path,
                                                 file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
@@ -88,20 +88,24 @@ class SQLiteGeneratorTest(unittest.TestCase):
                                                          mapping_helper)
     formatter_mapper = fake_formatter_mapping.FakeFormatterMapper(
         self.template_path, mapping_helper)
+    fake_database_information = (
+        fake_sqlite_database_information.FakeSQLiteDatabaseInformation([]))
+
     with tempfile.TemporaryDirectory() as tmpdir:
       fake_path_helper = \
         fake_sqlite_plugin_path_helper.FakeSQLitePluginPathHelper(
             self.template_path, 'test',
             'db')
       path = os.path.join(tmpdir, 'testfile')
+
       generator = sqlite_generator.SQLiteGenerator(
-          tmpdir, 'test', 'test', ['test'],[],
+          tmpdir, 'test', 'test', [],
           output_handler_file.OutputHandlerFile(
               path, file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
       generator.GenerateSQLitePlugin(tmpdir, fake_handler, init_mapper,
                                      parser_mapper, formatter_mapper,
-                                     mapping_helper)
+                                     mapping_helper, fake_database_information)
       expected = ('create testcreate testcreate testcreate testcopy testcreate '
                   'testcreate test')
       actual = self._ReadFromFile(path)
@@ -115,9 +119,9 @@ class SQLiteGeneratorTest(unittest.TestCase):
             self.template_path, 'test', 'db')
       path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
-          tmpdir, 'test', 'test', ['test'],[],
-          output_handler_file.OutputHandlerFile(path,
-                                                file_handler.FileHandler()),
+          tmpdir, 'test', 'test', ['test'],
+          output_handler_file.OutputHandlerFile(
+              path, file_handler.FileHandler()),
           self.plugin_helper, fake_path_helper)
       arguments = 'test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7'
       generator._Print(*arguments)  # pylint: disable=protected-access

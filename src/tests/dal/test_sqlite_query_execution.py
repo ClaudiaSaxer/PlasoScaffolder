@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# disable because its to silly for that long sql queries
+# pylint: disable=bad-continuation
 """test class"""
 import os
 import unittest
@@ -8,7 +10,7 @@ from tests.test_helper import path_helper
 
 
 class SQLiteQueryExecutionTest(unittest.TestCase):
-  """test the SQLite query execution test"""
+  """test the SQLite Query execution test"""
 
   def setUp(self):
     database_path = path_helper.TestDatabasePath()
@@ -32,15 +34,15 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
   def testMultipleTestAfterOneAnother(self):
     """test two querys after another to test the connection is still open"""
-    query_simple = (
-      'SELECT createdDate, updatedAt, screenName, name, profileImageUrl,'
-      'location, description, url, following, followersCount, '
-      'followingCount'
-      ' FROM Users ORDER BY createdDate')
+    query_simple = ('SELECT createdDate, updatedAt, screenName, '
+                    'Name, profileImageUrl,'
+                    'location, description, url, following, followersCount, '
+                    'followingCount'
+                    ' FROM Users ORDER BY createdDate')
     result_simple = self.execute.executeQuery(query_simple)
 
     query_join = ('SELECT Statuses.date AS date, Statuses.text AS text,'
-                  ' Statuses.userId AS user_id, Users.name AS name, '
+                  ' Statuses.userId AS user_id, Users.Name AS Name, '
                   'Statuses.retweetCount AS '
                   'retweetCount, Statuses.favoriteCount AS favoriteCount, '
                   'Statuses.favorited AS favorited, Statuses.updatedAt AS '
@@ -75,8 +77,8 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     self.assertEqual(str(result.error_message), expected_error)
 
   def testExecuteQuerySimple(self):
-    """test the execution of a simple query"""
-    query = ('SELECT createdDate, updatedAt, screenName, name, profileImageUrl,'
+    """test the execution of a simple Query"""
+    query = ('SELECT createdDate, updatedAt, screenName, Name, profileImageUrl,'
              'location, description, url, following, followersCount, '
              'followingCount'
              ' FROM Users ORDER BY createdDate')
@@ -87,14 +89,15 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     self.assertEqual(expected_data, str(result.data))
 
   def testExecuteQueryWithJoin(self):
-    """test the execution of a more complex query"""
-    query = ('SELECT Statuses.date AS date, Statuses.text AS text,'
-             ' Statuses.userId AS user_id, Users.name AS name, '
-             'Statuses.retweetCount AS '
-             'retweetCount, Statuses.favoriteCount AS favoriteCount, '
-             'Statuses.favorited AS favorited, Statuses.updatedAt AS updatedAt '
-             'FROM Statuses LEFT join Users ON Statuses.userId = Users.id '
-             'ORDER BY date')
+    """test the execution of a more complex Query"""
+    query = (
+      'SELECT Statuses.date AS date, Statuses.text AS text,'
+      ' Statuses.userId AS user_id, Users.Name AS Name, '
+      'Statuses.retweetCount AS '
+      'retweetCount, Statuses.favoriteCount AS favoriteCount, '
+      'Statuses.favorited AS favorited, Statuses.updatedAt AS updatedAt '
+      'FROM Statuses LEFT join Users ON Statuses.userId = Users.id '
+      'ORDER BY date')
     result = self.execute.executeQuery(query)
     expected_data = self._ReadFromFileRelative('expected_join_query_data')
     self.assertIsNone(result.error_message)
@@ -105,7 +108,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     """Read from file with relative path
 
     Args:
-      path (str): the relative file path 
+      path (str): the relative file path
 
     Returns:
       str: content of the file"""

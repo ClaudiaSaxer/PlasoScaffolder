@@ -13,7 +13,7 @@ class FakeSQLitePluginPathHelper(
 
     Args:
       unused_path: the path
-      plugin_name: the name of the plugin. Will always be returned
+      plugin_name: the Name of the plugin. Will always be returned
       unused_database_suffix: the database suffix.
     """
     super().__init__()

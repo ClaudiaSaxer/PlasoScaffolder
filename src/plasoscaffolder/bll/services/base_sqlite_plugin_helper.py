@@ -48,13 +48,13 @@ class BaseSQLitePluginHelper(object):
 
   @abc.abstractmethod
   def IsValidPluginName(self, plugin_name: str) -> bool:
-    """Validates the plugin name.
+    """Validates the plugin Name.
 
     Args:
-      plugin_name (str): the plugin name
+      plugin_name (str): the plugin Name
 
     Returns:
-      bool: true if the plugin name is valid
+      bool: true if the plugin Name is valid
     """
 
   @abc.abstractmethod
@@ -63,11 +63,25 @@ class BaseSQLitePluginHelper(object):
     """ Validates the sql query
 
     Args:
-      executor (base_sql_query_execution.SQLQueryExecution): to validate the 
+      executor (base_sql_query_execution.SQLQueryExecution): to validate the
       SQL queries provided by the user
-      query (str): the SQL query 
+      query (str): the SQL query
 
     Returns:
-      base_sql_query_execution.SQLQueryData: data returned by executing the 
+      base_sql_query_execution.SQLQueryData: data returned by executing the
       query
+    """
+
+  @abc.abstractmethod
+  def GetDistinctColumnsFromSQLQueryData(self, queries: [
+    base_sql_query_execution.SQLQueryData]) -> [str]:
+    """
+    Get a distinct list of all attributes from multiple queries
+
+    Args:
+      queries ([base_sql_query_execution.SQLQueryData]): an array of multiple 
+      sql query data objects 
+
+    Returns:
+      [str]: a distinct list of all attributes used in the query
     """

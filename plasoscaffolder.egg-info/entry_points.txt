@@ -1,0 +1,4 @@
+
+        [console_scripts]
+        plasoscaffolder=plasoscaffolder.frontend.main:entry_point
+      
