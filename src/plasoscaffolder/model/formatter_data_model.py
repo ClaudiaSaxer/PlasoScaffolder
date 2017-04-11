@@ -4,7 +4,7 @@ from plasoscaffolder.model import sql_query_model
 
 
 class FormatterDataModel(object):
-  """Class for the data for the formatter template"""
+  """Class for the data for the formatter template."""
 
   def __init__(self,
                plugin_name: str,

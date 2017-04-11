@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Baseclass for a Generator for Sqlite"""
+"""Base class for a Generator for SQLite"""
 import abc
 import os
 
@@ -12,7 +12,7 @@ from plasoscaffolder.dal import base_database_information
 
 
 class BaseSQLiteGenerator(object):
-  """Class representing the base class for the base sqlite generator."""
+  """Class representing the base class for the base SQLite generator."""
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
@@ -25,7 +25,7 @@ class BaseSQLiteGenerator(object):
       formatter_mapper: base_formatter_mapping.BaseFormatterMapper,
       mappingHelper: base_mapping_helper.BaseMappingHelper,
       database_information: base_database_information.BaseDatabaseInformation):
-    """Generate the whole sqlite plugin.
+    """Generate the whole SQLite plugin.
 
     Args:
       template_path (str): the path to the template directory
@@ -35,7 +35,7 @@ class BaseSQLiteGenerator(object):
       formatter_mapper (BaseFormatterMapper): the mapper for the formatter
       mappingHelper (BaseMappingHelper): the mapping helper
       database_information (BaseDatabaseInformation): helper class for
-      information about the database
+        information about the database
     """
 
   @abc.abstractmethod

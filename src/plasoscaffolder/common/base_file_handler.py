@@ -4,7 +4,7 @@ import abc
 
 
 class BaseFileHandler(object):
-  """ Class representing the base class for the file handler."""
+  """ Base class representing the base class for the file handler."""
   __metaclass__ = abc.ABCMeta
 
   @classmethod
@@ -25,7 +25,7 @@ class BaseFileHandler(object):
   @abc.abstractmethod
   def _CreateFolder(cls, directory_path):
     """Creates a folder only to be called if the target folder does not yet
-    exists.
+      exists.
 
     Args:
       directory_path (str): the path to the directory to create

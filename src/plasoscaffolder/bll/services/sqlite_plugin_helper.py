@@ -16,7 +16,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
   """Class containing helper functions for the SQLite plugin"""
 
   def __init__(self):
-    """Initializes the sqlite plugin halper"""
+    """Initializes the SQLite plugin helper"""
     super().__init__()
 
   def PluginExists(
@@ -88,7 +88,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
 
     Returns:
       base_sql_query_execution.SQLQueryData: data returned by executing the
-      query
+        query
     """
     return executor.executeQuery(query)
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=no-member
 # pylint does not recognize connect and close as member
-"""Base for sql Query validators"""
+"""Base for SQL query validators"""
 
 from plasoscaffolder.dal import base_sql_query_execution
 
@@ -14,7 +14,7 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     """Initializes the SQL Query Validator
 
     Args:
-      database_path: the path to the sqlite database schema
+      database_path: the path to the SQLite database schema
     """
     self.to_return = to_return
 
@@ -25,5 +25,5 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       query (str): The SQL Query to execute on the SQLite database.
 
     Returns:
-      base_sql_query_execution.SQLQueryData: The data to the Query"""
+      base_sql_query_execution.SQLQueryData: The data to the query"""
     return self.to_return

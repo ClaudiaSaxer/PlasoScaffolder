@@ -65,7 +65,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       formatter_mapper: base_formatter_mapping.BaseFormatterMapper,
       mappingHelper: base_mapping_helper.BaseMappingHelper,
       database_information: base_database_information.BaseDatabaseInformation):
-    """Generate the whole sqlite plugin.
+    """Generate the whole SQLite plugin.
 
     Args:
       template_path (str): the path to the template directory
@@ -75,7 +75,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       formatter_mapper (BaseFormatterMapper): the mapper for the formatter
       mappingHelper (BaseMappingHelper): the mapping helper
       database_information (BaseDatabaseInformation): helper class for
-      information about the database
+        information about the database
     """
 
     file_handler = fileHandler

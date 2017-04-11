@@ -8,8 +8,7 @@ from plasoscaffolder.dal import base_sql_query_execution
 
 
 class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
-  """Class representing the SQLite Query validator
-  """
+  """Class representing the SQLite Query validator"""
 
   def __init__(self, database_path: str):
     """Initializes the SQL Query Validator
@@ -28,7 +27,8 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       query (str): The SQL Query to execute on the SQLite database.
 
     Returns:
-      base_sql_query_execution.SQLQueryData: The data to the Query"""
+      base_sql_query_execution.SQLQueryData: The data to the Query
+    """
     query_data = base_sql_query_execution.SQLQueryData()
     try:
       with self._connection:

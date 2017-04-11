@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=missing-docstring, unused-argument
+# Docstrings are used by click in generating output. Since we don't want this
+#  behavior the following functions do not contain docstrings.
 """The commands for the SQLite plugin."""
 import os
 
@@ -29,8 +32,6 @@ Controller = sqlite_controller.SQLiteController(
               prompt='Do you want to have a output example for your sql Query?',
               help='The output example flag for the SQL Query for the plugin.',
               callback=Controller.SQLQuery)
-# pylint: disable=missing-docstring, unused-argument
-# because click does funny things with it
 def sqlite(path, name, testfile, sql):
   template_path = os.path.join(
       os.path.dirname(os.path.dirname(os.path.dirname(__file__))),

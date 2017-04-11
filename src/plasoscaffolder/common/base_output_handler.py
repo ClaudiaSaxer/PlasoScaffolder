@@ -4,7 +4,7 @@ import abc
 
 
 class BaseOutputHandler(object):
-  """Clase representing the Base class for the output handler class"""
+  """Base class representing the Base class for the output handler class"""
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
@@ -45,7 +45,7 @@ class BaseOutputHandler(object):
 
   @abc.abstractmethod
   def PrintInfo(self, text: str):
-    """A echo for infos.
+    """A echo for information.
 
     Args:
       text (str): the text to print
@@ -69,4 +69,5 @@ class BaseOutputHandler(object):
        abort (bool): if the program should abort
 
      Returns:
+        bool: false if the user entered no, true if the user entered yes
      """

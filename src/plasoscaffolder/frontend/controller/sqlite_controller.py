@@ -51,11 +51,9 @@ class SQLiteController(object):
 
     Args:
       unused_ctx (click.core.Context): the click context (automatically given
-      via
-      callback)
+        via callback)
       unused_param (click.core.Option): the click command (automatically
-      given via
-      callback)
+        given via callback)
       value (str): the source path (automatically given via callback)
 
     Returns:
@@ -74,15 +72,13 @@ class SQLiteController(object):
 
     Args:
       unused_ctx (click.core.Context): the click context (automatically given
-      via
-      callback)
+        via callback)
       unused_param (click.core.Option): the click command (automatically
-      given via
-      callback)
+        given via callback)
       value (str): the source path (automatically given via callback)
 
     Returns:
-      str: the plugin __name representing the same as value
+      str: the plugin name representing the same as value
     """
     value = self._ValidatePluginName(value)
     while self._plugin_helper.PluginExists(
@@ -103,11 +99,9 @@ class SQLiteController(object):
 
     Args:
       unused_ctx (click.core.Context): the click context (automatically given
-      via
-      callback)
+        via callback)
       unused_param (click.core.Option): the click command (automatically
-      given via
-      callback)
+        given via callback)
       value (str): the source path (automatically given via callback)
 
     Returns:
@@ -150,15 +144,13 @@ class SQLiteController(object):
 
     Args:
       unused_ctx (click.core.Context): the click context (automatically given
-      via
-      callback)
+        via callback)
       unused_param (click.core.Option): the click command (automatically
-      given via
-      callback)
-      value (str): the sql Query (automatically given via callback)
+        given via callback)
+      value (str): the SQL Query (automatically given via callback)
 
     Returns:
-      str: the sql Query
+      str: the SQL Query
     """
 
     verbose = value
@@ -183,14 +175,14 @@ class SQLiteController(object):
       query: str, with_examples: bool,
       query_execution: base_sql_query_execution.BaseSQLQueryExecution()
   ) -> sql_query_model.SQLQueryModel:
-    """Asks the user information about the sql Query
+    """Asks the user information about the SQL Query
 
     Args:
-      query (str): the sql Query
+      query (str): the SQL Query
       with_examples (bool): if the user wants examples for the given Query
 
     Returns:
-      (sql_query_model.SQLQueryModel) a sql Query model
+      sql_query_model.SQLQueryModel: a SQL Query model
     """
     query_data = self._plugin_helper.RunSQLQuery(query, query_execution)
 
@@ -273,7 +265,7 @@ class SQLiteController(object):
       plugin_name: the Name of the plugin
 
     Returns:
-      a valid plugin Name
+      str: a valid plugin Name
     """
     while not self._plugin_helper.IsValidPluginName(plugin_name):
       plugin_name = self._output_handler.PromptError(

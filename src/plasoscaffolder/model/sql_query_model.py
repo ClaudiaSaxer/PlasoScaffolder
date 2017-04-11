@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-"""The SQL Query model class."""
+"""The SQL query model class."""
 from plasoscaffolder.model import sql_query_column_model
 
 
 class SQLQueryModel(object):
-  """A SQL Query Model."""
+  """A SQL query model."""
 
   def __init__(self, query: str, name: str,
                columns: [sql_query_column_model.SQLColumnModel],
                needs_customizing: bool):
-    """ initializes the sql Query model.
+    """ initializes the SQL query model.
 
     Args:
       columns ([sql_query_column_model.SQLColumnModel]): list of columns for
@@ -25,19 +25,19 @@ class SQLQueryModel(object):
 
   @property
   def Name(self) -> str:
-    """ the SQL Query Name.
+    """ the SQL query name.
 
     Returns:
-      str: The Name of the sql Query parser row.
+      str: the name of the SQL query parser row.
     """
     return self._name
 
   @property
   def Query(self) -> bool:
-    """ the SQL Query
+    """ the SQL query
 
     Returns:
-      str: The SQL Query.
+      str: The SQL query.
     """
     return self._query
 
