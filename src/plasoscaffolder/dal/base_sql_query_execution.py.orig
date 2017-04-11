@@ -1,15 +1,28 @@
 # -*- coding: utf-8 -*-
+<<<<<<< HEAD
 """the SQLite Query validator"""
+=======
+"""the SQLite query validator."""
+>>>>>>> dev
 import abc
 
 
 class SQLQueryData(object):
+<<<<<<< HEAD
+  """The Data to the executed Query
+
+=======
   """The Data to the executed query.
   
+>>>>>>> dev
   Attributes:
-    has_error (bool): if the query execution was erroneous
+    has_error (bool): if the Query execution was erroneous
     data ([str]): the rows returned after execution
+<<<<<<< HEAD
+    error_message: hte error message if the Query was erroneous"""
+=======
     error_message: the error message if the query was erroneous"""
+>>>>>>> dev
 
   def __init__(self, has_error=False, data=None, error_message=None):
     self.has_error = has_error
@@ -18,14 +31,18 @@ class SQLQueryData(object):
 
 
 class BaseSQLQueryExecution(object):
+<<<<<<< HEAD
+  """Class representing the SQLite Query validator"""
+=======
   """Class representing the SQLite query validator."""
+>>>>>>> dev
 
   @abc.abstractmethod
   def executeQuery(self, query: str) -> SQLQueryData:
-    """Executes the SQL query.
+    """Executes the SQL Query.
 
     Args:
-      query (str): The SQL query to execute on the SQLite database.
+      query (str): The SQL Query to execute on the SQLite database.
 
     Returns:
-      SQLQueryData: The data to the query"""
+      SQLQueryData: The data to the Query"""

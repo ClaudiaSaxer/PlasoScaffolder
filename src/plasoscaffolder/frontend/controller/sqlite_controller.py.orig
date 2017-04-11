@@ -225,8 +225,13 @@ class SQLiteController(object):
     else:
       if with_examples:
         length = len(query_data.data)
+<<<<<<< HEAD
+        if length is 0:
+          self._output_handler.PrintInfo('Your Query does not return anything.')
+=======
         if length == 0 :
           self._output_handler.PrintInfo('Your query does not return anything.')
+>>>>>>> dev
         else:
           self._output_handler.PrintInfo(
               'Your Query output could look like this.')
