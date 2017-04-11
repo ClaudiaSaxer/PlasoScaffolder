@@ -20,7 +20,7 @@ class SQLitePluginPathHelper(
   """
 
   def __init__(self, path: str, plugin_name: str, database_suffix: str):
-    """Initializes the sqlite plugin halper.
+    """Initializes the SQLite plugin helper.
 
       Args:
        path (str): the plaso folder path

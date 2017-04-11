@@ -48,7 +48,7 @@ class OutputHandlerClick(base_output_handler.BaseOutputHandler):
     return click.prompt(click.style(text, fg='red'), type=str)
 
   def PrintInfo(self, text: str):
-    """A echo for infos with click.
+    """A echo for information with click.
 
     Args:
       text (str): the text to print

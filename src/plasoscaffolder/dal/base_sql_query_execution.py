@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+#disable warning because default value is not dangerous here
+#pylint: disable=dangerous-default-value
 """the SQLite Query validator"""
 import abc
-import this
 
 
 class SQLQueryData(object):
@@ -13,7 +14,8 @@ class SQLQueryData(object):
     error_message: the error message if the query was erroneous
     columns ([str]): the column names of the query"""
 
-  def __init__(self, has_error=False, data=None, error_message=None, columns=[]):
+  def __init__(self, has_error=False, data=None, error_message=None,
+               columns=[]):
     self.has_error = has_error
     self.data = data
     self.error_message = error_message

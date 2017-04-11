@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Base class for sqlite plugin helper"""
+"""Base class for SQLite plugin helper"""
 import abc
 
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
@@ -7,7 +7,7 @@ from plasoscaffolder.dal import base_sql_query_execution
 
 
 class BaseSQLitePluginHelper(object):
-  """Class representing the base class for the sqlite plugin helper."""
+  """Class representing the base class for the SQLite plugin helper."""
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
@@ -24,7 +24,7 @@ class BaseSQLitePluginHelper(object):
       database_suffix: the suffix of the database file
       path (str): the path of the plaso source
       plugin_name (str): the name of the plugin
-      path_helper (BaseSqlitePluginHelper): the sqlite plugin helper
+      path_helper (BaseSqlitePluginHelper): the SQLite plugin helper
 
     Returns:
       bool: True if the plugin already exists. False if it does not.
@@ -64,23 +64,24 @@ class BaseSQLitePluginHelper(object):
 
     Args:
       executor (base_sql_query_execution.SQLQueryExecution): to validate the
-      SQL queries provided by the user
+        SQL queries provided by the user
       query (str): the SQL query
 
     Returns:
       base_sql_query_execution.SQLQueryData: data returned by executing the
-      query
+        query
     """
 
   @abc.abstractmethod
-  def GetDistinctColumnsFromSQLQueryData(self, queries: [
-    base_sql_query_execution.SQLQueryData]) -> [str]:
+  def GetDistinctColumnsFromSQLQueryData(
+      self,
+      queries: [base_sql_query_execution.SQLQueryData]) -> [str]:
     """
     Get a distinct list of all attributes from multiple queries
 
     Args:
-      queries ([base_sql_query_execution.SQLQueryData]): an array of multiple 
-      sql query data objects 
+      queries ([base_sql_query_execution.SQLQueryData]): an array of multiple
+        sql query data objects
 
     Returns:
       [str]: a distinct list of all attributes used in the query

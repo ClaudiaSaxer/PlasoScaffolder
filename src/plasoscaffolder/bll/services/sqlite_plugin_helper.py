@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# Disable linting until PyCQA/astroid/issues/362 is fixed.
+# pylint: skip-file
 """SQLite plugin helper"""
 import functools
 import os
@@ -14,7 +16,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
   """Class containing helper functions for the SQLite plugin"""
 
   def __init__(self):
-    """Initializes the sqlite plugin halper"""
+    """Initializes the SQLite plugin helper"""
     super().__init__()
 
   def PluginExists(
@@ -86,18 +88,19 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
 
     Returns:
       base_sql_query_execution.SQLQueryData: data returned by executing the
-      query
+        query
     """
     return executor.executeQuery(query)
 
-  def GetDistinctColumnsFromSQLQueryData(self, queries: [
-    sql_query_model.SQLQueryModel]) -> [str]:
+  def GetDistinctColumnsFromSQLQueryData(
+      self,
+      queries: [sql_query_model.SQLQueryModel]) -> [str]:
     """
     Get a distinct list of all attributes from multiple queries
-    
+
     Args:
-      queries ([sql_query_model.SQLQueryModel]): an array of multiple 
-      sql query data objects 
+      queries ([sql_query_model.SQLQueryModel]): an array of multiple
+        sql query data objects
 
     Returns:
       [str]: a distinct list of all attributes used in the query
@@ -111,4 +114,3 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
           map(lambda x: x.ColumnAsSnakeCase(), list_of_column_model))
       distinct_columns = sorted(set().union(list_of_columns_snake_case))
     return distinct_columns
-

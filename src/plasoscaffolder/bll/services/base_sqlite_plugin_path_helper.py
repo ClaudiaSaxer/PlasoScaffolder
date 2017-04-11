@@ -7,7 +7,7 @@ import abc
 class BaseSQLitePluginPathHelper(object):
   """Class representing the base class for the sqlite plugin path helper
 
-  Args:
+  Attributes:
     formatter_file_path (str): the path to the formatter file
     parser_file_path (str): the path to the parser file
     formatter_test_file_path (str): the path to the formatter test file
@@ -19,7 +19,7 @@ class BaseSQLitePluginPathHelper(object):
   __metaclass__ = abc.ABCMeta
 
   def __init__(self):
-    """Initializes the sqlite plugin halper."""
+    """Initializes the SQLite plugin helper."""
     super().__init__()
     self.formatter_file_path = None
     self.parser_file_path = None

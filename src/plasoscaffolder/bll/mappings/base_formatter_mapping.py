@@ -14,10 +14,10 @@ class BaseFormatterMapper(object):
       self,
       formatter_data: formatter_data_model.FormatterDataModel) -> str:
     """Retrieves the formatter.
-  
+
     Args:
       formatter_data: the data for the formatter
-  
+
     Returns:
       str: the rendered template
     """

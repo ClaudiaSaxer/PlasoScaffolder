@@ -11,8 +11,5 @@ class BaseDatabaseInformation(object):
   def getTablesFromDatabase(self) -> [str]:
     """Executes the SQL Query.
 
-    Args:
-      query (str): The SQL Query to execute on the SQLite database.
-
     Returns:
-      [str]: the names of the tables"""
+      [str]: the name of the tables"""

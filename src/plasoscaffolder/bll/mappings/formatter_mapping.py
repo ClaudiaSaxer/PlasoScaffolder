@@ -19,7 +19,9 @@ class FormatterMapper(base_formatter_mapping.BaseFormatterMapper):
     super().__init__()
     self._helper = mapping_helper
 
-  def GetFormatter(self, formatter_data: formatter_data_model.FormatterDataModel) -> str:
+  def GetFormatter(self,
+                   formatter_data: formatter_data_model.FormatterDataModel) \
+      -> str:
     """Retrieves the formatter.
 
     Args:
@@ -29,7 +31,8 @@ class FormatterMapper(base_formatter_mapping.BaseFormatterMapper):
       str: the rendered template
     """
     class_name = self._helper.GenerateClassName(formatter_data.PluginName)
-    context = {'plugin_name': formatter_data.PluginName, 'class_name': class_name,
+    context = {'plugin_name': formatter_data.PluginName,
+               'class_name': class_name,
                'queries': formatter_data.Queries}
     rendered = self._helper.RenderTemplate(self._FORMATTER_TEMPLATE, context)
     return rendered

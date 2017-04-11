@@ -11,7 +11,7 @@ class FileHandler(base_file_handler.BaseFileHandler):
   """ Class handles the creation of Files"""
 
   def __init__(self):
-    """Initializing the filehandler"""
+    """Initializing the file handler"""
     super().__init__()
 
   @classmethod

@@ -4,7 +4,7 @@ from plasoscaffolder.model import sql_query_model
 
 
 class ParserDataModel(object):
-  """Class for the data for the parser template"""
+  """Class for the data for the parser template."""
 
   def __init__(self,
                plugin_name: str,
@@ -14,7 +14,6 @@ class ParserDataModel(object):
     """Initialises the parser data model
 
     Args:
-      file_name (str): the name of the file
       database_name (str): the name of the database
       plugin_name (str): the name of the plugin
       queries (sql_query_model.SQLQueryModel): the queries
