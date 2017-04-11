@@ -11,8 +11,9 @@ from plasoscaffolder.bll.services import base_sqlite_plugin_helper
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.common import base_file_handler
 from plasoscaffolder.common import base_output_handler
-from plasoscaffolder.model import sql_query_model, parser_data_model, \
-  event_model
+from plasoscaffolder.dal import base_database_information
+from plasoscaffolder.model import (sql_query_model, parser_data_model,
+                                   event_model)
 
 
 class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
@@ -24,7 +25,8 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       queries: [sql_query_model.SQLQueryModel],
       output_handler: base_output_handler.BaseOutputHandler(),
       pluginHelper: base_sqlite_plugin_helper.BaseSQLitePluginHelper(),
-      pathHelper: base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper()):
+      pathHelper: base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper()
+  ):
     """Initializes a SQLite Generator.
 
     Args:
@@ -38,6 +40,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       pathHelper (BaseSQLitePluginPathHelper): the plugin path helper
       queries [sql_query_model.SQLQueryModel]: list of queries
     """
+
     super().__init__()
 
     self.queries = queries
@@ -62,8 +65,8 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       init_mapper: base_init_mapping.BaseInitMapper,
       parser_mapper: base_parser_mapping.BaseParserMapper,
       formatter_mapper: base_formatter_mapping.BaseFormatterMapper,
-      mappingHelper: base_mapping_helper.BaseMappingHelper):
-
+      mappingHelper: base_mapping_helper.BaseMappingHelper,
+      database_information: base_database_information.BaseDatabaseInformation):
     """Generate the whole sqlite plugin.
 
     Args:
@@ -73,6 +76,8 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       parser_mapper (BaseParserMapper): the parser mapper
       formatter_mapper (BaseFormatterMapper): the mapper for the formatter
       mappingHelper (BaseMappingHelper): the mapping helper
+      database_information (BaseDatabaseInformation): helper class for
+      information about the database
     """
 
     file_handler = fileHandler
@@ -94,7 +99,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
         events=self.events,
         queries=self.queries,
         plugin_name=self.name,
-        required_tables=[])
+        required_tables=database_information.getTablesFromDatabase())
 
     content_parser = parser_mapper.GetParser(parser_data)
     content_formatter = formatter_mapper.GetFormatter(self.name, self.events)

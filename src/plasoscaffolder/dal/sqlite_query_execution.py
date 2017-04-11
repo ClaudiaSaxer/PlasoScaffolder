@@ -17,6 +17,7 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     Args:
       database_path: the path to the sqlite database schema
     """
+    super().__init__()
     self._connection = sqlite3.connect(database_path)
     self._connection.isolation_level = None  # no autocommit mode
 

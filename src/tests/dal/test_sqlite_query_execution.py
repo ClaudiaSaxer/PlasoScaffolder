@@ -108,7 +108,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     """Read from file with relative path
 
     Args:
-      path (str): the relative file path 
+      path (str): the relative file path
 
     Returns:
       str: content of the file"""

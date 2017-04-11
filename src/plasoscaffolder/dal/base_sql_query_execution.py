@@ -5,7 +5,7 @@ import abc
 
 class SQLQueryData(object):
   """The Data to the executed query.
-  
+
   Attributes:
     has_error (bool): if the query execution was erroneous
     data ([str]): the rows returned after execution

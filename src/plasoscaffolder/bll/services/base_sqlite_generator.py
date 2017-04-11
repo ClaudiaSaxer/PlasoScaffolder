@@ -8,6 +8,7 @@ from plasoscaffolder.bll.mappings import base_init_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.bll.mappings import base_parser_mapping
 from plasoscaffolder.common import base_file_handler
+from plasoscaffolder.dal import base_database_information
 
 
 class BaseSQLiteGenerator(object):
@@ -18,11 +19,12 @@ class BaseSQLiteGenerator(object):
   def GenerateSQLitePlugin(
       self,
       template_path: str,
-      fileHandler: base_file_handler.BaseFileHandler(),
-      init_mapper: base_init_mapping.BaseInitMapper(),
-      parser_mapper: base_parser_mapping.BaseParserMapper(),
-      formatter_mapper: base_formatter_mapping.BaseFormatterMapper(),
-      mappingHelper: base_mapping_helper.BaseMappingHelper()):
+      fileHandler: base_file_handler.BaseFileHandler,
+      init_mapper: base_init_mapping.BaseInitMapper,
+      parser_mapper: base_parser_mapping.BaseParserMapper,
+      formatter_mapper: base_formatter_mapping.BaseFormatterMapper,
+      mappingHelper: base_mapping_helper.BaseMappingHelper,
+      database_information: base_database_information.BaseDatabaseInformation):
     """Generate the whole sqlite plugin.
 
     Args:
@@ -32,6 +34,8 @@ class BaseSQLiteGenerator(object):
       parser_mapper (BaseParserMapper): the parser mapper
       formatter_mapper (BaseFormatterMapper): the mapper for the formatter
       mappingHelper (BaseMappingHelper): the mapping helper
+      database_information (BaseDatabaseInformation): helper class for
+      information about the database
     """
 
   @abc.abstractmethod

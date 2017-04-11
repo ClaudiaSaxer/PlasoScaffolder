@@ -13,7 +13,8 @@ from plasoscaffolder.dal import base_sql_query_execution
 from plasoscaffolder.frontend.controller import sqlite_controller
 from plasoscaffolder.model import event_model
 from plasoscaffolder.model import sql_query_model
-from tests.fake import fake_sqlite_plugin_helper, fake_sqlite_query_execution
+from tests.fake import fake_sqlite_plugin_helper
+from tests.fake import fake_sqlite_query_execution
 from tests.test_helper import output_handler_file
 from tests.test_helper import path_helper
 
@@ -378,6 +379,10 @@ class SQLiteControllerTest(unittest.TestCase):
       file = os.path.join(tmpdir, 'testfile')
       pathlib.Path(file).touch()
 
+      fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
+          base_sql_query_execution.SQLQueryData(has_error=False, data=[(1, 2)])
+      )
+
       output_handler = output_handler_file.OutputHandlerFile(
           file, file_handler.FileHandler(), confirm=True)
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
@@ -389,6 +394,7 @@ class SQLiteControllerTest(unittest.TestCase):
       controller._name = "the_plugin"
       controller._testfile = file
       controller._events = ['Event1', 'Event2', 'Event3']
+      controller._query_execution = fake_execution
       controller.Generate(template_path)
       file1 = os.path.join(tmpdir, 'plaso', 'formatters', 'the_plugin.py')
       file2 = os.path.join(tmpdir, 'plaso', 'parsers', 'sqlite_plugins',
@@ -434,8 +440,8 @@ class SQLiteControllerTest(unittest.TestCase):
     Args:
       path (str): the file path
 
-      path (str): the file path 
-  
+      path (str): the file path
+
     Returns:
       str: content of the file"""
     with open(path, 'r') as f:

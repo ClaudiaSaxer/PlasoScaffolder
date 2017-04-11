@@ -2,8 +2,7 @@
 """ Module representing function for the different files. """
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.bll.mappings import base_parser_mapping
-from plasoscaffolder.model import sql_query_model, parser_data_model
-from plasoscaffolder.model import event_model
+from plasoscaffolder.model import parser_data_model
 
 
 class ParserMapper(base_parser_mapping.BaseParserMapper):
@@ -31,10 +30,11 @@ class ParserMapper(base_parser_mapping.BaseParserMapper):
     """
     class_name = self.__helper.GenerateClassName(parser_data.PluginName)
     context = {'plugin_name': parser_data.PluginName,
-               'class_name' : class_name,
-               'events'   : parser_data.Events,
-               'queries'    : parser_data.Queries,
+               'class_name': class_name,
+               'events': parser_data.Events,
+               'queries': parser_data.Queries,
                'attributes': parser_data.Attributes,
-               'database_name': parser_data.DatabaseName}
+               'database_name': parser_data.DatabaseName,
+               'required_tables': parser_data.RequiredTables}
     rendered = self.__helper.RenderTemplate(self._PARSER_TEMPLATE, context)
     return rendered

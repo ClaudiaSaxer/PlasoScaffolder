@@ -14,7 +14,9 @@ from plasoscaffolder.bll.services import sqlite_plugin_helper
 from plasoscaffolder.bll.services import sqlite_plugin_path_helper
 from plasoscaffolder.common import base_output_handler
 from plasoscaffolder.common import file_handler
-from plasoscaffolder.dal import base_sql_query_execution, sqlite_query_execution
+from plasoscaffolder.dal import (base_sql_query_execution,
+                                 sqlite_query_execution,
+                                 sqlite_database_information)
 from plasoscaffolder.model import event_model
 from plasoscaffolder.model import sql_query_model
 
@@ -137,7 +139,7 @@ class SQLiteController(object):
       bool: if the file can be opened and is a database file"""
     try:
       execution = sqlite_query_execution.SQLQueryExecution(path)
-    except sqlite3.OperationalError: #pylint: disable=no-member
+    except sqlite3.OperationalError:  # pylint: disable=no-member
       return False
     self._query_execution = execution
     return True
@@ -225,7 +227,7 @@ class SQLiteController(object):
     else:
       if with_examples:
         length = len(query_data.data)
-        if length == 0 :
+        if length == 0:
           self._output_handler.PrintInfo('Your query does not return anything.')
         else:
           self._output_handler.PrintInfo(
@@ -295,7 +297,10 @@ class SQLiteController(object):
         init_mapping.InitMapper(helper),
         parser_mapping.ParserMapper(helper),
         formatter_mapping.FormatterMapper(helper),
-        mapping_helper.MappingHelper(template_path))
+        mapping_helper.MappingHelper(template_path),
+        sqlite_database_information.SQLiteDatabaseInformation(
+            self._query_execution)
+    )
 
   def _ValidatePluginName(self, plugin_name: str) -> str:
     """Validate plugin Name and prompt until Name is valid

@@ -77,13 +77,13 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
   def RunSQLQuery(self, query: str,
                   executor: base_sql_query_execution.BaseSQLQueryExecution()):
     """ Validates the sql query
-    
+
     Args:
       executor (base_sql_query_execution.SQLQueryExection()) the sql executor
-      query (str): the SQL query 
+      query (str): the SQL query
 
     Returns:
-      base_sql_query_execution.SQLQueryData: data returned by executing the 
+      base_sql_query_execution.SQLQueryData: data returned by executing the
       query
     """
     return executor.executeQuery(query)
