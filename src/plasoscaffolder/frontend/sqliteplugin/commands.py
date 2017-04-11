@@ -31,7 +31,7 @@ Controller = sqlite_controller.SQLiteController(
               callback=Controller.SQLQuery)
 # pylint: disable=missing-docstring, unused-argument
 # because click does funny things with it
-def sqlite(path, name, testfile, event, sql):
+def sqlite(path, name, testfile, sql):
   template_path = os.path.join(
       os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
       'bll', 'templates')

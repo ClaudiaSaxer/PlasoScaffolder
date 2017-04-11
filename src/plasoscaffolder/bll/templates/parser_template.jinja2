@@ -13,7 +13,7 @@ from plaso.lib import eventdata
 from plaso.parsers import sqlite
 from plaso.parsers.sqlite_plugins import interface
 {% for query in queries %}
-class {{ class_name }}{{ query.Name}}EventData(events.EventData)
+class {{ class_name }}{{ query.Name}}EventData(events.EventData):
   """{{ plugin_name|replace('_',' ')}} {{query.Name|lower}} event data.
 
   TODO: add type and description of attributes
@@ -25,7 +25,7 @@ class {{ class_name }}{{ query.Name}}EventData(events.EventData)
 
   def __init__(self):
     """Initializes event data."""
-    super({{ class_name }}{{ query.Name }}EventData(events.EventData), self).__init__(data_type=self.DATA_TYPE)
+    super({{ class_name }}{{ query.Name }}EventData, self).__init__(data_type=self.DATA_TYPE)
     {% for column in query.Columns %}self.{{ column.ColumnAsSnakeCase() }} = None
     {% endfor %}
 {% endfor %}
@@ -45,7 +45,7 @@ class {{ class_name }}Plugin(interface.SQLitePlugin):
       {% endif %}{% endfor %}])
 
 {% for query in queries %}
-  def Parse{{ query.Name }}Row(self,  parser_mediator, row, Query=None, **unused_kwargs):
+  def Parse{{ query.Name }}Row(self,  parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:

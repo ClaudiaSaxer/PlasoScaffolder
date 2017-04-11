@@ -31,9 +31,7 @@ class ParserMapper(base_parser_mapping.BaseParserMapper):
     class_name = self.__helper.GenerateClassName(parser_data.PluginName)
     context = {'plugin_name': parser_data.PluginName,
                'class_name': class_name,
-               'events': parser_data.Events,
                'queries': parser_data.Queries,
-               'attributes': parser_data.Attributes,
                'database_name': parser_data.DatabaseName,
                'required_tables': parser_data.RequiredTables}
     rendered = self.__helper.RenderTemplate(self._PARSER_TEMPLATE, context)

@@ -11,12 +11,12 @@ from unittest import mock
 from plasoscaffolder.common import file_handler
 from plasoscaffolder.dal import base_sql_query_execution
 from plasoscaffolder.frontend.controller import sqlite_controller
-from plasoscaffolder.model import event_model
 from plasoscaffolder.model import sql_query_model
 from tests.fake import fake_sqlite_plugin_helper
 from tests.fake import fake_sqlite_query_execution
 from tests.test_helper import output_handler_file
 from tests.test_helper import path_helper
+
 
 class SQLiteControllerTest(unittest.TestCase):
   """Tests the SQLite controller"""
@@ -92,9 +92,10 @@ class SQLiteControllerTest(unittest.TestCase):
       actual = controller._CreateSQLQueryModelWithUserInput(sql_query, False,
                                                             fake_execution)
       prompt_output_actual = self._ReadFromFile(path)
-      prompt_output_expected = 'What kind of row does the SQL Query parse?'
+      prompt_output_expected = ('What kind of row does the SQL Query parse?'
+                                'Does the event Contact need customizing?')
 
-      expected = sql_query_model.SQLQueryModel(sql_query, name, [])
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
 
       self.assertEqual(expected.Name, actual.Name)
       self.assertEqual(expected.Query, actual.Query)
@@ -235,84 +236,6 @@ class SQLiteControllerTest(unittest.TestCase):
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
 
-  def testEvent(self):
-    """test method after getting the events from the user"""
-    with tempfile.TemporaryDirectory() as tmpdir:
-      path = os.path.join(tmpdir, 'testfile')
-      pathlib.Path(path).touch()
-
-      output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(), confirm=False)
-      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
-          folder_exists=True)
-      controller = sqlite_controller.SQLiteController(output_handler,
-                                                      plugin_helper)
-      event = 'event1 event2 event3'
-      controller.Event(None, None, event)
-      actual = controller._events
-      expected = [event_model.EventModel('Event1'),
-                  event_model.EventModel('Event2'),
-                  event_model.EventModel('Event3')]
-      actual_prompt_output = self._ReadFromFile(path)
-      expected_prompt_output = ('Does the event Event1 need customizing?'
-                                'Does the event Event2 need customizing?'
-                                'Does the event Event3 need customizing?')
-
-    self.assertEqual(actual[0].Name, expected[0].Name)
-    self.assertEqual(actual[1].Name, expected[1].Name)
-    self.assertEqual(actual[2].Name, expected[2].Name)
-    self.assertEqual(actual[0].NeedsCustomizing, expected[0].NeedsCustomizing)
-    self.assertEqual(actual[1].NeedsCustomizing, expected[1].NeedsCustomizing)
-    self.assertEqual(actual[2].NeedsCustomizing, expected[2].NeedsCustomizing)
-    self.assertEqual(actual_prompt_output, expected_prompt_output)
-
-  def testCreateEventModelWithUserInputIfTrue(self):
-    """test method create event model with user input"""
-    with tempfile.TemporaryDirectory() as tmpdir:
-      path = os.path.join(tmpdir, 'testfile')
-      pathlib.Path(path).touch()
-
-      event_name = 'Event'
-      customize = True
-      output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(), confirm=customize)
-      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
-          folder_exists=True)
-      controller = sqlite_controller.SQLiteController(output_handler,
-                                                      plugin_helper)
-      actual = controller._CreateEventModelWithUserInput(event_name)
-      prompt_output_actual = self._ReadFromFile(path)
-      prompt_output_expected = 'Does the event Event need customizing?'
-
-      expected = event_model.EventModel(event_name, customize)
-
-    self.assertEqual(actual.Name, expected.Name)
-    self.assertEqual(actual.NeedsCustomizing, expected.NeedsCustomizing)
-    self.assertEqual(prompt_output_actual, prompt_output_expected)
-
-  def testCreateEventModelWithUserInputIfFalse(self):
-    """test method create event model with user input"""
-    with tempfile.TemporaryDirectory() as tmpdir:
-      path = os.path.join(tmpdir, 'testfile')
-      pathlib.Path(path).touch()
-
-      event_name = 'Event'
-      customize = False
-      output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(), confirm=customize)
-      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
-          folder_exists=True)
-      controller = sqlite_controller.SQLiteController(output_handler,
-                                                      plugin_helper)
-      actual = controller._CreateEventModelWithUserInput(event_name)
-      prompt_output_actual = self._ReadFromFile(path)
-      prompt_output_expected = 'Does the event Event need customizing?'
-
-      expected = event_model.EventModel(event_name, customize)
-    self.assertEqual(actual.Name, expected.Name)
-    self.assertEqual(actual.NeedsCustomizing, expected.NeedsCustomizing)
-    self.assertEqual(prompt_output_actual, prompt_output_expected)
-
   def testValidatePluginNameIfOk(self):
     """test the validate plugin Name method if ok"""
     plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
@@ -365,7 +288,8 @@ class SQLiteControllerTest(unittest.TestCase):
                   'second'
                   'third'
                   'Do you want to add this Query?'
-                  'What kind of row does the SQL Query parse?')
+                  'What kind of row does the SQL Query parse?'
+                  'Does the event  need customizing?')
 
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
@@ -392,7 +316,6 @@ class SQLiteControllerTest(unittest.TestCase):
       controller._path = tmpdir
       controller._name = "the_plugin"
       controller._testfile = file
-      controller._events = ['Event1', 'Event2', 'Event3']
       controller._query_execution = fake_execution
       controller.Generate(template_path)
       file1 = os.path.join(tmpdir, 'plaso', 'formatters', 'the_plugin.py')

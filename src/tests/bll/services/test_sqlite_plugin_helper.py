@@ -103,21 +103,21 @@ class SQLitePluginHelperTest(unittest.TestCase):
         columns=[sql_query_column_model.SQLColumnModel('createdDate'),
                  sql_query_column_model.SQLColumnModel('updatedAt'),
                  sql_query_column_model.SQLColumnModel('screenName')],
-        query="", name="")
+        query="", name="", needs_customizing=False)
     column2 = sql_query_model.SQLQueryModel(
         columns=[sql_query_column_model.SQLColumnModel('profileImageUrl'),
                  sql_query_column_model.SQLColumnModel('screenName'),
                  sql_query_column_model.SQLColumnModel('userId')],
-        query="", name="")
+        query="", name="", needs_customizing=False)
     column3 = sql_query_model.SQLQueryModel(
         columns=[sql_query_column_model.SQLColumnModel('screenName'),
                  sql_query_column_model.SQLColumnModel('createdDate'),
                  sql_query_column_model.SQLColumnModel('createdDate')],
-        query="", name="")
+        query="", name="", needs_customizing=False)
     column4 = sql_query_model.SQLQueryModel(
         columns=[sql_query_column_model.SQLColumnModel('screenNameSecond'),
                  sql_query_column_model.SQLColumnModel('createdDate')],
-        query="", name="")
+        query="", name="", needs_customizing=False)
     queries.append(column1)
     queries.append(column2)
     queries.append(column3)
@@ -133,10 +133,11 @@ class SQLitePluginHelperTest(unittest.TestCase):
     with an empty array"""
     helper = sqlite_plugin_helper.SQLitePluginHelper()
     queries = list()
-    column1 = sql_query_model.SQLQueryModel(columns=[], query="", name="")
+    column1 = sql_query_model.SQLQueryModel(
+        columns=[], query="", name="", needs_customizing=False)
     column2 = sql_query_model.SQLQueryModel(
         columns=[sql_query_column_model.SQLColumnModel('first')],
-        query="", name="")
+        query="", name="", needs_customizing=False)
     queries.append(column1)
     queries.append(column2)
     actual = helper.GetDistinctColumnsFromSQLQueryData(queries)

@@ -32,3 +32,15 @@ class SQLColumnModel(object):
     substitudeSecondPart = re.sub(
         '([a-z0-9])([A-Z])', r'\1_\2', substitudeFirstPart).lower()
     return substitudeSecondPart
+
+  # TODO write test
+  def ColumnAsDescription(self) -> str:
+    """sql column name to description
+
+    Returns:
+      str: the column name from the sql in description form
+    """
+    substitudeFirstPart = re.sub('(.)([A-Z][a-z]+)', r'\g<1> \g<2>', self._sql_column)
+    substitudeSecondPart = re.sub(
+        '([a-z0-9])([A-Z])', r'\g<1> \g<2>', substitudeFirstPart)
+    return substitudeSecondPart.title()

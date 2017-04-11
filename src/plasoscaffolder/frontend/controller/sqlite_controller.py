@@ -15,10 +15,9 @@ from plasoscaffolder.bll.services import sqlite_plugin_helper
 from plasoscaffolder.bll.services import sqlite_plugin_path_helper
 from plasoscaffolder.common import base_output_handler
 from plasoscaffolder.common import file_handler
-from plasoscaffolder.dal import (base_sql_query_execution,
-                                 sqlite_query_execution,
-                                 sqlite_database_information)
-from plasoscaffolder.model import event_model
+from plasoscaffolder.dal import base_sql_query_execution
+from plasoscaffolder.dal import sqlite_database_information
+from plasoscaffolder.dal import sqlite_query_execution
 from plasoscaffolder.model import sql_query_model
 
 
@@ -40,7 +39,6 @@ class SQLiteController(object):
     self._path = None
     self._name = None
     self._testfile = None
-    self._events = None
     self._sql_query = []
     self._plugin_helper = plugin_helper
     self._output_handler = output_handler
@@ -145,34 +143,10 @@ class SQLiteController(object):
     self._query_execution = execution
     return True
 
-  def Event(self, unused_ctx: click.core.Context,
-            unused_param: click.core.Option,
-            value: str) -> str:
-    """The events of the plugin
-
-    Args:
-      unused_ctx (click.core.Context): the click context (automatically given
-      via
-      callback)
-      unused_param (click.core.Option): the click command (automatically
-      given via
-      callback)
-      value (str): the source path (automatically given via callback)
-
-    Returns:
-      str: the events of the plugin
-    """
-    event_model_list = []
-    for event_name in value.title().split():
-      event_model_list.append(self._CreateEventModelWithUserInput(event_name))
-    self._events = event_model_list
-
-    return event_model_list
-
   def SQLQuery(self, unused_ctx: click.core.Context,
                unused_param: click.core.Option,
                value: str) -> str:
-    """The events of the plugin
+    """The SQL Query of the plugin
 
     Args:
       unused_ctx (click.core.Context): the click context (automatically given
@@ -248,27 +222,19 @@ class SQLiteController(object):
 
       message = 'What kind of row does the SQL Query parse?'
       name = self._output_handler.PromptInfo(text=message)
+
+      message = 'Does the event {0} need customizing?'.format(name)
+      needs_customizing = self._output_handler.Confirm(
+          text=message, abort=False, default=False)
+
       columns = list()
 
       for column in query_data.columns:
         columns.append(
-          plasoscaffolder.model.sql_query_column_model.SQLColumnModel(column))
-
-    return sql_query_model.SQLQueryModel(query, name.title(), columns)
-
-  def _CreateEventModelWithUserInput(self, name: str) -> event_model.EventModel:
-    """Asks the user if the event needs customizing
-
-    Args:
-      name (str): the Name of the event
-
-    Returns:
-      (event_model.EventModel): a event model
-    """
-    message = 'Does the event {0} need customizing?'.format(name)
-    needs_customizing = self._output_handler.Confirm(
-        text=message, abort=False, default=False)
-    return event_model.EventModel(name, needs_customizing)
+            plasoscaffolder.model.sql_query_column_model.SQLColumnModel(column))
+      print("needs_customizing "+str(needs_customizing))
+    return sql_query_model.SQLQueryModel(
+        query, name.title(), columns, needs_customizing)
 
   def Generate(self, template_path: str):
     """Generating the files.
@@ -285,7 +251,6 @@ class SQLiteController(object):
         self._path,
         self._name,
         self._testfile,
-        self._events,
         self._sql_query,
         self._output_handler,
         sqlite_plugin_helper.SQLitePluginHelper(),
@@ -299,8 +264,7 @@ class SQLiteController(object):
         formatter_mapping.FormatterMapper(helper),
         mapping_helper.MappingHelper(template_path),
         sqlite_database_information.SQLiteDatabaseInformation(
-            self._query_execution)
-    )
+            self._query_execution))
 
   def _ValidatePluginName(self, plugin_name: str) -> str:
     """Validate plugin Name and prompt until Name is valid

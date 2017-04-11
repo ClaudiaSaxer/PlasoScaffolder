@@ -12,16 +12,14 @@ from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.common import base_file_handler
 from plasoscaffolder.common import base_output_handler
 from plasoscaffolder.dal import base_database_information
-from plasoscaffolder.model import (sql_query_model, parser_data_model,
-                                   event_model)
-
-
+from plasoscaffolder.model import sql_query_model
+from plasoscaffolder.model import parser_data_model
+from plasoscaffolder.model import formatter_data_model
 class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
   """ Generator for SQLite Files """
 
   def __init__(
       self, path: str, name: str, database: str,
-      events: [event_model.EventModel],
       queries: [sql_query_model.SQLQueryModel],
       output_handler: base_output_handler.BaseOutputHandler(),
       pluginHelper: base_sqlite_plugin_helper.BaseSQLitePluginHelper(),
@@ -33,7 +31,6 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       path (str): the path of the plaso folder
       name (str): the Name of the plugin
       database (str): the path to the database
-      events (list): the events of the plugin
       output_handler (BaseOutputHandler: the output handler for the
       generation information
       pluginHelper (BaseSQLitePluginHelper): the plugin helper
@@ -51,7 +48,6 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     self.path_helper = pathHelper
     self.output = output_handler
     self.plugin_helper = pluginHelper
-    self.events = events
 
     self.init_formatter_exists = self.plugin_helper.FileExists(
         self.path_helper.formatter_init_file_path)
@@ -93,16 +89,17 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       content_init_parser = init_mapper.GetParserInitCreate(self.name)
 
     parser_data = parser_data_model.ParserDataModel(
-        attributes=self.plugin_helper.GetDistinctColumnsFromSQLQueryData(
-          self.queries),
         database_name=os.path.basename(self.path_helper.database_path),
-        events=self.events,
         queries=self.queries,
         plugin_name=self.name,
         required_tables=database_information.getTablesFromDatabase())
 
+    formatter_data = formatter_data_model.FormatterDataModel(
+        queries=self.queries,
+        plugin_name=self.name)
+
     content_parser = parser_mapper.GetParser(parser_data)
-    content_formatter = formatter_mapper.GetFormatter(self.name, self.events)
+    content_formatter = formatter_mapper.GetFormatter(formatter_data)
 
     formatter = file_handler.AddContent(
         self.path_helper.formatter_file_path, content_formatter)
