@@ -2,7 +2,7 @@
 """ Module representing function for the different files. """
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.bll.mappings import base_parser_mapping
-from plasoscaffolder.model import sql_query_model
+from plasoscaffolder.model import sql_query_model, parser_data_model
 from plasoscaffolder.model import event_model
 
 
@@ -20,13 +20,11 @@ class ParserMapper(base_parser_mapping.BaseParserMapper):
     super().__init__()
     self.__helper = mapping_helper
 
-  def GetParser(self, plugin_name: str, events: [event_model.EventModel], queries: [sql_query_model.SQLQueryModel]) -> str:
+  def GetParser(self, parser_data: parser_data_model.ParserDataModel) -> str:
     """Retrieves the parser.
 
     Args:
-      plugin_name (str): the name of the plugin
-      events ([event_model.EventModel]): list of events
-      queries ([sql_query_model.SQLQueryModel]): list of queries
+      parser_data: the data for the parser
 
     Returns:
       str: the rendered template

@@ -171,11 +171,10 @@ class SQLiteControllerTest(unittest.TestCase):
 
       actual = controller.SQLQuery(None, None, True)
 
-      prompt_output_actual = self._ReadFromFile(path)
-
       prompt_output_expected = ('Please write your SQL script for the '
-                                'pluginDo you want to add another query?') * 3
+                                'pluginDo you want to add another Query?') * 3
 
+      prompt_output_actual = self._ReadFromFile(path)
       self.assertEqual(len(actual), 3)
       self.assertEqual(actual[0].data, 'test')
       self.assertEqual(actual[0].has_error, False)
@@ -336,7 +335,7 @@ class SQLiteControllerTest(unittest.TestCase):
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
       controller._ValidatePluginName("the_wrong_plugin_")
-      expected = ('Plugin is not in a valide format. Choose new name ['
+      expected = ('Plugin is not in a valide format. Choose new Name ['
                   'plugin_name_...]: ')
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
@@ -361,12 +360,12 @@ class SQLiteControllerTest(unittest.TestCase):
       controller._CreateSQLQueryModelWithUserInput(
           query, with_examples, query_execution
       )
-      expected = ('Your query output could look like this.\n'
-                  'first\n'
-                  'second\n'
+      expected = ('Your Query output could look like this.'
+                  'first'
+                  'second'
                   'third'
-                  'Do you want to add this query?'
-                  'What kind of row does the SQL query parse?')
+                  'Do you want to add this Query?'
+                  'What kind of row does the SQL Query parse?')
 
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
