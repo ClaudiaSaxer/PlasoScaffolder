@@ -5,6 +5,7 @@ import re
 
 from plasoscaffolder.bll.services import base_sqlite_plugin_helper
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
+from plasoscaffolder.dal import base_sql_query_execution
 
 
 class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
@@ -19,7 +20,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
       path: str,
       plugin_name: str,
       database_suffix: str,
-      path_helper: base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper()
+      path_helper: base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper(),
   ) -> bool:
     """Checks if the plugin already exists.
 
@@ -72,3 +73,17 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     Returns: true if the folder exists
     """
     return os.path.isdir(path)
+
+  def RunSQLQuery(self, query: str,
+                  executor: base_sql_query_execution.BaseSQLQueryExecution()):
+    """ Validates the sql query
+    
+    Args:
+      executor (base_sql_query_execution.SQLQueryExection()) the sql executor
+      query (str): the SQL query 
+
+    Returns:
+      base_sql_query_execution.SQLQueryData: data returned by executing the 
+      query
+    """
+    return executor.executeQuery(query)

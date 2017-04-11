@@ -19,6 +19,20 @@ class BaseOutputHandler(object):
     """
 
   @abc.abstractmethod
+  def PromptInfoWithDefault(self, text: str, text_type: object,
+                            default: object) -> str:
+    """A prompt for information, with a default value and a required type.
+
+    Args:
+      text (str): the text to prompt
+      text_type (object): the type of the input
+      default (object): the default value
+
+    Returns:
+      str: the user input
+    """
+
+  @abc.abstractmethod
   def PromptError(self, text: str) -> str:
     """A prompt for errors.
 
@@ -46,9 +60,13 @@ class BaseOutputHandler(object):
     """
 
   @abc.abstractmethod
-  def Confirm(self, text: str):
+  def Confirm(self, text: str, default=True, abort=True):
     """A confirmation, Default Y, if no abort execution.
 
-    Args:
-      text (str): Prompts the user for a confirmation.
-    """
+     Args:
+       text (str): Prompts the user for a confirmation.
+       default (bool): the default value.
+       abort (bool): if the program should abort
+
+     Returns:
+     """

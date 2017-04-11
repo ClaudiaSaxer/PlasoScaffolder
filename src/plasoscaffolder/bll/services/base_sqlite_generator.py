@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Baseclass for Generator for Sqlite"""
+"""Baseclass for a Generator for Sqlite"""
 import abc
 import os
 
@@ -26,12 +26,12 @@ class BaseSQLiteGenerator(object):
     """Generate the whole sqlite plugin.
 
     Args:
-      formatter_mapper (BaseFormatterMapper): the mapper for the formatter
-      fileHandler (FileHandler): the handler for the file
-      mappingHelper (BaseMappingHelper): the mapping helper
-      parser_mapper (BaseParserMapper): the parser mapper
-      init_mapper (BaseInitMapper): the init mapper
       template_path (str): the path to the template directory
+      fileHandler (FileHandler): the handler for the file
+      init_mapper (BaseInitMapper): the init mapper
+      parser_mapper (BaseParserMapper): the parser mapper
+      formatter_mapper (BaseFormatterMapper): the mapper for the formatter
+      mappingHelper (BaseMappingHelper): the mapping helper
     """
 
   @abc.abstractmethod

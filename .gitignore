@@ -16,7 +16,7 @@
 .build/
 dist
 /MANIFEST.test_data
-/plaso.egg-info
+/src/plasoscaffolder.egg-info
 
 # Auto-generated Sphinx documentation files
 /docs/.build/doctrees/
@@ -39,3 +39,6 @@ docs/.build/
 tests-coverage.txt
 unittest
 sys
+
+# Build files
+/src/build

@@ -2,6 +2,7 @@
 """Fake Module containing helper functions for the SQLite plugin"""
 from plasoscaffolder.bll.services import base_sqlite_plugin_helper
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
+from plasoscaffolder.dal import base_sql_query_execution
 
 
 class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
@@ -43,8 +44,8 @@ class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
                    plugin_name: str,
                    database_suffix: str,
                    path_helper:
-                   base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper
-                   ) -> bool:
+                   base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper) \
+      -> bool:
     if self.change_plugin_exists:
       self.plugin_exists = not self.plugin_exists
       return not self.plugin_exists
@@ -77,3 +78,16 @@ class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
       return not self.valid_name
     else:
       return self.valid_name
+
+  def RunSQLQuery(self, query: str,
+                  executor: base_sql_query_execution.BaseSQLQueryExecution()):
+    """ Validates the sql query
+
+    Args:
+      executor (base_sql_query_execution.SQLQueryExection()) the sql executor
+      query (str): the sql query 
+
+    Returns:
+      base_sql_query_execution.SQLQueryData: the data to the executed query
+    """
+    return executor.executeQuery(query)

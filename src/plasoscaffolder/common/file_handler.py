@@ -105,7 +105,7 @@ class FileHandler(base_file_handler.BaseFileHandler):
     """
     self.CreateFolderForFilePathIfNotExist(source)
     with open(source, 'a') as file_object:
-      file_object.write(content)
+      file_object.write(str(content))
 
     return source
 
