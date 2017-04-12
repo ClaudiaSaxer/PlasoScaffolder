@@ -113,6 +113,42 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     self.assertFalse(result.has_error)
     self.assertEqual(expected_data, str(result.data))
 
+  def testExecuteReadOnlyQueryWithSelect(self):
+    """test execute read only with a simple select query"""
+    query = 'SELECT id from users where id==2220776716'
+    result = self.execute.executeReadOnlyQuery(query)
+    expected = '[(2220776716,)]'
+    self.assertFalse(result.has_error)
+    self.assertEqual(str(result.data), expected)
+    self.assertIsNone(result.error_message)
+
+  def testExecuteReadOnlyQueryWithErrorBecauseOfDrop(self):
+    """test execute read only with a drop query"""
+    query = 'DROP table users'
+    result = self.execute.executeReadOnlyQuery(query)
+    expected_error = 'Query has to be a SELECT query.'
+    self.assertTrue(result.has_error)
+    self.assertEqual(str(result.error_message), expected_error)
+    self.assertIsNone(result.data)
+
+  def testExecuteReadOnlyQueryWithErrorBecauseOfAlter(self):
+    """test execute read only with a alter rename query"""
+    query = 'Alter table users rename to users2'
+    result = self.execute.executeReadOnlyQuery(query)
+    expected_error = 'Query has to be a SELECT query.'
+    self.assertTrue(result.has_error)
+    self.assertEqual(str(result.error_message), expected_error)
+    self.assertIsNone(result.data)
+
+  def testExecuteReadOnlyQueryWithWarning(self):
+    """test execute read only with two queries at the same time"""
+    query = 'SELECT id from users;SELECT id from users'
+    result = self.execute.executeReadOnlyQuery(query)
+    expected_error = 'Warning: You can only execute one statement at a time.'
+    self.assertTrue(result.has_error)
+    self.assertEqual(str(result.error_message), expected_error)
+    self.assertIsNone(result.data)
+
   def _ReadFromFileRelative(self, path: str):
     """Read from file with relative path
 
@@ -126,8 +162,6 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
     with open(abs_file_path, 'r', encoding='utf-8') as f:
       return f.read()
-
-
 
 
 if __name__ == '__main__':
