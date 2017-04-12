@@ -13,18 +13,16 @@ from tests.test_helper import path_helper
 class SQLiteDatabaseInformationTest(unittest.TestCase):
   """test the SQLite Query execution test"""
 
-  def setUp(self):
+  def testGetRequiredTables(self):
+    """get the required tables if nothing went wrong"""
+
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'twitter_ios.db')
     execute = sqlite_query_execution.SQLQueryExecution(file_path)
-    self.database_information = \
-      sqlite_database_information.SQLiteDatabaseInformation(
-      execute)
+    database_information = (
+      sqlite_database_information.SQLiteDatabaseInformation(execute))
 
-  def testGetRequiredTables(self):
-    """get the required tables if anything went wrong"""
-
-    result = self.database_information.getTablesFromDatabase()
+    result = database_information.getTablesFromDatabase()
     self.assertTrue(len(result) == 7)
     self.assertEqual(result[0], 'Lists')
     self.assertEqual(result[1], 'ListsShadow')
@@ -34,6 +32,16 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     self.assertEqual(result[5], 'Users')
     self.assertEqual(result[6], 'UsersShadow')
 
+  def testGetRequiredTablesWithError(self):
+    """get the required tables if anything went wrong"""
+    database_path = path_helper.TestDatabasePath()
+    file_path = os.path.join(database_path, 'twitter_ios_error.db')
+    execute = sqlite_query_execution.SQLQueryExecution(file_path)
+    database_information = (
+      sqlite_database_information.SQLiteDatabaseInformation(execute))
+
+    result = database_information.getTablesFromDatabase()
+    self.assertTrue(len(result) == 0)
 
 
 if __name__ == '__main__':
