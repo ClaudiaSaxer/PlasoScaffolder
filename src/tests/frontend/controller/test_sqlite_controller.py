@@ -92,7 +92,8 @@ class SQLiteControllerTest(unittest.TestCase):
       actual = controller._CreateSQLQueryModelWithUserInput(sql_query, False,
                                                             fake_execution)
       prompt_output_actual = self._ReadFromFile(path)
-      prompt_output_expected = ('What kind of row does the SQL Query parse?'
+      prompt_output_expected = ('The SQL query was ok.'
+                                'What kind of row does the SQL query parse?'
                                 'Does the event Contact need customizing?')
 
       expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
@@ -282,13 +283,13 @@ class SQLiteControllerTest(unittest.TestCase):
       controller._CreateSQLQueryModelWithUserInput(
           query, with_examples, query_execution
       )
-      expected = ('Your Query output could look like this.'
+      expected = ('Your query output could look like this.'
                   '[]'
                   'first'
                   'second'
                   'third'
-                  'Do you want to add this Query?'
-                  'What kind of row does the SQL Query parse?'
+                  'Do you want to add this query?'
+                  'What kind of row does the SQL query parse?'
                   'Does the event  need customizing?')
 
       actual = self._ReadFromFile(path)

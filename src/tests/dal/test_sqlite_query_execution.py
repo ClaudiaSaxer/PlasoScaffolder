@@ -62,7 +62,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     """test two querys after another to test the connection is still open"""
     query = 'SELECT createdDates FROM Users'
     result = self.execute.executeQuery(query)
-    expected_error = 'no such column: createdDates'
+    expected_error = 'Error: no such column: createdDates'
     self.assertTrue(result.has_error)
     self.assertIsNone(result.data)
     self.assertEqual(str(result.error_message), expected_error)
@@ -71,7 +71,16 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     """test two querys after another to test the connection is still open"""
     query = 'SELECT createdDate FROM Userss'
     result = self.execute.executeQuery(query)
-    expected_error = 'no such table: Userss'
+    expected_error = 'Error: no such table: Userss'
+    self.assertTrue(result.has_error)
+    self.assertIsNone(result.data)
+    self.assertEqual(str(result.error_message), expected_error)
+
+  def testQueryWarning(self):
+    """test two querys after another to test the connection is still open"""
+    query = 'SELECT id from users;Select id from users'
+    result = self.execute.executeQuery(query)
+    expected_error = 'Warning: You can only execute one statement at a time.'
     self.assertTrue(result.has_error)
     self.assertIsNone(result.data)
     self.assertEqual(str(result.error_message), expected_error)

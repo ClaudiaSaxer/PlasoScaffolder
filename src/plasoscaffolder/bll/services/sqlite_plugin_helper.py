@@ -90,7 +90,8 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
       base_sql_query_execution.SQLQueryData: data returned by executing the
         query
     """
-    return executor.executeQuery(query)
+    return executor.executeReadOnlyQuery(query)
+
 
   def GetDistinctColumnsFromSQLQueryData(
       self,
