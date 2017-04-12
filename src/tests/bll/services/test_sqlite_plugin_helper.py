@@ -5,9 +5,11 @@ import tempfile
 import unittest
 
 from plasoscaffolder.bll.services import sqlite_plugin_helper
+from plasoscaffolder.dal import base_sql_query_execution
 from plasoscaffolder.model import sql_query_column_model
 from plasoscaffolder.model import sql_query_model
-from tests.fake import fake_sqlite_plugin_path_helper
+from tests.fake import (fake_sqlite_plugin_path_helper,
+                        fake_sqlite_query_execution)
 from tests.test_helper import path_helper
 
 
@@ -59,6 +61,18 @@ class SQLitePluginHelperTest(unittest.TestCase):
       actual = helper.FolderExists(tmpdir)
 
     self.assertTrue(actual)
+
+  def testRunSQLQuery(self):
+    """test run sql query"""
+    data = base_sql_query_execution.SQLQueryData(
+        columns=[], data=[], has_error=False, error_message=None)
+    executor = fake_sqlite_query_execution.SQLQueryExecution(data)
+    helper = sqlite_plugin_helper.SQLitePluginHelper()
+    actual = helper.RunSQLQuery('my query', executor)
+    self.assertFalse(actual.has_error)
+    self.assertIsNone(actual.error_message)
+    self.assertEqual(actual.columns, [])
+    self.assertEqual(actual.data, [])
 
   def testIsValidPluginNameExpected(self):
     """tests the plugin Name validation."""

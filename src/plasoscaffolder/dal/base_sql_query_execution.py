@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-#disable warning because default value is not dangerous here
-#pylint: disable=dangerous-default-value
+# disable warning because default value is not dangerous here
+# pylint: disable=dangerous-default-value
 """the SQLite Query validator"""
 import abc
 
@@ -34,3 +34,14 @@ class BaseSQLQueryExecution(object):
 
     Returns:
       SQLQueryData: The data to the query"""
+
+  @abc.abstractmethod
+  def executeReadOnlyQuery(self, query: str):
+    """Executes the SQL Query if it is read only.
+  
+      Args:
+        query (str): The SQL Query to execute on the SQLite database.
+  
+      Returns:
+        base_sql_query_execution.SQLQueryData: The data to the Query
+      """

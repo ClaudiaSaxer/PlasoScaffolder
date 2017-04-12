@@ -94,13 +94,12 @@ class SQLiteGeneratorTest(unittest.TestCase):
     formatter_test_mapper = fake_formatter_test_mapping.FakeFormatterTestMapper(
         mapping_helper)
     fake_database_information = (
-      fake_sqlite_database_information.FakeSQLiteDatabaseInformation([]))
+        fake_sqlite_database_information.FakeSQLiteDatabaseInformation([]))
 
     with tempfile.TemporaryDirectory() as tmpdir:
-      fake_path_helper = \
-        fake_sqlite_plugin_path_helper.FakeSQLitePluginPathHelper(
-            self.template_path, 'test',
-            'db')
+      fake_path_helper = (
+          fake_sqlite_plugin_path_helper.FakeSQLitePluginPathHelper(
+              self.template_path, 'test', 'db'))
       path = os.path.join(tmpdir, 'testfile')
 
       generator = sqlite_generator.SQLiteGenerator(

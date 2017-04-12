@@ -10,7 +10,9 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
   """Class representing the SQLite Query validator
   """
 
-  def __init__(self, to_return: object):
+
+
+  def __init__(self, to_return: base_sql_query_execution.SQLQueryData):
     """Initializes the SQL Query Validator
 
     Args:
@@ -19,11 +21,9 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     self.to_return = to_return
 
   def executeQuery(self, query: str) -> base_sql_query_execution.SQLQueryData:
-    """Executes the SQL Query.
+    """Executes the SQL Query."""
+    return self.to_return
 
-    Args:
-      query (str): The SQL Query to execute on the SQLite database.
-
-    Returns:
-      base_sql_query_execution.SQLQueryData: The data to the query"""
+  def executeReadOnlyQuery(self, query: str):
+    """Executes the SQL Query if it is read only."""
     return self.to_return
