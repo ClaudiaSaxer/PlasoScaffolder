@@ -15,6 +15,7 @@ class ExplainQueryPlanTest(unittest.TestCase):
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'twitter_ios.db')
     execute = sqlite_query_execution.SQLQueryExecution(file_path)
+    execute.tryToConnect()
     self.explain_query_plan = explain_query_plan.ExplainQueryPlan(execute)
 
   def testIsReadOnlyIfTrue(self):
