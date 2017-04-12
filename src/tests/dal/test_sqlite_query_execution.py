@@ -16,6 +16,23 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'twitter_ios.db')
     self.execute = sqlite_query_execution.SQLQueryExecution(file_path)
+    self.execute.tryToConnect()
+
+  def testTryToConnect(self):
+    """try to connect without error"""
+    database_path = path_helper.TestDatabasePath()
+    file_path = os.path.join(database_path, 'twitter_ios.db')
+    execute = sqlite_query_execution.SQLQueryExecution(file_path)
+    connected = execute.tryToConnect()
+    self.assertTrue(connected)
+
+  def testTryToConnectWithError(self):
+    """try to connect 2 times resulting in a error"""
+    database_path = path_helper.TestDatabasePath()
+    file_path = os.path.join(database_path, 'twitter_ios_error.db')
+    execute = sqlite_query_execution.SQLQueryExecution(file_path)
+    connected = execute.tryToConnect()
+    self.assertFalse(connected)
 
   def testRollbackWorks(self):
     """testing if the rollback works"""

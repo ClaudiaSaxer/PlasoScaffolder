@@ -19,11 +19,13 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'twitter_ios.db')
     execute = sqlite_query_execution.SQLQueryExecution(file_path)
+    connected = execute.tryToConnect()
     database_information = (
       sqlite_database_information.SQLiteDatabaseInformation(execute))
 
     result = database_information.getTablesFromDatabase()
     self.assertTrue(len(result) == 7)
+    self.assertTrue(connected)
     self.assertEqual(result[0], 'Lists')
     self.assertEqual(result[1], 'ListsShadow')
     self.assertEqual(result[2], 'MyRetweets')
@@ -37,11 +39,13 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'twitter_ios_error.db')
     execute = sqlite_query_execution.SQLQueryExecution(file_path)
+    connected = execute.tryToConnect()
     database_information = (
       sqlite_database_information.SQLiteDatabaseInformation(execute))
-
     result = database_information.getTablesFromDatabase()
+
     self.assertTrue(len(result) == 0)
+    self.assertFalse(connected)
 
 
 if __name__ == '__main__':

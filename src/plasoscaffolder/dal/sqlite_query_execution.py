@@ -7,6 +7,7 @@ import sqlite3
 from plasoscaffolder.dal import base_sql_query_execution
 from plasoscaffolder.dal import explain_query_plan
 
+
 class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
   """Class representing the SQLite Query validator"""
 
@@ -17,9 +18,26 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       database_path: the path to the sqlite database schema
     """
     super().__init__()
-    self._connection = sqlite3.connect(database_path)
-    self._connection.isolation_level = None  # no autocommit mode
-    self._explain = explain_query_plan.ExplainQueryPlan(self)
+    self._database_path = database_path
+    self._connection = None
+    self._explain = None
+
+  def tryToConnect(self) -> bool:
+    """Try to open the database File
+
+    Returns:
+      bool: if the file can be opened and is a database file
+    """
+    try:
+      self._connection = sqlite3.connect(self._database_path)
+      self._connection.isolation_level = None  # no autocommit mode
+      self._explain = explain_query_plan.ExplainQueryPlan(self)
+      #this query failes if is not a database or locked or anything went wrong
+      self._connection.execute('pragma schema_version')
+    except sqlite3.Error:
+      return False
+
+    return True
 
   def executeQuery(self, query: str) -> base_sql_query_execution.SQLQueryData:
     """Executes the SQL Query.

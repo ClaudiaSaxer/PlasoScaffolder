@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """File representing the Controller for SQLite plugin."""
 import os
-import sqlite3
 
 import click
 import plasoscaffolder.model.sql_query_column_model
@@ -132,25 +131,24 @@ class SQLiteController(object):
 
     Returns:
       bool: if the file can be opened and is a database file"""
-    try:
-      execution = sqlite_query_execution.SQLQueryExecution(path)
-    except sqlite3.OperationalError:  # pylint: disable=no-member
-      return False
-    self._query_execution = execution
-    return True
+    execution = sqlite_query_execution.SQLQueryExecution(path)
+    if execution.tryToConnect():
+      self._query_execution = execution
+      return True
+    return False
 
   def SQLQuery(self, unused_ctx: click.core.Context,
                unused_param: click.core.Option,
                value: str) -> str:
     """The SQL Query of the plugin
-
+  
     Args:
       unused_ctx (click.core.Context): the click context (automatically given
         via callback)
       unused_param (click.core.Option): the click command (automatically
         given via callback)
       value (str): the SQL Query (automatically given via callback)
-
+  
     Returns:
       str: the SQL Query
     """
@@ -178,11 +176,11 @@ class SQLiteController(object):
       query_execution: base_sql_query_execution.BaseSQLQueryExecution()
   ) -> sql_query_model.SQLQueryModel:
     """Asks the user information about the SQL Query
-
+  
     Args:
       query (str): the SQL Query
       with_examples (bool): if the user wants examples for the given Query
-
+  
     Returns:
       sql_query_model.SQLQueryModel: a SQL Query model
     """
@@ -232,7 +230,7 @@ class SQLiteController(object):
 
   def Generate(self, template_path: str):
     """Generating the files.
-
+  
     Args:
       template_path (str): the path to the template directory
     """
@@ -264,10 +262,10 @@ class SQLiteController(object):
 
   def _ValidatePluginName(self, plugin_name: str) -> str:
     """Validate plugin Name and prompt until Name is valid
-
+  
     Args:
       plugin_name: the Name of the plugin
-
+  
     Returns:
       str: a valid plugin Name
     """
