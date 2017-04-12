@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-""" Module representing function for the different files. """
+""" Class representing the mapper for the formatter. """
 from plasoscaffolder.bll.mappings import base_formatter_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.model import formatter_data_model
 
 
 class FormatterMapper(base_formatter_mapping.BaseFormatterMapper):
-  """Class representing the parser mapper."""
+  """Class representing the formatter mapper."""
 
   _FORMATTER_TEMPLATE = 'formatter_template.jinja2'
 
@@ -14,7 +14,8 @@ class FormatterMapper(base_formatter_mapping.BaseFormatterMapper):
     """Initializing the init mapper class.
 
     Args:
-      template_path (str): the path to the template directory
+      mapping_helper (base_mapping_helper.BaseMappingHelper): the helper class
+        for the mapping
     """
     super().__init__()
     self._helper = mapping_helper

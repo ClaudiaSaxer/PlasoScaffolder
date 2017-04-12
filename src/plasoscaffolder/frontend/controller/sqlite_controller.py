@@ -5,7 +5,9 @@ import sqlite3
 
 import click
 import plasoscaffolder.model.sql_query_column_model
-from plasoscaffolder.bll.mappings import formatter_mapping
+from plasoscaffolder.bll.mappings import (formatter_mapping,
+                                          parser_test_mapping,
+                                          formatter_test_mapping)
 from plasoscaffolder.bll.mappings import init_mapping
 from plasoscaffolder.bll.mappings import mapping_helper
 from plasoscaffolder.bll.mappings import parser_mapping
@@ -254,6 +256,8 @@ class SQLiteController(object):
         init_mapping.InitMapper(helper),
         parser_mapping.ParserMapper(helper),
         formatter_mapping.FormatterMapper(helper),
+        parser_test_mapping.ParserTestMapper(helper),
+        formatter_test_mapping.FormatterTestMapper(helper),
         mapping_helper.MappingHelper(template_path),
         sqlite_database_information.SQLiteDatabaseInformation(
             self._query_execution))

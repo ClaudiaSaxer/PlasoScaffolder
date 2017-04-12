@@ -3,7 +3,9 @@
 import abc
 import os
 
-from plasoscaffolder.bll.mappings import base_formatter_mapping
+from plasoscaffolder.bll.mappings import (base_formatter_mapping,
+                                          base_parser_test_mapping,
+                                          base_formatter_test_mapping)
 from plasoscaffolder.bll.mappings import base_init_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.bll.mappings import base_parser_mapping
@@ -23,6 +25,9 @@ class BaseSQLiteGenerator(object):
       init_mapper: base_init_mapping.BaseInitMapper,
       parser_mapper: base_parser_mapping.BaseParserMapper,
       formatter_mapper: base_formatter_mapping.BaseFormatterMapper,
+      parser_test_mapper: base_parser_test_mapping.BaseParserTestMapper,
+      formatter_test_mapper:
+      base_formatter_test_mapping.BaseFormatterTestMapper,
       mappingHelper: base_mapping_helper.BaseMappingHelper,
       database_information: base_database_information.BaseDatabaseInformation):
     """Generate the whole SQLite plugin.
@@ -33,6 +38,10 @@ class BaseSQLiteGenerator(object):
       init_mapper (BaseInitMapper): the init mapper
       parser_mapper (BaseParserMapper): the parser mapper
       formatter_mapper (BaseFormatterMapper): the mapper for the formatter
+      parser_test_mapper (BaseParserTestMapper): the mapper for the formatter
+        test
+      formatter_test_mapper (BaseFormatterTestMapper): the mapper for the parser
+        test
       mappingHelper (BaseMappingHelper): the mapping helper
       database_information (BaseDatabaseInformation): helper class for
         information about the database
