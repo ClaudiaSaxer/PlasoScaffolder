@@ -4,6 +4,8 @@
 """the SQLite Query validator"""
 import abc
 
+from build.lib.plasoscaffolder.dal import base_sql_query_execution
+
 
 class SQLQueryData(object):
   """The Data to the executed query.
@@ -14,7 +16,8 @@ class SQLQueryData(object):
     error_message: the error message if the query was erroneous
     columns ([str]): the column names of the query"""
 
-  def __init__(self, has_error=False, data=None, error_message=None,
+  def __init__(self, has_error: bool = False, data: [] = None,
+               error_message: str = None,
                columns=[]):
     self.has_error = has_error
     self.data = data
@@ -26,14 +29,18 @@ class BaseSQLQueryExecution(object):
   """Class representing the SQLite query validator."""
 
   @abc.abstractmethod
-  def executeQuery(self, query: str) -> SQLQueryData:
-    """Executes the SQL query.
+  def executeQuery(self, query: str,
+                   detailed: bool=True
+                   ) -> base_sql_query_execution.SQLQueryData:
+    """Executes the SQL Query.
 
     Args:
-      query (str): The SQL query to execute on the SQLite database.
+      query (str): The SQL Query to execute on the SQLite database.
+      detailed (bool): If additional information about the query is needed
 
     Returns:
-      SQLQueryData: The data to the query"""
+      base_sql_query_execution.SQLQueryData: The data to the Query
+    """
 
   @abc.abstractmethod
   def executeReadOnlyQuery(self, query: str):

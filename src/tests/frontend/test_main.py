@@ -32,12 +32,13 @@ class MainTest(unittest.TestCase):
     expected_output = ('Usage: entry_point sqlite [OPTIONS]\n'
                        '\n'
                        'Options:\n'
-                       '  --path TEXT      The path to plaso\n'
-                       '  --Name TEXT      The plugin Name\n'
-                       '  --testfile TEXT  The testfile path\n'
-                       '  --sql            The output example flag for the '
+                       '  --path TEXT       The path to plaso\n'
+                       '  --name TEXT       The plugin name\n'
+                       '  --testfile TEXT   The testfile path\n'
+                       '  --sql / --no-sql  The output example flag for the '
                        'SQL Query for the plugin.\n'
-                       '  --help           Show this message and exit.\n')
+                       '  --help            Show this message and exit.\n')
+
     self.assertEqual(expected_output, str(result.output))
     self.assertEqual(0, result.exit_code)
 

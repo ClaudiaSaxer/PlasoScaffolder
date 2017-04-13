@@ -17,7 +17,7 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
     """Test the Process function on a {{ plugin_name|replace('_',' ')|title}} file."""
     plugin_object = {{ plugin_name }}.{{ class_name }}Plugin()
     storage_writer = self._ParseDatabaseFileWithPlugin(
-        [u'{{ database_name }}.db'], plugin_object)
+        [u'{{ database_name }}'], plugin_object)
 
    # We should have {{ todo_count_events }} events in total.
      {% for query in queries %}#  - x {{ query.Name }} events.

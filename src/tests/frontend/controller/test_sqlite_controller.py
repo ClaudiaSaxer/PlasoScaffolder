@@ -84,7 +84,8 @@ class SQLiteControllerTest(unittest.TestCase):
       pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(), prompt_info=name)
+          path, file_handler.FileHandler(),
+          confirm=True, prompt_info=name)
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
           folder_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
@@ -93,12 +94,13 @@ class SQLiteControllerTest(unittest.TestCase):
                                                             fake_execution)
       prompt_output_actual = self._ReadFromFile(path)
       prompt_output_expected = ('The SQL query was ok.'
-                                'What kind of row does the SQL query parse?'
-                                'Does the event Contact need customizing?')
+                                'Do you want to name the query parse row:  ?'
+                                'Does the event  need customizing?')
 
       expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
 
-      self.assertEqual(expected.Name, actual.Name)
+
+      self.assertEqual(actual.Name, '')
       self.assertEqual(expected.Query, actual.Query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
@@ -258,8 +260,8 @@ class SQLiteControllerTest(unittest.TestCase):
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
       controller._ValidatePluginName("the_wrong_plugin_")
-      expected = ('Plugin is not in a valide format. Choose new Name ['
-                  'plugin_name_...]: ')
+      expected = ('Plugin is not in a valid format. Choose new Name ['
+                  'plugin_name_...]')
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
 
@@ -289,7 +291,7 @@ class SQLiteControllerTest(unittest.TestCase):
                   'second'
                   'third'
                   'Do you want to add this query?'
-                  'What kind of row does the SQL query parse?'
+                  'Do you want to name the query parse row:  ?'
                   'Does the event  need customizing?')
 
       actual = self._ReadFromFile(path)

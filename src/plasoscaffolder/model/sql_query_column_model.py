@@ -6,7 +6,7 @@ import re
 class SQLColumnModel(object):
   """Class for columns of a SQL Query."""
 
-  def __init__(self, sql_column: str, sql_column_type: str = 'None'):
+  def __init__(self, sql_column: str, sql_column_type: type = None):
     """ initializes the SQL column model.
 
     Args:
@@ -49,10 +49,15 @@ class SQLColumnModel(object):
     Returns:
       str: the column name from the SQL in snake case
     """
-    substitudeFirstPart = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', self._sql_column)
-    substitudeSecondPart = re.sub(
-        '([a-z0-9])([A-Z])', r'\1_\2', substitudeFirstPart).lower()
-    return substitudeSecondPart
+    pattern = re.compile("[a-zA-Z]*")
+
+    if pattern.match(self._sql_column):
+      substitudeFirstPart = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', self._sql_column)
+      substitudeSecondPart = re.sub(
+          '([a-z0-9])([A-Z])', r'\1_\2', substitudeFirstPart).lower()
+      return substitudeSecondPart
+    else:
+      return ''
 
   def ColumnAsDescription(self) -> str:
     """SQL column name to description

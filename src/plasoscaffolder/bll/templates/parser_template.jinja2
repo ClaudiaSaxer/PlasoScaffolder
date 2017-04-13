@@ -38,7 +38,7 @@ class {{ class_name }}Plugin(interface.SQLitePlugin):
 
   QUERIES = [ {% for query in queries %}
     ((u'{{ query.Query|wordwrap(width=64,wrapstring="'\nu'")|indent(6)}})'),
-     u'{{ query.Name }}'){% if not loop.last %},{% endif %}{% endfor %}]
+     u'Parse{{ query.Name }}Row'){% if not loop.last %},{% endif %}{% endfor %}]
 
   REQUIRED_TABLES = frozenset([
       {% for table in required_tables %}u'{{ table }}'{% if not loop.last %},

@@ -58,6 +58,19 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     pattern = re.compile("[a-z]+((_)[a-z]+)*")
     return pattern.fullmatch(plugin_name)
 
+
+  def IsValidRowName(self, row_name: str) -> bool:
+    """Validates the row name.
+
+    Args:
+      row_name (str): the row name
+
+    Returns:
+      bool: true if the row name is valid
+    """
+    pattern = re.compile("[A-Z]+([a-zA-Z])*")
+    return pattern.fullmatch(row_name)
+
   def FileExists(self, path: str) -> bool:
     """Checks if the file exists
 

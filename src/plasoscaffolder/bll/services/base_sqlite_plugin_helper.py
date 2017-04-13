@@ -58,6 +58,17 @@ class BaseSQLitePluginHelper(object):
     """
 
   @abc.abstractmethod
+  def IsValidRowName(self, row_name: str) -> bool:
+    """Validates the row name.
+
+    Args:
+      row_name (str): the row name
+
+    Returns:
+      bool: true if the row name is valid
+    """
+
+  @abc.abstractmethod
   def RunSQLQuery(self, query: str,
                   executor: base_sql_query_execution.BaseSQLQueryExecution):
     """ Validates the sql query
@@ -70,19 +81,4 @@ class BaseSQLitePluginHelper(object):
     Returns:
       base_sql_query_execution.SQLQueryData: data returned by executing the
         query
-    """
-
-  @abc.abstractmethod
-  def GetDistinctColumnsFromSQLQueryData(
-      self,
-      queries: [base_sql_query_execution.SQLQueryData]) -> [str]:
-    """
-    Get a distinct list of all attributes from multiple queries
-
-    Args:
-      queries ([base_sql_query_execution.SQLQueryData]): an array of multiple
-        sql query data objects
-
-    Returns:
-      [str]: a distinct list of all attributes used in the query
     """

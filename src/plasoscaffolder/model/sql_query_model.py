@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """The SQL query model class."""
+from plasoscaffolder.dal import explain_query_plan
 from plasoscaffolder.model import sql_query_column_model
 
 

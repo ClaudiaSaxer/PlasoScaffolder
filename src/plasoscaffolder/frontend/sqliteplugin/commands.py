@@ -24,12 +24,12 @@ Controller = sqlite_controller.SQLiteController(
 @click.command()
 @click.option('--path', prompt='What\'s the path to the plaso project?',
               help='The path to plaso', callback=Controller.SourcePath)
-@click.option('--Name', prompt='What\'s the Name of the plugin?',
-              help='The plugin Name', callback=Controller.PluginName)
+@click.option('--name', prompt='What\'s the name of the plugin?',
+              help='The plugin name', callback=Controller.PluginName)
 @click.option('--testfile', prompt='What\'s the path to your test file?',
               help='The testfile path', callback=Controller.TestPath)
-@click.option('--sql', is_flag=True, default=True,
-              prompt='Do you want to have a output example for your sql Query?',
+@click.option('--sql/--no-sql', default=True,
+              prompt='Do you want to have a output example for your SQL Query?',
               help='The output example flag for the SQL Query for the plugin.',
               callback=Controller.SQLQuery)
 def sqlite(path, name, testfile, sql):
