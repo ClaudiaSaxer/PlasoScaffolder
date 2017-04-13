@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#fyi: those methods are copied from plaso
 """Functionality to check for the availability and version of dependencies."""
 
 from __future__ import print_function

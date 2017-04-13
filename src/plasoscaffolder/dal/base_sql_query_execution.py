@@ -4,9 +4,6 @@
 """the SQLite Query validator"""
 import abc
 
-from build.lib.plasoscaffolder.dal import base_sql_query_execution
-
-
 class SQLQueryData(object):
   """The Data to the executed query.
 
@@ -30,8 +27,8 @@ class BaseSQLQueryExecution(object):
 
   @abc.abstractmethod
   def executeQuery(self, query: str,
-                   detailed: bool=True
-                   ) -> base_sql_query_execution.SQLQueryData:
+                   detailed: bool = True
+                   ):
     """Executes the SQL Query.
 
     Args:
