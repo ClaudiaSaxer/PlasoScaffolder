@@ -2,21 +2,22 @@
 """A SQLite Generator"""
 import os
 
-from plasoscaffolder.bll.mappings import (base_formatter_mapping,
-                                          base_parser_test_mapping,
-                                          base_formatter_test_mapping)
+from plasoscaffolder.bll.mappings import base_formatter_mapping
+from plasoscaffolder.bll.mappings import base_formatter_test_mapping
 from plasoscaffolder.bll.mappings import base_init_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.bll.mappings import base_parser_mapping
+from plasoscaffolder.bll.mappings import base_parser_test_mapping
 from plasoscaffolder.bll.services import base_sqlite_generator
 from plasoscaffolder.bll.services import base_sqlite_plugin_helper
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.common import base_file_handler
 from plasoscaffolder.common import base_output_handler
 from plasoscaffolder.dal import base_database_information
-from plasoscaffolder.model import (formatter_data_model, parser_test_data_model,
-                                   formatter_test_data_model)
+from plasoscaffolder.model import formatter_data_model
+from plasoscaffolder.model import formatter_test_data_model
 from plasoscaffolder.model import parser_data_model
+from plasoscaffolder.model import parser_test_data_model
 from plasoscaffolder.model import sql_query_model
 
 

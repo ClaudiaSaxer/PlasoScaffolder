@@ -18,7 +18,7 @@ class {{ class_name }}{{ query.Name}}EventData(events.EventData):
 
   TODO: add type and description of attributes
   Attributes:  {% for column in query.Columns %}
-      {{ column.ColumnAsSnakeCase() }} (None): TODO{% endfor %}
+      {{ column.ColumnAsSnakeCase() }} ({{ column.ColumnTypeAsName() }}): TODO{% endfor %}
   """
 
   DATA_TYPE = u'{{ plugin_name|lower|replace('_',':')}}:{{query.Name|lower}}'

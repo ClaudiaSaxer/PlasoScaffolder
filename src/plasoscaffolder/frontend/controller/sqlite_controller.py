@@ -3,6 +3,7 @@
 import os
 
 import click
+
 import plasoscaffolder.model.sql_query_column_model
 from plasoscaffolder.bll.mappings import (formatter_mapping,
                                           parser_test_mapping,
@@ -198,7 +199,8 @@ class SQLiteController(object):
         else:
           self._output_handler.PrintInfo(
               'Your query output could look like this.')
-          self._output_handler.PrintInfo(str(query_data.columns))
+          self._output_handler.PrintInfo(
+           str(list(map(lambda x: x.SQLColumn, query_data.columns))))
           if length < self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE:
             amount = length
           else:

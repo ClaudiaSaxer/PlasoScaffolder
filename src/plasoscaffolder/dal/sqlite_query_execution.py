@@ -6,6 +6,7 @@ import sqlite3
 
 from plasoscaffolder.dal import base_sql_query_execution
 from plasoscaffolder.dal import explain_query_plan
+from plasoscaffolder.model import sql_query_column_model
 
 
 class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
@@ -32,8 +33,8 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       self._connection = sqlite3.connect(self._database_path)
       self._connection.isolation_level = None  # no autocommit mode
       self._explain = explain_query_plan.ExplainQueryPlan(self)
-      #this query failes if is not a database or locked or anything went wrong
-      self._connection.execute('pragma schema_version')
+      # this query failes if is not a database or locked or anything went wrong
+      self._connection.execute('PRAGMA schema_version')
     except sqlite3.Error:
       return False
 
@@ -55,7 +56,16 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
         cursor = self._connection.execute(query)
         query_data.data = cursor.fetchall()
         if cursor.description is not None:
-          query_data.columns = list(map(lambda x: x[0], cursor.description))
+          column_types = list()
+          for y in query_data.data[0]:
+            column_types.append(type(y))
+
+          sql_column = list()
+          for i in range(0, len(cursor.description)):
+            sql_column.append(sql_query_column_model.SQLColumnModel(
+                cursor.description[i][0], column_types[i]))
+
+          query_data.columns = sql_column
         self._connection.execute('ROLLBACK')
     except sqlite3.Error as error:
       query_data.error_message = 'Error: {0}'.format(str(error))
