@@ -91,7 +91,7 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       for i in range(0, len(cursor.description)):
         sql_column.append(sql_query_column_model.SQLColumnModel(
             cursor.description[i][0], column_types[i]))
-      return sql_column
+      return sorted(sql_column, key=lambda column: column.SQLColumn)
     return None
 
   def executeReadOnlyQuery(self, query: str):

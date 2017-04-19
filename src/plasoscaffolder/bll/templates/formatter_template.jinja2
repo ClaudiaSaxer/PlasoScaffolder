@@ -3,9 +3,9 @@
 
 from plaso.formatters import interface
 from plaso.formatters import manager
-from plaso.lib import errors
+from plaso.lib import errors{% for query in queries %}
 
-{% for query in queries %}
+
 class {{ class_name }}{{ query.Name }}Formatter(interface.ConditionalEventFormatter):
   """{{ plugin_name|replace('_',' ')}} {{ query.Name|lower }} event formatter."""
 
@@ -13,15 +13,14 @@ class {{ class_name }}{{ query.Name }}Formatter(interface.ConditionalEventFormat
 
   """Correct Format String Pieces where needed"""
   FORMAT_STRING_PIECES = [
-    {% for column in query.Columns %}u'{{ column.ColumnAsDescription() }}{{ ':{' }}{{ column.ColumnAsSnakeCase() }}{{ '}' }}'{% if not loop.last %},{% endif %}
-    {% endfor %}]
+    {% for column in query.Columns %}u'{{ column.ColumnAsDescription() }}{{ ':{' }}{{ column.ColumnAsSnakeCase() }}{{ '}' }}'{% if not loop.last %},
+    {% endif %}{% endfor %}]
 
   #TODO: add Format String Pieces for the short Format
   FORMAT_STRING_SHORT_PIECES = []
 
   SOURCE_LONG = u'{{ plugin_name|replace('_',' ')|title }} {{ query.Name|title }}'
   SOURCE_SHORT = u'{{ plugin_name|replace('_',' ')|title }}'
-
   {% if query.NeedsCustomizing %}#TODO: Replace constant _REPLACEWITHATTRIBUTENAME with the attribute to customize and add values
   _REPLACEWITHATTRIBUTENAME = {}{% endif %}
 {% if query.NeedsCustomizing %}
@@ -46,7 +45,7 @@ class {{ class_name }}{{ query.Name }}Formatter(interface.ConditionalEventFormat
 
     event_values = event.CopyToDict()
 
-    #TODO replace variable replace_with_attribute_name with the attribute to customize
+    # TODO: replace variable replace_with_attribute_name with the attribute to customize
     replace_with_attribute_name = event_values.get(u'replace_with_attribute_name', None)
     if replace_with_attribute_name is not None:
       event_values[u'replace_with_attribute_name'] = (
@@ -54,7 +53,7 @@ class {{ class_name }}{{ query.Name }}Formatter(interface.ConditionalEventFormat
 
     return self._ConditionalFormatMessages(event_values)
 {% endif %}{% endfor %}
-
 manager.FormattersManager.RegisterFormatter([
-  {% for query in queries %}{{ class_name }}{{ query.Name }}Formatter{% if not loop.last %},{% endif %}
-  {% endfor %}])
+  {% for query in queries %}{{ class_name }}{{ query.Name }}Formatter{% if not loop.last %},
+  {% endif %}{% endfor %}
+])

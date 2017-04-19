@@ -2,7 +2,7 @@
 """Parser for {{ plugin_name|lower|replace('_',' ')}} database.
 
 SQLite database path:
-#TODO: add database path
+# TODO: add database path
 SQLite database Name: {{ database_name }}
 """
 
@@ -18,7 +18,7 @@ class {{ class_name }}{{ query.Name}}EventData(events.EventData):
 
   TODO: add type and description of attributes
   Attributes:  {% for column in query.Columns %}
-      {{ column.ColumnAsSnakeCase() }} ({{ column.ColumnTypeAsName() }}): TODO{% endfor %}
+    {{ column.ColumnAsSnakeCase() }} ({{ column.ColumnTypeAsName() }}): TODO{% endfor %}
   """
 
   DATA_TYPE = u'{{ plugin_name|lower|replace('_',':')}}:{{query.Name|lower}}'
@@ -27,8 +27,7 @@ class {{ class_name }}{{ query.Name}}EventData(events.EventData):
     """Initializes event data."""
     super({{ class_name }}{{ query.Name }}EventData, self).__init__(data_type=self.DATA_TYPE)
     {% for column in query.Columns %}self.{{ column.ColumnAsSnakeCase() }} = None
-    {% endfor %}
-{% endfor %}
+    {% endfor %}{% endfor %}
 
 class {{ class_name }}Plugin(interface.SQLitePlugin):
   """Parser for {{ class_name }}"""
