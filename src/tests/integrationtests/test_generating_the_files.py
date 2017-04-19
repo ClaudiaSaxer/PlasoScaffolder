@@ -1,5 +1,4 @@
 """the integration tests"""
-import filecmp
 import os
 import tempfile
 import unittest
@@ -67,41 +66,48 @@ class GeneratingFilesTestCase(unittest.TestCase):
 
       controller.Generate(path_helper.TemplatePath())
 
-      formatter_init_path = sqlite_path_helper.formatter_init_file_path
-      formatter_path = sqlite_path_helper.formatter_file_path
-      formatter_test_path = sqlite_path_helper.formatter_test_file_path
-      parser_init_path = sqlite_path_helper.parser_init_file_path
-      parser_path = sqlite_path_helper.parser_file_path
-      parser_test_path = sqlite_path_helper.parser_test_file_path
-      database_path = sqlite_path_helper.database_path
-      console_output_path = os.path.join(output_path, 'prompts.txt')
+      formatter_init = self._ReadFromFile(
+          sqlite_path_helper.formatter_init_file_path)
+      formatter = self._ReadFromFile(sqlite_path_helper.formatter_file_path)
+      formatter_test = self._ReadFromFile(
+          sqlite_path_helper.formatter_test_file_path)
+      parser_init = self._ReadFromFile(
+          sqlite_path_helper.parser_init_file_path)
+      parser = self._ReadFromFile(sqlite_path_helper.parser_file_path)
+      parser_test = self._ReadFromFile(sqlite_path_helper.parser_test_file_path)
+      console_output = self._ReadFromFile(
+          os.path.join(output_path, 'prompts.txt'))
 
-      expected_formatter_init_path = os.path.join(
-          expected_path, 'formatters_init.py')
-      expected_formatter_path = os.path.join(expected_path, 'formatters.py')
-      expected_formatter_test_path = os.path.join(
-          expected_path, 'formatters_test.py')
-      expected_parser_init_path = os.path.join(expected_path, 'parsers_init.py')
-      expected_parser_path = os.path.join(expected_path, 'parsers.py')
-      expected_parser_test_path = os.path.join(expected_path, 'parsers_test.py')
-      expected_database_path = os.path.join(expected_path, 'test_file.db')
+      expected_formatter_init = self._ReadFromFile(os.path.join(
+          expected_path, 'formatters_init.py'))
+      expected_formatter = self._ReadFromFile(
+          os.path.join(expected_path, 'formatters.py'))
+      expected_formatter_test = self._ReadFromFile(os.path.join(
+          expected_path, 'formatters_test.py'))
+      expected_parser_init = self._ReadFromFile(
+          os.path.join(expected_path, 'parsers_init.py'))
+      expected_parser = self._ReadFromFile(
+          os.path.join(expected_path, 'parsers.py'))
+      expected_parser_test = self._ReadFromFile(
+          os.path.join(expected_path, 'parsers_test.py'))
       expected_console_output = (
         'Do you want to Generate the files?create {0}create {1}create {2}create'
         ' {3}copy {4}create {5}create {6}'.format(
-            formatter_path, parser_path, formatter_test_path, parser_test_path,
-            database_path, parser_init_path, formatter_init_path))
+            sqlite_path_helper.formatter_file_path,
+            sqlite_path_helper.parser_file_path,
+            sqlite_path_helper.formatter_test_file_path,
+            sqlite_path_helper.parser_test_file_path,
+            sqlite_path_helper.database_path,
+            sqlite_path_helper.parser_init_file_path,
+            sqlite_path_helper.formatter_init_file_path))
 
-      self.assertTrue(
-          filecmp.cmp(formatter_init_path, expected_formatter_init_path))
-      self.assertTrue(filecmp.cmp(formatter_path, expected_formatter_path))
-      self.assertTrue(
-          filecmp.cmp(formatter_test_path, expected_formatter_test_path))
-      self.assertTrue(filecmp.cmp(parser_init_path, expected_parser_init_path))
-      self.assertTrue(filecmp.cmp(parser_path, expected_parser_path))
-      self.assertTrue(filecmp.cmp(parser_test_path, expected_parser_test_path))
-      self.assertTrue(filecmp.cmp(database_path, expected_database_path))
-      self.assertEqual(self._ReadFromFile(console_output_path),
-                       expected_console_output)
+      self.assertEqual(formatter_init, expected_formatter_init)
+      self.assertEqual(formatter, expected_formatter)
+      self.assertEqual(formatter_test, expected_formatter_test)
+      self.assertEqual(parser_init, expected_parser_init)
+      self.assertEqual(parser, expected_parser)
+      self.assertEqual(parser_test, expected_parser_test)
+      self.assertEqual(console_output, expected_console_output)
 
   def _ReadFromFile(self, path: str):
     """read from file helper"""
