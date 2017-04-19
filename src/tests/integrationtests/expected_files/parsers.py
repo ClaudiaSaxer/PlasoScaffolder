@@ -112,9 +112,9 @@ class ThePluginStatusesEventData(events.EventData):
     full_text_length (int): TODO
     geotag (NoneType): TODO
     id (int): TODO
+    include_in_profile_timeline (int): TODO
     in_reply_to_status_id (NoneType): TODO
     in_reply_to_username (NoneType): TODO
-    include_in_profile_timeline (int): TODO
     is_lifeline_alert (int): TODO
     is_possibly_sensitive_appealable (int): TODO
     is_truncated (int): TODO
@@ -150,9 +150,9 @@ class ThePluginStatusesEventData(events.EventData):
     self.full_text_length = None
     self.geotag = None
     self.id = None
+    self.include_in_profile_timeline = None
     self.in_reply_to_status_id = None
     self.in_reply_to_username = None
-    self.include_in_profile_timeline = None
     self.is_lifeline_alert = None
     self.is_possibly_sensitive_appealable = None
     self.is_truncated = None
@@ -277,9 +277,9 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data.full_text_length = row['fullTextLength']
     event_data.geotag = row['geotag']
     event_data.id = row['id']
+    event_data.include_in_profile_timeline = row['includeInProfileTimeline']
     event_data.in_reply_to_status_id = row['inReplyToStatusId']
     event_data.in_reply_to_username = row['inReplyToUsername']
-    event_data.include_in_profile_timeline = row['includeInProfileTimeline']
     event_data.is_lifeline_alert = row['isLifelineAlert']
     event_data.is_possibly_sensitive_appealable = row['isPossiblySensitiveAppealable']
     event_data.is_truncated = row['isTruncated']

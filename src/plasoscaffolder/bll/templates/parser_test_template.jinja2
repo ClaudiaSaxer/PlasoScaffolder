@@ -35,7 +35,7 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
     self.assertEqual(
       test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
 
-    {% for column in query.Columns %}self.assertEqual(test_event.{{ column.ColumnAsSnakeCase()}}, u'todo')
+    {% for column in query.Columns|sort(attribute='SQLColumn',case_sensitive=False)%}self.assertEqual(test_event.{{ column.ColumnAsSnakeCase()}}, u'todo')
     {% endfor %}
     expected_description = (u'todo')
     self.assertEqual(test_event.description, expected_description)

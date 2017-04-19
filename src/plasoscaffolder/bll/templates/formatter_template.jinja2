@@ -13,7 +13,7 @@ class {{ class_name }}{{ query.Name }}Formatter(interface.ConditionalEventFormat
 
   """Correct Format String Pieces where needed"""
   FORMAT_STRING_PIECES = [
-    {% for column in query.Columns %}u'{{ column.ColumnAsDescription() }}{{ ':{' }}{{ column.ColumnAsSnakeCase() }}{{ '}' }}'{% if not loop.last %},
+    {% for column in query.Columns|sort(attribute='SQLColumn') %}u'{{ column.ColumnAsDescription() }}{{ ':{' }}{{ column.ColumnAsSnakeCase() }}{{ '}' }}'{% if not loop.last %},
     {% endif %}{% endfor %}]
 
   #TODO: add Format String Pieces for the short Format

@@ -36,5 +36,6 @@ class FormatterTestMapper(base_formatter_test_mapping.BaseFormatterTestMapper):
     context = {'plugin_name': formatter_test_data.PluginName,
                'class_name': class_name,
                'queries': formatter_test_data.Queries}
-    rendered = self._helper.RenderTemplate(self._FORMATTER_TEST_TEMPLATE, context)
+    rendered = self._helper.RenderTemplate(
+        self._FORMATTER_TEST_TEMPLATE, context)
     return rendered
