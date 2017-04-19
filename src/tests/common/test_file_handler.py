@@ -42,6 +42,17 @@ class FileHandlerTest(unittest.TestCase):
       handler.CreateFile(tmpdir, self.name, self.suffix)
       self.assertTrue(os.path.exists(file_path))
 
+  def testCreateFileIfPathNotExisting(self):
+    """Tests if the creation of a file, none existing beforehand and folder 
+    not existing, works."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      new_path = os.path.join(tmpdir, "temp")
+      handler = file_handler.FileHandler()
+      file_path = os.path.join(new_path, self.file)
+      self.assertFalse(os.path.exists(file_path))
+      handler.CreateFile(new_path, self.name, self.suffix)
+      self.assertTrue(os.path.exists(file_path))
+
   def testCreateFileFromPath(self):
     """Tests if the creation of a file none existing beforhand works."""
     handler = file_handler.FileHandler()
@@ -98,6 +109,46 @@ class FileHandlerTest(unittest.TestCase):
       handler = file_handler.FileHandler()
       self.assertFalse(os.path.exists(source))
       handler.AddContent(source, content)
+      self.assertTrue(os.path.exists(source))
+
+      with open(source, "r") as f:
+        actual = f.read()
+
+    self.assertEqual(expected, actual)
+
+  def testCreateOrModifyFileWithContentIfFileExists(self):
+    """Tests if the method create or modify file with content works, if the 
+    file exists"""
+    content = "this is test content. "
+    expected = content + content
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+      source = os.path.join(tmpdir, self.file)
+      with open(source, "a") as f:
+        f.write(content)
+
+      handler = file_handler.FileHandler()
+      self.assertTrue(os.path.exists(source))
+      handler.CreateOrModifyFileWithContent(source, content)
+      self.assertTrue(os.path.exists(source))
+
+      with open(source, "r") as f:
+        actual = f.read()
+
+    self.assertEqual(expected, actual)
+
+  def testAddContentIfFileDoesNotExist(self):
+    """Tests if the method create or modify file with content works, if the 
+    file and Folder does not exist"""
+    content = "this is test content. "
+    expected = content
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+      new_path = os.path.join(tmpdir, "newfolder")
+      source = os.path.join(new_path, self.file)
+      handler = file_handler.FileHandler()
+      self.assertFalse(os.path.exists(source))
+      handler.CreateOrModifyFileWithContent(source, content)
       self.assertTrue(os.path.exists(source))
 
       with open(source, "r") as f:
