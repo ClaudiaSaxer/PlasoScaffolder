@@ -66,10 +66,10 @@ class SQLiteGeneratorTest(unittest.TestCase):
   def testPrintCreate(self):
     """test the print for a create"""
     with tempfile.TemporaryDirectory() as tmpdir:
-      fake_path_helper = \
+      fake_path_helper = (
         fake_sqlite_plugin_path_helper.FakeSQLitePluginPathHelper(
             self.template_path, 'test',
-            'db')
+            'db'))
       path = os.path.join(tmpdir, 'testfile')
       generator = sqlite_generator.SQLiteGenerator(
           tmpdir, 'test', 'test', ['test'],
@@ -94,12 +94,12 @@ class SQLiteGeneratorTest(unittest.TestCase):
     formatter_test_mapper = fake_formatter_test_mapping.FakeFormatterTestMapper(
         mapping_helper)
     fake_database_information = (
-        fake_sqlite_database_information.FakeSQLiteDatabaseInformation([]))
+      fake_sqlite_database_information.FakeSQLiteDatabaseInformation([]))
 
     with tempfile.TemporaryDirectory() as tmpdir:
       fake_path_helper = (
-          fake_sqlite_plugin_path_helper.FakeSQLitePluginPathHelper(
-              self.template_path, 'test', 'db'))
+        fake_sqlite_plugin_path_helper.FakeSQLitePluginPathHelper(
+            self.template_path, 'test', 'db'))
       path = os.path.join(tmpdir, 'testfile')
 
       generator = sqlite_generator.SQLiteGenerator(
@@ -113,6 +113,47 @@ class SQLiteGeneratorTest(unittest.TestCase):
           fake_database_information)
       expected = ('create testcreate testcreate testcreate testcopy testcreate '
                   'testcreate test')
+      actual = self._ReadFromFile(path)
+    self.assertEqual(expected, actual)
+
+  def testGenerateSQLitePluginWithExistingInit(self):
+    """test the output of a generation of a sqlite plugin"""
+    fake_handler = fake_file_handler.FakeFileHandler()
+    mapping_helper = fake_mapping_helper.FakeMappingHelper(self.template_path)
+    init_mapper = fake_init_mapping.FakeInitMapper(mapping_helper)
+    parser_mapper = fake_parser_mapping.FakeParserMapper(mapping_helper)
+    formatter_mapper = fake_formatter_mapping.FakeFormatterMapper(
+        mapping_helper)
+    parser_test_mapper = fake_parser_test_mapping.FakeParserTestMapper(
+        mapping_helper)
+    formatter_test_mapper = (
+      fake_formatter_test_mapping.FakeFormatterTestMapper(
+          mapping_helper))
+    fake_database_information = (
+      fake_sqlite_database_information.FakeSQLiteDatabaseInformation([]))
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+      fake_path_helper = (
+        fake_sqlite_plugin_path_helper.FakeSQLitePluginPathHelper(
+            self.template_path, 'test', 'db'))
+      path = os.path.join(tmpdir, 'testfile')
+
+      generator = sqlite_generator.SQLiteGenerator(
+          tmpdir, 'test', 'test', [],
+          output_handler_file.OutputHandlerFile(
+              path, file_handler.FileHandler()),
+          self.plugin_helper, fake_path_helper)
+
+      generator.init_formatter_exists = True
+      generator.init_parser_exists = True
+
+      generator.GenerateSQLitePlugin(
+          tmpdir, fake_handler, init_mapper, parser_mapper, formatter_mapper,
+          parser_test_mapper, formatter_test_mapper, mapping_helper,
+          fake_database_information)
+      expected = (
+        'create testcreate testcreate testcreate testcopy testedit '
+        'testedit test')
       actual = self._ReadFromFile(path)
     self.assertEqual(expected, actual)
 
