@@ -50,7 +50,7 @@ class {{ class_name }}{{ query.Name }}Formatter(interface.ConditionalEventFormat
     replace_with_attribute_name = event_values.get(u'replace_with_attribute_name', None)
     if replace_with_attribute_name is not None:
       event_values[u'replace_with_attribute_name'] = (
-          self._REPLACEWITHATTRIBUTENAME.get(replace_with_attribute_namw, u'UNKNOWN'))
+          self._REPLACEWITHATTRIBUTENAME.get(replace_with_attribute_name, u'UNKNOWN'))
 
     return self._ConditionalFormatMessages(event_values)
 {% endif %}{% endfor %}

@@ -17,7 +17,8 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       prompt_info="",
       prompt_error="",
       confirm=True,
-      confirm_amount_same=100):
+      confirm_amount_same=100,
+      print_to_file = True):
     """Initializes File Output Handler.
 
     Args:

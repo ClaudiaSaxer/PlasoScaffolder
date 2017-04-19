@@ -9,6 +9,7 @@ from plaso.parsers.sqlite_plugins import {{ plugin_name }}
 from tests import test_lib as shared_test_lib
 from tests.parsers.sqlite_plugins import test_lib
 
+
 class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
   """Tests for {{ plugin_name|replace('_',' ')}} database plugin."""
 
@@ -19,9 +20,9 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
     storage_writer = self._ParseDatabaseFileWithPlugin(
         [u'{{ database_name }}'], plugin_object)
 
-   # We should have {{ todo_count_events }} events in total.
-     {% for query in queries %}#  - x {{ query.Name }} events.
-     {% endfor %}
+    # We should have {{ todo_count_events }} events in total.
+    {% for query in queries %}# - x {{ query.Name }} events.
+    {% endfor %}
     self.assertEqual({{ todo_count_events }}, len(storage_writer.events))
 
 {% for query in queries %}

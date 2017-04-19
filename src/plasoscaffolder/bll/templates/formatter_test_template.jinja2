@@ -10,9 +10,9 @@ from tests.formatters import test_lib
 class {{ class_name }}{{ query.Name }}FormatterTest(test_lib.EventFormatterTestCase):
   """Tests the T{{ plugin_name|replace('_',' ')|title}} {{ query.Name|lower }} event formatter."""
 
- def testInitialization(self):
+  def testInitialization(self):
     """Tests the initialization."""
-    event_formatter = twitter_ios.{{ class_name }}{{ query.Name }}Formatter()
+    event_formatter = {{ plugin_name }}.{{ class_name }}{{ query.Name }}Formatter()
     self.assertIsNotNone(event_formatter)
 
   def testGetFormatStringAttributeNames(self):
