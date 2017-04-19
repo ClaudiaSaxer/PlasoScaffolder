@@ -99,6 +99,204 @@ class SQLiteControllerTest(unittest.TestCase):
 
       expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
 
+      self.assertEqual(actual.Name, '')
+      self.assertEqual(expected.Query, actual.Query)
+      self.assertEqual(prompt_output_expected, prompt_output_actual)
+
+  def testCreateSQLQueryModelWithUserInputWithExamplesAndFourDataExamples(self):
+    """test method CreateEventModelWithUserInput with examples"""
+
+    fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
+        base_sql_query_execution.SQLQueryData(
+            has_error=False, data=['first', 'second', 'third', 'fourth'],
+            columns=[type('Columns', (object,), {'SQLColumn': 'id'}),
+                     type('Columns', (object,), {'SQLColumn': 'name'})])
+    )
+    sql_query = 'SELECT id from Users'
+    name = 'Contact'
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(),
+          confirm=True, prompt_info=name)
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+          folder_exists=True)
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+      actual = controller._CreateSQLQueryModelWithUserInput(sql_query, True,
+                                                            fake_execution)
+      prompt_output_actual = self._ReadFromFile(path)
+      prompt_output_expected = ('Your query output could look like this.'
+                                '[\'id\', \'name\']'
+                                'first'
+                                'second'
+                                'third'
+                                'Do you want to add this query?'
+                                'Do you want to name the query parse row:  ?'
+                                'Does the event  need customizing?')
+
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
+
+      self.assertEqual(actual.Name, '')
+      self.assertEqual(expected.Query, actual.Query)
+      print(prompt_output_actual)
+      self.assertEqual(prompt_output_expected, prompt_output_actual)
+
+  def testCreateSQLQueryModelWithUserInputWithExamplesAndTwoDataExamples(self):
+    """test method CreateEventModelWithUserInput with examples"""
+
+    fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
+        base_sql_query_execution.SQLQueryData(
+            has_error=False, data=['first', 'second'],
+            columns=[type('Columns', (object,), {'SQLColumn': 'id'}),
+                     type('Columns', (object,), {'SQLColumn': 'name'})])
+    )
+    sql_query = 'SELECT id from Users'
+    name = 'Contact'
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(),
+          confirm=True, prompt_info=name)
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+          folder_exists=True)
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+      actual = controller._CreateSQLQueryModelWithUserInput(sql_query, True,
+                                                            fake_execution)
+      prompt_output_actual = self._ReadFromFile(path)
+      prompt_output_expected = ('Your query output could look like this.'
+                                '[\'id\', \'name\']'
+                                'first'
+                                'second'
+                                'Do you want to add this query?'
+                                'Do you want to name the query parse row:  ?'
+                                'Does the event  need customizing?')
+
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
+
+      self.assertEqual(actual.Name, '')
+      self.assertEqual(expected.Query, actual.Query)
+      print(prompt_output_actual)
+      self.assertEqual(prompt_output_expected, prompt_output_actual)
+
+  def testCreateSQLQueryModelWithUserInputWithExamplesAndOneDataExamples(self):
+    """test method CreateEventModelWithUserInput with examples"""
+
+    fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
+        base_sql_query_execution.SQLQueryData(
+            has_error=False, data=['first'],
+            columns=[type('Columns', (object,), {'SQLColumn': 'id'}),
+                     type('Columns', (object,), {'SQLColumn': 'name'})])
+    )
+    sql_query = 'SELECT id from Users'
+    name = 'Contact'
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(),
+          confirm=True, prompt_info=name)
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+          folder_exists=True)
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+      actual = controller._CreateSQLQueryModelWithUserInput(sql_query, True,
+                                                            fake_execution)
+      prompt_output_actual = self._ReadFromFile(path)
+      prompt_output_expected = ('Your query output could look like this.'
+                                '[\'id\', \'name\']'
+                                'first'
+                                'Do you want to add this query?'
+                                'Do you want to name the query parse row:  ?'
+                                'Does the event  need customizing?')
+
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
+
+      self.assertEqual(actual.Name, '')
+      self.assertEqual(expected.Query, actual.Query)
+      print(prompt_output_actual)
+      self.assertEqual(prompt_output_expected, prompt_output_actual)
+
+  def testCreateSQLQueryModelWithUserInputWithExamplesAndNewRowNameWithValidationError(
+      self):
+    """test method CreateEventModelWithUserInput with examples"""
+
+    fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
+        base_sql_query_execution.SQLQueryData(
+            has_error=False, data=['first'],
+            columns=[type('Columns', (object,), {'SQLColumn': 'id'}),
+                     type('Columns', (object,), {'SQLColumn': 'name'})])
+    )
+    sql_query = 'SELECT id from Users'
+    name = 'Contact'
+    name2 = 'TheCorrectContanctName'
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(),
+          confirm=True, confirm_amount_same=1, prompt_info=name,
+          prompt_error=name2)
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+          folder_exists=True, valid_row_name=False,
+          change_bool_after_every_call_valid_row_name=True)
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+      actual = controller._CreateSQLQueryModelWithUserInput(sql_query, True,
+                                                            fake_execution)
+      prompt_output_actual = self._ReadFromFile(path)
+      prompt_output_expected = ('Your query output could look like this.'
+                                '[\'id\', \'name\']'
+                                'first'
+                                'Do you want to add this query?'
+                                'Do you want to name the query parse row:  ?'
+                                'What row does the SQL Query parse?'
+                                'Row name is not in a valid format. Choose '
+                                'new Name [RowName...]'
+                                'Does the event TheCorrectContanctName need '
+                                'customizing?')
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
+      self.assertEqual(actual.Name, name2)
+      self.assertEqual(expected.Query, actual.Query)
+      self.assertEqual(prompt_output_expected, prompt_output_actual)
+
+  def testCreateSQLQueryModelWithUserInputWithExamplesAndNoDataFromQuery(self):
+    """test method CreateEventModelWithUserInput with examples"""
+
+    fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
+        base_sql_query_execution.SQLQueryData(has_error=False, data=[])
+    )
+    sql_query = 'SELECT id from Users'
+    name = 'Contact'
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(),
+          confirm=True, prompt_info=name)
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+          folder_exists=True)
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+      actual = controller._CreateSQLQueryModelWithUserInput(sql_query, True,
+                                                            fake_execution)
+      prompt_output_actual = self._ReadFromFile(path)
+      prompt_output_expected = ('Your query does not return anything.'
+                                'Do you want to add this query?'
+                                'Do you want to name the query parse row:  ?'
+                                'Does the event  need customizing?'
+                                )
+
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
 
       self.assertEqual(actual.Name, '')
       self.assertEqual(expected.Query, actual.Query)
@@ -163,7 +361,7 @@ class SQLiteControllerTest(unittest.TestCase):
       pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(), confirm=True, confirm_amount_same=3)
+          path, file_handler.FileHandler(), confirm=True, confirm_amount_same=2)
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper()
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
@@ -358,6 +556,20 @@ class SQLiteControllerTest(unittest.TestCase):
         controller.Generate('not used')
 
         self.assertFalse(template_path)
+
+  def testIsDatabaseFolderIfTrue(self):
+    """test the function isDatabase if the file is a database"""
+    controller = sqlite_controller.SQLiteController(None, None)
+    actual = controller._IsDatabaseFile(
+        os.path.join(path_helper.TestDatabasePath(), 'twitter_ios.db'))
+    self.assertTrue(actual)
+
+  def testIsDatabaseFolderIfFalse(self):
+    """test the function isDatabase if the file is not a database"""
+    controller = sqlite_controller.SQLiteController(None, None)
+    actual = controller._IsDatabaseFile(
+        os.path.join(path_helper.TestDatabasePath(), 'twitter_ios_error.db'))
+    self.assertFalse(actual)
 
   def _ReadFromFile(self, path: str):
     """Read from file

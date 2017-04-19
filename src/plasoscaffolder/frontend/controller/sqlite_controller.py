@@ -206,6 +206,7 @@ class SQLiteController(object):
             amount = self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE
           for i in range(0, amount):
             self._output_handler.PrintInfo(str(query_data.data[i]))
+
         add_query = self._output_handler.Confirm(
             'Do you want to add this query?',
             abort=False, default=True)
@@ -218,8 +219,10 @@ class SQLiteController(object):
           query_execution).getLockedTables(query)).capitalize()
       question_parse = 'Do you want to name the query parse row: {0} ?'.format(
           name)
-      if not self._output_handler.Confirm(
-          text=question_parse, default=True, abort=False):
+      add_recommended_name = self._output_handler.Confirm(
+          question_parse, abort=False, default=True)
+
+      if not add_recommended_name:
         question_event = 'What row does the SQL Query parse?'
         initial_name = self._output_handler.PromptInfo(question_event)
         name = self._ValidateRowName(initial_name)
