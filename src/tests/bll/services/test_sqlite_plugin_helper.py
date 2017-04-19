@@ -158,6 +158,29 @@ class SQLitePluginHelperTest(unittest.TestCase):
     expected = ['first']
     self.assertEqual(actual, expected)
 
+  def testIsValidRowNameShort(self):
+    """test the row name for its validity"""
+    helper = sqlite_plugin_helper.SQLitePluginHelper()
+    actual = helper.IsValidRowName('Short')
+    self.assertTrue(actual)
+
+  def testIsValidRowNameLong(self):
+    """test the row name for its validity"""
+    helper = sqlite_plugin_helper.SQLitePluginHelper()
+    actual = helper.IsValidRowName('ThisIsALongRowName')
+    self.assertTrue(actual)
+
+  def testIsValidRowNameWithErrorLowerCase(self):
+    """test the row name for its validity"""
+    helper = sqlite_plugin_helper.SQLitePluginHelper()
+    actual = helper.IsValidRowName('wrong')
+    self.assertFalse(actual)
+
+  def testIsValidRowNameWithErrorNumber(self):
+    """test the row name for its validity"""
+    helper = sqlite_plugin_helper.SQLitePluginHelper()
+    actual = helper.IsValidRowName('Row12')
+    self.assertFalse(actual)
 
 if __name__ == '__main__':
   unittest.main()
