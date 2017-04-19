@@ -115,7 +115,7 @@ class SQLiteController(object):
         value = self._output_handler.PromptError(
             'File does not exists. Choose another.')
       if not self._IsDatabaseFile(value):
-        value = self._output_handler.PrintError(
+        value = self._output_handler.PromptError(
             'Unable to open the database file. Choose another.')
       else:
         no_database_file = False
