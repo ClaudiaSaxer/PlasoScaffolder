@@ -9,7 +9,7 @@ from plasoscaffolder.frontend.sqliteplugin import commands
 class SqliteCommandsTest(unittest.TestCase):
   """testing the sqlite commands"""
 
-  def test_SqliteHelp(self):
+  def testSqliteHelp(self):
     """testing the help argument"""
     runner = CliRunner()
     result = runner.invoke(commands.sqlite, ['--help'])

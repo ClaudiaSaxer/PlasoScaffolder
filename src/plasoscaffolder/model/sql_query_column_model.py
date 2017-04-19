@@ -49,9 +49,7 @@ class SQLColumnModel(object):
     Returns:
       str: the column name from the SQL in snake case
     """
-    pattern = re.compile("[a-zA-Z]*")
-
-    if pattern.match(self._sql_column):
+    if  re.fullmatch("[a-zA-Z]*", self._sql_column) :
       substitudeFirstPart = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', self._sql_column)
       substitudeSecondPart = re.sub(
           '([a-z0-9])([A-Z])', r'\1_\2', substitudeFirstPart).lower()

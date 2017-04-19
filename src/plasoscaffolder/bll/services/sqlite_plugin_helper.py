@@ -18,6 +18,8 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
   def __init__(self):
     """Initializes the SQLite plugin helper"""
     super().__init__()
+    self._plugin_name_pattern = re.compile("[a-z]+((_)[a-z]+)*")
+    self._row_name_pattern = re.compile("[A-Z]+([a-zA-Z])*")
 
   def PluginExists(
       self,
@@ -55,8 +57,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     Returns:
       bool: true if the plugin Name is valid
     """
-    pattern = re.compile("[a-z]+((_)[a-z]+)*")
-    return pattern.fullmatch(plugin_name)
+    return self._plugin_name_pattern.fullmatch(plugin_name)
 
 
   def IsValidRowName(self, row_name: str) -> bool:
@@ -68,8 +69,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     Returns:
       bool: true if the row name is valid
     """
-    pattern = re.compile("[A-Z]+([a-zA-Z])*")
-    return pattern.fullmatch(row_name)
+    return self._row_name_pattern.fullmatch(row_name)
 
   def FileExists(self, path: str) -> bool:
     """Checks if the file exists
