@@ -8,9 +8,10 @@ if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build
 )
 set SOURCEDIR=.
-set BUILDDIR=.build
+set BUILDDIR=..\docs
 set SPHINXPROJ=PlasoSqlitePluginScaffolder
 
+if "%1" == "onlyhtml" goto onlyhtml
 if "%1" == "" goto help
 
 %SPHINXBUILD% >NUL 2>NUL
@@ -31,6 +32,16 @@ goto end
 
 :help
 %SPHINXBUILD% -M help %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
+
+:onlyhtml
+%SPHINXBUILD% -M  html %SOURCEDIR% %BUILDDIR%
+xcopy %BUILDDIR%\html\*.* %BUILDDIR% /A /E /K /H
+rmdir /s /q %BUILDDIR%\doctrees
+rmdir /s /q %BUILDDIR%\html
+
+
+
+
 
 :end
 popd
