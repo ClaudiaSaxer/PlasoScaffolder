@@ -187,7 +187,6 @@ class SQLiteController(object):
     query_data = self._plugin_helper.RunSQLQuery(query, query_execution)
 
     if query_data.has_error:
-      self._output_handler.PrintError('The SQLQuery has an Error.')
       self._output_handler.PrintError(str(query_data.error_message))
       return None
 
@@ -198,7 +197,7 @@ class SQLiteController(object):
           self._output_handler.PrintInfo('Your query does not return anything.')
         else:
           self._output_handler.PrintInfo(
-              'Your Query output could look like this.')
+              'Your query output could look like this.')
           self._output_handler.PrintInfo(str(query_data.columns))
           if length < self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE:
             amount = length
@@ -207,12 +206,14 @@ class SQLiteController(object):
           for i in range(0, amount):
             self._output_handler.PrintInfo(str(query_data.data[i]))
         add_query = self._output_handler.Confirm(
-            'Do you want to add this Query?',
+            'Do you want to add this query?',
             abort=False, default=True)
         if not add_query:
           return None
+      else:
+        self._output_handler.PrintError('The SQL query was ok.')
 
-      message = 'What kind of row does the SQL Query parse?'
+      message = 'What kind of row does the SQL query parse?'
       name = self._output_handler.PromptInfo(text=message)
 
       message = 'Does the event {0} need customizing?'.format(name)
@@ -224,7 +225,6 @@ class SQLiteController(object):
       for column in query_data.columns:
         columns.append(
             plasoscaffolder.model.sql_query_column_model.SQLColumnModel(column))
-      print("needs_customizing "+str(needs_customizing))
     return sql_query_model.SQLQueryModel(
         query, name.title(), columns, needs_customizing)
 

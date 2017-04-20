@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Information for the SQLite Database"""
-from plasoscaffolder.dal import base_database_information
+from plasoscaffolder.dal import (base_database_information)
 from plasoscaffolder.dal import base_sql_query_execution
 
 
