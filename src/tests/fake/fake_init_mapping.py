@@ -7,8 +7,7 @@ from plasoscaffolder.bll.mappings import base_mapping_helper
 class FakeInitMapper(base_init_mapping.BaseInitMapper):
   """class representing the init mapper"""
 
-  def __init__(self, template_path: str,
-               mapping_helper: base_mapping_helper.BaseMappingHelper):
+  def __init__(self, mapping_helper: base_mapping_helper.BaseMappingHelper):
     pass
 
   def GetFormatterInitCreate(self, plugin_name: str) -> str:

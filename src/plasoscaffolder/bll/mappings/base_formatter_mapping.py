@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Module representing function for the different files. """
+""" Base class for mapper of formatter. """
 import abc
 
 from plasoscaffolder.model import formatter_data_model

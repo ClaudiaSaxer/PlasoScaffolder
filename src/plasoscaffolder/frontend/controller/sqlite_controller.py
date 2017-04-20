@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """File representing the Controller for SQLite plugin."""
 import os
-import sqlite3
 
 import click
-import plasoscaffolder.model.sql_query_column_model
 from plasoscaffolder.bll.mappings import formatter_mapping
+from plasoscaffolder.bll.mappings import formatter_test_mapping
 from plasoscaffolder.bll.mappings import init_mapping
 from plasoscaffolder.bll.mappings import mapping_helper
 from plasoscaffolder.bll.mappings import parser_mapping
+from plasoscaffolder.bll.mappings import parser_test_mapping
 from plasoscaffolder.bll.services import base_sqlite_plugin_helper
 from plasoscaffolder.bll.services import sqlite_generator
 from plasoscaffolder.bll.services import sqlite_plugin_helper
@@ -16,6 +16,7 @@ from plasoscaffolder.bll.services import sqlite_plugin_path_helper
 from plasoscaffolder.common import base_output_handler
 from plasoscaffolder.common import file_handler
 from plasoscaffolder.dal import base_sql_query_execution
+from plasoscaffolder.dal import explain_query_plan
 from plasoscaffolder.dal import sqlite_database_information
 from plasoscaffolder.dal import sqlite_query_execution
 from plasoscaffolder.model import sql_query_model
@@ -114,7 +115,7 @@ class SQLiteController(object):
         value = self._output_handler.PromptError(
             'File does not exists. Choose another.')
       if not self._IsDatabaseFile(value):
-        value = self._output_handler.PrintError(
+        value = self._output_handler.PromptError(
             'Unable to open the database file. Choose another.')
       else:
         no_database_file = False
@@ -130,25 +131,24 @@ class SQLiteController(object):
 
     Returns:
       bool: if the file can be opened and is a database file"""
-    try:
-      execution = sqlite_query_execution.SQLQueryExecution(path)
-    except sqlite3.OperationalError:  # pylint: disable=no-member
-      return False
-    self._query_execution = execution
-    return True
+    execution = sqlite_query_execution.SQLQueryExecution(path)
+    if execution.tryToConnect():
+      self._query_execution = execution
+      return True
+    return False
 
   def SQLQuery(self, unused_ctx: click.core.Context,
                unused_param: click.core.Option,
                value: str) -> str:
     """The SQL Query of the plugin
-
+  
     Args:
       unused_ctx (click.core.Context): the click context (automatically given
         via callback)
       unused_param (click.core.Option): the click command (automatically
         given via callback)
       value (str): the SQL Query (automatically given via callback)
-
+  
     Returns:
       str: the SQL Query
     """
@@ -176,11 +176,11 @@ class SQLiteController(object):
       query_execution: base_sql_query_execution.BaseSQLQueryExecution()
   ) -> sql_query_model.SQLQueryModel:
     """Asks the user information about the SQL Query
-
+  
     Args:
       query (str): the SQL Query
       with_examples (bool): if the user wants examples for the given Query
-
+  
     Returns:
       sql_query_model.SQLQueryModel: a SQL Query model
     """
@@ -198,13 +198,15 @@ class SQLiteController(object):
         else:
           self._output_handler.PrintInfo(
               'Your query output could look like this.')
-          self._output_handler.PrintInfo(str(query_data.columns))
+          self._output_handler.PrintInfo(
+              str(list(map(lambda x: x.SQLColumn, query_data.columns))))
           if length < self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE:
             amount = length
           else:
             amount = self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE
           for i in range(0, amount):
             self._output_handler.PrintInfo(str(query_data.data[i]))
+
         add_query = self._output_handler.Confirm(
             'Do you want to add this query?',
             abort=False, default=True)
@@ -213,24 +215,28 @@ class SQLiteController(object):
       else:
         self._output_handler.PrintError('The SQL query was ok.')
 
-      message = 'What kind of row does the SQL query parse?'
-      name = self._output_handler.PromptInfo(text=message)
+      name = ''.join(explain_query_plan.ExplainQueryPlan(
+          query_execution).getLockedTables(query)).capitalize()
+      question_parse = 'Do you want to name the query parse row: {0} ?'.format(
+          name)
+      add_recommended_name = self._output_handler.Confirm(
+          question_parse, abort=False, default=True)
+
+      if not add_recommended_name:
+        question_event = 'What row does the SQL Query parse?'
+        initial_name = self._output_handler.PromptInfo(question_event)
+        name = self._ValidateRowName(initial_name)
 
       message = 'Does the event {0} need customizing?'.format(name)
       needs_customizing = self._output_handler.Confirm(
           text=message, abort=False, default=False)
 
-      columns = list()
-
-      for column in query_data.columns:
-        columns.append(
-            plasoscaffolder.model.sql_query_column_model.SQLColumnModel(column))
     return sql_query_model.SQLQueryModel(
-        query, name.title(), columns, needs_customizing)
+        query.strip(), name, query_data.columns, needs_customizing)
 
   def Generate(self, template_path: str):
     """Generating the files.
-
+  
     Args:
       template_path (str): the path to the template directory
     """
@@ -254,21 +260,37 @@ class SQLiteController(object):
         init_mapping.InitMapper(helper),
         parser_mapping.ParserMapper(helper),
         formatter_mapping.FormatterMapper(helper),
+        parser_test_mapping.ParserTestMapper(helper),
+        formatter_test_mapping.FormatterTestMapper(helper),
         mapping_helper.MappingHelper(template_path),
         sqlite_database_information.SQLiteDatabaseInformation(
             self._query_execution))
 
   def _ValidatePluginName(self, plugin_name: str) -> str:
-    """Validate plugin Name and prompt until Name is valid
-
+    """Validate plugin name and prompt until name is valid
+  
     Args:
-      plugin_name: the Name of the plugin
-
+      plugin_name: the name of the plugin
+  
     Returns:
-      str: a valid plugin Name
+      str: a valid plugin name
     """
     while not self._plugin_helper.IsValidPluginName(plugin_name):
       plugin_name = self._output_handler.PromptError(
-          'Plugin is not in a valide format. Choose new Name ['
-          'plugin_name_...]: ')
+          'Plugin is not in a valid format. Choose new Name ['
+          'plugin_name_...]')
     return plugin_name
+
+  def _ValidateRowName(self, row_name: str) -> str:
+    """Validate row name and prompt until name is valid
+
+    Args:
+      plugin_name: the name of the row
+
+    Returns:
+      str: a valid row name
+    """
+    while not self._plugin_helper.IsValidRowName(row_name):
+      row_name = self._output_handler.PromptError(
+          'Row name is not in a valid format. Choose new Name [RowName...]')
+    return row_name

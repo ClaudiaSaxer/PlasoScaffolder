@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Module representing function for the different files. """
+""" Class representing the mapper for the parser file"""
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.bll.mappings import base_parser_mapping
 from plasoscaffolder.model import parser_data_model
@@ -14,7 +14,8 @@ class ParserMapper(base_parser_mapping.BaseParserMapper):
     """Initializing the init mapper class.
 
     Args:
-      template_path (str): the path to the template directory
+      mapping_helper (base_mapping_helper.BaseMappingHelper): the helper class
+        for the mapping
     """
     super().__init__()
     self.__helper = mapping_helper

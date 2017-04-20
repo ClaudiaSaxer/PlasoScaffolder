@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Module representing function for the different files. """
+""" Base Class for mapper for init files. """
 import abc
 
 

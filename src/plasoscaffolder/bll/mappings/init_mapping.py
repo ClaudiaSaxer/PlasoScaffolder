@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Module representing function for the different files. """
+""" Class representing the mapper for the init files."""
 from plasoscaffolder.bll.mappings import base_init_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
 
@@ -16,7 +16,8 @@ class InitMapper(base_init_mapping.BaseInitMapper):
     """Initializing the init mapper class.
 
     Args:
-      template_path (str): the path to the template directory
+      mapping_helper (base_mapping_helper.BaseMappingHelper): the helper class
+        for the mapping
     """
     super().__init__()
     self.__helper = mapping_helper

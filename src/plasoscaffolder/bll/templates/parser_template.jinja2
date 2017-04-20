@@ -2,7 +2,7 @@
 """Parser for {{ plugin_name|lower|replace('_',' ')}} database.
 
 SQLite database path:
-#TODO: add database path
+# TODO: add database path
 SQLite database Name: {{ database_name }}
 """
 
@@ -17,8 +17,8 @@ class {{ class_name }}{{ query.Name}}EventData(events.EventData):
   """{{ plugin_name|replace('_',' ')}} {{query.Name|lower}} event data.
 
   TODO: add type and description of attributes
-  Attributes:  {% for column in query.Columns %}
-      {{ column.ColumnAsSnakeCase() }} (None): TODO{% endfor %}
+  Attributes:  {% for column in query.Columns|sort(attribute='SQLColumn') %}
+    {{ column.ColumnAsSnakeCase() }} ({{ column.ColumnTypeAsName() }}): TODO{% endfor %}
   """
 
   DATA_TYPE = u'{{ plugin_name|lower|replace('_',':')}}:{{query.Name|lower}}'
@@ -26,9 +26,8 @@ class {{ class_name }}{{ query.Name}}EventData(events.EventData):
   def __init__(self):
     """Initializes event data."""
     super({{ class_name }}{{ query.Name }}EventData, self).__init__(data_type=self.DATA_TYPE)
-    {% for column in query.Columns %}self.{{ column.ColumnAsSnakeCase() }} = None
-    {% endfor %}
-{% endfor %}
+    {% for column in query.Columns|sort(attribute='SQLColumn') %}self.{{ column.ColumnAsSnakeCase() }} = None
+    {% endfor %}{% endfor %}
 
 class {{ class_name }}Plugin(interface.SQLitePlugin):
   """Parser for {{ class_name }}"""
@@ -38,7 +37,7 @@ class {{ class_name }}Plugin(interface.SQLitePlugin):
 
   QUERIES = [ {% for query in queries %}
     ((u'{{ query.Query|wordwrap(width=64,wrapstring="'\nu'")|indent(6)}})'),
-     u'{{ query.Name }}'){% if not loop.last %},{% endif %}{% endfor %}]
+     u'Parse{{ query.Name }}Row'){% if not loop.last %},{% endif %}{% endfor %}]
 
   REQUIRED_TABLES = frozenset([
       {% for table in required_tables %}u'{{ table }}'{% if not loop.last %},
@@ -58,7 +57,7 @@ class {{ class_name }}Plugin(interface.SQLitePlugin):
     # will raise "IndexError: Index must be int or string".
 
     event_data = {{ class_name }}{{ query.Name }}EventData()
-    {% for column in query.Columns %}event_data.{{ column.ColumnAsSnakeCase()}} = row['{{ column.SQLColumn}}']
+    {% for column in query.Columns|sort(attribute='SQLColumn') %}event_data.{{ column.ColumnAsSnakeCase()}} = row['{{ column.SQLColumn}}']
     {% endfor %}
     # TODO: add timestamp row to convert
     timestamp = row['TODO']

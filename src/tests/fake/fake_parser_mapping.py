@@ -8,8 +8,7 @@ from plasoscaffolder.model import parser_data_model
 class FakeParserMapper(base_parser_mapping.BaseParserMapper):
   """class representing the fake parser mapper"""
 
-  def __init__(self, template_path: str,
-               mapping_helper: base_mapping_helper.BaseMappingHelper):
+  def __init__(self, mapping_helper: base_mapping_helper.BaseMappingHelper):
     pass
 
   def GetParser(self, parser_data: parser_data_model.ParserDataModel) -> str:

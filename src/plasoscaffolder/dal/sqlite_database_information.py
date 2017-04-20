@@ -25,7 +25,7 @@ class SQLiteDatabaseInformation(
     Returns:
       [str]: the names of the tables"""
     query = "select name from sqlite_master where type='table' order by name"
-    data = self._sql_execution.executeQuery(query)
+    data = self._sql_execution.executeQuery(query, False)
 
     if data.has_error:
       return []

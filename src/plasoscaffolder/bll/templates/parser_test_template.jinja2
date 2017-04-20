@@ -1,0 +1,54 @@
+# -*- coding: utf-8 -*-
+"""Tests for {{ plugin_name|replace('_',' ')}} plugin."""
+import unittest
+
+from plaso.lib import eventdata
+from plaso.lib import timelib
+from plaso.parsers.sqlite_plugins import {{ plugin_name }}
+
+from tests import test_lib as shared_test_lib
+from tests.parsers.sqlite_plugins import test_lib
+
+
+class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
+  """Tests for {{ plugin_name|replace('_',' ')}} database plugin."""
+
+  @shared_test_lib.skipUnlessHasTestFile([u'{{ database_name }}'])
+  def testProcess(self):
+    """Test the Process function on a {{ plugin_name|replace('_',' ')|title}} file."""
+    plugin_object = {{ plugin_name }}.{{ class_name }}Plugin()
+    storage_writer = self._ParseDatabaseFileWithPlugin(
+        [u'{{ database_name }}'], plugin_object)
+
+    # We should have {{ todo_count_events }} events in total.
+    {% for query in queries %}# - x {{ query.Name }} events.
+    {% endfor %}
+    self.assertEqual({{ todo_count_events }}, len(storage_writer.events))
+
+{% for query in queries %}
+    # Test the first {{ query.Name|lower }} todo event.
+    test_event = storage_writer.events[0]
+    expected_timestamp = timelib.Timestamp.CopyFromString(
+        u'todo')
+    self.assertEqual(test_event.timestamp, expected_timestamp)
+
+    self.assertEqual(
+      test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
+
+    {% for column in query.Columns|sort(attribute='SQLColumn',case_sensitive=False)%}self.assertEqual(test_event.{{ column.ColumnAsSnakeCase()}}, u'todo')
+    {% endfor %}
+    expected_description = (u'todo')
+    self.assertEqual(test_event.description, expected_description)
+
+    expected_profile_url = ('todo')
+    self.assertEqual(test_event.profile_url, expected_profile_url)
+
+    expected_message = ('todo')
+    expected_message_short = ('todo')
+
+    self._TestGetMessageStrings(
+        test_event, expected_message, expected_message_short)
+{% endfor %}
+
+if __name__ == '__main__':
+  unittest.main()
