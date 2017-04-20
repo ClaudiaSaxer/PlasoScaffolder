@@ -1,6 +1,0 @@
-plasoscaffolder.egg-info/PKG-INFO
-plasoscaffolder.egg-info/SOURCES.txt
-plasoscaffolder.egg-info/dependency_links.txt
-plasoscaffolder.egg-info/entry_points.txt
-plasoscaffolder.egg-info/requires.txt
-plasoscaffolder.egg-info/top_level.txt
