@@ -70,7 +70,7 @@ class SQLiteControllerTest(unittest.TestCase):
     controller = sqlite_controller.SQLiteController(output_handler,
                                                     plugin_helper)
     actualPath = 'testpath'
-    actual= controller.SourcePath(None, None, actualPath)
+    actual = controller.SourcePath(None, None, actualPath)
     self.assertEqual(actualPath, controller._path)
     self.assertEqual(actual, actualPath)
 
@@ -405,7 +405,7 @@ class SQLiteControllerTest(unittest.TestCase):
       expected = 'Folder does not exists. Enter correct one'
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
-      self.assertEqual(source_path, 'the source path' )
+      self.assertEqual(source_path, 'the source path')
 
   def testTestPathIfExisting(self):
     """test method after getting the source path from the user"""
@@ -460,19 +460,23 @@ class SQLiteControllerTest(unittest.TestCase):
     with tempfile.TemporaryDirectory() as tmpdir:
       path = os.path.join(tmpdir, 'testfile')
       pathlib.Path(path).touch()
+      wrongPath = os.path.join(tmpdir, 'testpath')
+      validPath = os.path.join(tmpdir, 'testpathvalid')
 
       output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(),prompt_error='valid_path')
+          path, file_handler.FileHandler(), prompt_error=validPath)
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
           file_exists=False, change_bool_after_every_call_file_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
-      actualPath = 'testpath'
-      valid_path = controller.TestPath(None, None, actualPath)
+      actual_path = controller.TestPath(None, None, wrongPath)
       expected = 'File does not exists. Choose another.'
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
-      self.assertEqual(valid_path, 'valid_path')
+      self.assertEqual(validPath, actual_path)
+      # close connection so the temp file can be deleted before the program
+      #   circle is finished
+      controller._query_execution._connection.close()
 
   def testValidatePluginNameIfOk(self):
     """test the validate plugin Name method if ok"""
