@@ -2,22 +2,22 @@
 """Base class for mapper of formatter."""
 import abc
 
-from plasoscaffolder.model import formatter_data_model
+from plasoscaffolder.model import base_data_model
 
 
-class BaseFormatterMapper(object):
+class BaseSQLitePluginMapper(object):
   """Class representing the parser mapper."""
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
-  def GetFormatter(
+  def GetRenderedTemplate(
       self,
-      formatter_data: formatter_data_model.FormatterDataModel) -> str:
+      data: base_data_model.BaseDataModel) -> str:
     """Retrieves the formatter.
 
     Args:
-      formatter_data (formatter_data_model.FormatterDataModel): the data for
-          the formatter
+      data (base_data_model.BaseDataModel): the data for template
+
     Returns:
       str: the rendered template
     """
