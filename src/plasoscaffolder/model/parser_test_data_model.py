@@ -10,7 +10,7 @@ class ParserTestDataModel(object):
                plugin_name: str,
                queries: [sql_query_model.SQLQueryModel],
                database_name: str):
-    """Initialises the parser test data model
+    """Initialises the parser test data model.
 
     Args:
       database_name (str): the name of the database
@@ -23,7 +23,7 @@ class ParserTestDataModel(object):
 
   @property
   def DatabaseName(self) -> str:
-    """the database name
+    """The database name.
 
     Returns:
       str: the name of the database
@@ -32,7 +32,7 @@ class ParserTestDataModel(object):
 
   @property
   def Queries(self) -> [sql_query_model.SQLQueryModel]:
-    """the queries
+    """The queries.
 
     Returns:
       str: the sql queries
@@ -41,7 +41,7 @@ class ParserTestDataModel(object):
 
   @property
   def PluginName(self) -> str:
-    """the plugin name
+    """The plugin name.
 
     Returns:
       str: the name of the plugin

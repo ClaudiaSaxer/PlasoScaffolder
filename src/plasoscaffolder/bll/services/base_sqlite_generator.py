@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Base class for a Generator for SQLite"""
+"""Base class for a Generator for SQLite."""
 import abc
 import os
 
@@ -39,12 +39,12 @@ class BaseSQLiteGenerator(object):
       parser_mapper (BaseParserMapper): the parser mapper
       formatter_mapper (BaseFormatterMapper): the mapper for the formatter
       parser_test_mapper (BaseParserTestMapper): the mapper for the formatter
-        test
+          test
       formatter_test_mapper (BaseFormatterTestMapper): the mapper for the parser
-        test
+          test
       mappingHelper (BaseMappingHelper): the mapping helper
       database_information (BaseDatabaseInformation): helper class for
-        information about the database
+          information about the database
     """
 
   @abc.abstractmethod
@@ -73,7 +73,7 @@ class BaseSQLiteGenerator(object):
 
   @abc.abstractmethod
   def _PrintEdit(self, file: str):
-    """print for edit file.
+    """Print for edit file.
 
     Args:
       file (str): the file path
@@ -81,7 +81,7 @@ class BaseSQLiteGenerator(object):
 
   @abc.abstractmethod
   def _PrintCreate(self, file: os.path):
-    """print for create file.
+    """Print for create file.
 
     Args:
       file (str): the file path

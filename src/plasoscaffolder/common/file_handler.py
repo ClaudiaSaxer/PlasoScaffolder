@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""the file handler"""
+"""The file handler."""
 import os
 import pathlib
 import shutil
@@ -8,10 +8,10 @@ from plasoscaffolder.common import base_file_handler
 
 
 class FileHandler(base_file_handler.BaseFileHandler):
-  """ Class handles the creation of Files"""
+  """Class handles the creation of Files."""
 
   def __init__(self):
-    """Initializing the file handler"""
+    """Initializing the file handler."""
     super().__init__()
 
   @classmethod
@@ -31,8 +31,9 @@ class FileHandler(base_file_handler.BaseFileHandler):
 
   @classmethod
   def _CreateFolder(cls, directory_path):
-    """Creates a folder only to be called if the target folder does not yet
-     exists.
+    """Creates a folder.
+     This function should only to be called if the target folder does not yet
+     exists or there will be an exception.
 
      Args:
        directory_path (str): the path to the directory to create
@@ -45,7 +46,7 @@ class FileHandler(base_file_handler.BaseFileHandler):
 
     Args:
       directory_path (str): The path to the directory the file should be
-      created.
+          created.
       file_name (str): the name of the new file.
       filename_suffix (str): the suffix of the new file.
 

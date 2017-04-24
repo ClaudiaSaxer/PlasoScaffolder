@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Class representing the mapper for the parser test file"""
+"""Class representing the mapper for the parser test file."""
 from plasoscaffolder.bll.mappings import base_parser_test_mapping
 from plasoscaffolder.model import parser_test_data_model
 

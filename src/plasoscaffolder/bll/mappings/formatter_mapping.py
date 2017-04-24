@@ -15,7 +15,7 @@ class FormatterMapper(base_formatter_mapping.BaseFormatterMapper):
 
     Args:
       mapping_helper (base_mapping_helper.BaseMappingHelper): the helper class
-        for the mapping
+          for the mapping
     """
     super().__init__()
     self._helper = mapping_helper

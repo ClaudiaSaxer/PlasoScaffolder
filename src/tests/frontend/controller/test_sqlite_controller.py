@@ -223,7 +223,7 @@ class SQLiteControllerTest(unittest.TestCase):
       self.assertEqual(expected.Query, actual.Query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
-  def testCreateSQLQueryModelWithUserInputWithExamplesAndNewRowNameWithValidationError(
+  def testCreateSQLQueryModelWithUserInputExamplesNewRowNameValidationError(
       self):
     """test method CreateEventModelWithUserInput with examples"""
 
@@ -293,8 +293,7 @@ class SQLiteControllerTest(unittest.TestCase):
       prompt_output_expected = ('Your query does not return anything.'
                                 'Do you want to add this query?'
                                 'Do you want to name the query parse row:  ?'
-                                'Does the event  need customizing?'
-                                )
+                                'Does the event  need customizing?')
 
       expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Class representing mapper for formatter test file"""
+"""Class representing mapper for formatter test file."""
 from plasoscaffolder.bll.mappings import base_formatter_test_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.model import formatter_test_data_model
@@ -15,7 +15,7 @@ class FormatterTestMapper(base_formatter_test_mapping.BaseFormatterTestMapper):
 
     Args:
       mapping_helper (base_mapping_helper.BaseMappingHelper): the helper class
-        for the mapping
+          for the mapping
     """
     super().__init__()
     self._helper = mapping_helper
@@ -27,7 +27,8 @@ class FormatterTestMapper(base_formatter_test_mapping.BaseFormatterTestMapper):
     """Retrieves the formatter test.
   
     Args:
-      formatter_test_data: the data for the formatter test
+      formatter_test_data (formatter_test_data_model.FormatterTestDataModel): 
+          the data for the formatter test
   
     Returns:
       str: the rendered template

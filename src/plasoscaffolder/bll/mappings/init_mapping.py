@@ -17,7 +17,7 @@ class InitMapper(base_init_mapping.BaseInitMapper):
 
     Args:
       mapping_helper (base_mapping_helper.BaseMappingHelper): the helper class
-        for the mapping
+          for the mapping
     """
     super().__init__()
     self.__helper = mapping_helper

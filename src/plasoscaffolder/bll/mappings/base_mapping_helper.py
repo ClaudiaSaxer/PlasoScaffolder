@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Helper methods for mapping"""
+"""Helper methods for mapping."""
 import abc
 
 

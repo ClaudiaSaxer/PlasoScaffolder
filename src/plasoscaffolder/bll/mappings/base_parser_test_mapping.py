@@ -16,7 +16,8 @@ class BaseParserTestMapper(object):
     """Retrieves the test parser.
 
     Args:
-      parser_test_data: the data for the parser test
+      parser_test_data (parser_test_data_model.ParserTestDataModel): the data 
+          for the parser test
 
     Returns:
       str: the rendered template

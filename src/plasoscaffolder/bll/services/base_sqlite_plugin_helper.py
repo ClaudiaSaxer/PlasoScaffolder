@@ -25,7 +25,8 @@ class BaseSQLitePluginHelper(object):
       database_suffix: the suffix of the database file
       path (str): the path of the plaso source
       plugin_name (str): the name of the plugin
-      path_helper (BaseSqlitePluginHelper): the SQLite plugin helper
+      path_helper (base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper
+          ): the SQLite plugin helper
 
     Returns:
       bool: True if the plugin already exists. False if it does not.

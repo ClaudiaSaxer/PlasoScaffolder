@@ -14,7 +14,7 @@ class BaseParserMapper(object):
     """Retrieves the parser.
 
     Args:
-      parser_data: the data for the parser
+      parser_data (parser_data_model.ParserDataModel): the data for the parser
 
     Returns:
       str: the rendered template

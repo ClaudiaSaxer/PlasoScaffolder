@@ -11,11 +11,11 @@ class SQLQueryData(object):
     has_error (bool): if the query execution was erroneous
     data ([str]): the rows returned after execution
     error_message(str): the error message if the query was erroneous
-    columns ([str]): the column names of the query"""
+    columns ([str]): the column names of the query
+  """
 
-  def __init__(self, has_error: bool = False, data: [] = None,
-               error_message: str = None,
-               columns: [] = None):
+  def __init__(self, has_error: bool=False, data: []=None,
+               error_message: str=None, columns: []=None):
     self.has_error = has_error
     self.data = data
     self.error_message = error_message
@@ -27,7 +27,7 @@ class BaseSQLQueryExecution(object):
 
   @abc.abstractmethod
   def executeQuery(self, query: str,
-                   detailed: bool = True):
+                   detailed: bool=True):
     """Executes the SQL Query.
 
     Args:
@@ -47,4 +47,4 @@ class BaseSQLQueryExecution(object):
 
       Returns:
         base_sql_query_execution.SQLQueryData: The data to the Query
-      """
+    """

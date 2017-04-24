@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Base file handler"""
+"""Base file handler."""
 import abc
 
 
 class BaseFileHandler(object):
-  """ Base class representing the base class for the file handler."""
+  """Base class representing the base class for the file handler."""
   __metaclass__ = abc.ABCMeta
 
   @classmethod
@@ -24,8 +24,9 @@ class BaseFileHandler(object):
   @classmethod
   @abc.abstractmethod
   def _CreateFolder(cls, directory_path):
-    """Creates a folder only to be called if the target folder does not yet
-      exists.
+    """Creates a folder.
+     This function should only to be called if the target folder does not yet
+     exists or there will be an exception.
 
     Args:
       directory_path (str): the path to the directory to create
@@ -34,11 +35,11 @@ class BaseFileHandler(object):
   @abc.abstractmethod
   def CreateFile(self, directory_path: str, file_name: str,
                  filename_suffix: str):
-    """Creates a empty file.
+    """Creates an empty file.
 
     Args:
       directory_path (str): The path to the directory the file should be
-      created.
+          created.
       file_name (str): the name of the new file.
       filename_suffix (str): the suffix of the new file.
 

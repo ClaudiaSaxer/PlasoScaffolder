@@ -16,7 +16,7 @@ class BaseFormatterMapper(object):
     """Retrieves the formatter.
 
     Args:
-      formatter_data (formatter_data_model.FormatterDataModel): the data for 
+      formatter_data (formatter_data_model.FormatterDataModel): the data for
           the formatter
     Returns:
       str: the rendered template

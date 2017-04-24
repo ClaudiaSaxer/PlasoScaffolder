@@ -9,7 +9,7 @@ class FormatterTestDataModel(object):
   def __init__(self,
                plugin_name: str,
                queries: [sql_query_model.SQLQueryModel]):
-    """Initialises the formatter test data model
+    """Initialises the formatter test data model.
 
     Args:
       plugin_name (str): the name of the plugin
@@ -20,7 +20,7 @@ class FormatterTestDataModel(object):
 
   @property
   def Queries(self) -> [sql_query_model.SQLQueryModel]:
-    """the queries
+    """The queries.
 
     Returns:
       str: the sql queries
@@ -29,7 +29,7 @@ class FormatterTestDataModel(object):
 
   @property
   def PluginName(self) -> str:
-    """the plugin name
+    """The plugin name.
 
     Returns:
       str: the name of the plugin

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """The SQL query model class."""
-from plasoscaffolder.dal import explain_query_plan
 from plasoscaffolder.model import sql_query_column_model
 
 
@@ -14,7 +13,7 @@ class SQLQueryModel(object):
 
     Args:
       columns ([sql_query_column_model.SQLColumnModel]): list of columns for
-        the Query
+          the Query
       name (str): The Name of the Query.
       query (str): The SQL Query.
       needs_customizing (bool): if the event for the query needs customizing
@@ -26,7 +25,7 @@ class SQLQueryModel(object):
 
   @property
   def Name(self) -> str:
-    """ the SQL query name.
+    """The SQL query name.
 
     Returns:
       str: the name of the SQL query parser row.
@@ -35,7 +34,7 @@ class SQLQueryModel(object):
 
   @property
   def Query(self) -> bool:
-    """ the SQL query
+    """The SQL query.
 
     Returns:
       str: The SQL query.
@@ -44,16 +43,16 @@ class SQLQueryModel(object):
 
   @property
   def NeedsCustomizing(self) -> bool:
-    """ if the event for the query needs customizing
+    """If the event for the query needs customizing.
 
     Returns:
-      bool: if the event needs customizing
+      bool: True If the event needs customizing
     """
     return self._needs_customizing
 
   @property
   def Columns(self) -> [sql_query_column_model.SQLColumnModel]:
-    """the columns of the query
+    """The columns of the query.
 
     Returns:
       [sql_query_column_model.SQLColumnModel]: list of columns
