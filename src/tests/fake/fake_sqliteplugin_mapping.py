@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-"""fake for parser mapping"""
+"""fake formatter mapper"""
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.bll.mappings import base_sqliteplugin_mapping
-from plasoscaffolder.model import parser_test_data_model
+from plasoscaffolder.model import base_data_model
 
 
-class FakeParserTestMapper(base_sqliteplugin_mapping.BaseSQLitePluginMapper):
+class FakeSQLitePluginMapper(base_sqliteplugin_mapping.BaseSQLitePluginMapper):
   """class representing the fake parser mapper"""
 
   def __init__(self, mapping_helper: base_mapping_helper.BaseMappingHelper):
@@ -13,6 +13,5 @@ class FakeParserTestMapper(base_sqliteplugin_mapping.BaseSQLitePluginMapper):
 
   def GetRenderedTemplate(
       self,
-      parser_test_data: parser_test_data_model.ParserTestDataModel) -> str:
-    """Retrieves the parser."""
-    return parser_test_data.PluginName
+      data: base_data_model.BaseDataModel) -> str:
+    return data.PluginName

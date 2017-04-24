@@ -3,7 +3,6 @@
 import abc
 import os
 
-from plasoscaffolder.bll.mappings import base_init_mapping
 from plasoscaffolder.bll.mappings import base_sqliteplugin_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.common import base_file_handler
@@ -19,7 +18,8 @@ class BaseSQLiteGenerator(object):
       self,
       template_path: str,
       fileHandler: base_file_handler.BaseFileHandler,
-      init_mapper: base_init_mapping.BaseInitMapper,
+      init_formatter_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
+      init_parser_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
       parser_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
       formatter_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
       parser_test_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
@@ -31,7 +31,8 @@ class BaseSQLiteGenerator(object):
     Args:
       template_path (str): the path to the template directory
       fileHandler (FileHandler): the handler for the file
-      init_mapper (BaseInitMapper): the init mapper
+      init_formatter_mapper (BaseSQLitePluginMapper): the init formatter mapper
+      init_parser_mapper (BaseSQLitePluginMapper): the init parser mapper
       parser_mapper (BaseSQLitePluginMapper): the parser mapper
       formatter_mapper (BaseSQLitePluginMapper): the mapper for the formatter
       parser_test_mapper (BaseSQLitePluginMapper): the mapper for the formatter

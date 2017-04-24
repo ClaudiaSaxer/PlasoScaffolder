@@ -2,7 +2,6 @@
 """A SQLite Generator"""
 import os
 
-from plasoscaffolder.bll.mappings import base_init_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.bll.mappings import base_sqliteplugin_mapping
 from plasoscaffolder.bll.services import base_sqlite_generator
@@ -11,7 +10,7 @@ from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.common import base_file_handler
 from plasoscaffolder.common import base_output_handler
 from plasoscaffolder.dal import base_database_information
-from plasoscaffolder.model import formatter_data_model
+from plasoscaffolder.model import formatter_data_model, init_data_model
 from plasoscaffolder.model import formatter_test_data_model
 from plasoscaffolder.model import parser_data_model
 from plasoscaffolder.model import parser_test_data_model
@@ -63,7 +62,8 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       self,
       template_path: str,
       fileHandler: base_file_handler.BaseFileHandler,
-      init_mapper: base_init_mapping.BaseInitMapper,
+      formatter_init_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
+      parser_init_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
       parser_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
       formatter_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
       parser_test_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
@@ -75,7 +75,8 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
     Args:
       template_path (str): the path to the template directory
       fileHandler (FileHandler): the handler for the file
-      init_mapper (BaseInitMapper): the init mapper
+      formatter_init_mapper (BaseSQLitePluginMapper): the init formatter mapper
+      parser_init_mapper (BaseSQLitePluginMapper): the init parser mapper
       parser_mapper (BaseSQLitePluginMapper): the parser mapper
       formatter_mapper (BaseSQLitePluginMapper): the mapper for the formatter
       parser_test_mapper (BaseSQLitePluginMapper): the mapper for the formatter
@@ -87,16 +88,6 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
           information about the database
     """
     file_handler = fileHandler
-
-    if self.init_formatter_exists:
-      content_init_formatter = init_mapper.GetFormatterInitEdit(self.name)
-    else:
-      content_init_formatter = init_mapper.GetFormatterInitCreate(self.name)
-
-    if self.init_parser_exists:
-      content_init_parser = init_mapper.GetParserInitEdit(self.name)
-    else:
-      content_init_parser = init_mapper.GetParserInitCreate(self.name)
 
     parser_data = parser_data_model.ParserDataModel(
         database_name=os.path.basename(self.path_helper.database_path),
@@ -119,6 +110,19 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
         plugin_name=self.name
     )
 
+    parser_init_data = init_data_model.InitDataModel(
+        plugin_name=self.name,
+        is_create_template=not self.init_parser_exists
+    )
+
+    formatter_init_data = init_data_model.InitDataModel(
+        plugin_name=self.name,
+        is_create_template=not self.init_formatter_exists
+    )
+    content_init_parser = parser_init_mapper.GetRenderedTemplate(
+        parser_init_data)
+    content_init_formatter = formatter_init_mapper.GetRenderedTemplate(
+        formatter_init_data)
     content_parser = parser_mapper.GetRenderedTemplate(parser_data)
     content_formatter = formatter_mapper.GetRenderedTemplate(formatter_data)
     content_parser_test = parser_test_mapper.GetRenderedTemplate(
