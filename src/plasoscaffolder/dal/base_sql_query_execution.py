@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # disable warning because default value is not dangerous here
-# pylint: disable=dangerous-default-value
-"""the SQLite Query validator"""
+"""The SQLite Query validator."""
 import abc
+
 
 class SQLQueryData(object):
   """The Data to the executed query.
@@ -10,16 +10,16 @@ class SQLQueryData(object):
   Attributes:
     has_error (bool): if the query execution was erroneous
     data ([str]): the rows returned after execution
-    error_message: the error message if the query was erroneous
+    error_message(str): the error message if the query was erroneous
     columns ([str]): the column names of the query"""
 
   def __init__(self, has_error: bool = False, data: [] = None,
                error_message: str = None,
-               columns=[]):
+               columns: [] = None):
     self.has_error = has_error
     self.data = data
     self.error_message = error_message
-    self.columns = columns
+    self.columns = columns or []
 
 
 class BaseSQLQueryExecution(object):
@@ -27,13 +27,12 @@ class BaseSQLQueryExecution(object):
 
   @abc.abstractmethod
   def executeQuery(self, query: str,
-                   detailed: bool = True
-                   ):
+                   detailed: bool = True):
     """Executes the SQL Query.
 
     Args:
       query (str): The SQL Query to execute on the SQLite database.
-      detailed (bool): If additional information about the query is needed
+      detailed (bool): True if additional information about the query is needed
 
     Returns:
       base_sql_query_execution.SQLQueryData: The data to the Query
@@ -42,10 +41,10 @@ class BaseSQLQueryExecution(object):
   @abc.abstractmethod
   def executeReadOnlyQuery(self, query: str):
     """Executes the SQL Query if it is read only.
-  
+
       Args:
         query (str): The SQL Query to execute on the SQLite database.
-  
+
       Returns:
         base_sql_query_execution.SQLQueryData: The data to the Query
       """

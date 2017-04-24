@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Base class for mapper for parser file. """
+"""Base class for mapper for parser file."""
 import abc
 
 from plasoscaffolder.model import parser_data_model

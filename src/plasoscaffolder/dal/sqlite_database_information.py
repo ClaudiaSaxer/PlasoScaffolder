@@ -23,7 +23,8 @@ class SQLiteDatabaseInformation(
     """Executes the SQL Query.
 
     Returns:
-      [str]: the names of the tables"""
+      [str]: the names of the tables
+    """
     query = "select name from sqlite_master where type='table' order by name"
     data = self._sql_execution.executeQuery(query, False)
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Class representing the mapper for the parser file"""
+"""Class representing the mapper for the parser file"""
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.bll.mappings import base_parser_mapping
 from plasoscaffolder.model import parser_data_model

@@ -23,7 +23,7 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
     """Renders the template.
 
        Args:
-         template_filename (str): the Name of the template
+         template_filename (str): the name of the template
          context (dict): the context of the template
 
        Returns:
@@ -33,12 +33,13 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
         template_filename).render(context)
 
   def GenerateClassName(self, plugin_name: str) -> str:
-    """Generates the class Name.
+    """Generates the class name from the plugin name.
 
     Args:
-      plugin_name (str): the plugin Name
+      plugin_name (str): the plugin name
 
     Returns:
-      str: the class Name
+      str: the class name
     """
+
     return plugin_name.replace('_', ' ').title().replace(' ', '')

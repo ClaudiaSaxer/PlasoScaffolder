@@ -16,7 +16,7 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     """Initializes the SQL Query Validator
 
     Args:
-      database_path: the path to the sqlite database schema
+      database_path: the path to the SQLite database schema
     """
     super().__init__()
     self._database_path = database_path
@@ -47,7 +47,7 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
 
     Args:
       query (str): The SQL Query to execute on the SQLite database.
-      detailed (bool): If additional information about the query is needed
+      detailed (bool): True if additional information about the query is needed
 
     Returns:
       base_sql_query_execution.SQLQueryData: The data to the Query
@@ -55,7 +55,7 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     query_data = base_sql_query_execution.SQLQueryData()
     try:
       with self._connection:
-        self._connection.execute("BEGIN")
+        self._connection.execute('BEGIN')
         cursor = self._connection.execute(query)
         query_data.data = cursor.fetchall()
         if detailed:
@@ -108,5 +108,5 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       if not self._explain.isReadOnly(query):
         query_data.data = None
         query_data.has_error = True
-        query_data.error_message = "Query has to be a SELECT query."
+        query_data.error_message = 'Query has to be a SELECT query.'
     return query_data

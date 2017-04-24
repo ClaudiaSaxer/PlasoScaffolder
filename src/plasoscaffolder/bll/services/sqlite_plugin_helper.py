@@ -15,11 +15,12 @@ from plasoscaffolder.model import sql_query_model
 class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
   """Class containing helper functions for the SQLite plugin"""
 
+  _PLUGIN_NAME_PATTERN = re.compile("[a-z]+((_)[a-z]+)*")
+  _ROW_NAME_PATTERN = re.compile("[A-Z]+([a-zA-Z])*")
+
   def __init__(self):
     """Initializes the SQLite plugin helper"""
     super().__init__()
-    self._plugin_name_pattern = re.compile("[a-z]+((_)[a-z]+)*")
-    self._row_name_pattern = re.compile("[A-Z]+([a-zA-Z])*")
 
   def PluginExists(
       self,
@@ -57,8 +58,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     Returns:
       bool: true if the plugin Name is valid
     """
-    return self._plugin_name_pattern.fullmatch(plugin_name)
-
+    return self._PLUGIN_NAME_PATTERN.fullmatch(plugin_name)
 
   def IsValidRowName(self, row_name: str) -> bool:
     """Validates the row name.
@@ -69,7 +69,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     Returns:
       bool: true if the row name is valid
     """
-    return self._row_name_pattern.fullmatch(row_name)
+    return self._ROW_NAME_PATTERN.fullmatch(row_name)
 
   def FileExists(self, path: str) -> bool:
     """Checks if the file exists
@@ -105,7 +105,6 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     """
     return executor.executeReadOnlyQuery(query)
 
-
   def GetDistinctColumnsFromSQLQueryData(
       self,
       queries: [sql_query_model.SQLQueryModel]) -> [str]:
@@ -117,7 +116,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
         sql query data objects
 
     Returns:
-      [str]: a distinct list of all attributes used in the query
+      list[str]: all distinct attributes used in the query
     """
     distinct_columns = []
     if len(queries) != 0:

@@ -3,12 +3,12 @@
 import abc
 import os
 
-from plasoscaffolder.bll.mappings import (base_formatter_mapping,
-                                          base_parser_test_mapping,
-                                          base_formatter_test_mapping)
+from plasoscaffolder.bll.mappings import base_formatter_mapping
+from plasoscaffolder.bll.mappings import base_formatter_test_mapping
 from plasoscaffolder.bll.mappings import base_init_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.bll.mappings import base_parser_mapping
+from plasoscaffolder.bll.mappings import base_parser_test_mapping
 from plasoscaffolder.common import base_file_handler
 from plasoscaffolder.dal import base_database_information
 

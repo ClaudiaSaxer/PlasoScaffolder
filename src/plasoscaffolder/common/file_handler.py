@@ -46,7 +46,7 @@ class FileHandler(base_file_handler.BaseFileHandler):
     Args:
       directory_path (str): The path to the directory the file should be
       created.
-      file_name (str): the Name of the new file.
+      file_name (str): the name of the new file.
       filename_suffix (str): the suffix of the new file.
 
     Returns:

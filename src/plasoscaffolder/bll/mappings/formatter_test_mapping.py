@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Class representing mapper for formatter test file"""
+"""Class representing mapper for formatter test file"""
 from plasoscaffolder.bll.mappings import base_formatter_test_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.model import formatter_test_data_model

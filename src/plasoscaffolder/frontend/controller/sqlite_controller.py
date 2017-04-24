@@ -25,7 +25,7 @@ from plasoscaffolder.model import sql_query_model
 class SQLiteController(object):
   """Class representing the SQLite Controller."""
 
-  AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE = 3
+  _NUMBER_OF_SQLITE_OUTPUT_EXAMPLES = 3
 
   def __init__(self, output_handler: base_output_handler.BaseOutputHandler(),
                plugin_helper:
@@ -185,6 +185,7 @@ class SQLiteController(object):
       sql_query_model.SQLQueryModel: a SQL Query model
     """
     query_data = self._plugin_helper.RunSQLQuery(query, query_execution)
+    query_plan = explain_query_plan.ExplainQueryPlan(query_execution)
 
     if query_data.has_error:
       self._output_handler.PrintError(str(query_data.error_message))
@@ -200,12 +201,9 @@ class SQLiteController(object):
               'Your query output could look like this.')
           self._output_handler.PrintInfo(
               str(list(map(lambda x: x.SQLColumn, query_data.columns))))
-          if length < self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE:
-            amount = length
-          else:
-            amount = self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE
-          for i in range(0, amount):
-            self._output_handler.PrintInfo(str(query_data.data[i]))
+          amount = min(self._NUMBER_OF_SQLITE_OUTPUT_EXAMPLES, length)
+          for index in range(0, amount):
+            self._output_handler.PrintInfo(str(query_data.data[index]))
 
         add_query = self._output_handler.Confirm(
             'Do you want to add this query?',
@@ -215,8 +213,9 @@ class SQLiteController(object):
       else:
         self._output_handler.PrintError('The SQL query was ok.')
 
-      name = ''.join(explain_query_plan.ExplainQueryPlan(
-          query_execution).getLockedTables(query)).capitalize()
+      locked_tables = query_plan.getLockedTables(query)
+      name = ''.join(locked_tables).capitalize()
+
       question_parse = 'Do you want to name the query parse row: {0} ?'.format(
           name)
       add_recommended_name = self._output_handler.Confirm(

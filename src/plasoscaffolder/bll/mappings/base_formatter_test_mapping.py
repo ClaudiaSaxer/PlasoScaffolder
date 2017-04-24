@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Base class of mapper for formatter test file. """
+"""Base class of mapper for formatter test file."""
 import abc
 
 from plasoscaffolder.model import formatter_data_model
