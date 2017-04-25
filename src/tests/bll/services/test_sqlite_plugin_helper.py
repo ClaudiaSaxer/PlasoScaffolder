@@ -182,5 +182,6 @@ class SQLitePluginHelperTest(unittest.TestCase):
     actual = helper.IsValidRowName('Row12')
     self.assertFalse(actual)
 
+
 if __name__ == '__main__':
   unittest.main()

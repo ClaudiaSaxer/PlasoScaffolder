@@ -22,7 +22,7 @@ from plasoscaffolder.model import sql_query_model
 
 
 class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
-  """ Generator for SQLite Files """
+  """Generator for SQLite Files."""
 
   def __init__(
       self, path: str, name: str, database: str,
@@ -37,11 +37,13 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       path (str): the path of the plaso folder
       name (str): the Name of the plugin
       database (str): the path to the database
-      output_handler (BaseOutputHandler: the output handler for the
-      generation information
-      pluginHelper (BaseSQLitePluginHelper): the plugin helper
-      pathHelper (BaseSQLitePluginPathHelper): the plugin path helper
-      queries [sql_query_model.SQLQueryModel]: list of queries
+      queries ([sql_query_model.SQLQueryModel]): list of queries
+      output_handler (base_output_handler.BaseOutputHandler): the output
+          handler for the generation information
+      pluginHelper (base_sqlite_plugin_helper.BaseSQLitePluginHelper): the
+          plugin helper
+      pathHelper (base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper):
+          the plugin path helper
     """
 
     super().__init__()
@@ -81,12 +83,12 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       parser_mapper (BaseParserMapper): the parser mapper
       formatter_mapper (BaseFormatterMapper): the mapper for the formatter
       parser_test_mapper (BaseParserTestMapper): the mapper for the formatter
-        test
+          test
       formatter_test_mapper (BaseFormatterTestMapper): the mapper for the parser
-        test
+          test
       mappingHelper (BaseMappingHelper): the mapping helper
       database_information (BaseDatabaseInformation): helper class for
-        information about the database
+          information about the database
     """
     file_handler = fileHandler
 

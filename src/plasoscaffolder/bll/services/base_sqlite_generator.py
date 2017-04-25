@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-"""Base class for a Generator for SQLite"""
+"""Base class for a Generator for SQLite."""
 import abc
 import os
 
-from plasoscaffolder.bll.mappings import (base_formatter_mapping,
-                                          base_parser_test_mapping,
-                                          base_formatter_test_mapping)
+from plasoscaffolder.bll.mappings import base_formatter_mapping
+from plasoscaffolder.bll.mappings import base_formatter_test_mapping
 from plasoscaffolder.bll.mappings import base_init_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.bll.mappings import base_parser_mapping
+from plasoscaffolder.bll.mappings import base_parser_test_mapping
 from plasoscaffolder.common import base_file_handler
 from plasoscaffolder.dal import base_database_information
 
@@ -39,12 +39,12 @@ class BaseSQLiteGenerator(object):
       parser_mapper (BaseParserMapper): the parser mapper
       formatter_mapper (BaseFormatterMapper): the mapper for the formatter
       parser_test_mapper (BaseParserTestMapper): the mapper for the formatter
-        test
+          test
       formatter_test_mapper (BaseFormatterTestMapper): the mapper for the parser
-        test
+          test
       mappingHelper (BaseMappingHelper): the mapping helper
       database_information (BaseDatabaseInformation): helper class for
-        information about the database
+          information about the database
     """
 
   @abc.abstractmethod
@@ -73,7 +73,7 @@ class BaseSQLiteGenerator(object):
 
   @abc.abstractmethod
   def _PrintEdit(self, file: str):
-    """print for edit file.
+    """Print for edit file.
 
     Args:
       file (str): the file path
@@ -81,7 +81,7 @@ class BaseSQLiteGenerator(object):
 
   @abc.abstractmethod
   def _PrintCreate(self, file: os.path):
-    """print for create file.
+    """Print for create file.
 
     Args:
       file (str): the file path

@@ -11,7 +11,7 @@ class ParserDataModel(object):
                queries: [sql_query_model.SQLQueryModel],
                required_tables: [str],
                database_name: str):
-    """Initialises the parser data model
+    """Initialises the parser data model.
 
     Args:
       database_name (str): the name of the database
@@ -26,7 +26,7 @@ class ParserDataModel(object):
 
   @property
   def DatabaseName(self) -> str:
-    """the database name
+    """The database name.
 
     Returns:
       str: the name of the database
@@ -35,7 +35,7 @@ class ParserDataModel(object):
 
   @property
   def RequiredTables(self) -> str:
-    """the required tables
+    """The required tables.
 
     Returns:
       str: the tables that are required
@@ -44,7 +44,7 @@ class ParserDataModel(object):
 
   @property
   def Queries(self) -> [sql_query_model.SQLQueryModel]:
-    """the queries
+    """The queries.
 
     Returns:
       str: the sql queries
@@ -53,7 +53,7 @@ class ParserDataModel(object):
 
   @property
   def PluginName(self) -> str:
-    """the plugin name
+    """The plugin name.
 
     Returns:
       str: the name of the plugin

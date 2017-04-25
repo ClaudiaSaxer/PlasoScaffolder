@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""the output file handler for click"""
+"""The output file handler for click"""
 import click
 
 from plasoscaffolder.common import base_output_handler

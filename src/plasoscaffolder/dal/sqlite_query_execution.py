@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=no-member
 # pylint does not recognize connect and close as member
-"""Base for sql Query validators"""
+"""Base for sql Query validators."""
 import sqlite3
 
 from plasoscaffolder.dal import base_sql_query_execution
@@ -10,13 +10,13 @@ from plasoscaffolder.model import sql_query_column_model
 
 
 class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
-  """Class representing the SQLite Query validator"""
+  """Class representing the SQLite Query validator."""
 
   def __init__(self, database_path: str):
-    """Initializes the SQL Query Validator
+    """Initializes the SQL Query Validator.
 
     Args:
-      database_path: the path to the sqlite database schema
+      database_path (str): the path to the SQLite database schema
     """
     super().__init__()
     self._database_path = database_path
@@ -24,7 +24,7 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     self._explain = None
 
   def tryToConnect(self) -> bool:
-    """Try to open the database File
+    """Try to open the database File.
 
     Returns:
       bool: if the file can be opened and is a database file
@@ -40,14 +40,15 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
 
     return True
 
-  def executeQuery(self, query: str,
-                   detailed: bool = True
-                   ) -> base_sql_query_execution.SQLQueryData:
+  def executeQuery(
+      self, query: str,
+      detailed: bool=True
+  ) -> base_sql_query_execution.SQLQueryData:
     """Executes the SQL Query.
 
     Args:
       query (str): The SQL Query to execute on the SQLite database.
-      detailed (bool): If additional information about the query is needed
+      detailed (bool): True if additional information about the query is needed
 
     Returns:
       base_sql_query_execution.SQLQueryData: The data to the Query
@@ -55,7 +56,7 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     query_data = base_sql_query_execution.SQLQueryData()
     try:
       with self._connection:
-        self._connection.execute("BEGIN")
+        self._connection.execute('BEGIN')
         cursor = self._connection.execute(query)
         query_data.data = cursor.fetchall()
         if detailed:
@@ -73,7 +74,7 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
   def _getColumnInformation(
       self, cursor, query_data: []
   ) -> [sql_query_column_model.SQLColumnModel]:
-    """get Information for the column out of the cursor
+    """Getting Information for the column out of the cursor.
 
     Args:
       cursor: the cursor
@@ -102,11 +103,11 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
 
       Returns:
         base_sql_query_execution.SQLQueryData: The data to the Query
-      """
+    """
     query_data = self.executeQuery(query)
     if not query_data.has_error:
       if not self._explain.isReadOnly(query):
         query_data.data = None
         query_data.has_error = True
-        query_data.error_message = "Query has to be a SELECT query."
+        query_data.error_message = 'Query has to be a SELECT query.'
     return query_data

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Class representing the mapper for the formatter. """
+"""Class representing the mapper for the formatter."""
 from plasoscaffolder.bll.mappings import base_formatter_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.model import formatter_data_model
@@ -15,18 +15,19 @@ class FormatterMapper(base_formatter_mapping.BaseFormatterMapper):
 
     Args:
       mapping_helper (base_mapping_helper.BaseMappingHelper): the helper class
-        for the mapping
+          for the mapping
     """
     super().__init__()
     self._helper = mapping_helper
 
   def GetFormatter(self,
-                   formatter_data: formatter_data_model.FormatterDataModel) \
-      -> str:
+                   formatter_data: formatter_data_model.FormatterDataModel
+                   ) -> str:
     """Retrieves the formatter.
 
     Args:
-      formatter_data: the data for the formatter
+      formatter_data (formatter_data_model.FormatterDataModel): the data for 
+          the formatter
 
     Returns:
       str: the rendered template

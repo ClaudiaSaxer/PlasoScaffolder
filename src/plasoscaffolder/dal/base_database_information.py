@@ -4,12 +4,12 @@ import abc
 
 
 class BaseDatabaseInformation(object):
-  """Base class representing the SQLite Query validator
-  """
+  """Base class representing the SQLite Query validator."""
 
   @abc.abstractmethod
   def getTablesFromDatabase(self) -> [str]:
     """Executes the SQL Query.
 
     Returns:
-      [str]: the name of the tables"""
+      [str]: the name of the tables
+    """

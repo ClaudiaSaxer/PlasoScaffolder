@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Model for SQL column"""
+"""Model for SQL column."""
 import re
 
 
 class SQLColumnModel(object):
   """Class for columns of a SQL Query."""
 
-  def __init__(self, sql_column: str, sql_column_type: type = None):
+  def __init__(self, sql_column: str, sql_column_type: type=None):
     """ initializes the SQL column model.
 
     Args:
@@ -18,7 +18,7 @@ class SQLColumnModel(object):
 
   @property
   def SQLColumn(self) -> str:
-    """the SQL column
+    """The SQL column.
 
     Returns:
       str: the column of the SQL
@@ -26,8 +26,8 @@ class SQLColumnModel(object):
     return self._sql_column
 
   @property
-  def SQLColumnType(self) -> type :
-    """the SQL column type
+  def SQLColumnType(self) -> type:
+    """The SQL column type.
 
     Returns:
       type: the type of the column of the SQL
@@ -35,36 +35,37 @@ class SQLColumnModel(object):
     return self._sql_column_type
 
   def ColumnTypeAsName(self) -> str:
-    """the type as the name
+    """The type as the name.
     example: <class 'int'> type will be returned as int
-    
+
     Returns:
       str: the type as the name
     """
     return self._sql_column_type.__name__
 
   def ColumnAsSnakeCase(self) -> str:
-    """SQL column name to snake case
+    """SQL column name to snake case.
 
     Returns:
       str: the column name from the SQL in snake case
     """
-    if  re.fullmatch("[a-zA-Z]*", self._sql_column) :
-      substitudeFirstPart = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', self._sql_column)
-      substitudeSecondPart = re.sub(
-          '([a-z0-9])([A-Z])', r'\1_\2', substitudeFirstPart).lower()
-      return substitudeSecondPart
+    if re.fullmatch("[a-zA-Z]*", self._sql_column):
+      substitute_first_part = re.sub('(.)([A-Z][a-z]+)', r'\1_\2',
+                                     self._sql_column)
+      substitute_second_part = re.sub(
+          '([a-z0-9])([A-Z])', r'\1_\2', substitute_first_part).lower()
+      return substitute_second_part
     else:
       return ''
 
   def ColumnAsDescription(self) -> str:
-    """SQL column name to description
+    """SQL column name to description.
 
     Returns:
       str: the column name from the SQL in description form
     """
-    substitudeFirstPart = re.sub('(.)([A-Z][a-z]+)', r'\g<1> \g<2>',
-                                 self._sql_column)
-    substitudeSecondPart = re.sub(
-        '([a-z0-9])([A-Z])', r'\g<1> \g<2>', substitudeFirstPart)
-    return substitudeSecondPart.title()
+    substitute_first_part = re.sub('(.)([A-Z][a-z]+)', r'\g<1> \g<2>',
+                                   self._sql_column)
+    substitute_second_part = re.sub(
+        '([a-z0-9])([A-Z])', r'\g<1> \g<2>', substitute_first_part)
+    return substitute_second_part.title()
