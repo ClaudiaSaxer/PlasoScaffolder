@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Base Class for mapper for init files. """
+"""Base Class for mapper for init files."""
 import abc
 
 

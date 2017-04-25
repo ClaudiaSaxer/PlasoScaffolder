@@ -25,16 +25,18 @@ from plasoscaffolder.model import sql_query_model
 class SQLiteController(object):
   """Class representing the SQLite Controller."""
 
-  AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE = 3
+  _NUMBER_OF_SQLITE_OUTPUT_EXAMPLES = 3
 
   def __init__(self, output_handler: base_output_handler.BaseOutputHandler(),
                plugin_helper:
                base_sqlite_plugin_helper.BaseSQLitePluginHelper()):
-    """
-    Initializes the SQLite Controller
+    """Initializes the SQLite Controller.
+
     Args:
-      output_handler (BaseOutputHandler): the handler for the output
-      plugin_helper (BaseSQLitePluginHelper): the helper for the SQLite plugin
+      output_handler (base_output_handler.BaseOutputHandler): the handler for
+          the output
+      plugin_helper (base_sqlite_plugin_helper.BaseSQLitePluginHelper): the
+          helper for the SQLite plugin
     """
     super(SQLiteController, self).__init__()
     self._path = None
@@ -69,13 +71,13 @@ class SQLiteController(object):
   def PluginName(self, unused_ctx: click.core.Context,
                  unused_param: click.core.Option,
                  value: str) -> str:
-    """Saving the plugin_name.
+    """Saving the plugin name.
 
     Args:
       unused_ctx (click.core.Context): the click context (automatically given
-        via callback)
+          via callback)
       unused_param (click.core.Option): the click command (automatically
-        given via callback)
+          given via callback)
       value (str): the source path (automatically given via callback)
 
     Returns:
@@ -100,9 +102,9 @@ class SQLiteController(object):
 
     Args:
       unused_ctx (click.core.Context): the click context (automatically given
-        via callback)
+          via callback)
       unused_param (click.core.Option): the click command (automatically
-        given via callback)
+          given via callback)
       value (str): the source path (automatically given via callback)
 
     Returns:
@@ -124,7 +126,7 @@ class SQLiteController(object):
     return value
 
   def _IsDatabaseFile(self, path: str) -> bool:
-    """Try to open the database File
+    """Try to open the database File.
 
     Args:
       path (str): the database file path
@@ -140,15 +142,15 @@ class SQLiteController(object):
   def SQLQuery(self, unused_ctx: click.core.Context,
                unused_param: click.core.Option,
                value: str) -> str:
-    """The SQL Query of the plugin
-  
+    """The SQL Query of the plugin.
+
     Args:
       unused_ctx (click.core.Context): the click context (automatically given
-        via callback)
+          via callback)
       unused_param (click.core.Option): the click command (automatically
-        given via callback)
+          given via callback)
       value (str): the SQL Query (automatically given via callback)
-  
+
     Returns:
       str: the SQL Query
     """
@@ -175,16 +177,17 @@ class SQLiteController(object):
       query: str, with_examples: bool,
       query_execution: base_sql_query_execution.BaseSQLQueryExecution()
   ) -> sql_query_model.SQLQueryModel:
-    """Asks the user information about the SQL Query
-  
+    """Asks the user information about the SQL Query.
+
     Args:
       query (str): the SQL Query
       with_examples (bool): if the user wants examples for the given Query
-  
+
     Returns:
       sql_query_model.SQLQueryModel: a SQL Query model
     """
     query_data = self._plugin_helper.RunSQLQuery(query, query_execution)
+    query_plan = explain_query_plan.ExplainQueryPlan(query_execution)
 
     if query_data.has_error:
       self._output_handler.PrintError(str(query_data.error_message))
@@ -200,12 +203,9 @@ class SQLiteController(object):
               'Your query output could look like this.')
           self._output_handler.PrintInfo(
               str(list(map(lambda x: x.SQLColumn, query_data.columns))))
-          if length < self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE:
-            amount = length
-          else:
-            amount = self.AMOUNT_OF_SQLITE_OUTPUT_EXAMPLE
-          for i in range(0, amount):
-            self._output_handler.PrintInfo(str(query_data.data[i]))
+          amount = min(self._NUMBER_OF_SQLITE_OUTPUT_EXAMPLES, length)
+          for index in range(0, amount):
+            self._output_handler.PrintInfo(str(query_data.data[index]))
 
         add_query = self._output_handler.Confirm(
             'Do you want to add this query?',
@@ -215,8 +215,9 @@ class SQLiteController(object):
       else:
         self._output_handler.PrintError('The SQL query was ok.')
 
-      name = ''.join(explain_query_plan.ExplainQueryPlan(
-          query_execution).getLockedTables(query)).capitalize()
+      locked_tables = query_plan.getLockedTables(query)
+      name = ''.join(locked_tables).capitalize()
+
       question_parse = 'Do you want to name the query parse row: {0} ?'.format(
           name)
       add_recommended_name = self._output_handler.Confirm(
@@ -236,7 +237,7 @@ class SQLiteController(object):
 
   def Generate(self, template_path: str):
     """Generating the files.
-  
+
     Args:
       template_path (str): the path to the template directory
     """
@@ -268,10 +269,10 @@ class SQLiteController(object):
 
   def _ValidatePluginName(self, plugin_name: str) -> str:
     """Validate plugin name and prompt until name is valid
-  
+
     Args:
       plugin_name: the name of the plugin
-  
+
     Returns:
       str: a valid plugin name
     """
@@ -282,10 +283,10 @@ class SQLiteController(object):
     return plugin_name
 
   def _ValidateRowName(self, row_name: str) -> str:
-    """Validate row name and prompt until name is valid
+    """Validate row name and prompt until name is valid.
 
     Args:
-      plugin_name: the name of the row
+      row_name: the name of the row
 
     Returns:
       str: a valid row name

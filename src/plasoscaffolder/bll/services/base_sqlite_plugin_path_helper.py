@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Base class for sqlite plugin path helper"""
+"""Base class for SQLite plugin path helper."""
 
 import abc
 
 
 class BaseSQLitePluginPathHelper(object):
-  """Class representing the base class for the sqlite plugin path helper
+  """Class representing the base class for the SQLite plugin path helper.
 
   Attributes:
     formatter_file_path (str): the path to the formatter file

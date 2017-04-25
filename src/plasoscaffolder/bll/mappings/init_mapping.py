@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Class representing the mapper for the init files."""
+"""Class representing the mapper for the init files."""
 from plasoscaffolder.bll.mappings import base_init_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
 
@@ -17,7 +17,7 @@ class InitMapper(base_init_mapping.BaseInitMapper):
 
     Args:
       mapping_helper (base_mapping_helper.BaseMappingHelper): the helper class
-        for the mapping
+          for the mapping
     """
     super().__init__()
     self.__helper = mapping_helper

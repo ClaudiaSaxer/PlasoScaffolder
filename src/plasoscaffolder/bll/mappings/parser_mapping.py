@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Class representing the mapper for the parser file"""
+"""Class representing the mapper for the parser file."""
 from plasoscaffolder.bll.mappings import base_mapping_helper
 from plasoscaffolder.bll.mappings import base_parser_mapping
 from plasoscaffolder.model import parser_data_model
@@ -15,7 +15,7 @@ class ParserMapper(base_parser_mapping.BaseParserMapper):
 
     Args:
       mapping_helper (base_mapping_helper.BaseMappingHelper): the helper class
-        for the mapping
+          for the mapping
     """
     super().__init__()
     self.__helper = mapping_helper
@@ -24,7 +24,7 @@ class ParserMapper(base_parser_mapping.BaseParserMapper):
     """Retrieves the parser.
 
     Args:
-      parser_data: the data for the parser
+      parser_data (parser_data_model.ParserDataModel): the data for the parser
 
     Returns:
       str: the rendered template

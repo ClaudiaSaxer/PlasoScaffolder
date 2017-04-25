@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
-"""Information for the SQLite Database"""
+"""Information for the SQLite Database."""
 from plasoscaffolder.dal import (base_database_information)
 from plasoscaffolder.dal import base_sql_query_execution
 
 
 class SQLiteDatabaseInformation(
     base_database_information.BaseDatabaseInformation):
-  """Class representing the SQLite Query validator"""
+  """Class representing the SQLite Query validator."""
 
   def __init__(self,
                sql_execution: base_sql_query_execution.BaseSQLQueryExecution):
-    """Initializes the SQL Query Validator
+    """Initializes the SQL Query Validator.
 
     Args:
       sql_execution (base_sql_query_execution.BaseSQLQueryExecution): the
-        helper to execute a query
+          helper to execute a query
     """
     super().__init__()
     self._sql_execution = sql_execution
@@ -23,7 +23,8 @@ class SQLiteDatabaseInformation(
     """Executes the SQL Query.
 
     Returns:
-      [str]: the names of the tables"""
+      [str]: the names of the tables
+    """
     query = "select name from sqlite_master where type='table' order by name"
     data = self._sql_execution.executeQuery(query, False)
 

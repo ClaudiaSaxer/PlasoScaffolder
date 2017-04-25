@@ -4,6 +4,7 @@ import abc
 
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.dal import base_sql_query_execution
+from plasoscaffolder.model import sql_query_model
 
 
 class BaseSQLitePluginHelper(object):
@@ -24,7 +25,8 @@ class BaseSQLitePluginHelper(object):
       database_suffix: the suffix of the database file
       path (str): the path of the plaso source
       plugin_name (str): the name of the plugin
-      path_helper (BaseSqlitePluginHelper): the SQLite plugin helper
+      path_helper (base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper
+          ): the SQLite plugin helper
 
     Returns:
       bool: True if the plugin already exists. False if it does not.
@@ -81,4 +83,18 @@ class BaseSQLitePluginHelper(object):
     Returns:
       base_sql_query_execution.SQLQueryData: data returned by executing the
         query
+    """
+
+  def GetDistinctColumnsFromSQLQueryData(
+      self,
+      queries: [sql_query_model.SQLQueryModel]) -> [str]:
+    """
+    Get a distinct list of all attributes from multiple queries
+
+    Args:
+      queries ([sql_query_model.SQLQueryModel]): an array of multiple
+        sql query data objects
+
+    Returns:
+      list[str]: all distinct attributes used in the query
     """
