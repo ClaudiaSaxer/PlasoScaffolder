@@ -34,6 +34,12 @@ class SQLColumnModel(object):
     """
     return self._sql_column_type
 
+  @SQLColumnType.setter
+  def SQLColumnType(self, value):
+    """Setts the sql column type if it is not none and a type"""
+    if value is not None and type(value) is type:
+      self._sql_column_type = value
+
   def ColumnTypeAsName(self) -> str:
     """The type as the name.
     example: <class 'int'> type will be returned as int
@@ -49,14 +55,14 @@ class SQLColumnModel(object):
     Returns:
       str: the column name from the SQL in snake case
     """
-    if re.fullmatch("[a-zA-Z]*", self._sql_column):
+    if re.fullmatch("[a-zA-Z0-9]*", self._sql_column):
       substitute_first_part = re.sub('(.)([A-Z][a-z]+)', r'\1_\2',
                                      self._sql_column)
       substitute_second_part = re.sub(
           '([a-z0-9])([A-Z])', r'\1_\2', substitute_first_part).lower()
       return substitute_second_part
     else:
-      return ''
+      return self._sql_column.lower()
 
   def ColumnAsDescription(self) -> str:
     """SQL column name to description.

@@ -29,19 +29,26 @@ class SQLColumnModelTest(unittest.TestCase):
     expected = 'short'
     self.assertEqual(actual, expected)
 
-  def testColumnAsSnakeCaseErrorNumber(self):
-    """Test snake case for a name with numbers resulting in an error."""
-    column = sql_query_column_model.SQLColumnModel('error123')
+  def testColumnAsSnakeCaseWithNumber(self):
+    """Test snake case for a short name only small letters."""
+    column = sql_query_column_model.SQLColumnModel('int2val')
     actual = column.ColumnAsSnakeCase()
-    expected = ''
+    expected = 'int2val'
     self.assertEqual(actual, expected)
 
-  def testColumnAsSnakeCaseErrorUnderline(self):
+  def testColumnAsSnakeCaseStartWithNumber(self):
+    """Test snake case for a name with numbers resulting in an error."""
+    column = sql_query_column_model.SQLColumnModel('123error')
+    actual = column.ColumnAsSnakeCase()
+    expected = '123error'
+    self.assertEqual(actual, expected)
+
+  def testColumnAsSnakeCaseHasUnderline(self):
     """Test column as description for a name ending with an underscore
     resulting in an error."""
     column = sql_query_column_model.SQLColumnModel('error_')
     actual = column.ColumnAsSnakeCase()
-    expected = ''
+    expected = 'error_'
     self.assertEqual(actual, expected)
 
   def testColumnAsDescriptionLongNameCamelCase(self):

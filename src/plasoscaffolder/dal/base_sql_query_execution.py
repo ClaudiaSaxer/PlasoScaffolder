@@ -19,7 +19,7 @@ class SQLQueryData(object):
     self.has_error = has_error
     self.data = data
     self.error_message = error_message
-    self.columns = columns or []
+    self.columns = columns
 
 
 class BaseSQLQueryExecution(object):
