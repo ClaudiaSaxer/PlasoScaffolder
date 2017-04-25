@@ -47,7 +47,7 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     self.assertEqual(result, [])
     self.assertFalse(connected)
 
-  def getTableColumnsAndType(self):
+  def testGetTableColumnsAndType(self):
     """get the required tables if anything went wrong"""
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'test_database_types.db')
@@ -87,7 +87,7 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     self.assertEqual(actual_data, expected_data)
     self.assertTrue(connected)
 
-  def getTableColumnsAndTypeWithError(self):
+  def testGetTableColumnsAndTypeWithError(self):
     """get the required tables if anything went wrong"""
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'test_database_types.db')
@@ -100,6 +100,7 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     self.assertEqual(len(actual_data), 0)
     self.assertEqual(actual_data, expected_data)
     self.assertTrue(connected)
+
 
 if __name__ == '__main__':
   unittest.main()
