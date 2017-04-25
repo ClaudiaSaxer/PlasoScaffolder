@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """The parser model class."""
 from plasoscaffolder.model import sql_query_model
+from plasoscaffolder.model import base_data_model
 
 
-class ParserDataModel(object):
+class ParserDataModel(base_data_model.BaseDataModel):
   """Class for the data for the parser template."""
 
   def __init__(self,
@@ -19,7 +20,7 @@ class ParserDataModel(object):
       queries (sql_query_model.SQLQueryModel): the queries
       required_tables ([str]): the tables that are required
     """
-    self._plugin_name = plugin_name
+    super().__init__(plugin_name)
     self._queries = queries
     self._required_tables = required_tables
     self._database_name = database_name
@@ -50,12 +51,3 @@ class ParserDataModel(object):
       str: the sql queries
     """
     return self._queries
-
-  @property
-  def PluginName(self) -> str:
-    """The plugin name.
-
-    Returns:
-      str: the name of the plugin
-    """
-    return self._plugin_name

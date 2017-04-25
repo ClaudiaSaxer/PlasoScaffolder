@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """Class representing the mapper for the parser file."""
 from plasoscaffolder.bll.mappings import base_mapping_helper
-from plasoscaffolder.bll.mappings import base_parser_mapping
+from plasoscaffolder.bll.mappings import base_sqliteplugin_mapping
 from plasoscaffolder.model import parser_data_model
 
 
-class ParserMapper(base_parser_mapping.BaseParserMapper):
+class ParserMapper(base_sqliteplugin_mapping.BaseSQLitePluginMapper):
   """Class representing the parser mapper."""
 
   _PARSER_TEMPLATE = 'parser_template.jinja2'
@@ -18,9 +18,10 @@ class ParserMapper(base_parser_mapping.BaseParserMapper):
           for the mapping
     """
     super().__init__()
-    self.__helper = mapping_helper
+    self._helper = mapping_helper
 
-  def GetParser(self, parser_data: parser_data_model.ParserDataModel) -> str:
+  def GetRenderedTemplate(
+      self, parser_data: parser_data_model.ParserDataModel) -> str:
     """Retrieves the parser.
 
     Args:
@@ -29,11 +30,11 @@ class ParserMapper(base_parser_mapping.BaseParserMapper):
     Returns:
       str: the rendered template
     """
-    class_name = self.__helper.GenerateClassName(parser_data.PluginName)
+    class_name = self._helper.GenerateClassName(parser_data.PluginName)
     context = {'plugin_name': parser_data.PluginName,
                'class_name': class_name,
                'queries': parser_data.Queries,
                'database_name': parser_data.DatabaseName,
                'required_tables': parser_data.RequiredTables}
-    rendered = self.__helper.RenderTemplate(self._PARSER_TEMPLATE, context)
+    rendered = self._helper.RenderTemplate(self._PARSER_TEMPLATE, context)
     return rendered
