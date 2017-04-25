@@ -47,8 +47,8 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     self.assertEqual(result, [])
     self.assertFalse(connected)
 
-  def getTableColumnsAndType(self):
-    """get the required tables if anything went wrong"""
+  def testGetTableColumnsAndType(self):
+    """get columns for the table nodata with every possible type."""
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'test_database_types.db')
     execute = sqlite_query_execution.SQLQueryExecution(file_path)
@@ -87,19 +87,35 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     self.assertEqual(actual_data, expected_data)
     self.assertTrue(connected)
 
-  def getTableColumnsAndTypeWithError(self):
-    """get the required tables if anything went wrong"""
+  def testGetTableColumnsAndTypeWithNoTables(self):
+    """get the columns for the table if the table can not be found."""
     database_path = path_helper.TestDatabasePath()
-    file_path = os.path.join(database_path, 'twitter_ios_error.db')
+    file_path = os.path.join(database_path, 'test_database_types.db')
     execute = sqlite_query_execution.SQLQueryExecution(file_path)
     connected = execute.tryToConnect()
     database_information = (
       sqlite_database_information.SQLiteDatabaseInformation(execute))
-    actual_data = database_information.getTableColumnsAndType('statuses')
+    actual_data = database_information.getTableColumnsAndType('thisisnot')
     expected_data = {}
     self.assertEqual(len(actual_data), 0)
     self.assertEqual(actual_data, expected_data)
-    self.assertFalse(connected)
+    self.assertTrue(connected)
+
+  def testGetTableColumnsAndTypeWithError(self):
+    """get the columns for the table if anything went wrong"""
+    database_path = path_helper.TestDatabasePath()
+    file_path = os.path.join(database_path, 'test_database_types.db')
+    execute = sqlite_query_execution.SQLQueryExecution(file_path)
+    connected = execute.tryToConnect()
+    database_information = (
+      sqlite_database_information.SQLiteDatabaseInformation(execute))
+    'PRAGMA table_info({0})'
+    actual_data = database_information.getTableColumnsAndType(
+      "bla);select * from nodata; (")
+    expected_data = {}
+    self.assertEqual(len(actual_data), 0)
+    self.assertEqual(actual_data, expected_data)
+    self.assertTrue(connected)
 
 
 if __name__ == '__main__':
