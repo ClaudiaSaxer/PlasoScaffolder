@@ -41,5 +41,4 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
     Returns:
       str: the class name
     """
-
     return plugin_name.replace('_', ' ').title().replace(' ', '')
