@@ -3,10 +3,11 @@
 import os
 
 import click
+from plasoscaffolder.bll.mappings import formatter_init_mapping
 from plasoscaffolder.bll.mappings import formatter_mapping
 from plasoscaffolder.bll.mappings import formatter_test_mapping
-from plasoscaffolder.bll.mappings import init_mapping
 from plasoscaffolder.bll.mappings import mapping_helper
+from plasoscaffolder.bll.mappings import parser_init_mapping
 from plasoscaffolder.bll.mappings import parser_mapping
 from plasoscaffolder.bll.mappings import parser_test_mapping
 from plasoscaffolder.bll.services import base_sqlite_plugin_helper
@@ -258,7 +259,8 @@ class SQLiteController(object):
 
     generator.GenerateSQLitePlugin(
         template_path, file_handler.FileHandler(),
-        init_mapping.InitMapper(helper),
+        formatter_init_mapping.FormatterInitMapping(helper),
+        parser_init_mapping.ParserInitMapping(helper),
         parser_mapping.ParserMapper(helper),
         formatter_mapping.FormatterMapper(helper),
         parser_test_mapping.ParserTestMapper(helper),

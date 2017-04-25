@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """Class representing mapper for formatter test file."""
-from plasoscaffolder.bll.mappings import base_formatter_test_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
+from plasoscaffolder.bll.mappings import base_sqliteplugin_mapping
 from plasoscaffolder.model import formatter_test_data_model
 
 
-class FormatterTestMapper(base_formatter_test_mapping.BaseFormatterTestMapper):
+class FormatterTestMapper(base_sqliteplugin_mapping.BaseSQLitePluginMapper):
   """Class representing the formatter test mapper."""
 
   _FORMATTER_TEST_TEMPLATE = 'formatter_test_template.jinja2'
@@ -20,16 +20,16 @@ class FormatterTestMapper(base_formatter_test_mapping.BaseFormatterTestMapper):
     super().__init__()
     self._helper = mapping_helper
 
-  def GetFormatterTest(
+  def GetRenderedTemplate(
       self,
       formatter_test_data: formatter_test_data_model.FormatterTestDataModel
   ) -> str:
     """Retrieves the formatter test.
-  
+
     Args:
-      formatter_test_data (formatter_test_data_model.FormatterTestDataModel): 
+      formatter_test_data (formatter_test_data_model.FormatterTestDataModel):
           the data for the formatter test
-  
+
     Returns:
       str: the rendered template
     """
