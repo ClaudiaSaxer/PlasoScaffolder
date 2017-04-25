@@ -20,13 +20,13 @@ class ThePluginUsersEventData(events.EventData):
   Attributes:  
     advertiser_account_type (int): TODO
     analytics_type (int): TODO
-    bio_entities (NoneType): TODO
+    bio_entities (bytes): TODO
     business_profile_state (int): TODO
     could_be_stale (int): TODO
     created_date (float): TODO
     description (str): TODO
     device_following (int): TODO
-    extended_profile_fields (NoneType): TODO
+    extended_profile_fields (bytes): TODO
     favorites_count (int): TODO
     followers_count (int): TODO
     followers_count_fast (int): TODO
@@ -39,19 +39,19 @@ class ThePluginUsersEventData(events.EventData):
     is_lifeline_institution (int): TODO
     is_translator (int): TODO
     location (str): TODO
-    media_count (NoneType): TODO
+    media_count (int): TODO
     name (str): TODO
-    pinned_tweet_id (NoneType): TODO
+    pinned_tweet_id (int): TODO
     profile_banner_url (str): TODO
     profile_image_url (str): TODO
     profile_link_color_hex_triplet (int): TODO
     protected (int): TODO
     screen_name (str): TODO
     statuses_count (int): TODO
-    structured_location (NoneType): TODO
+    structured_location (bytes): TODO
     updated_at (float): TODO
     url (str): TODO
-    url_entities (NoneType): TODO
+    url_entities (bytes): TODO
     verified (int): TODO
   """
 
@@ -101,20 +101,20 @@ class ThePluginStatusesEventData(events.EventData):
 
   TODO: add type and description of attributes
   Attributes:  
-    card (NoneType): TODO
-    card_users (NoneType): TODO
+    card (bytes): TODO
+    card_users (bytes): TODO
     card_version (int): TODO
     date (float): TODO
     entities (bytes): TODO
-    extra_scribe_item (NoneType): TODO
+    extra_scribe_item (bytes): TODO
     favorite_count (int): TODO
     favorited (int): TODO
     full_text_length (int): TODO
-    geotag (NoneType): TODO
+    geotag (bytes): TODO
     id (int): TODO
     include_in_profile_timeline (int): TODO
-    in_reply_to_status_id (NoneType): TODO
-    in_reply_to_username (NoneType): TODO
+    in_reply_to_status_id (int): TODO
+    in_reply_to_username (str): TODO
     is_lifeline_alert (int): TODO
     is_possibly_sensitive_appealable (int): TODO
     is_truncated (int): TODO
@@ -122,16 +122,16 @@ class ThePluginStatusesEventData(events.EventData):
     possibly_sensitive (int): TODO
     preview_length (int): TODO
     primary_card_type (int): TODO
-    quoted_status_id (NoneType): TODO
+    quoted_status_id (int): TODO
     retweet_count (int): TODO
-    retweeted_status_id (NoneType): TODO
+    retweeted_status_id (int): TODO
     source (str): TODO
-    supplmental_language (NoneType): TODO
+    supplmental_language (str): TODO
     text (str): TODO
     updated_at (float): TODO
     user_id (int): TODO
-    withheld_in_countries (NoneType): TODO
-    withheld_scope (NoneType): TODO
+    withheld_in_countries (str): TODO
+    withheld_scope (str): TODO
   """
 
   DATA_TYPE = u'the:plugin:statuses'

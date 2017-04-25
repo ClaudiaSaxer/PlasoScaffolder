@@ -8,7 +8,7 @@ from plaso.formatters import the_plugin
 from tests.formatters import test_lib
 
 class ThePluginUsersFormatterTest(test_lib.EventFormatterTestCase):
-  """Tests the TThe Plugin users event formatter."""
+  """Tests the The Plugin users event formatter."""
 
   def testInitialization(self):
     """Tests the initialization."""
@@ -17,7 +17,7 @@ class ThePluginUsersFormatterTest(test_lib.EventFormatterTestCase):
 
   def testGetFormatStringAttributeNames(self):
     """Tests the GetFormatStringAttributeNames function."""
-    event_formatter = the_plugin.ThePluginusersFormatter()
+    event_formatter = the_plugin.ThePluginUsersFormatter()
 
     expected_attribute_names = [
         u'advertiser_account_type',
@@ -61,7 +61,7 @@ class ThePluginUsersFormatterTest(test_lib.EventFormatterTestCase):
         event_formatter, expected_attribute_names)
 
 class ThePluginStatusesFormatterTest(test_lib.EventFormatterTestCase):
-  """Tests the TThe Plugin statuses event formatter."""
+  """Tests the The Plugin statuses event formatter."""
 
   def testInitialization(self):
     """Tests the initialization."""
@@ -70,7 +70,7 @@ class ThePluginStatusesFormatterTest(test_lib.EventFormatterTestCase):
 
   def testGetFormatStringAttributeNames(self):
     """Tests the GetFormatStringAttributeNames function."""
-    event_formatter = the_plugin.ThePluginstatusesFormatter()
+    event_formatter = the_plugin.ThePluginStatusesFormatter()
 
     expected_attribute_names = [
         u'card',

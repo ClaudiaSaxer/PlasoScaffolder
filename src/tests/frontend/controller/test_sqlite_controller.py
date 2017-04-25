@@ -510,7 +510,7 @@ class SQLiteControllerTest(unittest.TestCase):
     with_examples = True
     query_execution = fake_sqlite_query_execution.SQLQueryExecution(
         base_sql_query_execution.SQLQueryData(
-            data=['first', 'second', 'third', 'fourth']))
+            data=['first', 'second', 'third', 'fourth'], columns=[]))
 
     with tempfile.TemporaryDirectory() as tmpdir:
       path = os.path.join(tmpdir, 'testfile')
@@ -545,7 +545,7 @@ class SQLiteControllerTest(unittest.TestCase):
     with_examples = True
     query_execution = fake_sqlite_query_execution.SQLQueryExecution(
         base_sql_query_execution.SQLQueryData(
-            data=['first', 'second', 'third']))
+            data=['first', 'second', 'third'], columns=[]))
 
     with tempfile.TemporaryDirectory() as tmpdir:
       path = os.path.join(tmpdir, 'testfile')
