@@ -45,6 +45,6 @@ class SQLiteDatabaseInformation(
     query = 'PRAGMA table_info({0})'.format(table);
     data = self._sql_execution.executeQuery(query)
     if data.has_error:
-      return []
+      return {}
     else:
       return {data_tuple[1]:data_tuple[2] for data_tuple in data.data}
