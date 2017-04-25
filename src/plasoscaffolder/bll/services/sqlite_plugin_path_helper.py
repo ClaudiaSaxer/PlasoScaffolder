@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""SQLite Plugin Path Helper"""
+"""SQLite Plugin Path Helper-"""
 import os
 
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
@@ -7,7 +7,7 @@ from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 
 class SQLitePluginPathHelper(
     base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper):
-  """Class containing __helper functions for the SQLite plugin for the path
+  """Class containing helper functions for the SQLite plugin for the path-
 
   Attributes:
     formatter_file_path (str): the path to the formatter file
@@ -20,11 +20,11 @@ class SQLitePluginPathHelper(
   """
 
   def __init__(self, path: str, plugin_name: str, database_suffix: str):
-    """Initializes the sqlite plugin halper.
+    """Initializes the SQLite plugin helper.
 
       Args:
        path (str): the plaso folder path
-       plugin_name (str): The name of the plugin to check.
+       plugin_name (str): The Name of the plugin to check.
        database_suffix (str): the file suffix of the database file
      """
     super().__init__()

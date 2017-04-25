@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Helper methods for mapping"""
+"""Helper methods for mapping."""
 import abc
 
 
@@ -21,7 +21,7 @@ class BaseMappingHelper(object):
 
   @abc.abstractmethod
   def GenerateClassName(self, plugin_name: str) -> str:
-    """Generates the class name.
+    """Generates the class name from the plugin name.
 
     Args:
       plugin_name (str): the plugin name

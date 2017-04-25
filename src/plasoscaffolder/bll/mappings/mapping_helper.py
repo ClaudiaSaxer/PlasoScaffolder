@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Helper methods for mapping."""
 import jinja2
+
 from plasoscaffolder.bll.mappings import base_mapping_helper
 
 
@@ -32,7 +33,7 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
         template_filename).render(context)
 
   def GenerateClassName(self, plugin_name: str) -> str:
-    """Generates the class name.
+    """Generates the class name from the plugin name.
 
     Args:
       plugin_name (str): the plugin name

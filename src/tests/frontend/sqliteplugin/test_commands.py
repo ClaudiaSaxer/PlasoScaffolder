@@ -9,18 +9,18 @@ from plasoscaffolder.frontend.sqliteplugin import commands
 class SqliteCommandsTest(unittest.TestCase):
   """testing the sqlite commands"""
 
-  def test_SqliteHelp(self):
+  def testSqliteHelp(self):
     """testing the help argument"""
     runner = CliRunner()
     result = runner.invoke(commands.sqlite, ['--help'])
     expected_output = ('Usage: sqlite [OPTIONS]\n'
                        '\n'
                        'Options:\n'
-                       '  --path TEXT      The path to plaso\n'
-                       '  --name TEXT      The plugin name\n'
-                       '  --testfile TEXT  The testfile path\n'
-                       '  --event TEXT     The plugin events\n'
-                       '  --sql            The output example flag for the SQL Query for the plugin.\n'
-                       '  --help           Show this message and exit.\n')
+                       '  --path TEXT       The path to plaso\n'
+                       '  --name TEXT       The plugin name\n'
+                       '  --testfile TEXT   The testfile path\n'
+                       '  --sql / --no-sql  The output example flag for the '
+                       'SQL Query for the plugin.\n'
+                       '  --help            Show this message and exit.\n')
     self.assertEqual(expected_output, str(result.output))
     self.assertEqual(0, result.exit_code)

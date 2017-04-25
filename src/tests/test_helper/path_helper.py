@@ -16,6 +16,7 @@ def TemplatePath() -> str:
       os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
       'plasoscaffolder', 'bll', 'templates')
 
+
 def TestDatabasePath() -> str:
   """ generating the template path for the tests
 

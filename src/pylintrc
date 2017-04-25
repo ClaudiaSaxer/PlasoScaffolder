@@ -34,7 +34,7 @@ load-plugins=
 # it should appear only once).
 # CHANGED:
 #
-# C0103: Invalid name ""
+# C0103: Invalid Name ""
 # C0302: Too many lines in module (N)
 #
 # I0010: Unable to consider inline option ''
@@ -81,7 +81,7 @@ output-format=text
 
 # Put messages in a separate file for each module / package specified on the
 # command line instead of printing them on stdout. Reports (if any) will be
-# written in a file name "pylint_global.[txt|html]".
+# written in a file Name "pylint_global.[txt|html]".
 files-output=no
 
 # Tells whether to display a full report or only the messages
@@ -101,7 +101,7 @@ evaluation=10.0 - ((float(5 * error + warning + refactor + convention) / stateme
 # Tells whether we should check for unused import in __init__ files.
 init-import=no
 
-# A regular expression matching the beginning of the name of unused variables.
+# A regular expression matching the beginning of the Name of unused variables.
 # By default this is _ and dummy but we prefer _ and unused.
 dummy-variables-rgx=_|unused
 
@@ -113,7 +113,7 @@ additional-builtins=
 [TYPECHECK]
 
 # Tells whether missing members accessed in mixin class should be ignored. A
-# mixin class is detected if its name ends with "mixin" (case insensitive).
+# mixin class is detected if its Name ends with "mixin" (case insensitive).
 ignore-mixin-members=yes
 
 # List of classes names for which member attributes should not be checked
@@ -197,7 +197,7 @@ good-names=i,j,k,ex,Run,_
 # Bad variable names which should always be refused, separated by a comma
 bad-names=foo,bar,baz,toto,tutu,tata
 
-# Regular expression which should only match functions or classes name which do
+# Regular expression which should only match functions or classes Name which do
 # not require a docstring
 no-docstring-rgx=__.*__
 
@@ -207,7 +207,7 @@ no-docstring-rgx=__.*__
 # Maximum number of arguments for function / method
 max-args=5
 
-# Argument names that match this expression will be ignored. Default to name
+# Argument names that match this expression will be ignored. Default to Name
 # with leading underscore
 ignored-argument-names=_.*
 

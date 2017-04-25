@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-"""the output file handler for click"""
+"""The output file handler for click"""
 import click
+
 from plasoscaffolder.common import base_output_handler
 
 
@@ -47,7 +48,7 @@ class OutputHandlerClick(base_output_handler.BaseOutputHandler):
     return click.prompt(click.style(text, fg='red'), type=str)
 
   def PrintInfo(self, text: str):
-    """A echo for infos with click.
+    """A echo for information with click.
 
     Args:
       text (str): the text to print
@@ -71,6 +72,6 @@ class OutputHandlerClick(base_output_handler.BaseOutputHandler):
       abort (bool): if the program should abort
 
     Returns:
-      bool: false if the user entered no, true if the user entered yes 
+      bool: false if the user entered no, true if the user entered yes
     """
     return click.confirm(text, abort=abort, default=default)

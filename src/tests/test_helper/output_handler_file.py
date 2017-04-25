@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""output file handler for files"""
+"""Output file handler for files."""
 
 import sys
 
@@ -26,8 +26,8 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       fileHandler (BaseFileHandler): the file Handler
       prompt_error (str): what to return in a prompt error
       prompt_info (str): what to return in a prompt info
-      confirm_amount_same (int): how many times to confirm the same amount. 
-      Default = 100
+      confirm_amount_same (int): how many times to confirm the same amount.
+       Default = 100
     """
     super().__init__()
     self.__prompt_info = prompt_info
@@ -35,7 +35,7 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
     self.__file_handler = file_handler
     self.__path = file_path
     self.__confirm = confirm
-    self.__confirm_counter = 1
+    self.__confirm_counter = 0
     self.__confirm_amount_same = confirm_amount_same
 
   def PromptInfo(self, text: str) -> str:
@@ -108,6 +108,7 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
        abort (bool): if the program should abort
 
      Returns:
+       bool: false if the user entered no, true if the user entered yes
      """
     if self.__confirm_amount_same > self.__confirm_counter:
       self.__confirm_counter += 1
@@ -118,4 +119,5 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
     if not self.__confirm and abort:
       sys.exit()
     self.__file_handler.AddContent(self.__path, text)
+
     return self.__confirm

@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-""" Module representing function for the different files. """
-from plasoscaffolder.bll.mappings import base_formatter_mapping
+"""Class representing the mapper for the formatter."""
 from plasoscaffolder.bll.mappings import base_mapping_helper
+from plasoscaffolder.bll.mappings import base_sqliteplugin_mapping
+from plasoscaffolder.model import formatter_data_model
 
 
-class FormatterMapper(base_formatter_mapping.BaseFormatterMapper):
-  """Class representing the parser mapper."""
+class FormatterMapper(base_sqliteplugin_mapping.BaseSQLitePluginMapper):
+  """Class representing the formatter mapper."""
 
   _FORMATTER_TEMPLATE = 'formatter_template.jinja2'
 
@@ -13,23 +14,27 @@ class FormatterMapper(base_formatter_mapping.BaseFormatterMapper):
     """Initializing the init mapper class.
 
     Args:
-      template_path (str): the path to the template directory
+      mapping_helper (base_mapping_helper.BaseMappingHelper): the helper class
+          for the mapping
     """
     super().__init__()
     self._helper = mapping_helper
 
-  def GetFormatter(self, plugin_name: str, events: list) -> str:
-    """Renders the formatter.
+  def GetRenderedTemplate(
+      self,
+      formatter_data: formatter_data_model.FormatterDataModel) -> str:
+    """Retrieves the formatter.
 
     Args:
-      plugin_name (str): the name of the plugin
-      events (list): the list of the events
+      formatter_data (formatter_data_model.FormatterDataModel): the data for
+          the formatter
 
     Returns:
       str: the rendered template
     """
-    class_name = self._helper.GenerateClassName(plugin_name)
-    context = {'plugin_name': plugin_name, 'class_name': class_name,
-               'events': events}
+    class_name = self._helper.GenerateClassName(formatter_data.PluginName)
+    context = {'plugin_name': formatter_data.PluginName,
+               'class_name': class_name,
+               'queries': formatter_data.Queries}
     rendered = self._helper.RenderTemplate(self._FORMATTER_TEMPLATE, context)
     return rendered

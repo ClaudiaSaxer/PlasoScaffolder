@@ -1,27 +1,29 @@
 # -*- coding: utf-8 -*-
-"""TODO"""
+"""{{ plugin_name|replace('_',' ')}} database formatter."""
 
 from plaso.formatters import interface
 from plaso.formatters import manager
-from plaso.lib import errors
+from plaso.lib import errors{% for query in queries %}
 
-{% for event in events %}
-class {{ class_name }}{{ event.name }}Formatter(interface.ConditionalEventFormatter):
-  """TODO"""
 
+class {{ class_name }}{{ query.Name|capitalize }}Formatter(interface.ConditionalEventFormatter):
+  """{{ plugin_name|replace('_',' ')}} {{ query.Name|lower }} event formatter."""
+
+  DATA_TYPE = u'{{ plugin_name|lower|replace('_',':')}}:{{ query.Name|lower }}'
+
+  """Correct Format String Pieces where needed"""
   FORMAT_STRING_PIECES = [
-    """TODO"""
-  ]
+    {% for column in query.Columns|sort(attribute='SQLColumn') %}u'{{ column.ColumnAsDescription() }}{{ ':{' }}{{ column.ColumnAsSnakeCase() }}{{ '}' }}'{% if not loop.last %},
+    {% endif %}{% endfor %}]
 
-  FORMAT_STRING_SHORT_PIECES = [
-    """TODO"""
-  ]
+  #TODO: add Format String Pieces for the short Format
+  FORMAT_STRING_SHORT_PIECES = []
 
-  [DATA_TYPE = u'TODO' ]
-
-  SOURCE_LONG = u'todo'
-  SOURCE_SHORT = u'todo'
-{% if event.needs_customizing %}
+  SOURCE_LONG = u'{{ plugin_name|replace('_',' ')|title }} {{ query.Name|title }}'
+  SOURCE_SHORT = u'{{ plugin_name|replace('_',' ')|title }}'
+  {% if query.NeedsCustomizing %}#TODO: Replace constant _REPLACEWITHATTRIBUTENAME with the attribute to customize and add values
+  _REPLACEWITHATTRIBUTENAME = {}{% endif %}
+{% if query.NeedsCustomizing %}
   def GetMessages(self, unused_formatter_mediator, event):
     """Determines the formatted message strings for an event object.
 
@@ -43,11 +45,15 @@ class {{ class_name }}{{ event.name }}Formatter(interface.ConditionalEventFormat
 
     event_values = event.CopyToDict()
 
-    #TODO
+    # TODO: replace variable replace_with_attribute_name with the attribute to customize
+    replace_with_attribute_name = event_values.get(u'replace_with_attribute_name', None)
+    if replace_with_attribute_name is not None:
+      event_values[u'replace_with_attribute_name'] = (
+          self._REPLACEWITHATTRIBUTENAME.get(replace_with_attribute_name, u'UNKNOWN'))
 
     return self._ConditionalFormatMessages(event_values)
-{% endif %}
-{% endfor %}
+{% endif %}{% endfor %}
 manager.FormattersManager.RegisterFormatter([
-  {% for event in events %}{{ class_name }}{{ event.name }}Formatter{% if not loop.last %},{% endif %}
-  {% endfor %}])
+  {% for query in queries %}{{ class_name }}{{ query.Name|capitalize }}Formatter{% if not loop.last %},
+  {% endif %}{% endfor %}
+])

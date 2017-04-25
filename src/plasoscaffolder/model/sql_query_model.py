@@ -1,34 +1,60 @@
 # -*- coding: utf-8 -*-
-"""The sql query model class."""
+"""The SQL query model class."""
+from plasoscaffolder.model import sql_query_column_model
 
 
 class SQLQueryModel(object):
-  "A sql query Model."
-  def __init__(self, query: str, name: str):
-    """ initializes the sql query model.
+  """A SQL query model."""
+
+  def __init__(self, query: str, name: str,
+               columns: [sql_query_column_model.SQLColumnModel],
+               needs_customizing: bool):
+    """ initializes the SQL query model.
 
     Args:
-      name (str): The name of the query.
+      columns ([sql_query_column_model.SQLColumnModel]): list of columns for
+          the Query
+      name (str): The Name of the Query.
       query (str): The SQL Query.
+      needs_customizing (bool): if the event for the query needs customizing
     """
     self._name = name
     self._query = query
+    self._columns = columns
+    self._needs_customizing = needs_customizing
 
   @property
-  def name(self) -> str:
-    """ the sql query name.
+  def Name(self) -> str:
+    """The SQL query name.
 
     Returns:
-      (str): The name of the sql query parser row.
+      str: the name of the SQL query parser row.
     """
     return self._name
 
   @property
-  def query(self) -> bool:
-    """ the sql query
+  def Query(self) -> bool:
+    """The SQL query.
 
     Returns:
-      (str): The SQL query.
-
+      str: The SQL query.
     """
     return self._query
+
+  @property
+  def NeedsCustomizing(self) -> bool:
+    """If the event for the query needs customizing.
+
+    Returns:
+      bool: True If the event needs customizing
+    """
+    return self._needs_customizing
+
+  @property
+  def Columns(self) -> [sql_query_column_model.SQLColumnModel]:
+    """The columns of the query.
+
+    Returns:
+      [sql_query_column_model.SQLColumnModel]: list of columns
+    """
+    return self._columns
