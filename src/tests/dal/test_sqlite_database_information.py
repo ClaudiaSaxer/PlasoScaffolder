@@ -90,17 +90,16 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
   def getTableColumnsAndTypeWithError(self):
     """get the required tables if anything went wrong"""
     database_path = path_helper.TestDatabasePath()
-    file_path = os.path.join(database_path, 'twitter_ios_error.db')
+    file_path = os.path.join(database_path, 'test_database_types.db')
     execute = sqlite_query_execution.SQLQueryExecution(file_path)
     connected = execute.tryToConnect()
     database_information = (
       sqlite_database_information.SQLiteDatabaseInformation(execute))
-    actual_data = database_information.getTableColumnsAndType('statuses')
+    actual_data = database_information.getTableColumnsAndType('thisisnot')
     expected_data = {}
     self.assertEqual(len(actual_data), 0)
     self.assertEqual(actual_data, expected_data)
-    self.assertFalse(connected)
-
+    self.assertTrue(connected)
 
 if __name__ == '__main__':
   unittest.main()
