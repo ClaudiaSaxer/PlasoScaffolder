@@ -3,12 +3,8 @@
 import abc
 import os
 
-from plasoscaffolder.bll.mappings import base_formatter_mapping
-from plasoscaffolder.bll.mappings import base_formatter_test_mapping
-from plasoscaffolder.bll.mappings import base_init_mapping
+from plasoscaffolder.bll.mappings import base_sqliteplugin_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
-from plasoscaffolder.bll.mappings import base_parser_mapping
-from plasoscaffolder.bll.mappings import base_parser_test_mapping
 from plasoscaffolder.common import base_file_handler
 from plasoscaffolder.dal import base_database_information
 
@@ -22,12 +18,12 @@ class BaseSQLiteGenerator(object):
       self,
       template_path: str,
       fileHandler: base_file_handler.BaseFileHandler,
-      init_mapper: base_init_mapping.BaseInitMapper,
-      parser_mapper: base_parser_mapping.BaseParserMapper,
-      formatter_mapper: base_formatter_mapping.BaseFormatterMapper,
-      parser_test_mapper: base_parser_test_mapping.BaseParserTestMapper,
-      formatter_test_mapper:
-      base_formatter_test_mapping.BaseFormatterTestMapper,
+      init_formatter_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
+      init_parser_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
+      parser_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
+      formatter_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
+      parser_test_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
+      formatter_test_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
       mappingHelper: base_mapping_helper.BaseMappingHelper,
       database_information: base_database_information.BaseDatabaseInformation):
     """Generate the whole SQLite plugin.
@@ -35,12 +31,13 @@ class BaseSQLiteGenerator(object):
     Args:
       template_path (str): the path to the template directory
       fileHandler (FileHandler): the handler for the file
-      init_mapper (BaseInitMapper): the init mapper
-      parser_mapper (BaseParserMapper): the parser mapper
-      formatter_mapper (BaseFormatterMapper): the mapper for the formatter
-      parser_test_mapper (BaseParserTestMapper): the mapper for the formatter
+      init_formatter_mapper (BaseSQLitePluginMapper): the init formatter mapper
+      init_parser_mapper (BaseSQLitePluginMapper): the init parser mapper
+      parser_mapper (BaseSQLitePluginMapper): the parser mapper
+      formatter_mapper (BaseSQLitePluginMapper): the mapper for the formatter
+      parser_test_mapper (BaseSQLitePluginMapper): the mapper for the formatter
           test
-      formatter_test_mapper (BaseFormatterTestMapper): the mapper for the parser
+      formatter_test_mapper (BaseSQLitePluginMapper): the mapper for the parser
           test
       mappingHelper (BaseMappingHelper): the mapping helper
       database_information (BaseDatabaseInformation): helper class for

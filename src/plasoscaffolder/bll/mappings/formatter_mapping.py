@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """Class representing the mapper for the formatter."""
-from plasoscaffolder.bll.mappings import base_formatter_mapping
 from plasoscaffolder.bll.mappings import base_mapping_helper
+from plasoscaffolder.bll.mappings import base_sqliteplugin_mapping
 from plasoscaffolder.model import formatter_data_model
 
 
-class FormatterMapper(base_formatter_mapping.BaseFormatterMapper):
+class FormatterMapper(base_sqliteplugin_mapping.BaseSQLitePluginMapper):
   """Class representing the formatter mapper."""
 
   _FORMATTER_TEMPLATE = 'formatter_template.jinja2'
@@ -20,13 +20,13 @@ class FormatterMapper(base_formatter_mapping.BaseFormatterMapper):
     super().__init__()
     self._helper = mapping_helper
 
-  def GetFormatter(self,
-                   formatter_data: formatter_data_model.FormatterDataModel
-                   ) -> str:
+  def GetRenderedTemplate(
+      self,
+      formatter_data: formatter_data_model.FormatterDataModel) -> str:
     """Retrieves the formatter.
 
     Args:
-      formatter_data (formatter_data_model.FormatterDataModel): the data for 
+      formatter_data (formatter_data_model.FormatterDataModel): the data for
           the formatter
 
     Returns:

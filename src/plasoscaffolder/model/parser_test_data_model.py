@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """The parser test model class."""
 from plasoscaffolder.model import sql_query_model
+from plasoscaffolder.model import base_data_model
 
 
-class ParserTestDataModel(object):
+class ParserTestDataModel(base_data_model.BaseDataModel):
   """Class for the data for the parser test template."""
 
   def __init__(self,
@@ -17,7 +18,7 @@ class ParserTestDataModel(object):
       plugin_name (str): the name of the plugin
       queries (sql_query_model.SQLQueryModel): the queries
     """
-    self._plugin_name = plugin_name
+    super().__init__(plugin_name)
     self._queries = queries
     self._database_name = database_name
 
@@ -38,12 +39,3 @@ class ParserTestDataModel(object):
       str: the sql queries
     """
     return self._queries
-
-  @property
-  def PluginName(self) -> str:
-    """The plugin name.
-
-    Returns:
-      str: the name of the plugin
-    """
-    return self._plugin_name

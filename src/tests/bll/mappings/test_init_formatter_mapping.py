@@ -2,7 +2,9 @@
 """test class"""
 import unittest
 
-from plasoscaffolder.bll.mappings import init_mapping
+from plasoscaffolder.bll.mappings import formatter_init_mapping
+from plasoscaffolder.bll.mappings import parser_init_mapping
+from plasoscaffolder.model import init_data_model
 from tests.fake import fake_mapping_helper
 
 
@@ -11,32 +13,42 @@ class InitMappingTest(unittest.TestCase):
 
   def setUp(self):
     self.plugin_name = "the_one_and_only"
-    self.mapper = init_mapping.InitMapper(
-        fake_mapping_helper.FakeMappingHelper("template path"))
 
   def testGetFormatterInitCreate(self):
     """test the render for creating a new formatter init file"""
-    actual = self.mapper.GetFormatterInitCreate(self.plugin_name)
-    expected = "fake string formatter_init_create_template.jinja2"
+    mapper = formatter_init_mapping.FormatterInitMapping(
+        fake_mapping_helper.FakeMappingHelper("template path"))
+    data = init_data_model.InitDataModel(self.plugin_name, True)
+    actual = mapper.GetRenderedTemplate(data)
+    expected = "fake string formatter_init_template.jinja2"
     self.assertEqual(expected, actual)
 
   def testGetFormatterInitEdit(self):
     """test the render for editing a existing formatter init file"""
-    actual = self.mapper.GetFormatterInitEdit(self.plugin_name)
-    expected = "fake string formatter_init_edit_template.jinja2"
+    mapper = formatter_init_mapping.FormatterInitMapping(
+        fake_mapping_helper.FakeMappingHelper("template path"))
+    data = init_data_model.InitDataModel(self.plugin_name, False)
+    actual = mapper.GetRenderedTemplate(data)
+    expected = "fake string formatter_init_template.jinja2"
     self.assertEqual(expected, actual)
 
   def testGetParserInitCreate(self):
     """test the render for creating a new parser init file"""
-    actual = self.mapper.GetParserInitCreate(self.plugin_name)
-    expected = "fake string parser_init_create_template.jinja2"
+    mapper = parser_init_mapping.ParserInitMapping(
+        fake_mapping_helper.FakeMappingHelper("template path"))
+    data = init_data_model.InitDataModel(self.plugin_name, True)
+    actual = mapper.GetRenderedTemplate(data)
+    expected = "fake string parser_init_template.jinja2"
 
     self.assertEqual(expected, actual)
 
   def testGetParserInitEdit(self):
     """test the render for editing a existing parser init file"""
-    actual = self.mapper.GetParserInitEdit(self.plugin_name)
-    expected = "fake string parser_init_edit_template.jinja2"
+    mapper = parser_init_mapping.ParserInitMapping(
+        fake_mapping_helper.FakeMappingHelper("template path"))
+    data = init_data_model.InitDataModel(self.plugin_name, False)
+    actual = mapper.GetRenderedTemplate(data)
+    expected = "fake string parser_init_template.jinja2"
     self.assertEqual(expected, actual)
 
 
