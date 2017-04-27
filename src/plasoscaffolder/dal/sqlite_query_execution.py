@@ -191,10 +191,8 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
 
         type_sqlite = mappings[column.SQLColumn].upper()
         type_sqlite_basic = type_sqlite.split("(")[0]
-        print(type_sqlite_basic)
         type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(
             type_sqlite_basic, type(None))
-        print(type_sqlite_basic + str(type_python))
 
         column.SQLColumnType = type_python
     else:

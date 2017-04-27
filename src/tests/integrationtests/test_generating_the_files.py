@@ -122,7 +122,7 @@ class GeneratingFilesTestCase(unittest.TestCase):
     test_file = os.path.join(path_helper.TestDatabasePath(),
                              'test_database_types.db')
     with tempfile.TemporaryDirectory() as tmpdir:
-      output_path = os.path.join(os.path.dirname(__file__), "temp")
+      output_path = os.path.join(tmpdir, "temp")
 
       file_handler.FileHandler()._CreateFolder(output_path)
 
