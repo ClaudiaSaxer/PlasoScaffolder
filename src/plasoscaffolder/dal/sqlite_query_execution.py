@@ -33,7 +33,8 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       bool: if the file can be opened and is a database file
     """
     try:
-      self._connection = sqlite3.connect(self._database_path)
+      self._connection = sqlite3.connect(
+          self._database_path)
       self._connection.isolation_level = None  # no autocommit mode
       self._explain = explain_query_plan.ExplainQueryPlan(self)
       # this query failes if is not a database or locked or anything went wrong
@@ -68,10 +69,13 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       base_sql_query_execution.SQLQueryData: The data to the Query
     """
     data_from_executed_query = self._executeQuery(query, True)
-    data = self._addMissingTypesFromSchema(data_from_executed_query, query)
-    return data
+    if not data_from_executed_query.has_error:
+      data_from_executed_query.columns = self._addMissingTypesFromSchema(
+          data_from_executed_query.columns, query)
 
-  def _addMissingTypesFromSchema(
+    return data_from_executed_query
+
+  def _old(
       self,
       data: base_sql_query_execution.SQLQueryData,
       query: str) -> base_sql_query_execution.SQLQueryData:
@@ -86,17 +90,34 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
         Returns:
           base_sql_query_execution.SQLQueryData: The data to the Query
         """
-    locked = self._explain.getLockedTables(query)
+    # if there are no data examples
+    """if len(query_data) == 0:
+      for description in cursor.description:
+        print(description)
+        sql_column.append(sql_query_column_model.SQLColumnModel(
+            description[0], type(None)))
 
-    #TODO also try to get data if more than one Table is involved
+    else:
+      for column in range(0, len(query_data[0])):
+        for data_row in query_data:
+          data_type = data_row[column]
+          if data_type is not None:
+            break"""
+
+    """ locked = self._explain.getLockedTables(query)
+
     if data.columns is not None and len(locked) == 1:
       mappings = self._database_information.getTableColumnsAndType(locked[0])
       for column in data.columns:
+
         if column.SQLColumnType is type(None):
           type_sqlite = mappings[column.SQLColumn].upper()
           type_sqlite_basic = type_sqlite.split("(")[0]
-          type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS[type_sqlite_basic]
-          column.SQLColumnType = type_python
+          if type_sqlite_basic in type_mapper.TypeMapperSQLitePython.MAPPINGS:
+            type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS[
+              type_sqlite_basic]
+            column.SQLColumnType = type_python"""
+
     return data
 
   def _executeQuery(
@@ -120,7 +141,7 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
         query_data.data = cursor.fetchall()
         if detailed:
           query_data.columns = self._getColumnInformationFromCursor(
-              cursor, query_data.data)
+              cursor.description)
         self._connection.execute('ROLLBACK')
     except sqlite3.Error as error:
       query_data.error_message = 'Error: {0}'.format(str(error))
@@ -128,13 +149,32 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     except sqlite3.Warning as warning:
       query_data.error_message = 'Warning: {0}'.format(str(warning))
       query_data.has_error = True
+
     return query_data
 
   def _getColumnInformationFromCursor(
-      self, cursor, query_data: []
-  ) -> [sql_query_column_model.SQLColumnModel]:
+      self, description: []) -> [sql_query_column_model.SQLColumnModel]:
     """Getting Information for the column out of the cursor.
 
+    Args:
+      cursor: the cursor
+
+    Returns:
+      list(sql_query_column_model.SQLColumnModel): a list with all the columns
+    """
+    sql_column = list()
+    for description in description:
+
+      sql_column.append(
+          sql_query_column_model.SQLColumnModel(description[0], type(None)))
+
+    return sql_column
+
+  def _addMissingTypesFromSchema(
+      self, columns: [], query,
+  ) -> [sql_query_column_model.SQLColumnModel]:
+    """Getting Information for the column out of the cursor.
+    
     Args:
       cursor: the cursor
       query_data: the data of the query
@@ -142,27 +182,37 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     Returns:
       list(sql_query_column_model.SQLColumnModel): a list with all the columns
     """
-    if cursor.description is not None:
-      sql_column = list()
+    # TODO description
+    locked = self._explain.getLockedTables(query)
 
-      # if there are no data examples
-      if len(query_data) == 0:
-        for description in cursor.description:
-          sql_column.append(sql_query_column_model.SQLColumnModel(
-              description[0], type(None)))
+    if len(locked) == 1:
+      mappings = self._database_information.getTableColumnsAndType(locked[0])
+      for column in columns:
 
-      else:
-        for column in range(0, len(query_data[0])):
-          for data_row in query_data:
-            data_type = data_row[column]
-            if data_type is not None:
-              break
+        type_sqlite = mappings[column.SQLColumn].upper()
+        type_sqlite_basic = type_sqlite.split("(")[0]
+        print(type_sqlite_basic)
+        type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(
+            type_sqlite_basic, type(None))
+        print(type_sqlite_basic + str(type_python))
 
-          sql_column.append(sql_query_column_model.SQLColumnModel(
-              cursor.description[column][0], type(data_type)))
+        column.SQLColumnType = type_python
+    else:
+      types = self._explain.getTableForSelect(query)
 
-      return sql_column
-    return None
+      type_python = type(None)
+      position = 0
+      for column in columns:
+        if types:
+          type_sqlite = types[position][1].upper()
+          type_sqlite_basic = type_sqlite.split("(")[0]
+          type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(
+              type_sqlite_basic, type(None))
+
+        column.SQLColumnType = type_python
+        position += 1
+
+    return columns
 
   def executeReadOnlyQuery(self, query: str):
     """Executes the SQL Query if it is read only.
@@ -173,11 +223,12 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       Returns:
         base_sql_query_execution.SQLQueryData: The data to the Query
     """
-    query_data = self.executeQueryDetailed(query)
-    if not query_data.has_error:
-      if not self._explain.isReadOnly(query):
-        query_data.data = None
-        query_data.has_error = True
-        query_data.error_message = 'Query has to be a SELECT query.'
-        query_data.columns = None
+    query_data = base_sql_query_execution.SQLQueryData()
+    if self._explain.isReadOnly(query):
+      query_data = self.executeQueryDetailed(query)
+    else:
+      query_data.data = None
+      query_data.has_error = True
+      query_data.error_message = 'Query has to be a single SELECT query.'
+      query_data.columns = None
     return query_data

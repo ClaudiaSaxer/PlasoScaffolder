@@ -20,8 +20,13 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
     file_path_types = os.path.join(database_path, 'test_database_types.db')
     self.execute_types = sqlite_query_execution.SQLQueryExecution(
-      file_path_types)
+        file_path_types)
     self.execute_types.tryToConnect()
+
+    file_path_names = os.path.join(database_path, 'test_database_names.db')
+    self.execute_names = sqlite_query_execution.SQLQueryExecution(
+        file_path_names)
+    self.execute_names.tryToConnect()
 
   def testTryToConnect(self):
     """try to connect without error"""
@@ -231,7 +236,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     self.assertEqual(expected_data, str(result.data))
 
     for col in result.columns:
-      print(col.SQLColumn +" "+ col.ColumnTypeAsName())
+      print(col.SQLColumn + " " + col.ColumnTypeAsName())
 
     self.assertEqual(result.columns[0].SQLColumn, 'intval')
     self.assertEqual(result.columns[1].SQLColumn, 'integerval')
@@ -287,6 +292,27 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     self.assertEqual(result.columns[25].ColumnTypeAsName(), 'float')
     self.assertEqual(result.columns[26].ColumnTypeAsName(), 'float')
 
+  def testExecuteQueryDetailedJoinNoData(self):
+    """test the execution of a join Query with no data"""
+    query = (
+    'SELECT t1.a, t2.a, t2.c, t1.b, t2.b from t1 join t2')
+    result = self.execute_names.executeQueryDetailed(query)
+    expected_data = '[]'
+    self.assertIsNone(result.error_message)
+    self.assertFalse(result.has_error)
+    self.assertEqual(expected_data, str(result.data))
+
+    self.assertEqual(result.columns[0].SQLColumn, 'a')
+    self.assertEqual(result.columns[1].SQLColumn, 'a')
+    self.assertEqual(result.columns[2].SQLColumn, 'c')
+    self.assertEqual(result.columns[3].SQLColumn, 'b')
+    self.assertEqual(result.columns[4].SQLColumn, 'b')
+    self.assertEqual(result.columns[0].ColumnTypeAsName(), 'int')
+    self.assertEqual(result.columns[1].ColumnTypeAsName(), 'str')
+    self.assertEqual(result.columns[2].ColumnTypeAsName(), 'str')
+    self.assertEqual(result.columns[3].ColumnTypeAsName(), 'int')
+    self.assertEqual(result.columns[4].ColumnTypeAsName(), 'str')
+
   def testExecuteQuerySimple(self):
     """test the execution of a simple Query"""
     query = ('SELECT createdDate, updatedAt, screenName, Name, profileImageUrl,'
@@ -304,7 +330,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     """test execute read only with a drop query"""
     query = 'DROP table users'
     result = self.execute.executeReadOnlyQuery(query)
-    expected_error = 'Query has to be a SELECT query.'
+    expected_error = 'Query has to be a single SELECT query.'
     self.assertTrue(result.has_error)
     self.assertEqual(str(result.error_message), expected_error)
     self.assertIsNone(result.data)
@@ -314,7 +340,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     """test execute read only with a alter rename query"""
     query = 'Alter table users rename to users2'
     result = self.execute.executeReadOnlyQuery(query)
-    expected_error = 'Query has to be a SELECT query.'
+    expected_error = 'Query has to be a single SELECT query.'
     self.assertTrue(result.has_error)
     self.assertEqual(str(result.error_message), expected_error)
     self.assertIsNone(result.data)
@@ -322,9 +348,9 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
   def testExecuteReadOnlyQueryWithWarning(self):
     """test execute read only with two queries at the same time"""
-    query = 'SELECT id from users;SELECT id from users'
+    query = 'SELECT id from users;SELECT id from users;'
     result = self.execute.executeReadOnlyQuery(query)
-    expected_error = 'Warning: You can only execute one statement at a time.'
+    expected_error = 'Query has to be a single SELECT query.'
     self.assertTrue(result.has_error)
     self.assertEqual(str(result.error_message), expected_error)
     self.assertIsNone(result.data)
