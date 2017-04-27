@@ -184,7 +184,8 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     """
     # TODO description
     locked = self._explain.getLockedTables(query)
-
+    query = query.lower()
+    print(query)
     if len(locked) == 1:
       mappings = self._database_information.getTableColumnsAndType(locked[0])
       for column in columns:
@@ -196,6 +197,38 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
 
         column.SQLColumnType = type_python
     else:
+      table_and_type = {}
+      for table in locked:
+        table_name = table.lower()
+        table_and_type[
+          table_name] = self._database_information.getTableColumnsAndType(
+            table_name, True)
+      for column in columns:
+        after_table_name = query.find(column.SQLColumn.lower())
+        end_table_name = query.find('.', 0, after_table_name)
+        start_table_name = query.rfind(' ', 0, end_table_name) + 1
+        table_name = query[start_table_name:end_table_name].lower()
+        column_name = column.SQLColumn.lower()
+
+        if not column.SQLColumn in table_and_type[table_name]:
+          print("here")
+          after_column = query.find(' as {0} '.format(column.SQLColumn.lower()))
+          start_column = query.rfind(table_name + '.', 0, after_column) + len(
+            table_name) + 1
+          end_column = query.find(' ', start_column)
+          column_name = query[start_column:end_column].lower()
+
+        type_sqlite = table_and_type[table_name][column_name].upper()
+        print(
+          column.SQLColumn + " - " + table_name + " " + column_name + " " +
+          type_sqlite)
+
+        type_sqlite_basic = type_sqlite.split("(")[0]
+        type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(
+            type_sqlite_basic, type(None))
+        column.SQLColumnType = type_python
+
+      """
       types = self._explain.getTableForSelect(query)
 
       for i in range(len(columns)):
@@ -203,7 +236,7 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
         type_sqlite_basic = type_sqlite.split("(")[0]
         type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(
             type_sqlite_basic, type(None))
-        columns[i].SQLColumnType = type_python
+        columns[i].SQLColumnType = type_python"""
 
     return columns
 

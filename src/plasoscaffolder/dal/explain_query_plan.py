@@ -106,8 +106,7 @@ class ExplainQueryPlan(object):
         column = (
           [(d[1], d[2]) for d in result_data if d[0] == column[1]][
             0])
-        if column:
-         all_information.append(column)
+        all_information.append(column)
 
     return all_information
 

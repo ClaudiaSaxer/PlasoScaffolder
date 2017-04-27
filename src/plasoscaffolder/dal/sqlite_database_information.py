@@ -33,7 +33,7 @@ class SQLiteDatabaseInformation(
     else:
       return [str(data_tuple[0]) for data_tuple in data.data]
 
-  def getTableColumnsAndType(self, table:str) -> [str]:
+  def getTableColumnsAndType(self, table:str, all_lowercase=False) -> [str]:
     """Returns the table information from the database
       
     Args:
@@ -47,4 +47,8 @@ class SQLiteDatabaseInformation(
     if data.has_error:
       return {}
     else:
-      return {data_tuple[1]:data_tuple[2] for data_tuple in data.data}
+      if all_lowercase:
+        types = {data_tuple[1].lower():data_tuple[2].lower() for data_tuple in data.data}
+      else:
+        types = {data_tuple[1]:data_tuple[2] for data_tuple in data.data}
+      return types
