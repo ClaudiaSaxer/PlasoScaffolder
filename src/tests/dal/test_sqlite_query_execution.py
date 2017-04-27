@@ -235,9 +235,6 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     self.assertFalse(result.has_error)
     self.assertEqual(expected_data, str(result.data))
 
-    for col in result.columns:
-      print(col.SQLColumn + " " + col.ColumnTypeAsName())
-
     self.assertEqual(result.columns[0].SQLColumn, 'intval')
     self.assertEqual(result.columns[1].SQLColumn, 'integerval')
     self.assertEqual(result.columns[2].SQLColumn, 'tinyintval')

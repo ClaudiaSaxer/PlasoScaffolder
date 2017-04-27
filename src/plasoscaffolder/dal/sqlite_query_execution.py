@@ -198,17 +198,12 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     else:
       types = self._explain.getTableForSelect(query)
 
-      type_python = type(None)
-      position = 0
-      for column in columns:
-        if types:
-          type_sqlite = types[position][1].upper()
-          type_sqlite_basic = type_sqlite.split("(")[0]
-          type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(
-              type_sqlite_basic, type(None))
-
-        column.SQLColumnType = type_python
-        position += 1
+      for i in range(len(columns)):
+        type_sqlite = types[i][1].upper()
+        type_sqlite_basic = type_sqlite.split("(")[0]
+        type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(
+            type_sqlite_basic, type(None))
+        columns[i].SQLColumnType = type_python
 
     return columns
 
