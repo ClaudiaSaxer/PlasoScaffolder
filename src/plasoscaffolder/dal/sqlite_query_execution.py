@@ -231,39 +231,56 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
           table_name] = self._database_information.getTableColumnsAndType(
             table_name, True)
       for column in columns:
-        after_table_name = query.find(column.SQLColumn.lower())
-        end_table_name = query.find('.', 0, after_table_name)
-        start_table_name = query.rfind(' ', 0, end_table_name) + 1
-        table_name = query[start_table_name:end_table_name].lower()
         column_name = column.SQLColumn.lower()
 
-        if not column.SQLColumn in table_and_type[table_name]:
-          print("here")
-          after_column = query.find(' as {0} '.format(column.SQLColumn.lower()))
-          start_column = query.rfind(table_name + '.', 0, after_column) + len(
-              table_name) + 1
-          end_column = query.find(' ', start_column)
-          column_name = query[start_column:end_column].lower()
+        possible_spaces = [' ', ',']
+        as_column_string_starts = [
+          query.find(' as {0}{1}'.format(column_name, space))
+          for space
+          in possible_spaces if
+          query.find(
+              ' as {0}{1}'.format(column_name, space)) > 0]
+        if as_column_string_starts != []:
 
-        type_sqlite = table_and_type[table_name][column_name].upper()
-        print(
-            column.SQLColumn + " - " + table_name + " " + column_name + " " +
-            type_sqlite)
+          as_column_string_start = as_column_string_starts[0]
+          sqlite_column_name_start = query.rfind('.', 0,
+                                                 as_column_string_start) + 1
+          sqlite_column_name = query[
+                               sqlite_column_name_start:as_column_string_start]
+          table_name_end = query.rfind('.', 0, as_column_string_start)
+          table_names_start = [query.rfind(space, 0, table_name_end) for space
+                               in possible_spaces if
+                               query.rfind(space, 0, table_name_end) > 0]
+          table_name_start = max(table_names_start)+ 1
+          table_name = query[table_name_start:table_name_end]
+
+        else:
+          sqlite_column_name = column_name
+          column_strings_start = list()
+          for space in possible_spaces:
+            possible_start = query.find(
+                '.{0}{1}'.format(column_name, space))
+            possible_wrong_start = query.find(
+              '.{0} as'.format(column_name))
+            if possible_start != possible_wrong_start :
+
+              column_strings_start.append(query.find(
+                '.{0}{1}'.format(column_name, space)))
+
+          column_string_start = column_strings_start[0]
+          table_names_start = [query.rfind(space, 0, column_string_start) for
+                               space in possible_spaces if
+                               query.rfind(space, 0, column_string_start) > 0]
+
+          table_name_start = max(table_names_start) + 1
+          table_name = query[table_name_start:column_string_start]
+
+        type_sqlite = table_and_type[table_name][sqlite_column_name].upper()
 
         type_sqlite_basic = type_sqlite.split("(")[0]
         type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(
             type_sqlite_basic, type(None))
         column.SQLColumnType = type_python
-
-      """
-      types = self._explain.getTableForSelect(query)
-
-      for i in range(len(columns)):
-        type_sqlite = types[i][1].upper()
-        type_sqlite_basic = type_sqlite.split("(")[0]
-        type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(
-            type_sqlite_basic, type(None))
-        columns[i].SQLColumnType = type_python"""
 
     return columns
 

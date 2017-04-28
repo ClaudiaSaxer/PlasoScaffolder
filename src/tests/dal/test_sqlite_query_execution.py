@@ -165,7 +165,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
                              'names: a b'
     self.assertTrue(result.has_error)
     self.assertEqual(result.error_message, expected_error_message)
-    
+
   def testExecuteQueryDetailedWithJoin(self):
     """test the execution of a more complex Query"""
     query = (
@@ -302,16 +302,16 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     self.assertEqual(result.columns[19].ColumnTypeAsName(), 'float')
     self.assertEqual(result.columns[20].ColumnTypeAsName(), 'float')
     self.assertEqual(result.columns[21].ColumnTypeAsName(), 'float')
-    self.assertEqual(result.columns[22].ColumnTypeAsName(), 'float')
-    self.assertEqual(result.columns[23].ColumnTypeAsName(), 'float')
-    self.assertEqual(result.columns[24].ColumnTypeAsName(), 'float')
-    self.assertEqual(result.columns[25].ColumnTypeAsName(), 'float')
-    self.assertEqual(result.columns[26].ColumnTypeAsName(), 'float')
+    self.assertEqual(result.columns[22].ColumnTypeAsName(), 'int')
+    self.assertEqual(result.columns[23].ColumnTypeAsName(), 'int')
+    self.assertEqual(result.columns[24].ColumnTypeAsName(), 'bool')
+    self.assertEqual(result.columns[25].ColumnTypeAsName(), 'int')
+    self.assertEqual(result.columns[26].ColumnTypeAsName(), 'int')
 
   def testExecuteQueryDetailedJoinNoData(self):
     """test the execution of a join Query with no data"""
     query = (
-      'SELECT t1.a, t2.a, t2.c, t1.b, t2.b from t1 join t2')
+      'SELECT t1.a as a, t2.a as a2, t2.c, t1.b, t2.b as b2 from t1 join t2')
     result = self.execute_names.executeQueryDetailed(query)
     expected_data = '[]'
     self.assertIsNone(result.error_message)
@@ -319,10 +319,31 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     self.assertEqual(expected_data, str(result.data))
 
     self.assertEqual(result.columns[0].SQLColumn, 'a')
-    self.assertEqual(result.columns[1].SQLColumn, 'a')
+    self.assertEqual(result.columns[1].SQLColumn, 'a2')
     self.assertEqual(result.columns[2].SQLColumn, 'c')
     self.assertEqual(result.columns[3].SQLColumn, 'b')
-    self.assertEqual(result.columns[4].SQLColumn, 'b')
+    self.assertEqual(result.columns[4].SQLColumn, 'b2')
+    self.assertEqual(result.columns[0].ColumnTypeAsName(), 'int')
+    self.assertEqual(result.columns[1].ColumnTypeAsName(), 'str')
+    self.assertEqual(result.columns[2].ColumnTypeAsName(), 'str')
+    self.assertEqual(result.columns[3].ColumnTypeAsName(), 'int')
+    self.assertEqual(result.columns[4].ColumnTypeAsName(), 'str')
+
+  def testExecuteQueryDetailedJoinNoDataNoSpace(self):
+    """test the execution of a join Query with no data"""
+    query = (
+      'SELECT t1.a as a,t2.a as a2,t2.c, t1.b,t2.b as b2 from t1 join t2')
+    result = self.execute_names.executeQueryDetailed(query)
+    expected_data = '[]'
+    self.assertIsNone(result.error_message)
+    self.assertFalse(result.has_error)
+    self.assertEqual(expected_data, str(result.data))
+
+    self.assertEqual(result.columns[0].SQLColumn, 'a')
+    self.assertEqual(result.columns[1].SQLColumn, 'a2')
+    self.assertEqual(result.columns[2].SQLColumn, 'c')
+    self.assertEqual(result.columns[3].SQLColumn, 'b')
+    self.assertEqual(result.columns[4].SQLColumn, 'b2')
     self.assertEqual(result.columns[0].ColumnTypeAsName(), 'int')
     self.assertEqual(result.columns[1].ColumnTypeAsName(), 'str')
     self.assertEqual(result.columns[2].ColumnTypeAsName(), 'str')
