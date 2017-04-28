@@ -2,6 +2,7 @@
 # pylint: disable=no-member
 # pylint does not recognize connect and close as member
 """Base for sql Query validators."""
+import collections
 import sqlite3
 
 from plasoscaffolder.common import type_mapper
@@ -69,11 +70,37 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       base_sql_query_execution.SQLQueryData: The data to the Query
     """
     data_from_executed_query = self._executeQuery(query, True)
+    duplicate_names = self._getDuplicateColumnNames(
+        data_from_executed_query.columns)
+    if duplicate_names:
+      duplicate_names_as_string = ' '.join(duplicate_names)
+      data_from_executed_query.has_error = True
+      data_from_executed_query.error_message = (
+        'Please use an alias (AS) for '
+        'those column names {0}'.format(duplicate_names_as_string))
     if not data_from_executed_query.has_error:
       data_from_executed_query.columns = self._addMissingTypesFromSchema(
           data_from_executed_query.columns, query)
 
     return data_from_executed_query
+
+  def _getDuplicateColumnNames(self,
+                               columns: sql_query_column_model.SQLColumnModel
+                               ) -> [str]:
+    """Find out if the query has duplicate column names and if a alias is needed
+    
+    Args:
+      columns (sql_query_column_model.SQLColumnModel): all columns parsed 
+      from the cursor
+    Returns:
+      [str]: a list of all the duplicate column names, if its empty it means it
+          a distinct list of columns
+    """
+    single_column_name_list = [column.SQLColumn for column in columns]
+    duplicate_list = [column for column, count in
+                      collections.Counter(single_column_name_list).items() if
+                      count > 1]
+    return duplicate_list
 
   def _old(
       self,
@@ -214,14 +241,14 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
           print("here")
           after_column = query.find(' as {0} '.format(column.SQLColumn.lower()))
           start_column = query.rfind(table_name + '.', 0, after_column) + len(
-            table_name) + 1
+              table_name) + 1
           end_column = query.find(' ', start_column)
           column_name = query[start_column:end_column].lower()
 
         type_sqlite = table_and_type[table_name][column_name].upper()
         print(
-          column.SQLColumn + " - " + table_name + " " + column_name + " " +
-          type_sqlite)
+            column.SQLColumn + " - " + table_name + " " + column_name + " " +
+            type_sqlite)
 
         type_sqlite_basic = type_sqlite.split("(")[0]
         type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(

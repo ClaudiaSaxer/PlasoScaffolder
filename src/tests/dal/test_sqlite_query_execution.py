@@ -6,6 +6,7 @@ import os
 import unittest
 
 from plasoscaffolder.dal import sqlite_query_execution
+from plasoscaffolder.model import sql_query_column_model
 from tests.test_helper import path_helper
 
 
@@ -353,6 +354,40 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     self.assertIsNone(result.data)
     self.assertIsNone(result.columns)
 
+  def testGetDuplicateColumnNamesIfDistinct(self):
+    """test a distinct list"""
+    columns = list()
+    columns.append(sql_query_column_model.SQLColumnModel('a'))
+    columns.append(sql_query_column_model.SQLColumnModel('b'))
+    columns.append(sql_query_column_model.SQLColumnModel('c'))
+    result = self.execute._getDuplicateColumnNames(columns)
+    expected = []
+    self.assertEqual(result,expected)
+
+  def testGetDuplicateColumnNamesIfOneDuplicate(self):
+    """test a duplicate list with one duplicate"""
+    columns = list()
+    columns.append(sql_query_column_model.SQLColumnModel('a'))
+    columns.append(sql_query_column_model.SQLColumnModel('a'))
+    columns.append(sql_query_column_model.SQLColumnModel('b'))
+    columns.append(sql_query_column_model.SQLColumnModel('c'))
+    result = self.execute._getDuplicateColumnNames(columns)
+    expected = ['a']
+    self.assertEqual(result, expected)
+
+  def testGetDuplicateColumnNamesIfMultipleDuplicates(self):
+    """test a duplicate list with multiple duplicates"""
+    columns = list()
+    columns.append(sql_query_column_model.SQLColumnModel('a'))
+    columns.append(sql_query_column_model.SQLColumnModel('a'))
+    columns.append(sql_query_column_model.SQLColumnModel('a'))
+    columns.append(sql_query_column_model.SQLColumnModel('b'))
+    columns.append(sql_query_column_model.SQLColumnModel('b'))
+    columns.append(sql_query_column_model.SQLColumnModel('c'))
+    result = self.execute._getDuplicateColumnNames(columns)
+    expected = ['a','b']
+    self.assertEqual(result, expected)
+
   def _ReadFromFileRelative(self, path: str):
     """Read from file with relative path
 
@@ -366,6 +401,8 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
     with open(abs_file_path, 'r', encoding='utf-8') as f:
       return f.read()
+
+
 
 
 if __name__ == '__main__':
