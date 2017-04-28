@@ -148,6 +148,24 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     self.assertEqual(result.columns[9].ColumnTypeAsName(), 'int')
     self.assertEqual(result.columns[10].ColumnTypeAsName(), 'int')
 
+  def testExecuteQueryDetailedWithOneDuplicateColumnNames(self):
+    """test the execution of a simple Query with one duplicate column name"""
+    query = ('SELECT t1.a, t1.b, t2.a from t1 join t2')
+    result = self.execute_names.executeQueryDetailed(query)
+    expected_error_message = 'Please use an alias (AS) for those column ' \
+                             'names: a'
+    self.assertTrue(result.has_error)
+    self.assertEqual(result.error_message, expected_error_message)
+
+  def testExecuteQueryDetailedWithTwoDuplicateColumnNames(self):
+    """test the execution of a simple Query with two duplicate column names"""
+    query = ('SELECT t1.a, t1.b, t2.a, t2.b from t1 join t2')
+    result = self.execute_names.executeQueryDetailed(query)
+    expected_error_message = 'Please use an alias (AS) for those column ' \
+                             'names: a b'
+    self.assertTrue(result.has_error)
+    self.assertEqual(result.error_message, expected_error_message)
+    
   def testExecuteQueryDetailedWithJoin(self):
     """test the execution of a more complex Query"""
     query = (
@@ -293,7 +311,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
   def testExecuteQueryDetailedJoinNoData(self):
     """test the execution of a join Query with no data"""
     query = (
-    'SELECT t1.a, t2.a, t2.c, t1.b, t2.b from t1 join t2')
+      'SELECT t1.a, t2.a, t2.c, t1.b, t2.b from t1 join t2')
     result = self.execute_names.executeQueryDetailed(query)
     expected_data = '[]'
     self.assertIsNone(result.error_message)
@@ -362,7 +380,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     columns.append(sql_query_column_model.SQLColumnModel('c'))
     result = self.execute._getDuplicateColumnNames(columns)
     expected = []
-    self.assertEqual(result,expected)
+    self.assertEqual(result, expected)
 
   def testGetDuplicateColumnNamesIfOneDuplicate(self):
     """test a duplicate list with one duplicate"""
@@ -385,7 +403,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     columns.append(sql_query_column_model.SQLColumnModel('b'))
     columns.append(sql_query_column_model.SQLColumnModel('c'))
     result = self.execute._getDuplicateColumnNames(columns)
-    expected = ['a','b']
+    expected = ['a', 'b']
     self.assertEqual(result, expected)
 
   def _ReadFromFileRelative(self, path: str):
@@ -401,8 +419,6 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
     with open(abs_file_path, 'r', encoding='utf-8') as f:
       return f.read()
-
-
 
 
 if __name__ == '__main__':

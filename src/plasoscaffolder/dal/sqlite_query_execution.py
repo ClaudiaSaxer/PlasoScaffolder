@@ -77,7 +77,7 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       data_from_executed_query.has_error = True
       data_from_executed_query.error_message = (
         'Please use an alias (AS) for '
-        'those column names {0}'.format(duplicate_names_as_string))
+        'those column names: {0}'.format(duplicate_names_as_string))
     if not data_from_executed_query.has_error:
       data_from_executed_query.columns = self._addMissingTypesFromSchema(
           data_from_executed_query.columns, query)
