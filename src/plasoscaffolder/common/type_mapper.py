@@ -29,9 +29,9 @@ class TypeMapperSQLitePython(object):
               'DOUBLE': float,
               'DOUBLE PRECISION': float,
               'FLOAT': float,
-              'NUMERIC': float,
-              'DECIMAL': float,
-              'BOOLEAN': float,
-              'DATE': float,
-              'DATETIME': float
+              'NUMERIC': int,
+              'DECIMAL': int,
+              'BOOLEAN': bool,
+              'DATE': int,
+              'DATETIME': int
               }

@@ -64,11 +64,11 @@ class ThePluginNumerictypesEventData(events.EventData):
 
   TODO: add type and description of attributes
   Attributes:  
-    booleanval (float): TODO
-    datetimeval (float): TODO
-    dateval (float): TODO
-    decimalval (float): TODO
-    numericval (float): TODO
+    booleanval (bool): TODO
+    datetimeval (int): TODO
+    dateval (int): TODO
+    decimalval (int): TODO
+    numericval (int): TODO
   """
 
   DATA_TYPE = u'the:plugin:numerictypes'
@@ -139,12 +139,12 @@ class ThePluginNodataEventData(events.EventData):
   Attributes:  
     bigintval (int): TODO
     blobval (bytes): TODO
-    booleanval (float): TODO
+    booleanval (bool): TODO
     characterval (str): TODO
     clobval (str): TODO
-    datetimeval (float): TODO
-    dateval (float): TODO
-    decimalval (float): TODO
+    datetimeval (int): TODO
+    dateval (int): TODO
+    decimalval (int): TODO
     doubleprecisionval (float): TODO
     doubleval (float): TODO
     floatval (float): TODO
@@ -155,7 +155,7 @@ class ThePluginNodataEventData(events.EventData):
     mediuintval (int): TODO
     nativecharacterval (str): TODO
     ncharval (str): TODO
-    numericval (float): TODO
+    numericval (int): TODO
     nvarcharval (str): TODO
     realval (float): TODO
     smallintval (int): TODO
