@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """SQLite Type Helper."""
 import collections
+import re
 
 from plasoscaffolder.common import type_mapper
-from plasoscaffolder.dal import (base_database_information,
-                                 base_explain_query_plan)
+from plasoscaffolder.dal import base_database_information
+from plasoscaffolder.dal import base_explain_query_plan
 from plasoscaffolder.dal import base_sql_query_execution
 from plasoscaffolder.dal import base_type_helper
 from plasoscaffolder.model import sql_query_column_model
@@ -51,21 +52,21 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
     return duplicate_list
 
   def GetColumnInformationFromDescription(
-      self, description: []) -> [sql_query_column_model.SQLColumnModel]:
+      self, descriptions: []) -> [sql_query_column_model.SQLColumnModel]:
     """Getting Information for the column out of the cursor.
   
     Args:
-      description: the description of the cursor
+      descriptions: the descriptions of the cursor
   
     Returns:
       list(sql_query_column_model.SQLColumnModel): a list with all the column 
           names, the types are None
     """
-    sql_column = list()
-    for description in description:
+    sql_column = []
 
-      sql_column.append(
-          sql_query_column_model.SQLColumnModel(description[0], type(None)))
+    if descriptions:
+      sql_column = [sql_query_column_model.SQLColumnModel(
+          description[0], type(None)) for description in descriptions]
 
     return sql_column
 
@@ -150,7 +151,7 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
 
       # column without alias
       else:
-        table_end = self._GetStartOfColumnIfNotAlias(query, column_name)
+        table_end = self._GetEndOfTableIfNotAlias(query, column_name)
         table_start = self._GetPositionAfterSeparator(query, table_end)
         sqlite_column_name = column_name
 
@@ -164,7 +165,7 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
 
     return column_model
 
-  def _GetStartOfColumnIfNotAlias(self, query, column_name):
+  def _GetEndOfTableIfNotAlias(self, query, column_name):
     """Getting the start of the column if it is not an alias column
     
     Args:
@@ -175,12 +176,20 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
         column
 
     """
-    wrong_position = query.find('.{0} as'.format(column_name))
+    wrong_positions = [name.start() for name in
+                       re.finditer('.{0} as'.format(column_name), query)]
+    found_positions = []
+    for space in self._POSSIBLEQUERYSEPERATOR:
+      found_positions += [name.start() for name in
+                          re.finditer('.{0}{1}'.format(column_name, space),
+                                      query)]
 
-    return next(filter(
-        lambda starts: starts > 0 and starts != wrong_position,
-        map(lambda space: query.find('.{0}{1}'.format(column_name, space))
-            , self._POSSIBLEQUERYSEPERATOR)))
+    position = set(found_positions) - set(wrong_positions)
+
+    if position:
+      return position.pop()
+    else:
+      return 0
 
   def _GetPositionAfterSeparator(self, text, end_position: int):
     """Get the first separator position, starting at the end and searching 
@@ -189,11 +198,11 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
     Args:
       text: the text to be searched through
       end_position: the end position the search should be started from
-
+  
     Returns:
       the first separator position found in the text started from the end 
           position
-
+  
     """
     all_appearances = (filter(
         lambda start: start > 0,

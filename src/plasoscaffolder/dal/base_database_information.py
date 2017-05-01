@@ -13,3 +13,14 @@ class BaseDatabaseInformation(object):
     Returns:
       [str]: the name of the tables
     """
+
+  @abc.abstractmethod
+  def GetTableColumnsAndType(self, table: str, all_lowercase=False) -> [str]:
+    """Returns the table information from the database
+
+    Args:
+      table (str): the name of the table
+
+    Returns:
+      {name, type}: the table information
+    """
