@@ -134,8 +134,8 @@ class SQLiteController(object):
 
     Returns:
       bool: if the file can be opened and is a database file"""
-    execution = sqlite_query_execution.SQLQueryExecution(path)
-    if execution.tryToConnect():
+    execution = sqlite_query_execution.SQLiteQueryExecution(path)
+    if execution.TryToConnect():
       self._query_execution = execution
       return True
     return False
@@ -216,7 +216,7 @@ class SQLiteController(object):
       else:
         self._output_handler.PrintError('The SQL query was ok.')
 
-      locked_tables = query_plan.getLockedTables(query)
+      locked_tables = query_plan.GetLockedTables(query)
       name = ''.join(locked_tables).capitalize()
 
       question_parse = 'Do you want to name the query parse row: {0} ?'.format(

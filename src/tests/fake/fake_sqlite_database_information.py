@@ -19,7 +19,7 @@ class FakeSQLiteDatabaseInformation(
     super().__init__()
     self._required_tables = required_tables
 
-  def getTablesFromDatabase(self) -> [str]:
+  def GetTablesFromDatabase(self) -> [str]:
     """Executes the SQL Query.
 
     Args:

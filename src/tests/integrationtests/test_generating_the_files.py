@@ -43,8 +43,8 @@ class GeneratingFilesTestCase(unittest.TestCase):
       controller = sqlite_controller.SQLiteController(
           output_handler=output_handler, plugin_helper=plugin_helper)
 
-      query_execution = sqlite_query_execution.SQLQueryExecution(test_file)
-      query_execution.tryToConnect()
+      query_execution = sqlite_query_execution.SQLiteQueryExecution(test_file)
+      query_execution.TryToConnect()
 
       query_first = 'select * from users'
       query_data_first = plugin_helper.RunSQLQuery(query_first, query_execution)
@@ -139,8 +139,8 @@ class GeneratingFilesTestCase(unittest.TestCase):
       controller = sqlite_controller.SQLiteController(
           output_handler=output_handler, plugin_helper=plugin_helper)
 
-      query_execution = sqlite_query_execution.SQLQueryExecution(test_file)
-      query_execution.tryToConnect()
+      query_execution = sqlite_query_execution.SQLiteQueryExecution(test_file)
+      query_execution.TryToConnect()
 
       query_blob = 'select * from blobtypes'
       query_integer = 'select * from integertypes'

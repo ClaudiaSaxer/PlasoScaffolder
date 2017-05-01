@@ -19,21 +19,21 @@ class SQLiteDatabaseInformation(
     super().__init__()
     self._sql_execution = sql_execution
 
-  def getTablesFromDatabase(self) -> [str]:
+  def GetTablesFromDatabase(self) -> [str]:
     """Returns all tables from the database
 
     Returns:
       [str]: the names of the tables
     """
     query = "select name from sqlite_master where type='table' order by name"
-    data = self._sql_execution.executeQuery(query)
+    data = self._sql_execution.ExecuteQuery(query)
 
     if data.has_error:
       return []
     else:
       return [str(data_tuple[0]) for data_tuple in data.data]
 
-  def getTableColumnsAndType(self, table:str, all_lowercase=False) -> [str]:
+  def GetTableColumnsAndType(self, table:str, all_lowercase=False) -> [str]:
     """Returns the table information from the database
       
     Args:
@@ -43,7 +43,7 @@ class SQLiteDatabaseInformation(
       {name, type}: the table information
     """
     query = 'PRAGMA table_info({0})'.format(table);
-    data = self._sql_execution.executeQuery(query)
+    data = self._sql_execution.ExecuteQuery(query)
     if data.has_error:
       return {}
     else:

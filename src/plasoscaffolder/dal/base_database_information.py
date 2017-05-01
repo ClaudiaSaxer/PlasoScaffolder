@@ -7,7 +7,7 @@ class BaseDatabaseInformation(object):
   """Base class representing the SQLite Query validator."""
 
   @abc.abstractmethod
-  def getTablesFromDatabase(self) -> [str]:
+  def GetTablesFromDatabase(self) -> [str]:
     """Executes the SQL Query.
 
     Returns:

@@ -6,7 +6,6 @@ import os
 import unittest
 
 from plasoscaffolder.dal import sqlite_query_execution
-from plasoscaffolder.model import sql_query_column_model
 from tests.test_helper import path_helper
 
 
@@ -16,42 +15,42 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
   def setUp(self):
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'twitter_ios.db')
-    self.execute = sqlite_query_execution.SQLQueryExecution(file_path)
-    self.execute.tryToConnect()
+    self.execute = sqlite_query_execution.SQLiteQueryExecution(file_path)
+    self.execute.TryToConnect()
 
     file_path_types = os.path.join(database_path, 'test_database_types.db')
-    self.execute_types = sqlite_query_execution.SQLQueryExecution(
+    self.execute_types = sqlite_query_execution.SQLiteQueryExecution(
         file_path_types)
-    self.execute_types.tryToConnect()
+    self.execute_types.TryToConnect()
 
     file_path_names = os.path.join(database_path, 'test_database_names.db')
-    self.execute_names = sqlite_query_execution.SQLQueryExecution(
+    self.execute_names = sqlite_query_execution.SQLiteQueryExecution(
         file_path_names)
-    self.execute_names.tryToConnect()
+    self.execute_names.TryToConnect()
 
   def testTryToConnect(self):
     """try to connect without error"""
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'twitter_ios.db')
-    execute = sqlite_query_execution.SQLQueryExecution(file_path)
-    connected = execute.tryToConnect()
+    execute = sqlite_query_execution.SQLiteQueryExecution(file_path)
+    connected = execute.TryToConnect()
     self.assertTrue(connected)
 
   def testTryToConnectWithError(self):
     """try to connect 2 times resulting in a error"""
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'twitter_ios_error.db')
-    execute = sqlite_query_execution.SQLQueryExecution(file_path)
-    connected = execute.tryToConnect()
+    execute = sqlite_query_execution.SQLiteQueryExecution(file_path)
+    connected = execute.TryToConnect()
     self.assertFalse(connected)
 
   def testRollbackWorks(self):
     """testing if the rollback works"""
     query_select_all_users = 'SELECT * FROM Users'
     query_drop_table = 'DROP TABLE Users'
-    result_users_before = self.execute.executeQuery(query_select_all_users)
-    result_drop_table = self.execute.executeQuery(query_drop_table)
-    result_users_after = self.execute.executeQuery(query_select_all_users)
+    result_users_before = self.execute.ExecuteQuery(query_select_all_users)
+    result_drop_table = self.execute.ExecuteQuery(query_drop_table)
+    result_users_after = self.execute.ExecuteQuery(query_select_all_users)
 
     self.assertEqual(len(result_users_before.data),
                      len(result_users_after.data))
@@ -67,7 +66,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
                     'location, description, url, following, followersCount, '
                     'followingCount'
                     ' FROM Users ORDER BY createdDate')
-    result_simple = self.execute.executeQuery(query_simple)
+    result_simple = self.execute.ExecuteQuery(query_simple)
 
     query_join = ('SELECT Statuses.date AS date, Statuses.text AS text,'
                   ' Statuses.userId AS user_id, Users.Name AS Name, '
@@ -77,7 +76,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
                   'updatedAt '
                   'FROM Statuses LEFT join Users ON Statuses.userId = Users.id '
                   'ORDER BY date')
-    result_join = self.execute.executeQuery(query_join)
+    result_join = self.execute.ExecuteQuery(query_join)
 
     self.assertIsNone(result_join.error_message)
     self.assertIsNone(result_simple.error_message)
@@ -89,7 +88,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
   def testQueryErrorNoSuchColumn(self):
     """test two querys after another to test the connection is still open"""
     query = 'SELECT createdDates FROM Users'
-    result = self.execute.executeQuery(query)
+    result = self.execute.ExecuteQuery(query)
     expected_error = 'Error: no such column: createdDates'
     self.assertTrue(result.has_error)
     self.assertIsNone(result.data)
@@ -98,7 +97,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
   def testQueryErrorNoSuchTable(self):
     """test two querys after another to test the connection is still open"""
     query = 'SELECT createdDate FROM Userss'
-    result = self.execute.executeQuery(query)
+    result = self.execute.ExecuteQuery(query)
     expected_error = 'Error: no such table: Userss'
     self.assertTrue(result.has_error)
     self.assertIsNone(result.data)
@@ -107,7 +106,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
   def testQueryWarning(self):
     """test two querys after another to test the connection is still open"""
     query = 'SELECT id from users;Select id from users'
-    result = self.execute.executeQuery(query)
+    result = self.execute.ExecuteQuery(query)
     expected_error = 'Warning: You can only execute one statement at a time.'
     self.assertTrue(result.has_error)
     self.assertIsNone(result.data)
@@ -119,7 +118,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
              'location, description, url, following, followersCount, '
              'followingCount'
              ' FROM Users ORDER BY createdDate')
-    result = self.execute.executeQueryDetailed(query)
+    result = self.execute.ExecuteQueryDetailed(query)
     expected_data = self._ReadFromFileRelative('expected_simple_query_data')
     self.assertIsNone(result.error_message)
     self.assertFalse(result.has_error)
@@ -151,7 +150,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
   def testExecuteQueryDetailedWithOneDuplicateColumnNames(self):
     """test the execution of a simple Query with one duplicate column name"""
     query = ('SELECT t1.a, t1.b, t2.a from t1 join t2')
-    result = self.execute_names.executeQueryDetailed(query)
+    result = self.execute_names.ExecuteQueryDetailed(query)
     expected_error_message = 'Please use an alias (AS) for those column ' \
                              'names: a'
     self.assertTrue(result.has_error)
@@ -160,7 +159,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
   def testExecuteQueryDetailedWithTwoDuplicateColumnNames(self):
     """test the execution of a simple Query with two duplicate column names"""
     query = ('SELECT t1.a, t1.b, t2.a, t2.b from t1 join t2')
-    result = self.execute_names.executeQueryDetailed(query)
+    result = self.execute_names.ExecuteQueryDetailed(query)
     expected_error_message = 'Please use an alias (AS) for those column ' \
                              'names: a b'
     self.assertTrue(result.has_error)
@@ -176,7 +175,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
       'Statuses.favorited AS favorited, Statuses.updatedAt AS updatedAt '
       'FROM Statuses LEFT join Users ON Statuses.userId = Users.id '
       'ORDER BY date')
-    result = self.execute.executeQueryDetailed(query)
+    result = self.execute.ExecuteQueryDetailed(query)
     expected_data = self._ReadFromFileRelative('expected_join_query_data')
     self.assertIsNone(result.error_message)
     self.assertFalse(result.has_error)
@@ -202,7 +201,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
   def testExecuteReadOnlyQueryWithSelect(self):
     """test execute read only with a simple select query"""
     query = 'SELECT id from users where id==2220776716'
-    result = self.execute.executeReadOnlyQuery(query)
+    result = self.execute.ExecuteReadOnlyQuery(query)
     expected = '[(2220776716,)]'
     self.assertFalse(result.has_error)
     self.assertEqual(str(result.data), expected)
@@ -216,7 +215,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
              'location, description, url, following, followersCount, '
              'followingCount'
              ' FROM Users ORDER BY createdDate')
-    result = self.execute.executeQueryDetailed(query)
+    result = self.execute.ExecuteQueryDetailed(query)
     expected_data = self._ReadFromFileRelative('expected_simple_query_data')
     self.assertIsNone(result.error_message)
     self.assertFalse(result.has_error)
@@ -248,7 +247,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
   def testExecuteQueryDetailedSimpleNoData(self):
     """test the execution of a simple Query"""
     query = ('SELECT * From nodata')
-    result = self.execute_types.executeQueryDetailed(query)
+    result = self.execute_types.ExecuteQueryDetailed(query)
     expected_data = '[]'
     self.assertIsNone(result.error_message)
     self.assertFalse(result.has_error)
@@ -312,7 +311,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     """test the execution of a join Query with no data"""
     query = (
       'SELECT t1.a as a, t2.a as a2, t2.c, t1.b, t2.b as b2 from t1 join t2')
-    result = self.execute_names.executeQueryDetailed(query)
+    result = self.execute_names.ExecuteQueryDetailed(query)
     expected_data = '[]'
     self.assertIsNone(result.error_message)
     self.assertFalse(result.has_error)
@@ -333,7 +332,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     """test the execution of a join Query with no data"""
     query = (
       'SELECT t1.a as a,t2.a as a2,t2.c, t1.b,t2.b as b2 from t1 join t2')
-    result = self.execute_names.executeQueryDetailed(query)
+    result = self.execute_names.ExecuteQueryDetailed(query)
     expected_data = '[]'
     self.assertIsNone(result.error_message)
     self.assertFalse(result.has_error)
@@ -356,7 +355,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
              'location, description, url, following, followersCount, '
              'followingCount'
              ' FROM Users ORDER BY createdDate')
-    result = self.execute.executeQuery(query)
+    result = self.execute.ExecuteQuery(query)
     expected_data = self._ReadFromFileRelative('expected_simple_query_data')
     self.assertIsNone(result.error_message)
     self.assertFalse(result.has_error)
@@ -366,7 +365,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
   def testExecuteReadOnlyQueryWithErrorBecauseOfDrop(self):
     """test execute read only with a drop query"""
     query = 'DROP table users'
-    result = self.execute.executeReadOnlyQuery(query)
+    result = self.execute.ExecuteReadOnlyQuery(query)
     expected_error = 'Query has to be a single SELECT query.'
     self.assertTrue(result.has_error)
     self.assertEqual(str(result.error_message), expected_error)
@@ -376,7 +375,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
   def testExecuteReadOnlyQueryWithErrorBecauseOfAlter(self):
     """test execute read only with a alter rename query"""
     query = 'Alter table users rename to users2'
-    result = self.execute.executeReadOnlyQuery(query)
+    result = self.execute.ExecuteReadOnlyQuery(query)
     expected_error = 'Query has to be a single SELECT query.'
     self.assertTrue(result.has_error)
     self.assertEqual(str(result.error_message), expected_error)
@@ -386,46 +385,12 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
   def testExecuteReadOnlyQueryWithWarning(self):
     """test execute read only with two queries at the same time"""
     query = 'SELECT id from users;SELECT id from users;'
-    result = self.execute.executeReadOnlyQuery(query)
+    result = self.execute.ExecuteReadOnlyQuery(query)
     expected_error = 'Query has to be a single SELECT query.'
     self.assertTrue(result.has_error)
     self.assertEqual(str(result.error_message), expected_error)
     self.assertIsNone(result.data)
     self.assertIsNone(result.columns)
-
-  def testGetDuplicateColumnNamesIfDistinct(self):
-    """test a distinct list"""
-    columns = list()
-    columns.append(sql_query_column_model.SQLColumnModel('a'))
-    columns.append(sql_query_column_model.SQLColumnModel('b'))
-    columns.append(sql_query_column_model.SQLColumnModel('c'))
-    result = self.execute._getDuplicateColumnNames(columns)
-    expected = []
-    self.assertEqual(result, expected)
-
-  def testGetDuplicateColumnNamesIfOneDuplicate(self):
-    """test a duplicate list with one duplicate"""
-    columns = list()
-    columns.append(sql_query_column_model.SQLColumnModel('a'))
-    columns.append(sql_query_column_model.SQLColumnModel('a'))
-    columns.append(sql_query_column_model.SQLColumnModel('b'))
-    columns.append(sql_query_column_model.SQLColumnModel('c'))
-    result = self.execute._getDuplicateColumnNames(columns)
-    expected = ['a']
-    self.assertEqual(result, expected)
-
-  def testGetDuplicateColumnNamesIfMultipleDuplicates(self):
-    """test a duplicate list with multiple duplicates"""
-    columns = list()
-    columns.append(sql_query_column_model.SQLColumnModel('a'))
-    columns.append(sql_query_column_model.SQLColumnModel('a'))
-    columns.append(sql_query_column_model.SQLColumnModel('a'))
-    columns.append(sql_query_column_model.SQLColumnModel('b'))
-    columns.append(sql_query_column_model.SQLColumnModel('b'))
-    columns.append(sql_query_column_model.SQLColumnModel('c'))
-    result = self.execute._getDuplicateColumnNames(columns)
-    expected = ['a', 'b']
-    self.assertEqual(result, expected)
 
   def _ReadFromFileRelative(self, path: str):
     """Read from file with relative path

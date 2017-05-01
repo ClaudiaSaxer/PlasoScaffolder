@@ -3,6 +3,7 @@
 from plasoscaffolder.bll.services import base_sqlite_plugin_helper
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.dal import base_sql_query_execution
+from plasoscaffolder.dal import sql_query_data
 
 
 class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
@@ -111,11 +112,11 @@ class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     Returns:
       base_sql_query_execution.SQLQueryData: the data to the executed Query
     """
-    return executor.executeQuery(query)
+    return executor.ExecuteQuery(query)
 
   def GetDistinctColumnsFromSQLQueryData(
       self,
-      queries: [base_sql_query_execution.SQLQueryData]) -> [str]:
+      queries: [sql_query_data.SQLQueryData]) -> [str]:
     """
     Get a distinct list of all attributes from multiple queries
 
