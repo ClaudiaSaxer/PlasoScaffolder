@@ -28,5 +28,5 @@ class BaseSQLQueryExecution(object):
         query (str): The SQL Query to execute on the SQLite database.
 
       Returns:
-        base_sql_query_execution.SQLQueryData: The data to the Query
+        sql_query_data.SQLQueryData: The data to the Query
     """

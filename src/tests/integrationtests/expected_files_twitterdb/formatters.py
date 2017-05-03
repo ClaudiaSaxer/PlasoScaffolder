@@ -18,7 +18,6 @@ class ThePluginUsersFormatter(interface.ConditionalEventFormatter):
     u'Bio Entities:{bio_entities}',
     u'Business Profile State:{business_profile_state}',
     u'Could Be Stale:{could_be_stale}',
-    u'Created Date:{created_date}',
     u'Description:{description}',
     u'Device Following:{device_following}',
     u'Extended Profile Fields:{extended_profile_fields}',
@@ -44,7 +43,6 @@ class ThePluginUsersFormatter(interface.ConditionalEventFormatter):
     u'Screen Name:{screen_name}',
     u'Statuses Count:{statuses_count}',
     u'Structured Location:{structured_location}',
-    u'Updated At:{updated_at}',
     u'Url:{url}',
     u'Url Entities:{url_entities}',
     u'Verified:{verified}']
@@ -98,7 +96,6 @@ class ThePluginStatusesFormatter(interface.ConditionalEventFormatter):
     u'Card:{card}',
     u'Card Users:{card_users}',
     u'Card Version:{card_version}',
-    u'Date:{date}',
     u'Entities:{entities}',
     u'Extra Scribe Item:{extra_scribe_item}',
     u'Favorite Count:{favorite_count}',
@@ -122,7 +119,6 @@ class ThePluginStatusesFormatter(interface.ConditionalEventFormatter):
     u'Source:{source}',
     u'Supplmental Language:{supplmental_language}',
     u'Text:{text}',
-    u'Updated At:{updated_at}',
     u'User Id:{user_id}',
     u'Withheld In Countries:{withheld_in_countries}',
     u'Withheld Scope:{withheld_scope}']

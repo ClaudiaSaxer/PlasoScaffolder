@@ -4,6 +4,7 @@ import abc
 
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.dal import base_sql_query_execution
+from plasoscaffolder.dal import sql_query_data
 from plasoscaffolder.model import sql_query_column_model
 from plasoscaffolder.model import sql_query_model
 
@@ -83,8 +84,10 @@ class BaseSQLitePluginHelper(object):
     """
 
   @abc.abstractmethod
-  def RunSQLQuery(self, query: str,
-                  executor: base_sql_query_execution.BaseSQLQueryExecution):
+  def RunSQLQuery(
+      self, query: str,
+      executor: base_sql_query_execution.BaseSQLQueryExecution
+  ) -> sql_query_data.SQLQueryData:
     """ Validates the sql query
 
     Args:
@@ -93,7 +96,7 @@ class BaseSQLitePluginHelper(object):
       query (str): the SQL query
 
     Returns:
-      base_sql_query_execution.SQLQueryData: data returned by executing the
+      sql_query_data.SQLQueryData: data returned by executing the
         query
     """
 
@@ -125,7 +128,8 @@ class BaseSQLitePluginHelper(object):
 
   @abc.abstractmethod
   def GetColumnsAndTimestampColumn(
-      self, columns: [sql_query_column_model.SQLColumnModel], timestamps: [str]) -> (
+      self, columns: [sql_query_column_model.SQLColumnModel],
+      timestamps: [str]) -> (
       [sql_query_column_model.SQLColumnModel],
       [sql_query_column_model.SQLColumnModel]):
     """Splits the column list into a list of simple columns and a list for

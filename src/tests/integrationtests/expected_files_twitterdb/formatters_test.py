@@ -25,7 +25,6 @@ class ThePluginUsersFormatterTest(test_lib.EventFormatterTestCase):
         u'bio_entities',
         u'business_profile_state',
         u'could_be_stale',
-        u'created_date',
         u'description',
         u'device_following',
         u'extended_profile_fields',
@@ -51,7 +50,6 @@ class ThePluginUsersFormatterTest(test_lib.EventFormatterTestCase):
         u'screen_name',
         u'statuses_count',
         u'structured_location',
-        u'updated_at',
         u'url',
         u'url_entities',
         u'verified'
@@ -76,7 +74,6 @@ class ThePluginStatusesFormatterTest(test_lib.EventFormatterTestCase):
         u'card',
         u'card_users',
         u'card_version',
-        u'date',
         u'entities',
         u'extra_scribe_item',
         u'favorite_count',
@@ -100,7 +97,6 @@ class ThePluginStatusesFormatterTest(test_lib.EventFormatterTestCase):
         u'source',
         u'supplmental_language',
         u'text',
-        u'updated_at',
         u'user_id',
         u'withheld_in_countries',
         u'withheld_scope'

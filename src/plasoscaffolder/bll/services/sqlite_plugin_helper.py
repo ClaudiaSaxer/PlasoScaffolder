@@ -9,6 +9,7 @@ import re
 from plasoscaffolder.bll.services import base_sqlite_plugin_helper
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.dal import base_sql_query_execution
+from plasoscaffolder.dal import sql_query_data
 from plasoscaffolder.model import sql_query_column_model
 from plasoscaffolder.model import sql_query_model
 
@@ -104,8 +105,10 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     """
     return os.path.isdir(path)
 
-  def RunSQLQuery(self, query: str,
-                  executor: base_sql_query_execution.BaseSQLQueryExecution()):
+  def RunSQLQuery(
+      self, query: str,
+      executor: base_sql_query_execution.BaseSQLQueryExecution
+  ) -> sql_query_data.SQLQueryData:
     """Validates the sql query.
 
     Args:
@@ -113,7 +116,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
       query (str): the SQL query
 
     Returns:
-      base_sql_query_execution.SQLQueryData: data returned by executing the
+      sql_query_data.SQLQueryData: data returned by executing the
           query
     """
     return executor.ExecuteReadOnlyQuery(query)
@@ -157,14 +160,16 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     return list(assumed_columns)
 
   def GetColumnsAndTimestampColumn(
-      self, columns: [sql_query_column_model.SQLColumnModel], timestamps: [str]) -> (
+      self, columns: [sql_query_column_model.SQLColumnModel],
+      timestamps: [str]) -> (
       [sql_query_column_model.SQLColumnModel],
       [sql_query_column_model.SQLColumnModel]):
     """Splits the column list into a list of simple columns and a list for
     timestamp event columns
     
     Args:
-      columns ([sql_query_column_model.SQLColumnModel]): the list with all the columns from the query
+      columns ([sql_query_column_model.SQLColumnModel]): the list with all 
+      the columns from the query
       timestamps ([str]): the timestamp events
 
     Returns:
