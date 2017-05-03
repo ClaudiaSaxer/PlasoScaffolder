@@ -59,8 +59,8 @@ class {{ class_name }}Plugin(interface.SQLitePlugin):
     event_data = {{ class_name }}{{ query.Name|capitalize }}EventData()
     {% for column in query.Columns|sort(attribute='SQLColumn') %}event_data.{{ column.ColumnAsSnakeCase()}} = row['{{ column.SQLColumn}}']
     {% endfor %}
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
+    {% for column in query.TimestampColumns|sort(attribute='SQLColumn') %}
+    timestamp = row['{{ column.SQLColumn}}']
     if timestamp:
     # Convert the floating point value to an integer.
       timestamp = int(timestamp)
@@ -68,6 +68,8 @@ class {{ class_name }}Plugin(interface.SQLitePlugin):
       # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
       event = time_events.DateTimeValuesEvent(date_time, None)
       parser_mediator.ProduceEventWithEventData(event, event_data)
+    {% endfor %}
+
 {% endfor %}
 
 sqlite.SQLiteParser.RegisterPlugin({{ class_name }}Plugin)
