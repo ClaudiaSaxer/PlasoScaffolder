@@ -25,8 +25,8 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
     {% endfor %}{% endfor %}
     self.assertEqual({{ todo_count_events }}, len(storage_writer.events))
 
-{% for query in queries %}
-    # Test the first {{ query.Name|lower }} todo event.
+{% for query in queries %}{% for column in query.TimestampColumns|sort(attribute='SQLColumn') %}
+    # Test the first {{ query.Name|lower }} {{ column.SQLColumn }} event.
     test_event = storage_writer.events[0]
     expected_timestamp = timelib.Timestamp.CopyFromString(
         u'todo')
@@ -48,7 +48,7 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
 
     self._TestGetMessageStrings(
         test_event, expected_message, expected_message_short)
-{% endfor %}
+{% endfor %}{% endfor %}
 
 if __name__ == '__main__':
   unittest.main()
