@@ -8,12 +8,16 @@ class SQLQueryModel(object):
 
   def __init__(self, query: str, name: str,
                columns: [sql_query_column_model.SQLColumnModel],
-               needs_customizing: bool):
+               timestamp_columns: [sql_query_column_model.SQLColumnModel],
+               needs_customizing: bool
+               ):
     """ initializes the SQL query model.
 
     Args:
       columns ([sql_query_column_model.SQLColumnModel]): list of columns for
           the Query
+      timestamp_columns ([sql_query_column_model.SQLColumnModel]): list of 
+          columns which are timestamp events
       name (str): The Name of the Query.
       query (str): The SQL Query.
       needs_customizing (bool): if the event for the query needs customizing
@@ -22,6 +26,7 @@ class SQLQueryModel(object):
     self._query = query
     self._columns = columns
     self._needs_customizing = needs_customizing
+    self._timestamp_columns = timestamp_columns
 
   @property
   def Name(self) -> str:
@@ -58,3 +63,12 @@ class SQLQueryModel(object):
       [sql_query_column_model.SQLColumnModel]: list of columns
     """
     return self._columns
+
+  @property
+  def TimestampColumns(self) -> [sql_query_column_model.SQLColumnModel]:
+    """The columns of the query.
+
+    Returns:
+      [sql_query_column_model.SQLColumnModel]: list of columns
+    """
+    return self._timestamp_columns

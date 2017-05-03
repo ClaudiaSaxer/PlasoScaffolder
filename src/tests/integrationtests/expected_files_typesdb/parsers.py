@@ -244,15 +244,8 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data = ThePluginBlobtypesEventData()
     event_data.blobval = row['blobval']
     
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
-    if timestamp:
-    # Convert the floating point value to an integer.
-      timestamp = int(timestamp)
-      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
-      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
-      event = time_events.DateTimeValuesEvent(date_time, None)
-      parser_mediator.ProduceEventWithEventData(event, event_data)
+    
+
 
   def ParseIntegertypesRow(self,  parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
@@ -277,15 +270,8 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data.tinyintval = row['tinyintval']
     event_data.unsignedbigintval = row['unsignedbigintval']
     
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
-    if timestamp:
-    # Convert the floating point value to an integer.
-      timestamp = int(timestamp)
-      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
-      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
-      event = time_events.DateTimeValuesEvent(date_time, None)
-      parser_mediator.ProduceEventWithEventData(event, event_data)
+    
+
 
   def ParseNumerictypesRow(self,  parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
@@ -306,15 +292,8 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data.decimalval = row['decimalval']
     event_data.numericval = row['numericval']
     
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
-    if timestamp:
-    # Convert the floating point value to an integer.
-      timestamp = int(timestamp)
-      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
-      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
-      event = time_events.DateTimeValuesEvent(date_time, None)
-      parser_mediator.ProduceEventWithEventData(event, event_data)
+    
+
 
   def ParseRealtypesRow(self,  parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
@@ -334,15 +313,8 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data.floatval = row['floatval']
     event_data.realval = row['realval']
     
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
-    if timestamp:
-    # Convert the floating point value to an integer.
-      timestamp = int(timestamp)
-      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
-      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
-      event = time_events.DateTimeValuesEvent(date_time, None)
-      parser_mediator.ProduceEventWithEventData(event, event_data)
+    
+
 
   def ParseTexttypesRow(self,  parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
@@ -366,15 +338,8 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data.varcharval = row['varcharval']
     event_data.varyingcharacterval = row['varyingcharacterval']
     
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
-    if timestamp:
-    # Convert the floating point value to an integer.
-      timestamp = int(timestamp)
-      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
-      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
-      event = time_events.DateTimeValuesEvent(date_time, None)
-      parser_mediator.ProduceEventWithEventData(event, event_data)
+    
+
 
   def ParseNodataRow(self,  parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
@@ -417,15 +382,8 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data.varcharval = row['varcharval']
     event_data.varyingcharacterval = row['varyingcharacterval']
     
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
-    if timestamp:
-    # Convert the floating point value to an integer.
-      timestamp = int(timestamp)
-      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
-      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
-      event = time_events.DateTimeValuesEvent(date_time, None)
-      parser_mediator.ProduceEventWithEventData(event, event_data)
+    
+
 
 
 sqlite.SQLiteParser.RegisterPlugin(ThePluginPlugin)

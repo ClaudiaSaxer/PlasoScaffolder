@@ -23,7 +23,6 @@ class ThePluginUsersEventData(events.EventData):
     bio_entities (bytes): TODO
     business_profile_state (int): TODO
     could_be_stale (int): TODO
-    created_date (float): TODO
     description (str): TODO
     device_following (int): TODO
     extended_profile_fields (bytes): TODO
@@ -49,7 +48,6 @@ class ThePluginUsersEventData(events.EventData):
     screen_name (str): TODO
     statuses_count (int): TODO
     structured_location (bytes): TODO
-    updated_at (float): TODO
     url (str): TODO
     url_entities (bytes): TODO
     verified (int): TODO
@@ -65,7 +63,6 @@ class ThePluginUsersEventData(events.EventData):
     self.bio_entities = None
     self.business_profile_state = None
     self.could_be_stale = None
-    self.created_date = None
     self.description = None
     self.device_following = None
     self.extended_profile_fields = None
@@ -91,7 +88,6 @@ class ThePluginUsersEventData(events.EventData):
     self.screen_name = None
     self.statuses_count = None
     self.structured_location = None
-    self.updated_at = None
     self.url = None
     self.url_entities = None
     self.verified = None
@@ -104,7 +100,6 @@ class ThePluginStatusesEventData(events.EventData):
     card (bytes): TODO
     card_users (bytes): TODO
     card_version (int): TODO
-    date (float): TODO
     entities (bytes): TODO
     extra_scribe_item (bytes): TODO
     favorite_count (int): TODO
@@ -128,7 +123,6 @@ class ThePluginStatusesEventData(events.EventData):
     source (str): TODO
     supplmental_language (str): TODO
     text (str): TODO
-    updated_at (float): TODO
     user_id (int): TODO
     withheld_in_countries (str): TODO
     withheld_scope (str): TODO
@@ -142,7 +136,6 @@ class ThePluginStatusesEventData(events.EventData):
     self.card = None
     self.card_users = None
     self.card_version = None
-    self.date = None
     self.entities = None
     self.extra_scribe_item = None
     self.favorite_count = None
@@ -166,7 +159,6 @@ class ThePluginStatusesEventData(events.EventData):
     self.source = None
     self.supplmental_language = None
     self.text = None
-    self.updated_at = None
     self.user_id = None
     self.withheld_in_countries = None
     self.withheld_scope = None
@@ -179,9 +171,9 @@ class ThePluginPlugin(interface.SQLitePlugin):
   DESCRIPTION = u'Parser for ThePlugin'
 
   QUERIES = [ 
-    ((u'select id from users)'),
+    ((u'select * from users)'),
      u'ParseUsersRow'),
-    ((u'select id from users)'),
+    ((u'select * from users)'),
      u'ParseStatusesRow')]
 
   REQUIRED_TABLES = frozenset([
@@ -212,7 +204,6 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data.bio_entities = row['bioEntities']
     event_data.business_profile_state = row['businessProfileState']
     event_data.could_be_stale = row['couldBeStale']
-    event_data.created_date = row['createdDate']
     event_data.description = row['description']
     event_data.device_following = row['deviceFollowing']
     event_data.extended_profile_fields = row['extendedProfileFields']
@@ -238,13 +229,12 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data.screen_name = row['screenName']
     event_data.statuses_count = row['statusesCount']
     event_data.structured_location = row['structuredLocation']
-    event_data.updated_at = row['updatedAt']
     event_data.url = row['url']
     event_data.url_entities = row['urlEntities']
     event_data.verified = row['verified']
     
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
+    
+    timestamp = row['createdDate']
     if timestamp:
     # Convert the floating point value to an integer.
       timestamp = int(timestamp)
@@ -252,6 +242,17 @@ class ThePluginPlugin(interface.SQLitePlugin):
       # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
       event = time_events.DateTimeValuesEvent(date_time, None)
       parser_mediator.ProduceEventWithEventData(event, event_data)
+    
+    timestamp = row['updatedAt']
+    if timestamp:
+    # Convert the floating point value to an integer.
+      timestamp = int(timestamp)
+      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
+      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
+      event = time_events.DateTimeValuesEvent(date_time, None)
+      parser_mediator.ProduceEventWithEventData(event, event_data)
+    
+
 
   def ParseStatusesRow(self,  parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
@@ -269,7 +270,6 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data.card = row['card']
     event_data.card_users = row['cardUsers']
     event_data.card_version = row['cardVersion']
-    event_data.date = row['date']
     event_data.entities = row['entities']
     event_data.extra_scribe_item = row['extraScribeItem']
     event_data.favorite_count = row['favoriteCount']
@@ -293,13 +293,12 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data.source = row['source']
     event_data.supplmental_language = row['supplmentalLanguage']
     event_data.text = row['text']
-    event_data.updated_at = row['updatedAt']
     event_data.user_id = row['userId']
     event_data.withheld_in_countries = row['withheldInCountries']
     event_data.withheld_scope = row['withheldScope']
     
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
+    
+    timestamp = row['date']
     if timestamp:
     # Convert the floating point value to an integer.
       timestamp = int(timestamp)
@@ -307,6 +306,17 @@ class ThePluginPlugin(interface.SQLitePlugin):
       # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
       event = time_events.DateTimeValuesEvent(date_time, None)
       parser_mediator.ProduceEventWithEventData(event, event_data)
+    
+    timestamp = row['updatedAt']
+    if timestamp:
+    # Convert the floating point value to an integer.
+      timestamp = int(timestamp)
+      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
+      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
+      event = time_events.DateTimeValuesEvent(date_time, None)
+      parser_mediator.ProduceEventWithEventData(event, event_data)
+    
+
 
 
 sqlite.SQLiteParser.RegisterPlugin(ThePluginPlugin)

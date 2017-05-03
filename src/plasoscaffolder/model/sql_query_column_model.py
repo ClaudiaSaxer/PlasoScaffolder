@@ -35,7 +35,7 @@ class SQLColumnModel(object):
     return self._sql_column_type
 
   @SQLColumnType.setter
-  def SQLColumnType(self, value):
+  def SQLColumnType(self, value: type):
     """Setts the sql column type if it is not none and a type"""
     if value is not None and type(value) is type:
       self._sql_column_type = value
