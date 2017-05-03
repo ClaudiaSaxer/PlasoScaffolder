@@ -18,12 +18,12 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
 
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'twitter_ios.db')
-    execute = sqlite_query_execution.SQLQueryExecution(file_path)
-    connected = execute.tryToConnect()
+    execute = sqlite_query_execution.SQLiteQueryExecution(file_path)
+    connected = execute.TryToConnect()
     database_information = (
       sqlite_database_information.SQLiteDatabaseInformation(execute))
 
-    result = database_information.getTablesFromDatabase()
+    result = database_information.GetTablesFromDatabase()
     self.assertEqual(len(result), 7)
     self.assertTrue(connected)
     self.assertEqual(result[0], 'Lists')
@@ -38,11 +38,11 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     """get the required tables if anything went wrong"""
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'twitter_ios_error.db')
-    execute = sqlite_query_execution.SQLQueryExecution(file_path)
-    connected = execute.tryToConnect()
+    execute = sqlite_query_execution.SQLiteQueryExecution(file_path)
+    connected = execute.TryToConnect()
     database_information = (
       sqlite_database_information.SQLiteDatabaseInformation(execute))
-    result = database_information.getTablesFromDatabase()
+    result = database_information.GetTablesFromDatabase()
 
     self.assertEqual(result, [])
     self.assertFalse(connected)
@@ -51,11 +51,11 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     """get columns for the table nodata with every possible type."""
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'test_database_types.db')
-    execute = sqlite_query_execution.SQLQueryExecution(file_path)
-    connected = execute.tryToConnect()
+    execute = sqlite_query_execution.SQLiteQueryExecution(file_path)
+    connected = execute.TryToConnect()
     database_information = (
       sqlite_database_information.SQLiteDatabaseInformation(execute))
-    actual_data = database_information.getTableColumnsAndType('nodata')
+    actual_data = database_information.GetTableColumnsAndType('nodata')
     expected_data = {'intval': 'int',
                      'integerval': 'integer',
                      'tinyintval': 'tinyint',
@@ -91,11 +91,11 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     """get the columns for the table if the table can not be found."""
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'test_database_types.db')
-    execute = sqlite_query_execution.SQLQueryExecution(file_path)
-    connected = execute.tryToConnect()
+    execute = sqlite_query_execution.SQLiteQueryExecution(file_path)
+    connected = execute.TryToConnect()
     database_information = (
       sqlite_database_information.SQLiteDatabaseInformation(execute))
-    actual_data = database_information.getTableColumnsAndType('thisisnot')
+    actual_data = database_information.GetTableColumnsAndType('thisisnot')
     expected_data = {}
     self.assertEqual(len(actual_data), 0)
     self.assertEqual(actual_data, expected_data)
@@ -105,12 +105,12 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     """get the columns for the table if anything went wrong"""
     database_path = path_helper.TestDatabasePath()
     file_path = os.path.join(database_path, 'test_database_types.db')
-    execute = sqlite_query_execution.SQLQueryExecution(file_path)
-    connected = execute.tryToConnect()
+    execute = sqlite_query_execution.SQLiteQueryExecution(file_path)
+    connected = execute.TryToConnect()
     database_information = (
       sqlite_database_information.SQLiteDatabaseInformation(execute))
     'PRAGMA table_info({0})'
-    actual_data = database_information.getTableColumnsAndType(
+    actual_data = database_information.GetTableColumnsAndType(
       "bla);select * from nodata; (")
     expected_data = {}
     self.assertEqual(len(actual_data), 0)

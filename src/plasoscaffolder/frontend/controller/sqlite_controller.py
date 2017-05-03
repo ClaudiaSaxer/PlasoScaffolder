@@ -134,8 +134,8 @@ class SQLiteController(object):
 
     Returns:
       bool: if the file can be opened and is a database file"""
-    execution = sqlite_query_execution.SQLQueryExecution(path)
-    if execution.tryToConnect():
+    execution = sqlite_query_execution.SQLiteQueryExecution(path)
+    if execution.TryToConnect():
       self._query_execution = execution
       return True
     return False
@@ -161,14 +161,18 @@ class SQLiteController(object):
     sql_query_list = []
     while add_more_queries:
       sql_query = self._output_handler.PromptInfo(
-          text='Please write your SQL script for the plugin')
-      query_model = self._CreateSQLQueryModelWithUserInput(
-          sql_query, verbose, self._query_execution)
-      if query_model is not None:
-        sql_query_list.append(query_model)
-        add_more_queries = self._output_handler.Confirm(
-            text='Do you want to add another Query?',
-            abort=False, default=True)
+          text='Please write your SQL script for the plugin [\'abort\' to '
+               'continue]')
+      if sql_query == 'abort':
+        add_more_queries = False
+      else:
+        query_model = self._CreateSQLQueryModelWithUserInput(
+            sql_query, verbose, self._query_execution)
+        if query_model is not None:
+          sql_query_list.append(query_model)
+          add_more_queries = self._output_handler.Confirm(
+              text='Do you want to add another Query?',
+              abort=False, default=True)
 
     self._sql_query = sql_query_list
     return sql_query_list
@@ -216,7 +220,7 @@ class SQLiteController(object):
       else:
         self._output_handler.PrintError('The SQL query was ok.')
 
-      locked_tables = query_plan.getLockedTables(query)
+      locked_tables = query_plan.GetLockedTables(query)
       name = ''.join(locked_tables).capitalize()
 
       question_parse = 'Do you want to name the query parse row: {0} ?'.format(

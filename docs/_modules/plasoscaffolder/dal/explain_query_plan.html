@@ -53,10 +53,11 @@
 <span class="c1"># pylint does not recognize connect and close as member</span>
 <span class="sd">&quot;&quot;&quot;Class for the explain query plan.&quot;&quot;&quot;</span>
 
+<span class="kn">from</span> <span class="nn">plasoscaffolder.dal</span> <span class="k">import</span> <span class="n">base_explain_query_plan</span>
 <span class="kn">from</span> <span class="nn">plasoscaffolder.dal</span> <span class="k">import</span> <span class="n">base_sql_query_execution</span>
 
 
-<div class="viewcode-block" id="ExplainQueryPlan"><a class="viewcode-back" href="../../../plasoscaffolder.dal.html#plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan">[docs]</a><span class="k">class</span> <span class="nc">ExplainQueryPlan</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ExplainQueryPlan"><a class="viewcode-back" href="../../../plasoscaffolder.dal.html#plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan">[docs]</a><span class="k">class</span> <span class="nc">ExplainQueryPlan</span><span class="p">(</span><span class="n">base_explain_query_plan</span><span class="o">.</span><span class="n">BaseExplainQueryPlan</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Class representing the explain query plan.&quot;&quot;&quot;</span>
 
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
@@ -71,7 +72,7 @@
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_sql_execution</span> <span class="o">=</span> <span class="n">sql_execution</span>
 
-<div class="viewcode-block" id="ExplainQueryPlan.isReadOnly"><a class="viewcode-back" href="../../../plasoscaffolder.dal.html#plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan.isReadOnly">[docs]</a>  <span class="k">def</span> <span class="nf">isReadOnly</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="ExplainQueryPlan.IsReadOnly"><a class="viewcode-back" href="../../../plasoscaffolder.dal.html#plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan.IsReadOnly">[docs]</a>  <span class="k">def</span> <span class="nf">IsReadOnly</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Determines if the query is read only.</span>
 
 <span class="sd">    Args:</span>
@@ -81,15 +82,15 @@
 <span class="sd">      bool: true if it is read only, false if it is not</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">explain_query</span> <span class="o">=</span> <span class="s1">&#39;EXPLAIN </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
-    <span class="n">explain_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sql_execution</span><span class="o">.</span><span class="n">executeQuery</span><span class="p">(</span><span class="n">explain_query</span><span class="p">)</span>
+    <span class="n">explain_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sql_execution</span><span class="o">.</span><span class="n">ExecuteQuery</span><span class="p">(</span><span class="n">explain_query</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">explain_result</span><span class="o">.</span><span class="n">has_error</span><span class="p">:</span>
       <span class="k">return</span> <span class="kc">False</span>
     <span class="n">opcodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">explain_row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">explain_row</span> <span class="ow">in</span> <span class="n">explain_result</span><span class="o">.</span><span class="n">data</span><span class="p">]</span>
     <span class="n">has_write</span> <span class="o">=</span> <span class="s1">&#39;OpenWrite&#39;</span> <span class="ow">in</span> <span class="n">opcodes</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">getLockedTables</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">GetLockedTables</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
     <span class="k">return</span> <span class="ow">not</span> <span class="n">has_write</span></div>
 
-<div class="viewcode-block" id="ExplainQueryPlan.getLockedTables"><a class="viewcode-back" href="../../../plasoscaffolder.dal.html#plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan.getLockedTables">[docs]</a>  <span class="k">def</span> <span class="nf">getLockedTables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="ExplainQueryPlan.GetLockedTables"><a class="viewcode-back" href="../../../plasoscaffolder.dal.html#plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan.GetLockedTables">[docs]</a>  <span class="k">def</span> <span class="nf">GetLockedTables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Determines the table that were locked during the SQL query.</span>
 
 <span class="sd">    Args:</span>
@@ -99,7 +100,7 @@
 <span class="sd">      [str]: the list of tables</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">explain_query</span> <span class="o">=</span> <span class="s1">&#39;EXPLAIN </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
-    <span class="n">explain_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sql_execution</span><span class="o">.</span><span class="n">executeQuery</span><span class="p">(</span><span class="n">explain_query</span><span class="p">)</span>
+    <span class="n">explain_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sql_execution</span><span class="o">.</span><span class="n">ExecuteQuery</span><span class="p">(</span><span class="n">explain_query</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">explain_result</span><span class="o">.</span><span class="n">has_error</span> <span class="ow">or</span> <span class="n">explain_result</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
       <span class="k">return</span> <span class="p">[]</span>
     <span class="n">tables</span> <span class="o">=</span> <span class="p">[</span><span class="n">explain_row</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="k">for</span> <span class="n">explain_row</span> <span class="ow">in</span> <span class="n">explain_result</span><span class="o">.</span><span class="n">data</span> <span class="k">if</span>

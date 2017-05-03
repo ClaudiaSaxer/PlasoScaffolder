@@ -76,7 +76,7 @@ class BaseSQLitePluginHelper(object):
     """ Validates the sql query
 
     Args:
-      executor (base_sql_query_execution.SQLQueryExecution): to validate the
+      executor (base_sql_query_execution.SQLiteQueryExecution): to validate the
         SQL queries provided by the user
       query (str): the SQL query
 

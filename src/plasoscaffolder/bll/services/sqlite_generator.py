@@ -93,7 +93,7 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
         database_name=os.path.basename(self.path_helper.database_path),
         queries=self.queries,
         plugin_name=self.name,
-        required_tables=database_information.getTablesFromDatabase())
+        required_tables=database_information.GetTablesFromDatabase())
 
     formatter_data = formatter_data_model.FormatterDataModel(
         queries=self.queries,

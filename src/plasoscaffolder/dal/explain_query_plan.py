@@ -3,10 +3,11 @@
 # pylint does not recognize connect and close as member
 """Class for the explain query plan."""
 
+from plasoscaffolder.dal import base_explain_query_plan
 from plasoscaffolder.dal import base_sql_query_execution
 
 
-class ExplainQueryPlan(object):
+class ExplainQueryPlan(base_explain_query_plan.BaseExplainQueryPlan):
   """Class representing the explain query plan."""
 
   def __init__(self,
@@ -21,7 +22,7 @@ class ExplainQueryPlan(object):
     super().__init__()
     self._sql_execution = sql_execution
 
-  def isReadOnly(self, query: str) -> bool:
+  def IsReadOnly(self, query: str) -> bool:
     """Determines if the query is read only.
 
     Args:
@@ -31,15 +32,15 @@ class ExplainQueryPlan(object):
       bool: true if it is read only, false if it is not
     """
     explain_query = 'EXPLAIN {0}'.format(query)
-    explain_result = self._sql_execution.executeQuery(explain_query)
+    explain_result = self._sql_execution.ExecuteQuery(explain_query)
     if explain_result.has_error:
       return False
     opcodes = [explain_row[1] for explain_row in explain_result.data]
     has_write = 'OpenWrite' in opcodes
-    self.getLockedTables(query)
+    self.GetLockedTables(query)
     return not has_write
 
-  def getLockedTables(self, query: str) -> [str]:
+  def GetLockedTables(self, query: str) -> [str]:
     """Determines the table that were locked during the SQL query.
 
     Args:
@@ -49,7 +50,7 @@ class ExplainQueryPlan(object):
       [str]: the list of tables
     """
     explain_query = 'EXPLAIN {0}'.format(query)
-    explain_result = self._sql_execution.executeQuery(explain_query)
+    explain_result = self._sql_execution.ExecuteQuery(explain_query)
     if explain_result.has_error or explain_result.data is None:
       return []
     tables = [explain_row[5] for explain_row in explain_result.data if
