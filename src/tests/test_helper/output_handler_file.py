@@ -120,4 +120,6 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       sys.exit()
     self.__file_handler.AddContent(self.__path, text)
 
+    print(text + " "+ str(self.__confirm))
+
     return self.__confirm

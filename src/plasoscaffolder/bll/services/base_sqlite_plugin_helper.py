@@ -4,6 +4,7 @@ import abc
 
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.dal import base_sql_query_execution
+from plasoscaffolder.model import sql_query_column_model
 from plasoscaffolder.model import sql_query_model
 
 
@@ -71,6 +72,18 @@ class BaseSQLitePluginHelper(object):
     """
 
   @abc.abstractmethod
+  def IsValidCommaSeparatedString(self, text: str) -> bool:
+    """Validates a comma separated string
+
+    Args:
+      text (str): the string to validate
+
+    Returns:
+      bool: true if the text is valide
+    """
+    return self._COMMA_SEPARATED_PATTERN.fullmatch(text)
+
+  @abc.abstractmethod
   def RunSQLQuery(self, query: str,
                   executor: base_sql_query_execution.BaseSQLQueryExecution):
     """ Validates the sql query
@@ -85,6 +98,7 @@ class BaseSQLitePluginHelper(object):
         query
     """
 
+  @abc.abstractmethod
   def GetDistinctColumnsFromSQLQueryData(
       self,
       queries: [sql_query_model.SQLQueryModel]) -> [str]:
@@ -97,4 +111,34 @@ class BaseSQLitePluginHelper(object):
 
     Returns:
       list[str]: all distinct attributes used in the query
+    """
+
+  @abc.abstractmethod
+  def GetAssumedTimestamps(self, columns: [sql_query_column_model]) -> [str]:
+    """Gets all columns assumed that they are timestamps
+
+    Args:
+      columns ([sql_query_column_model]): the columns from the query
+
+    Returns:
+      [str]: the names from the columns assumed they could be a timestamp
+    """
+
+  @abc.abstractmethod
+  def GetColumnsAndTimestampColumn(
+      self, columns: [sql_query_column_model.SQLColumnModel], timestamps: [str]) -> (
+      [sql_query_column_model.SQLColumnModel],
+      [sql_query_column_model.SQLColumnModel]):
+    """Splits the column list into a list of simple columns and a list for
+    timestamp event columns
+
+    Args:
+      columns ([sql_query_column_model.SQLColumnModel]): the columns from the 
+          SQL query
+      timestamps ([str]): the timestamp events
+
+    Returns:
+      ([sql_query_column_model.SQLColumnModel],
+          [sql_query_column_model.SQLColumnModel): a tuple of columns,
+          the first are the normal columns, the second are the timestamp events
     """

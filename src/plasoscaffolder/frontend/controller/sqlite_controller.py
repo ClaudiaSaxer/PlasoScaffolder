@@ -20,7 +20,7 @@ from plasoscaffolder.dal import base_sql_query_execution
 from plasoscaffolder.dal import explain_query_plan
 from plasoscaffolder.dal import sqlite_database_information
 from plasoscaffolder.dal import sqlite_query_execution
-from plasoscaffolder.model import sql_query_model
+from plasoscaffolder.model import sql_query_column_model, sql_query_model
 
 
 class SQLiteController(object):
@@ -237,8 +237,64 @@ class SQLiteController(object):
       needs_customizing = self._output_handler.Confirm(
           text=message, abort=False, default=False)
 
+      columns = self.GetTimestamps(query_data.columns)
+
     return sql_query_model.SQLQueryModel(
-        query.strip(), name, query_data.columns, needs_customizing)
+        query.strip(), name, columns[0], columns[1], needs_customizing)
+
+  def GetTimestamps(self, columns: [sql_query_column_model.SQLColumnModel]) -> (
+      [sql_query_column_model.SQLColumnModel],
+      [sql_query_column_model.SQLColumnModel]):
+    """Gets the timestamp from the user and the columns
+    
+    Args:
+      columns [sql_query_column_model.SQLColumnModel]: the columns from the SQL
+           query. 
+
+    Returns:
+       [sql_query_column_model.SQLColumnModel],
+           [sql_query_column_model.SQLColumnModel]: A tuple of columns. The 
+           first column represents the normal column for the query. The second
+           column represents the timestamp events.
+    """
+    timestamps = set()
+    wrong_timestamps = set()
+
+    assumed_timestamps = self._plugin_helper.GetAssumedTimestamps(columns)
+    for timestamp in assumed_timestamps:
+      question_timestamp = 'Is the column a time event? {0}'.format(timestamp)
+      is_timestamp = self._output_handler.Confirm(question_timestamp,
+                                                  abort=False, default=True)
+      if is_timestamp:
+        timestamps.add(timestamp)
+
+    add_own_timestamps = True
+    while add_own_timestamps:
+      own_timestamps = self._output_handler.PromptInfo(
+          'Enter (additional) timestamp events from the query [columnName,'
+          'aliasName...] or [abort]')
+      if not own_timestamps == 'abort':
+        if len(timestamps) == 0:
+          own_timestamps = self._output_handler.PromptInfo(
+              'At least one timestamp is required, please add a timestamp')
+        own_timestamps = self._ValidateTimestampString(own_timestamps)
+
+        for own_timestamp in own_timestamps.split(','):
+          column_names = [column.SQLColumn for column in columns]
+          if own_timestamp in column_names:
+            timestamps.add(own_timestamp)
+          else:
+            wrong_timestamps.add(own_timestamp)
+
+        timestamps_string = 'Added: {0}'.format(','.join(sorted(timestamps)))
+        timestamps_wrong_string = 'Failed: {0}'.format(
+          ','.join(sorted(wrong_timestamps)))
+        self._output_handler.PrintInfo(timestamps_string)
+        self._output_handler.PrintInfo(timestamps_wrong_string)
+        add_own_timestamps = self._output_handler.Confirm(
+            'Do you want to add more timestamps?', abort=False, default=False)
+
+    return self._plugin_helper.GetColumnsAndTimestampColumn(columns, timestamps)
 
   def Generate(self, template_path: str):
     """Generating the files.
@@ -301,3 +357,18 @@ class SQLiteController(object):
       row_name = self._output_handler.PromptError(
           'Row name is not in a valid format. Choose new Name [RowName...]')
     return row_name
+
+  def _ValidateTimestampString(self, timestamp_string) -> str:
+    """Validate the timestamp string and prompt until valid
+    
+    Args:
+      timestamp_string: the string with the timestamps
+ 
+    Returns:
+      str: a comma separated string with timestamps
+    """
+    while not self._plugin_helper.IsValidCommaSeparatedString(timestamp_string):
+      timestamp_string = self._output_handler.PromptError(
+          'Timestamps are not in valid format. Reenter them correctly [name,'
+          'name...]')
+    return timestamp_string

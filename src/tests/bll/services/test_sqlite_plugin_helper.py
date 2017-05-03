@@ -22,7 +22,6 @@ class SQLitePluginHelperTest(unittest.TestCase):
 
   def test_PluginExistsIfFalse(self):
     """Tests the plugin exists method if none exists."""
-
     actual = self.helper.PluginExists(
         'temp', 'plugin_test', 'db',
         fake_sqlite_plugin_path_helper.FakeSQLitePluginPathHelper(
@@ -34,8 +33,7 @@ class SQLitePluginHelperTest(unittest.TestCase):
     with tempfile.TemporaryDirectory() as tmpdir:
       file_path = os.path.join(tmpdir, 'test')
       new_file = open(file_path, 'a')
-      helper = sqlite_plugin_helper.SQLitePluginHelper()
-      actual = helper.PluginExists(
+      actual = self.helper.PluginExists(
           tmpdir, new_file.name, 'db',
           fake_sqlite_plugin_path_helper.FakeSQLitePluginPathHelper(
               self.template_path, new_file.name, 'db'))
@@ -46,20 +44,15 @@ class SQLitePluginHelperTest(unittest.TestCase):
 
   def test_FileExistsIfTrue(self):
     """ test the method that checks if the file exists """
-
     with tempfile.TemporaryDirectory() as tmpdir:
       with tempfile.TemporaryFile(dir=tmpdir) as fp:
-        helper = sqlite_plugin_helper.SQLitePluginHelper()
-        actual = helper.FileExists(fp.name)
-
+        actual = self.helper.FileExists(fp.name)
     self.assertTrue(actual)
 
   def testFolderExistsIfTrue(self):
     """test the method that checks if folder exists"""
     with tempfile.TemporaryDirectory() as tmpdir:
-      helper = sqlite_plugin_helper.SQLitePluginHelper()
-      actual = helper.FolderExists(tmpdir)
-
+      actual = self.helper.FolderExists(tmpdir)
     self.assertTrue(actual)
 
   def testRunSQLQuery(self):
@@ -67,8 +60,7 @@ class SQLitePluginHelperTest(unittest.TestCase):
     data = sql_query_data.SQLQueryData(
         columns=[], data=[], has_error=False, error_message=None)
     executor = fake_sqlite_query_execution.SQLQueryExecution(data)
-    helper = sqlite_plugin_helper.SQLitePluginHelper()
-    actual = helper.RunSQLQuery('my query', executor)
+    actual = self.helper.RunSQLQuery('my query', executor)
     self.assertFalse(actual.has_error)
     self.assertIsNone(actual.error_message)
     self.assertEqual(actual.columns, [])
@@ -76,67 +68,65 @@ class SQLitePluginHelperTest(unittest.TestCase):
 
   def testIsValidPluginNameExpected(self):
     """tests the plugin Name validation."""
-    helper = sqlite_plugin_helper.SQLitePluginHelper()
     plugin_name = "this_is_a_test"
-    actual = helper.IsValidPluginName(plugin_name)
+    actual = self.helper.IsValidPluginName(plugin_name)
     self.assertTrue(actual)
 
   def testIsValidPluginNameWithEndingUnderscore(self):
     """tests the plugin Name validation."""
-    helper = sqlite_plugin_helper.SQLitePluginHelper()
     plugin_name = "this_is_a_"
-    actual = helper.IsValidPluginName(plugin_name)
+    actual = self.helper.IsValidPluginName(plugin_name)
     self.assertFalse(actual)
 
   def testIsValidPluginNameOnlyOneWordLowercase(self):
     """tests the plugin Name validation."""
-    helper = sqlite_plugin_helper.SQLitePluginHelper()
     plugin_name = "this"
-    actual = helper.IsValidPluginName(plugin_name)
+    actual = self.helper.IsValidPluginName(plugin_name)
     self.assertTrue(actual)
 
   def testIsValidPluginNameOneWordUppercase(self):
     """tests the plugin Name validation."""
-    helper = sqlite_plugin_helper.SQLitePluginHelper()
     plugin_name = "This"
-    actual = helper.IsValidPluginName(plugin_name)
+    actual = self.helper.IsValidPluginName(plugin_name)
     self.assertFalse(actual)
 
   def testIsValidPluginNameWithNumber(self):
     """tests the plugin Name validation."""
-    helper = sqlite_plugin_helper.SQLitePluginHelper()
     plugin_name = "this3"
-    actual = helper.IsValidPluginName(plugin_name)
+    actual = self.helper.IsValidPluginName(plugin_name)
     self.assertFalse(actual)
 
   def testGetDistinctColumnsFromSQLQueryData(self):
     """test the creating of a distinct list of all attributes of the queries"""
-    helper = sqlite_plugin_helper.SQLitePluginHelper()
     queries = list()
     column1 = sql_query_model.SQLQueryModel(
         columns=[sql_query_column_model.SQLColumnModel('createdDate'),
                  sql_query_column_model.SQLColumnModel('updatedAt'),
                  sql_query_column_model.SQLColumnModel('screenName')],
+        timestamp_columns=[],
         query="", name="", needs_customizing=False)
     column2 = sql_query_model.SQLQueryModel(
         columns=[sql_query_column_model.SQLColumnModel('profileImageUrl'),
                  sql_query_column_model.SQLColumnModel('screenName'),
                  sql_query_column_model.SQLColumnModel('userId')],
+        timestamp_columns=[],
         query="", name="", needs_customizing=False)
     column3 = sql_query_model.SQLQueryModel(
         columns=[sql_query_column_model.SQLColumnModel('screenName'),
                  sql_query_column_model.SQLColumnModel('createdDate'),
                  sql_query_column_model.SQLColumnModel('createdDate')],
+        timestamp_columns=[],
         query="", name="", needs_customizing=False)
     column4 = sql_query_model.SQLQueryModel(
         columns=[sql_query_column_model.SQLColumnModel('screenNameSecond'),
                  sql_query_column_model.SQLColumnModel('createdDate')],
+        timestamp_columns=[],
         query="", name="", needs_customizing=False)
     queries.append(column1)
     queries.append(column2)
     queries.append(column3)
     queries.append(column4)
-    actual = helper.GetDistinctColumnsFromSQLQueryData(queries)
+    actual = self.helper.GetDistinctColumnsFromSQLQueryData(queries)
     expected = ['created_date', 'profile_image_url', 'screen_name',
                 'screen_name_second', 'updated_at', 'user_id']
 
@@ -145,42 +135,156 @@ class SQLitePluginHelperTest(unittest.TestCase):
   def testGetDistinctColumnsFromSQLQueryDataEmpty(self):
     """test the creating of a distinct list of all attributes of the queries
     with an empty array"""
-    helper = sqlite_plugin_helper.SQLitePluginHelper()
     queries = list()
     column1 = sql_query_model.SQLQueryModel(
-        columns=[], query="", name="", needs_customizing=False)
+        columns=[], timestamp_columns=[], query="", name="",
+        needs_customizing=False)
     column2 = sql_query_model.SQLQueryModel(
         columns=[sql_query_column_model.SQLColumnModel('first')],
-        query="", name="", needs_customizing=False)
+        timestamp_columns=[], query="", name="", needs_customizing=False)
     queries.append(column1)
     queries.append(column2)
-    actual = helper.GetDistinctColumnsFromSQLQueryData(queries)
+    actual = self.helper.GetDistinctColumnsFromSQLQueryData(queries)
     expected = ['first']
     self.assertEqual(actual, expected)
 
   def testIsValidRowNameShort(self):
     """test the row name for its validity"""
-    helper = sqlite_plugin_helper.SQLitePluginHelper()
-    actual = helper.IsValidRowName('Short')
+    actual = self.helper.IsValidRowName('Short')
     self.assertTrue(actual)
 
   def testIsValidRowNameLong(self):
     """test the row name for its validity"""
-    helper = sqlite_plugin_helper.SQLitePluginHelper()
-    actual = helper.IsValidRowName('ThisIsALongRowName')
+    actual = self.helper.IsValidRowName('ThisIsALongRowName')
     self.assertTrue(actual)
 
   def testIsValidRowNameWithErrorLowerCase(self):
     """test the row name for its validity"""
-    helper = sqlite_plugin_helper.SQLitePluginHelper()
-    actual = helper.IsValidRowName('wrong')
+    actual = self.helper.IsValidRowName('wrong')
     self.assertFalse(actual)
 
   def testIsValidRowNameWithErrorNumber(self):
     """test the row name for its validity"""
-    helper = sqlite_plugin_helper.SQLitePluginHelper()
-    actual = helper.IsValidRowName('Row12')
+    actual = self.helper.IsValidRowName('Row12')
     self.assertFalse(actual)
+
+  def testIsValidCommaSeparatedStringShortCapitalLetterStart(self):
+    """test a comma separated string for its validity"""
+    actual = self.helper.IsValidCommaSeparatedString('Short1234')
+    self.assertTrue(actual)
+
+  def testIsValidCommaSeparatedStringShortLowercaseLetterStart(self):
+    """test a comma separated string for its validity"""
+    actual = self.helper.IsValidCommaSeparatedString('short1234')
+    self.assertTrue(actual)
+
+  def testIsValidCommaSeparatedStringShortNumberStart(self):
+    """test a comma separated string for its validity"""
+    actual = self.helper.IsValidCommaSeparatedString('123asdgf')
+    self.assertTrue(actual)
+
+  def testIsValidCommaSeparatedStringLong(self):
+    """test a comma separated string for its validity"""
+    actual = self.helper.IsValidCommaSeparatedString('test,213this,Hello')
+    self.assertTrue(actual)
+
+  def testIsValidCommaSeparatedStringLongErrorSpace(self):
+    """test a comma separated string for its validity"""
+    actual = self.helper.IsValidCommaSeparatedString('test, 213this,Hello')
+    self.assertFalse(actual)
+
+  def testIsValidCommaSeparatedStringLongErrorComma(self):
+    """test a comma separated string for its validity"""
+    actual = self.helper.IsValidCommaSeparatedString('test, 213this,Hello,')
+    self.assertFalse(actual)
+
+  def testGetAssumedTimestamps(self):
+    """test the the parsing of assumed timestamps"""
+    columns = [
+      sql_query_column_model.SQLColumnModel('not'),
+      sql_query_column_model.SQLColumnModel('usertime'),
+      sql_query_column_model.SQLColumnModel('timecreation'),
+      sql_query_column_model.SQLColumnModel('date'),
+      sql_query_column_model.SQLColumnModel('time'),
+      sql_query_column_model.SQLColumnModel('DaTe'),
+      sql_query_column_model.SQLColumnModel('TiMe'),
+      sql_query_column_model.SQLColumnModel('userdate'),
+      sql_query_column_model.SQLColumnModel('datecreation')
+    ]
+
+    actual = self.helper.GetAssumedTimestamps(columns)
+    expected = ['usertime', 'timecreation', 'date', 'time', 'DaTe', 'TiMe',
+                'userdate', 'datecreation']
+    self.assertEqual(actual, expected)
+
+  def testGetAssumedTimestampsEmpty(self):
+    """test the the parsing of assumed timestamps"""
+    helper = sqlite_plugin_helper.SQLitePluginHelper()
+    actual = helper.GetAssumedTimestamps([])
+    expected = []
+    self.assertEqual(actual, expected)
+
+  def testGetColumnsAndTimestampColumn(self):
+    """test the getting of the column and timestamp column"""
+    timestamps = ['this', 'that', 'another']
+    columns = [
+      sql_query_column_model.SQLColumnModel('not'),
+      sql_query_column_model.SQLColumnModel('this'),
+      sql_query_column_model.SQLColumnModel('another'),
+      sql_query_column_model.SQLColumnModel('that'),
+      sql_query_column_model.SQLColumnModel('alsonot')
+    ]
+
+    actual = self.helper.GetColumnsAndTimestampColumn(columns, timestamps)
+
+    self.assertEqual(len(actual), 2)
+    self.assertEqual(len(actual[0]), 2)
+    self.assertEqual(len(actual[1]), 3)
+
+    self.assertEqual(actual[0][0].SQLColumn, 'not')
+    self.assertEqual(actual[0][1].SQLColumn, 'alsonot')
+    self.assertEqual(actual[1][0].SQLColumn, 'this')
+    self.assertEqual(actual[1][1].SQLColumn, 'another')
+    self.assertEqual(actual[1][2].SQLColumn, 'that')
+
+  def testGetColumnsAndTimestampColumnEmptyTimestamp(self):
+    """test the getting of the column and timestamp column"""
+    columns = [
+      sql_query_column_model.SQLColumnModel('not'),
+      sql_query_column_model.SQLColumnModel('this'),
+      sql_query_column_model.SQLColumnModel('another'),
+      sql_query_column_model.SQLColumnModel('that'),
+      sql_query_column_model.SQLColumnModel('alsonot')
+    ]
+
+    actual = self.helper.GetColumnsAndTimestampColumn(columns, [])
+
+    self.assertEqual(len(actual), 2)
+    self.assertEqual(len(actual[0]), 5)
+    self.assertEqual(len(actual[1]), 0)
+
+    self.assertEqual(actual[0][0].SQLColumn, 'not')
+    self.assertEqual(actual[0][1].SQLColumn, 'this')
+    self.assertEqual(actual[0][2].SQLColumn, 'another')
+    self.assertEqual(actual[0][3].SQLColumn, 'that')
+    self.assertEqual(actual[0][4].SQLColumn, 'alsonot')
+
+  def testGetColumnsAndTimestampColumnEmptyColumns(self):
+    """test the getting of the column and timestamp column"""
+    timestamps = ['this', 'that', 'another']
+    actual = self.helper.GetColumnsAndTimestampColumn([], timestamps)
+
+    self.assertEqual(len(actual), 2)
+    self.assertEqual(len(actual[0]), 0)
+    self.assertEqual(len(actual[0]), 0)
+
+  def testGetColumnsAndTimestampColumnEmpty(self):
+    """test the getting of the column and timestamp column"""
+    actual = self.helper.GetColumnsAndTimestampColumn([], [])
+
+    self.assertEqual(len(actual), 2)
+    self.assertEqual(len(actual[0]), 0)
+    self.assertEqual(len(actual[0]), 0)
 
 
 if __name__ == '__main__':
