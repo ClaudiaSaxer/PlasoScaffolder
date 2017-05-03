@@ -161,14 +161,18 @@ class SQLiteController(object):
     sql_query_list = []
     while add_more_queries:
       sql_query = self._output_handler.PromptInfo(
-          text='Please write your SQL script for the plugin')
-      query_model = self._CreateSQLQueryModelWithUserInput(
-          sql_query, verbose, self._query_execution)
-      if query_model is not None:
-        sql_query_list.append(query_model)
-        add_more_queries = self._output_handler.Confirm(
-            text='Do you want to add another Query?',
-            abort=False, default=True)
+          text='Please write your SQL script for the plugin [\'abort\' to '
+               'continue]')
+      if sql_query == 'abort':
+        add_more_queries = False
+      else:
+        query_model = self._CreateSQLQueryModelWithUserInput(
+            sql_query, verbose, self._query_execution)
+        if query_model is not None:
+          sql_query_list.append(query_model)
+          add_more_queries = self._output_handler.Confirm(
+              text='Do you want to add another Query?',
+              abort=False, default=True)
 
     self._sql_query = sql_query_list
     return sql_query_list

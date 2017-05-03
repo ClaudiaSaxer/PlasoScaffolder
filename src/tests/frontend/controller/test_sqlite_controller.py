@@ -9,7 +9,6 @@ import unittest
 from unittest import mock
 
 from plasoscaffolder.common import file_handler
-from plasoscaffolder.dal import base_sql_query_execution
 from plasoscaffolder.dal import sql_query_data
 from plasoscaffolder.frontend.controller import sqlite_controller
 from plasoscaffolder.model import sql_query_model
@@ -307,7 +306,7 @@ class SQLiteControllerTest(unittest.TestCase):
     error_message = "Some Error..."
     fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
         sql_query_data.SQLQueryData(has_error=True,
-                                              error_message=error_message)
+                                    error_message=error_message)
     )
     sql_query = 'SELECT createdDate FROM Users ORDER BY createdDate'
     name = 'Contact'
@@ -346,13 +345,40 @@ class SQLiteControllerTest(unittest.TestCase):
       prompt_output_actual = self._ReadFromFile(path)
 
       prompt_output_expected = ('Please write your SQL script for the '
-                                'pluginDo you want to add another Query?')
+                                'plugin [\'abort\' to '
+                                'continue]Do you want to add another Query?')
 
       self.assertEqual(len(actual), 1)
       self.assertEqual(actual[0].data, 'test')
       self.assertEqual(actual[0].has_error, False)
       self.assertEqual(actual[0].error_message, None)
       self.assertEqual(prompt_output_actual, prompt_output_expected)
+
+  def testSqlQueryWithAbort(self):
+    """test method after getting the source path from the user using abort"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_info='abort')
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper()
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+
+      controller._CreateSQLQueryModelWithUserInput = mock.MagicMock(
+          return_value=sql_query_data.SQLQueryData(
+              data='test', has_error=False, error_message=None))
+
+      actual = controller.SQLQuery(None, None, True)
+
+      prompt_output_actual = self._ReadFromFile(path)
+
+      prompt_output_expected = ('Please write your SQL script for the '
+                                'plugin [\'abort\' to '
+                                'continue]')
+
+      self.assertEqual(len(actual), 0)
 
   def testSqlQueryMultiple(self):
     """test method after getting the source path from the user"""
@@ -373,7 +399,9 @@ class SQLiteControllerTest(unittest.TestCase):
       actual = controller.SQLQuery(None, None, True)
 
       prompt_output_expected = ('Please write your SQL script for the '
-                                'pluginDo you want to add another Query?') * 3
+                                'plugin [\'abort\' to '
+                                'continue]Do you want to add another Query?')\
+                               * 3
 
       prompt_output_actual = self._ReadFromFile(path)
       self.assertEqual(len(actual), 3)
