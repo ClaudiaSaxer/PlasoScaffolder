@@ -21,8 +21,8 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
         [u'{{ database_name }}'], plugin_object)
 
     # We should have {{ todo_count_events }} events in total.
-    {% for query in queries %}# - x {{ query.Name }} events.
-    {% endfor %}
+    {% for query in queries %}{% for column in query.TimestampColumns|sort(attribute='SQLColumn') %}# - x {{ query.Name }} {{ column.SQLColumn }} events.
+    {% endfor %}{% endfor %}
     self.assertEqual({{ todo_count_events }}, len(storage_writer.events))
 
 {% for query in queries %}
