@@ -20,13 +20,13 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
     storage_writer = self._ParseDatabaseFileWithPlugin(
         [u'the_plugin.db'], plugin_object)
 
-    # We should have  events in total.
+    # We should have 0 events in total.
     # - x Users createdDate events.
     # - x Users updatedAt events.
     # - x Statuses date events.
     # - x Statuses updatedAt events.
     
-    self.assertEqual(, len(storage_writer.events))
+    self.assertEqual(0, len(storage_writer.events))
 
 
     # Test the first users createdDate event.

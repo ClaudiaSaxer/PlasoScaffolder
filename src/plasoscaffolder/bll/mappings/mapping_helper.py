@@ -3,6 +3,7 @@
 import jinja2
 
 from plasoscaffolder.bll.mappings import base_mapping_helper
+from plasoscaffolder.common import type_mapper, code_formatter
 
 
 class MappingHelper(base_mapping_helper.BaseMappingHelper):
@@ -29,8 +30,13 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
        Returns:
          str: the rendered template
        """
-    return self._template_environment.get_template(
+    template = self._template_environment.get_template(
         template_filename).render(context)
+    formatter = code_formatter.CodeFormatter()
+    formatted = formatter.Format(template)
+    return formatted[0]
+    #return self._template_environment.get_template(
+    #    template_filename).render(context)
 
   def GenerateClassName(self, plugin_name: str) -> str:
     """Generates the class name from the plugin name.
