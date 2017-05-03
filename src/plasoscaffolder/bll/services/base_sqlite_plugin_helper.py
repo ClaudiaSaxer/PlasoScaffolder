@@ -81,7 +81,6 @@ class BaseSQLitePluginHelper(object):
     Returns:
       bool: true if the text is valide
     """
-    return self._COMMA_SEPARATED_PATTERN.fullmatch(text)
 
   @abc.abstractmethod
   def RunSQLQuery(self, query: str,
