@@ -21,13 +21,14 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
         [u'{{ database_name }}'], plugin_object)
 
     # We should have {{ count_events }} events in total.
-    {% for query in queries %}{% for column in query.TimestampColumns|sort(attribute='SQLColumn') %}# - x {{ query.Name }} {{ column.SQLColumn }} events.
+    {% for query in queries %}{% for column in query.TimestampColumns|sort(attribute='SQLColumn') %}
+    # - {{ query.AmountEvents }} {{ query.Name }} {{ column.SQLColumn }} events.
     {% endfor %}{% endfor %}
     self.assertEqual({{ count_events }}, len(storage_writer.events))
 
-{% for query in queries %}{% for column in query.TimestampColumns|sort(attribute='SQLColumn') %}
-    # Test the first {{ query.Name|lower }} {{ column.SQLColumn }} event.
-    test_event = storage_writer.events[0]
+{% for query in queries %}{% for timestampcolumn in query.TimestampColumns|sort(attribute='SQLColumn') %}
+    # Test the first {{ query.Name|lower }} {{ timestampcolumn.SQLColumn }} event.
+    test_event = storage_writer.events[{{ timestampcolumn.FirstEventPositionInEvents }}]
     expected_timestamp = timelib.Timestamp.CopyFromString(
         u'todo')
     self.assertEqual(test_event.timestamp, expected_timestamp)
@@ -35,19 +36,20 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
     self.assertEqual(
       test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
 
-    {% for column in query.Columns|sort(attribute='SQLColumn',case_sensitive=False)%}self.assertEqual(test_event.{{ column.ColumnAsSnakeCase()}}, u'todo')
+    {% for datacolumn in query.Columns|sort(attribute='SQLColumn',case_sensitive=False)%}expected_{{datacolumn.ColumnAsSnakeCase()}} =
+        u'{{ datacolumn.FirstDataForTimeEvent(column.SQLColumn)|wordwrap(width=64,wrapstring='\nu')|indent(8)}})'
     {% endfor %}
-    expected_description = (u'todo')
-    self.assertEqual(test_event.description, expected_description)
+    {% for datacolumn in query.Columns|sort(attribute='SQLColumn',case_sensitive=False)%}self.assertEqual(test_event.{{ datacolumn.ColumnAsSnakeCase()}}, expected_{{datacolumn.ColumnAsSnakeCase()}})
+    {% endfor %}
 
-    expected_profile_url = ('todo')
-    self.assertEqual(test_event.profile_url, expected_profile_url)
-
-    expected_message = ('todo')
-    expected_message_short = ('todo')
+    expected_message = (
+        u'{{ timestampcolumn.ExpectedMessage|wordwrap(width=64,wrapstring='\nu')|indent(8)}}...')
+    expected_message_short = (
+        u'{{ timestampcolumn.ExpectedMessageShort|wordwrap(width=64,wrapstring='\nu')|indent(8)}}')
 
     self._TestGetMessageStrings(
         test_event, expected_message, expected_message_short)
+    {% set eventsBefore = eventsBefore + query.AmountEvents %}
 {% endfor %}{% endfor %}
 
 if __name__ == '__main__':

@@ -13,6 +13,7 @@ class SQLColumnModel(object):
       sql_column (str): the column name of the SQL Query
       sql_column_type (str): the type of the SQL column
     """
+    super().__init__()
     self._sql_column = sql_column
     self._sql_column_type = sql_column_type
 

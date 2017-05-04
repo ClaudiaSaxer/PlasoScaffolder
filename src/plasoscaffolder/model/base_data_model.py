@@ -12,6 +12,7 @@ class BaseDataModel(object):
     Args:
       plugin_name (str): the name of the plugin
     """
+    super().__init__()
     self._plugin_name = plugin_name
 
   @property
