@@ -3,6 +3,7 @@
 import os
 
 import click
+
 from plasoscaffolder.bll.mappings import formatter_init_mapping
 from plasoscaffolder.bll.mappings import formatter_mapping
 from plasoscaffolder.bll.mappings import formatter_test_mapping
@@ -288,7 +289,7 @@ class SQLiteController(object):
 
         timestamps_string = 'Added: {0}'.format(','.join(sorted(timestamps)))
         timestamps_wrong_string = 'Failed: {0}'.format(
-          ','.join(sorted(wrong_timestamps)))
+            ','.join(sorted(wrong_timestamps)))
         self._output_handler.PrintInfo(timestamps_string)
         self._output_handler.PrintInfo(timestamps_wrong_string)
         add_own_timestamps = self._output_handler.Confirm(
@@ -296,16 +297,18 @@ class SQLiteController(object):
 
     return self._plugin_helper.GetColumnsAndTimestampColumn(columns, timestamps)
 
-  def Generate(self, template_path: str):
+  def Generate(self, template_path: str, yapf_path: str):
     """Generating the files.
 
     Args:
       template_path (str): the path to the template directory
+      yapf_path (str): the path to the yapf style file
     """
     self._output_handler.Confirm('Do you want to Generate the files?')
 
     database_suffix = os.path.splitext(self._testfile)[1][1:]
-    helper = mapping_helper.MappingHelper(template_path)
+    sqlite_mapping_helper = mapping_helper.MappingHelper(
+        template_path, yapf_path)
 
     generator = sqlite_generator.SQLiteGenerator(
         self._path,
@@ -319,13 +322,13 @@ class SQLiteController(object):
 
     generator.GenerateSQLitePlugin(
         template_path, file_handler.FileHandler(),
-        formatter_init_mapping.FormatterInitMapping(helper),
-        parser_init_mapping.ParserInitMapping(helper),
-        parser_mapping.ParserMapper(helper),
-        formatter_mapping.FormatterMapper(helper),
-        parser_test_mapping.ParserTestMapper(helper),
-        formatter_test_mapping.FormatterTestMapper(helper),
-        mapping_helper.MappingHelper(template_path),
+        formatter_init_mapping.FormatterInitMapping(sqlite_mapping_helper),
+        parser_init_mapping.ParserInitMapping(sqlite_mapping_helper),
+        parser_mapping.ParserMapper(sqlite_mapping_helper),
+        formatter_mapping.FormatterMapper(sqlite_mapping_helper),
+        parser_test_mapping.ParserTestMapper(sqlite_mapping_helper),
+        formatter_test_mapping.FormatterTestMapper(sqlite_mapping_helper),
+        sqlite_mapping_helper,
         sqlite_database_information.SQLiteDatabaseInformation(
             self._query_execution))
 

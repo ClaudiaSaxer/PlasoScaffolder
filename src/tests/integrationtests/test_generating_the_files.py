@@ -52,8 +52,8 @@ class GeneratingFilesTestCase(unittest.TestCase):
                                     if data.SQLColumn == 'createdDate' or
                                     data.SQLColumn == 'updatedAt']
       query_data_first_normal = [data for data in query_data_first.columns
-                                    if data.SQLColumn != 'createdDate' and
-                                    data.SQLColumn != 'updatedAt']
+                                 if data.SQLColumn != 'createdDate' and
+                                 data.SQLColumn != 'updatedAt']
       query_model_first = sql_query_model.SQLQueryModel(
           'select * from users', 'Users', query_data_first_normal,
           query_data_first_timestamp, True)
@@ -63,14 +63,15 @@ class GeneratingFilesTestCase(unittest.TestCase):
                                                     query_execution)
 
       query_data_second_timestamp = [data for data in query_data_second.columns
-                                    if data.SQLColumn == 'date' or
-                                    data.SQLColumn == 'updatedAt']
+                                     if data.SQLColumn == 'date' or
+                                     data.SQLColumn == 'updatedAt']
       query_data_second_normal = [data for data in query_data_second.columns
-                                    if data.SQLColumn != 'date' and
-                                    data.SQLColumn != 'updatedAt']
+                                  if data.SQLColumn != 'date' and
+                                  data.SQLColumn != 'updatedAt']
 
       query_model_second = sql_query_model.SQLQueryModel(
-          'select * from users', 'Statuses', query_data_second_normal,query_data_second_timestamp,
+          'select * from users', 'Statuses', query_data_second_normal,
+          query_data_second_timestamp,
           False)
 
       sql_query = [query_model_first, query_model_second]
@@ -83,7 +84,8 @@ class GeneratingFilesTestCase(unittest.TestCase):
       controller._output_handler = output_handler
       controller._query_execution = query_execution
 
-      controller.Generate(path_helper.TemplatePath())
+      controller.Generate(path_helper.TemplatePath(),
+                          path_helper.YapfStyleFilePath())
 
       formatter_init = self._ReadFromFile(
           sqlite_path_helper.formatter_init_file_path)
@@ -199,7 +201,8 @@ class GeneratingFilesTestCase(unittest.TestCase):
       controller._output_handler = output_handler
       controller._query_execution = query_execution
 
-      controller.Generate(path_helper.TemplatePath())
+      controller.Generate(path_helper.TemplatePath(),
+                          path_helper.YapfStyleFilePath())
 
       formatter_init = self._ReadFromFile(
           sqlite_path_helper.formatter_init_file_path)
