@@ -37,6 +37,7 @@ class ParserTestMapper(base_sqliteplugin_mapping.BaseSQLitePluginMapper):
     context = {'plugin_name': parser_test_data.PluginName,
                'class_name': class_name,
                'queries': parser_test_data.Queries,
-               'database_name': parser_test_data.DatabaseName}
+               'database_name': parser_test_data.DatabaseName,
+               'count_events': 0}
     rendered = self._helper.RenderTemplate(self._PARSER_TEST_TEMPLATE, context)
     return rendered

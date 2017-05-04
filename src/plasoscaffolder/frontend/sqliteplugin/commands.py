@@ -36,4 +36,8 @@ def sqlite(path, name, testfile, sql):
   template_path = os.path.join(
       os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
       'bll', 'templates')
-  Controller.Generate(template_path)
+  yapf_path = os.path.join(
+      os.path.dirname(
+          os.path.dirname(os.path.dirname(os.path.dirname(__file__)))),
+      '.style.yapf')
+  Controller.Generate(template_path,yapf_path)
