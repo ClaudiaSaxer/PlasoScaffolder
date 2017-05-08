@@ -21,7 +21,7 @@ class {{ class_name }}{{ query.name|capitalize}}EventData(events.EventData):
     {{ column.GetColumnAsSnakeCase() }} ({{ column.GetColumnTypeAsName() }}): TODO{% endfor %}
   """
 
-  DATA_TYPE = u'{{ plugin_name|lower|replace('_',':')}}:{{query.name|lower}}'
+  DATA_TYPE = u'{{ plugin_name|lower|replace('_',':')}}:{{query.Name|lower}}'
 
   def __init__(self):
     """Initializes event data."""
@@ -56,8 +56,8 @@ class {{ class_name }}Plugin(interface.SQLitePlugin):
     # Note that pysqlite does not accept a Unicode string in row['string'] and
     # will raise "IndexError: Index must be int or string".
 
-    event_data = {{ class_name }}{{ query.name|capitalize }}EventData()
-    {% for column in query.columns|sort(attribute='sql_column') %}event_data.{{ column.GetColumnAsSnakeCase()}} = row['{{ column.sql_column}}']
+    event_data = {{ class_name }}{{ query.Name|capitalize }}EventData()
+    {% for column in query.columns|sort(attribute='sql_column') %}event_data.{{ column.GetColumnAsSnakeCase()}} = row['{{ column.SQLColumn}}']
     {% endfor %}
     {% for column in query.timestamp_columns|sort(attribute='sql_column') %}
     timestamp = row['{{ column.sql_column}}']

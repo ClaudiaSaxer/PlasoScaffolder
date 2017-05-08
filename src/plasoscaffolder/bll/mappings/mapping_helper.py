@@ -36,9 +36,10 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
         template_filename).render(context)
     formatter = code_formatter.CodeFormatter(self.yapf_path)
     formatted = formatter.Format(template)
-    return formatted[0]
-    # return self._template_environment.get_template(
-    #    template_filename).render(context)
+    formatted_removed_yapf = formatted[0].replace(
+        '# yapf: disable\n', '').replace('# yapf: enable\n', '').replace('  \n',
+                                                                         '\n')
+    return formatted_removed_yapf
 
   def GenerateClassName(self, plugin_name: str) -> str:
     """Generates the class name from the plugin name.

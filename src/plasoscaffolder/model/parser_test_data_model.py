@@ -17,6 +17,7 @@ class ParserTestDataModel(base_data_model.BaseDataModel):
       database_name (str): the name of the database
       plugin_name (str): the name of the plugin
       queries (sql_query_model.SQLQueryModel): the queries
+      count_events (int): the event counter
     """
     super().__init__(plugin_name)
     self.queries = queries

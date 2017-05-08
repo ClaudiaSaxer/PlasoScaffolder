@@ -20,7 +20,10 @@ from plasoscaffolder.dal import base_sql_query_execution
 from plasoscaffolder.dal import explain_query_plan
 from plasoscaffolder.dal import sqlite_database_information
 from plasoscaffolder.dal import sqlite_query_execution
-from plasoscaffolder.model import sql_query_column_model, sql_query_model
+from plasoscaffolder.model import sql_query_column_model
+from plasoscaffolder.model import sql_query_column_model_data
+from plasoscaffolder.model import sql_query_column_model_timestamp
+from plasoscaffolder.model import sql_query_model
 
 
 class SQLiteController(object):
@@ -237,7 +240,8 @@ class SQLiteController(object):
       needs_customizing = self._output_handler.Confirm(
           text=message, abort=False, default=False)
 
-      columns = self.GetTimestamps(query_data.columns)
+      columns = self.GetTimestamps(query_data.columns, query_data.data)
+
       if query_data.data is not None:
         amount_events = len(query_data.data)
       else:
@@ -247,19 +251,23 @@ class SQLiteController(object):
         query.strip(), name, columns[0], columns[1], needs_customizing,
         amount_events)
 
-  def GetTimestamps(self, columns: [sql_query_column_model.SQLColumnModel]) -> (
-      [sql_query_column_model.SQLColumnModel],
-      [sql_query_column_model.SQLColumnModel]):
+  def GetTimestamps(self, columns: [sql_query_column_model.SQLColumnModel],
+                    data: [str]) -> (
+      [sql_query_column_model_data.SQLColumnModelData],
+      [sql_query_column_model_timestamp.SQLColumnModelTimestamp]):
     """Gets the timestamp from the user and the columns
     
     Args:
-      columns [sql_query_column_model.SQLColumnModel]: the columns from the SQL
+      columns ([sql_query_column_model.SQLColumnModel]): the columns from the 
+      SQL
            query. 
+      data ([str]): the data from the cursor
 
     Returns:
-       [sql_query_column_model.SQLColumnModel],
-           [sql_query_column_model.SQLColumnModel]: A tuple of columns. The 
-           first column represents the normal column for the query. The second
+       [sql_query_column_model_data.SQLColumnModelData],
+           [sql_query_column_model_timestamp.SQLColumnModelTimestamp]: A 
+           tuple of columns. The first column represents the 
+           normal column for the query. The second
            column represents the timestamp events.
     """
     timestamps = set()
@@ -299,7 +307,8 @@ class SQLiteController(object):
         add_own_timestamps = self._output_handler.Confirm(
             'Do you want to add more timestamps?', abort=False, default=False)
 
-    return self._plugin_helper.GetColumnsAndTimestampColumn(columns, timestamps)
+    return self._plugin_helper.GetColumnsAndTimestampColumn(
+        columns, timestamps, data)
 
   def Generate(self, template_path: str, yapf_path: str):
     """Generating the files.

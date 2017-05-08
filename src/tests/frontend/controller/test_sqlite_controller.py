@@ -779,7 +779,7 @@ class SQLiteControllerTest(unittest.TestCase):
                  sql_query_column_model.SQLColumnModel('that'),
                  sql_query_column_model.SQLColumnModel('test')]
 
-      model = controller.GetTimestamps(columns)
+      model = controller.GetTimestamps(columns,[])
       expected = (
         'Is the column a time event? '
         'testEnter (additional) timestamp events from the query '
@@ -813,7 +813,7 @@ class SQLiteControllerTest(unittest.TestCase):
                  sql_query_column_model.SQLColumnModel('timethat')
                  ]
 
-      model = controller.GetTimestamps(columns)
+      model = controller.GetTimestamps(columns,[])
       expected = (
         'Is the column a time event? thisdate'
         'Is the column a time event? timethat'
@@ -854,7 +854,7 @@ class SQLiteControllerTest(unittest.TestCase):
                  sql_query_column_model.SQLColumnModel('timethat')
                  ]
 
-      model = controller.GetTimestamps(columns)
+      model = controller.GetTimestamps(columns,[])
       expected = (
         'Is the column a time event? thisdate'
         'Is the column a time event? timethat'
@@ -895,7 +895,7 @@ class SQLiteControllerTest(unittest.TestCase):
                  sql_query_column_model.SQLColumnModel('timethat')
                  ]
 
-      model = controller.GetTimestamps(columns)
+      model = controller.GetTimestamps(columns,[])
       expected = (
         'Is the column a time event? this'
         'dateIs the column a time event? timethat'

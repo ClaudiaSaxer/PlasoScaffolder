@@ -12,12 +12,17 @@ class {{ class_name }}{{ query.name|capitalize }}Formatter(interface.Conditional
   DATA_TYPE = u'{{ plugin_name|lower|replace('_',':')}}:{{ query.Name|lower }}'
 
   """Correct Format String Pieces where needed"""
+# yapf: disable
+
   FORMAT_STRING_PIECES = [
-    {% for column in query.columns|sort(attribute='sql_column') %}u'{{ column.GetColumnAsDescription() }}{{ ':{' }}{{ column.GetColumnAsSnakeCase() }}{{ '}' }}'{% if not loop.last %},
+    {% for column in query.columns %}u'{{ column.GetColumnAsDescription() }}{{ ':{' }}{{ column.GetColumnAsSnakeCase() }}{{ '}' }}'{% if not loop.last %},
     {% endif %}{% endfor %}]
 
   #TODO: add Format String Pieces for the short Format
-  FORMAT_STRING_SHORT_PIECES = []
+  FORMAT_STRING_SHORT_PIECES = [
+    {% for column in query.columns %}u'{{ column.GetColumnAsDescription() }}{{ ':{' }}{{ column.GetColumnAsSnakeCase() }}{{ '}' }}'{% if not loop.last %},
+    {% endif %}{% endfor %}]
+# yapf: enable
 
   SOURCE_LONG = u'{{ plugin_name|replace('_',' ')|title }} {{ query.name|title }}'
   SOURCE_SHORT = u'{{ plugin_name|replace('_',' ')|title }}'

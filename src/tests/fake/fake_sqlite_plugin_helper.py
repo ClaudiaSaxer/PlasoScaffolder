@@ -5,6 +5,7 @@ from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.dal import base_sql_query_execution
 from plasoscaffolder.dal import sql_query_data
 from plasoscaffolder.model import sql_query_column_model
+from plasoscaffolder.model import sql_query_column_model_data
 
 
 class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
@@ -20,7 +21,7 @@ class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
                change_bool_after_every_call_valid_row_name=False,
                change_bool_after_every_call_valid_comma_separated_string=False,
                valid_comma_separated_string=True,
-               columns_and_timestamp_column=([],[]),
+               columns_and_timestamp_column=([], []),
                assumed_timestamps=[]):
     """ Initializes the fake plugin helper
     
@@ -170,19 +171,22 @@ class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
 
   def GetColumnsAndTimestampColumn(
       self, columns: [sql_query_column_model.SQLColumnModel],
-      timestamps: [str]) -> (
-      [sql_query_column_model.SQLColumnModel],
+      timestamps: [str], data: [str]) -> (
+      [sql_query_column_model_data.SQLColumnModelData],
       [sql_query_column_model.SQLColumnModel]):
     """Splits the column list into a list of simple columns and a list for
-    timestamp event columns
+    timestamp event columns and adds the data to the simple columns
 
     Args:
-      columns: the list with all the columns from the query
-      timestamps: the timestamp events
+      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns 
+          from the SQL query
+      timestamps ([str]): the timestamp events
+      data ([str]): the data from the cursor
 
     Returns:
-      ([sql_query_column_model.SQLColumnModel],
-          [sql_query_column_model.SQLColumnModel]): a tuple of columns,
+      ([sql_query_column_model_data.SQLColumnModelData],
+          [sql_query_column_model.SQLColumnModel): a tuple of columns,
           the first are the normal columns, the second are the timestamp events
     """
+
     return self.columns_and_timestamp_column

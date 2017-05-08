@@ -11,6 +11,8 @@ from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.dal import base_sql_query_execution
 from plasoscaffolder.dal import sql_query_data
 from plasoscaffolder.model import sql_query_column_model
+from plasoscaffolder.model import sql_query_column_model_data
+from plasoscaffolder.model import sql_query_column_model_timestamp
 from plasoscaffolder.model import sql_query_model
 
 
@@ -161,27 +163,73 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
 
   def GetColumnsAndTimestampColumn(
       self, columns: [sql_query_column_model.SQLColumnModel],
-      timestamps: [str]) -> (
-      [sql_query_column_model.SQLColumnModel],
-      [sql_query_column_model.SQLColumnModel]):
+      timestamps: [str], data: [str]) -> (
+      [sql_query_column_model_data.SQLColumnModelData],
+      [sql_query_column_model_timestamp.SQLColumnModelTimestamp]):
     """Splits the column list into a list of simple columns and a list for
-    timestamp event columns
-    
+    timestamp event columns and adds the data to the simple columns
+
     Args:
-      columns ([sql_query_column_model.SQLColumnModel]): the list with all 
-      the columns from the query
+      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns 
+          from the SQL query
       timestamps ([str]): the timestamp events
+      data ([str]): the data from the cursor
 
     Returns:
-      ([sql_query_column_model.SQLColumnModel],
-          [sql_query_column_model.SQLColumnModel]): a tuple of columns,
+      ([sql_query_column_model_data.SQLColumnModelData],
+          [sql_query_column_model_timestamp.SQLColumnModelTimestamp): a tuple 
+          of columns,
           the first are the normal columns, the second are the timestamp events
     """
+
     normal_columns = list()
     timestamp_columns = list()
-    for column in columns:
-      if column.sql_column in timestamps:
-        timestamp_columns.append(column)
-      else:
-        normal_columns.append(column)
+    message = {}
+
+    for column in [column for column in columns if
+                   column.sql_column in timestamps]:
+      timestamp_data_model = (
+        sql_query_column_model_timestamp.SQLColumnModelTimestamp(
+            sql_column_type=column.sql_column_type,
+            sql_column=column.sql_column,
+            expected_message=''
+        ))
+      timestamp_columns.append(timestamp_data_model)
+
+    for column_index in range(0, len(columns)):
+      column = columns[column_index]
+      timestamp_counter = 0
+      column_data = {}
+      if column.sql_column not in timestamps:
+        for timestamp in [timestamp.sql_column for timestamp in
+                          timestamp_columns]:
+          data_for_column_and_timestamp = ''
+          if data:
+            data_for_column_and_timestamp = data[timestamp_counter][
+              column_index]
+            # if not enough data results it shall take the same data as before
+            if timestamp_counter < len(data) - 1:
+              timestamp_counter += 1
+          column_data[timestamp] = data_for_column_and_timestamp
+
+          if timestamp not in message:
+            message[timestamp] = '{0}: {1}'.format(
+                column.GetColumnAsDescription(), data_for_column_and_timestamp)
+          else:
+            message[timestamp] = '{0} {1}: {2}'.format(
+                message[timestamp], column.GetColumnAsDescription(),
+                data_for_column_and_timestamp)
+
+        column_data_model = (
+          sql_query_column_model_data.SQLColumnModelData(
+              sql_column=column.sql_column,
+              sql_column_type=column.sql_column_type,
+              data=column_data
+          ))
+
+        normal_columns.append(column_data_model)
+
+    for timestamp in timestamp_columns:
+      timestamp.expected_message = message[timestamp.sql_column]
+
     return normal_columns, timestamp_columns

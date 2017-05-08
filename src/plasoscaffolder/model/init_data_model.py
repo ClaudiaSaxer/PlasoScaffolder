@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """The Init Data model class."""
 from plasoscaffolder.model import base_data_model
-from plasoscaffolder.model import sql_query_model
 
 
 class InitDataModel(base_data_model.BaseDataModel):
@@ -18,4 +17,3 @@ class InitDataModel(base_data_model.BaseDataModel):
     """
     super().__init__(plugin_name)
     self.is_create_template = is_create_template
-

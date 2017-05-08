@@ -1,25 +1,31 @@
 # -*- coding: utf-8 -*-
 """Model for SQL column."""
-from plasoscaffolder.model import sql_query_column_model_detailed
+
+from plasoscaffolder.model import sql_query_column_model
 
 
-class SQLColumnModelData(object):
+class SQLColumnModelData(sql_query_column_model.SQLColumnModel):
   """Class for columns of a SQL Query."""
 
-  def __init__(
-      self, expected_message: {str: str},
-      columns_detailed: [sql_query_column_model_detailed.SQLColumnModelDetailed]
-  ):
+  def __init__(self, sql_column: str, sql_column_type: type = None,
+               data: {str: str} = None):
     """initializes the SQL column model.
+
+    Args:
+      sql_column (str): the column name of the SQL Query
+      sql_column_type (str): the type of the SQL column
+      data {str: str}: the data for the timestamp {key:value}
+    """
+    super().__init__(sql_column, sql_column_type)
+    self._data = data
+
+  def GetFirstDataForTimeEvent(self, timestamp: str) -> str:
+    """The Data for the Time Event
   
     Args:
-      expected_message ({key:value}): the expected Messages for the 
-          timestamps {key:value}
-      columns_detailed ([
-          sql_query_column_model_detailed.SQLColumnModelDetailed]): the columns
-          with detailed information for the data columns
+      timestamp: the timestamp column name
+  
+    Returns:
+      str: the data for the timestamp
     """
-    super().__init__()
-    self.expected_message = expected_message
-    self.expected_message_short = expected_message[0:77]
-    self.columns_detailed = columns_detailed
+    return self._data.get(timestamp, 'TODO')
