@@ -35,17 +35,15 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
 
     self.assertEqual(
       test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
-
-    {% for datacolumn in query.columns|sort(attribute='sql_column',case_sensitive=False)%}expected_{{datacolumn.GetColumnAsSnakeCase()}} =
-        u'{{ datacolumn.GetFirstDataForTimeEvent(timestampcolumn.sql_column)|wordwrap(width=64,wrapstring='\nu')|indent(8)}})'
+    {% for datacolumn in query.columns|sort(attribute='sql_column',case_sensitive=False)%}expected_{{datacolumn.GetColumnAsSnakeCase()}} = (
+        u'{{ datacolumn.GetFirstDataForTimeEvent(timestampcolumn.sql_column)|e|wordwrap(width=64,wrapstring="'\nu'")|indent(8)}}')
     {% endfor %}
     {% for datacolumn in query.columns|sort(attribute='sql_column',case_sensitive=False)%}self.assertEqual(test_event.{{ datacolumn.GetColumnAsSnakeCase()}}, expected_{{datacolumn.GetColumnAsSnakeCase()}})
     {% endfor %}
-
     expected_message = (
-        u'{{ timestampcolumn.sql_column|wordwrap(width=64,wrapstring='\nu')|indent(8)}}')
+        u'{{ timestampcolumn.expected_message|e|wordwrap(width=64,wrapstring="'\nu'")|indent(8)}}')
     expected_message_short = (
-        u'{{ timestampcolumn.sql_column|wordwrap(width=64,wrapstring='\nu')|indent(8)}}')
+        u'{{ timestampcolumn.GetShortExpectedMessage()|e|wordwrap(width=64,wrapstring="'\nu'")|indent(8)}}')
 
     self._TestGetMessageStrings(
         test_event, expected_message, expected_message_short)
