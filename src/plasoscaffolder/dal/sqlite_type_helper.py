@@ -45,7 +45,7 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
       [str]: a list of all the duplicate column names, if its empty it means it
           a distinct list of columns
     """
-    single_column_name_list = [column.SQLColumn for column in columns]
+    single_column_name_list = [column.sql_column for column in columns]
     duplicate_list = [column for column, count in
                       collections.Counter(single_column_name_list).items() if
                       count > 1]
@@ -107,12 +107,12 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
     mappings = self._information.GetTableColumnsAndType(table_name)
     for column in column_model:
 
-      type_sqlite = mappings[column.SQLColumn].upper()
+      type_sqlite = mappings[column.sql_column].upper()
       type_sqlite_basic = type_sqlite.split("(")[0]
       type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(
           type_sqlite_basic, type(None))
 
-      column.SQLColumnType = type_python
+      column.sql_column_type = type_python
     return column_model
 
   def _ColumnTypeForMultipleTables(
@@ -137,7 +137,7 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
       in tables}
 
     for column in column_model:
-      column_name = column.SQLColumn.lower()
+      column_name = column.sql_column.lower()
 
       as_column_string_start = next(filter(lambda start: start > 0, map(
           lambda space: query.find(' as {0}{1}'.format(column_name, space)),
@@ -161,7 +161,7 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
       type_sqlite_basic = type_sqlite.split("(")[0]
       type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(
           type_sqlite_basic, type(None))
-      column.SQLColumnType = type_python
+      column.sql_column_type = type_python
 
     return column_model
 

@@ -135,11 +135,11 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     """
     distinct_columns = []
     if len(queries) != 0:
-      list_of_list_of_column_model = map(lambda x: x.Columns, queries)
+      list_of_list_of_column_model = map(lambda x: x.columns, queries)
       list_of_column_model = functools.reduce(
           lambda x, y: x + y, list_of_list_of_column_model)
       list_of_columns_snake_case = list(
-          map(lambda x: x.ColumnAsSnakeCase(), list_of_column_model))
+          map(lambda x: x.GetColumnAsSnakeCase(), list_of_column_model))
       distinct_columns = sorted(set().union(list_of_columns_snake_case))
     return distinct_columns
 
@@ -156,7 +156,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     """
     assumed_columns = filter(
         lambda name: 'time' in name.lower() or 'date' in name.lower(),
-        map(lambda column: column.SQLColumn, columns))
+        map(lambda column: column.sql_column, columns))
     return list(assumed_columns)
 
   def GetColumnsAndTimestampColumn(
@@ -180,7 +180,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     normal_columns = list()
     timestamp_columns = list()
     for column in columns:
-      if column.SQLColumn in timestamps:
+      if column.sql_column in timestamps:
         timestamp_columns.append(column)
       else:
         normal_columns.append(column)

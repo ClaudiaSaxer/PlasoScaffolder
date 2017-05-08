@@ -207,7 +207,7 @@ class SQLiteController(object):
           self._output_handler.PrintInfo(
               'Your query output could look like this.')
           self._output_handler.PrintInfo(
-              str(list(map(lambda x: x.SQLColumn, query_data.columns))))
+              str(list(map(lambda x: x.sql_column, query_data.columns))))
           amount = min(self._NUMBER_OF_SQLITE_OUTPUT_EXAMPLES, length)
           for index in range(0, amount):
             self._output_handler.PrintInfo(str(query_data.data[index]))
@@ -281,7 +281,7 @@ class SQLiteController(object):
         own_timestamps = self._ValidateTimestampString(own_timestamps)
 
         for own_timestamp in own_timestamps.split(','):
-          column_names = [column.SQLColumn for column in columns]
+          column_names = [column.sql_column for column in columns]
           if own_timestamp in column_names:
             timestamps.add(own_timestamp)
           else:

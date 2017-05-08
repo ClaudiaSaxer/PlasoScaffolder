@@ -105,8 +105,8 @@ class SQLiteControllerTest(unittest.TestCase):
       expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
                                                0)
 
-      self.assertEqual(actual.Name, '')
-      self.assertEqual(expected.Query, actual.Query)
+      self.assertEqual(actual.name, '')
+      self.assertEqual(expected.query, actual.query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
   def testCreateSQLQueryModelWithUserInputWithExamplesAndFourDataExamples(self):
@@ -115,8 +115,8 @@ class SQLiteControllerTest(unittest.TestCase):
     fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
         sql_query_data.SQLQueryData(
             has_error=False, data=['first', 'second', 'third', 'fourth'],
-            columns=[type('Columns', (object,), {'SQLColumn': 'id'}),
-                     type('Columns', (object,), {'SQLColumn': 'name'})])
+            columns=[type('columns', (object,), {'sql_column': 'id'}),
+                     type('columns', (object,), {'sql_column': 'name'})])
     )
     sql_query = 'SELECT id from Users'
     name = 'Contact'
@@ -147,8 +147,8 @@ class SQLiteControllerTest(unittest.TestCase):
       expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
                                                0)
 
-      self.assertEqual(actual.Name, '')
-      self.assertEqual(expected.Query, actual.Query)
+      self.assertEqual(actual.name, '')
+      self.assertEqual(expected.query, actual.query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
   def testCreateSQLQueryModelWithUserInputWithExamplesAndTwoDataExamples(self):
@@ -157,8 +157,8 @@ class SQLiteControllerTest(unittest.TestCase):
     fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
         sql_query_data.SQLQueryData(
             has_error=False, data=['first', 'second'],
-            columns=[type('Columns', (object,), {'SQLColumn': 'id'}),
-                     type('Columns', (object,), {'SQLColumn': 'name'})])
+            columns=[type('columns', (object,), {'sql_column': 'id'}),
+                     type('columns', (object,), {'sql_column': 'name'})])
     )
     sql_query = 'SELECT id from Users'
     name = 'Contact'
@@ -188,8 +188,8 @@ class SQLiteControllerTest(unittest.TestCase):
       expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
                                                0)
 
-      self.assertEqual(actual.Name, '')
-      self.assertEqual(expected.Query, actual.Query)
+      self.assertEqual(actual.name, '')
+      self.assertEqual(expected.query, actual.query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
   def testCreateSQLQueryModelWithUserInputWithExamplesAndOneDataExamples(self):
@@ -198,8 +198,8 @@ class SQLiteControllerTest(unittest.TestCase):
     fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
         sql_query_data.SQLQueryData(
             has_error=False, data=['first'],
-            columns=[type('Columns', (object,), {'SQLColumn': 'id'}),
-                     type('Columns', (object,), {'SQLColumn': 'name'})])
+            columns=[type('columns', (object,), {'sql_column': 'id'}),
+                     type('columns', (object,), {'sql_column': 'name'})])
     )
     sql_query = 'SELECT id from Users'
     name = 'Contact'
@@ -228,8 +228,8 @@ class SQLiteControllerTest(unittest.TestCase):
       expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
                                                0)
 
-      self.assertEqual(actual.Name, '')
-      self.assertEqual(expected.Query, actual.Query)
+      self.assertEqual(actual.name, '')
+      self.assertEqual(expected.query, actual.query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
   def testCreateSQLQueryModelWithUserInputExamplesNewRowNameValidationError(
@@ -239,8 +239,8 @@ class SQLiteControllerTest(unittest.TestCase):
     fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
         sql_query_data.SQLQueryData(
             has_error=False, data=['first'],
-            columns=[type('Columns', (object,), {'SQLColumn': 'id'}),
-                     type('Columns', (object,), {'SQLColumn': 'name'})])
+            columns=[type('columns', (object,), {'sql_column': 'id'}),
+                     type('columns', (object,), {'sql_column': 'name'})])
     )
     sql_query = 'SELECT id from Users'
     name = 'Contact'
@@ -275,8 +275,8 @@ class SQLiteControllerTest(unittest.TestCase):
       expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
                                                0)
 
-      self.assertEqual(actual.Name, name2)
-      self.assertEqual(expected.Query, actual.Query)
+      self.assertEqual(actual.name, name2)
+      self.assertEqual(expected.query, actual.query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
   def testCreateSQLQueryModelWithUserInputWithExamplesAndNoDataFromQuery(self):
@@ -310,8 +310,8 @@ class SQLiteControllerTest(unittest.TestCase):
       expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
                                                0)
 
-      self.assertEqual(actual.Name, '')
-      self.assertEqual(expected.Query, actual.Query)
+      self.assertEqual(actual.name, '')
+      self.assertEqual(expected.query, actual.query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
   def testCreateSQLQueryModelWithUserInputWithError(self):
@@ -648,9 +648,9 @@ class SQLiteControllerTest(unittest.TestCase):
 
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
-      self.assertTrue(model.NeedsCustomizing)
-      self.assertEqual(model.Query, query.strip())
-      self.assertEqual(model.Columns, [])
+      self.assertTrue(model.needs_customizing)
+      self.assertEqual(model.query, query.strip())
+      self.assertEqual(model.columns, [])
 
   def testCreateSQLQueryModelWithUserInputNotAdding(self):
     """test the creation of the sql Query model with the user input"""
@@ -828,11 +828,11 @@ class SQLiteControllerTest(unittest.TestCase):
       self.assertEqual(expected, actual)
       self.assertEqual(len(model[0]), 2)
       self.assertEqual(len(model[1]), 3)
-      self.assertEqual(model[0][0].SQLColumn, 'this')
-      self.assertEqual(model[0][1].SQLColumn, 'that')
-      self.assertEqual(model[1][0].SQLColumn, 'test')
-      self.assertEqual(model[1][1].SQLColumn, 'thisdate')
-      self.assertEqual(model[1][2].SQLColumn, 'timethat')
+      self.assertEqual(model[0][0].sql_column, 'this')
+      self.assertEqual(model[0][1].sql_column, 'that')
+      self.assertEqual(model[1][0].sql_column, 'test')
+      self.assertEqual(model[1][1].sql_column, 'thisdate')
+      self.assertEqual(model[1][2].sql_column, 'timethat')
 
   def testGetTimestampRefuseATimeEvent(self):
     """test the function GetTimestamp"""
@@ -869,11 +869,11 @@ class SQLiteControllerTest(unittest.TestCase):
       self.assertEqual(expected, actual)
       self.assertEqual(len(model[0]), 3)
       self.assertEqual(len(model[1]), 2)
-      self.assertEqual(model[0][0].SQLColumn, 'this')
-      self.assertEqual(model[0][1].SQLColumn, 'that')
-      self.assertEqual(model[0][2].SQLColumn, 'timethat')
-      self.assertEqual(model[1][0].SQLColumn, 'test')
-      self.assertEqual(model[1][1].SQLColumn, 'thisdate')
+      self.assertEqual(model[0][0].sql_column, 'this')
+      self.assertEqual(model[0][1].sql_column, 'that')
+      self.assertEqual(model[0][2].sql_column, 'timethat')
+      self.assertEqual(model[1][0].sql_column, 'test')
+      self.assertEqual(model[1][1].sql_column, 'thisdate')
 
   def testGetTimestampRefuseAllTimeEvent(self):
     """test the function GetTimestamp"""
@@ -911,11 +911,11 @@ class SQLiteControllerTest(unittest.TestCase):
       self.assertEqual(expected, actual)
       self.assertEqual(len(model[0]), 4)
       self.assertEqual(len(model[1]), 1)
-      self.assertEqual(model[0][0].SQLColumn, 'this')
-      self.assertEqual(model[0][1].SQLColumn, 'that')
-      self.assertEqual(model[0][2].SQLColumn, 'thisdate')
-      self.assertEqual(model[0][3].SQLColumn, 'timethat')
-      self.assertEqual(model[1][0].SQLColumn, 'test')
+      self.assertEqual(model[0][0].sql_column, 'this')
+      self.assertEqual(model[0][1].sql_column, 'that')
+      self.assertEqual(model[0][2].sql_column, 'thisdate')
+      self.assertEqual(model[0][3].sql_column, 'timethat')
+      self.assertEqual(model[1][0].sql_column, 'test')
 
   def _ReadFromFile(self, path: str):
     """Read from file

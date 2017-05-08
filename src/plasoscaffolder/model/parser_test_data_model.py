@@ -19,23 +19,6 @@ class ParserTestDataModel(base_data_model.BaseDataModel):
       queries (sql_query_model.SQLQueryModel): the queries
     """
     super().__init__(plugin_name)
-    self._queries = queries
-    self._database_name = database_name
+    self.queries = queries
+    self.database_name = database_name
 
-  @property
-  def DatabaseName(self) -> str:
-    """The database name.
-
-    Returns:
-      str: the name of the database
-    """
-    return self._database_name
-
-  @property
-  def Queries(self) -> [sql_query_model.SQLQueryModel]:
-    """The queries.
-
-    Returns:
-      str: the sql queries
-    """
-    return self._queries

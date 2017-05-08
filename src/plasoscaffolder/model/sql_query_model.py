@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """The SQL query model class."""
 from plasoscaffolder.model import sql_query_column_model
-from plasoscaffolder.model import sql_query_column_model_data
 
 
 class SQLQueryModel(object):
@@ -26,64 +25,9 @@ class SQLQueryModel(object):
       amount_events (int): amount of events as result of the query
     """
     super().__init__()
-    self._name = name
-    self._query = query
-    self._columns = columns
-    self._needs_customizing = needs_customizing
-    self._timestamp_columns = timestamp_columns
-    self._amount_events = amount_events
-
-  @property
-  def Name(self) -> str:
-    """The SQL query name.
-
-    Returns:
-      str: the name of the SQL query parser row.
-    """
-    return self._name
-
-  @property
-  def Query(self) -> bool:
-    """The SQL query.
-
-    Returns:
-      str: The SQL query.
-    """
-    return self._query
-
-  @property
-  def NeedsCustomizing(self) -> bool:
-    """If the event for the query needs customizing.
-
-    Returns:
-      bool: True If the event needs customizing
-    """
-    return self._needs_customizing
-
-  @property
-  def AmountEvents(self) -> int:
-    """Amount of Events for the query
-
-    Returns:
-      int: the amount of events
-    """
-    return self._amount_events
-
-  @property
-  def Columns(self) -> [sql_query_column_model_data.SQLColumnModelData]:
-    """The columns of the query.
-
-    Returns:
-      [sql_query_column_model_data.SQLColumnModelData]: list of columns with 
-          data
-    """
-    return self._columns
-
-  @property
-  def TimestampColumns(self) -> [sql_query_column_model.SQLColumnModel]:
-    """The columns of the query.
-
-    Returns:
-      [sql_query_column_model.SQLColumnModel]: list of columns
-    """
-    return self._timestamp_columns
+    self.name = name
+    self.query = query
+    self.columns = columns
+    self.needs_customizing = needs_customizing
+    self.timestamp_columns = timestamp_columns
+    self.amount_events = amount_events

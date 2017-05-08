@@ -20,10 +20,10 @@ class SQLColumnModelDetailed(sql_query_column_model.SQLColumnModel):
           timestamps {key:value}
     """
     super().__init__(sql_column, sql_column_type)
-    self._expected_message = expected_message
+    self.expected_message = expected_message
     self._data = data
 
-  def FirstDataForTimeEvent(self, timestamp: str) -> str:
+  def GetFirstDataForTimeEvent(self, timestamp: str) -> str:
     """The Data for the Time Event
   
     Args:

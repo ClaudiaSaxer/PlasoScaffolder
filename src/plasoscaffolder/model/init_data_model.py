@@ -17,13 +17,5 @@ class InitDataModel(base_data_model.BaseDataModel):
       is_create_template (bool): true if it is a create template
     """
     super().__init__(plugin_name)
-    self._is_create_template = is_create_template
+    self.is_create_template = is_create_template
 
-  @property
-  def IsCreateTemplate(self) -> bool:
-    """If the template is a new file.
-
-    Returns:
-      bool: True if it is a create template
-    """
-    return self._is_create_template

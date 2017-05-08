@@ -21,33 +21,7 @@ class ParserDataModel(base_data_model.BaseDataModel):
       required_tables ([str]): the tables that are required
     """
     super().__init__(plugin_name)
-    self._queries = queries
-    self._required_tables = required_tables
-    self._database_name = database_name
+    self.queries = queries
+    self.required_tables = required_tables
+    self.database_name = database_name
 
-  @property
-  def DatabaseName(self) -> str:
-    """The database name.
-
-    Returns:
-      str: the name of the database
-    """
-    return self._database_name
-
-  @property
-  def RequiredTables(self) -> str:
-    """The required tables.
-
-    Returns:
-      str: the tables that are required
-    """
-    return self._required_tables
-
-  @property
-  def Queries(self) -> [sql_query_model.SQLQueryModel]:
-    """The queries.
-
-    Returns:
-      str: the sql queries
-    """
-    return self._queries

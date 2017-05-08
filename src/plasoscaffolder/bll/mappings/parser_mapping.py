@@ -30,11 +30,11 @@ class ParserMapper(base_sqliteplugin_mapping.BaseSQLitePluginMapper):
     Returns:
       str: the rendered template
     """
-    class_name = self._helper.GenerateClassName(parser_data.PluginName)
-    context = {'plugin_name': parser_data.PluginName,
+    class_name = self._helper.GenerateClassName(parser_data.plugin_name)
+    context = {'plugin_name': parser_data.plugin_name,
                'class_name': class_name,
-               'queries': parser_data.Queries,
-               'database_name': parser_data.DatabaseName,
-               'required_tables': parser_data.RequiredTables}
+               'queries': parser_data.queries,
+               'database_name': parser_data.database_name,
+               'required_tables': parser_data.required_tables}
     rendered = self._helper.RenderTemplate(self._PARSER_TEMPLATE, context)
     return rendered

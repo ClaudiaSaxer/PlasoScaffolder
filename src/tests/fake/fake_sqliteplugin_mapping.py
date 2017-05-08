@@ -14,4 +14,4 @@ class FakeSQLitePluginMapper(base_sqliteplugin_mapping.BaseSQLitePluginMapper):
   def GetRenderedTemplate(
       self,
       data: base_data_model.BaseDataModel) -> str:
-    return data.PluginName
+    return data.plugin_name

@@ -13,13 +13,4 @@ class BaseDataModel(object):
       plugin_name (str): the name of the plugin
     """
     super().__init__()
-    self._plugin_name = plugin_name
-
-  @property
-  def PluginName(self) -> str:
-    """The plugin name
-
-    Returns:
-      str: the name of the plugin
-    """
-    return self._plugin_name
+    self.plugin_name = plugin_name

@@ -21,14 +21,14 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
         [u'{{ database_name }}'], plugin_object)
 
     # We should have {{ count_events }} events in total.
-    {% for query in queries %}{% for column in query.TimestampColumns|sort(attribute='SQLColumn') %}
-    # - {{ query.AmountEvents }} {{ query.Name }} {{ column.SQLColumn }} events.
+    {% for query in queries %}{% for column in query.timestamp_columns|sort(attribute='sql_column') %}
+    # - {{ query.amount_events }} {{ query.name }} {{ column.sql_column }} events.
     {% endfor %}{% endfor %}
     self.assertEqual({{ count_events }}, len(storage_writer.events))
 
-{% for query in queries %}{% for timestampcolumn in query.TimestampColumns|sort(attribute='SQLColumn') %}
-    # Test the first {{ query.Name|lower }} {{ timestampcolumn.SQLColumn }} event.
-    test_event = storage_writer.events[{{ timestampcolumn.FirstEventPositionInEvents }}]
+{% for query in queries %}{% for timestampcolumn in query.timestamp_columns|sort(attribute='sql_column') %}
+    # Test the first {{ query.name|lower }} {{ timestampcolumn.sql_column }} event.
+    test_event = storage_writer.events[{{ timestampcolumn.GetFirstEventPositionInEvents }}]
     expected_timestamp = timelib.Timestamp.CopyFromString(
         u'todo')
     self.assertEqual(test_event.timestamp, expected_timestamp)
@@ -36,20 +36,20 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
     self.assertEqual(
       test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
 
-    {% for datacolumn in query.Columns|sort(attribute='SQLColumn',case_sensitive=False)%}expected_{{datacolumn.ColumnAsSnakeCase()}} =
-        u'{{ datacolumn.FirstDataForTimeEvent(column.SQLColumn)|wordwrap(width=64,wrapstring='\nu')|indent(8)}})'
+    {% for datacolumn in query.columns|sort(attribute='sql_column',case_sensitive=False)%}expected_{{datacolumn.GetColumnAsSnakeCase()}} =
+        u'{{ datacolumn.GetFirstDataForTimeEvent(column.SQLColumn)|wordwrap(width=64,wrapstring='\nu')|indent(8)}})'
     {% endfor %}
-    {% for datacolumn in query.Columns|sort(attribute='SQLColumn',case_sensitive=False)%}self.assertEqual(test_event.{{ datacolumn.ColumnAsSnakeCase()}}, expected_{{datacolumn.ColumnAsSnakeCase()}})
+    {% for datacolumn in query.columns|sort(attribute='sql_column',case_sensitive=False)%}self.assertEqual(test_event.{{ datacolumn.GetColumnAsSnakeCase()}}, expected_{{datacolumn.GetColumnAsSnakeCase()}})
     {% endfor %}
 
     expected_message = (
-        u'{{ timestampcolumn.ExpectedMessage|wordwrap(width=64,wrapstring='\nu')|indent(8)}}...')
+        u'{{ timestampcolumn.expected_message|wordwrap(width=64,wrapstring='\nu')|indent(8)}}...')
     expected_message_short = (
-        u'{{ timestampcolumn.ExpectedMessageShort|wordwrap(width=64,wrapstring='\nu')|indent(8)}}')
+        u'{{ timestampcolumn.expected_message_short|wordwrap(width=64,wrapstring='\nu')|indent(8)}}')
 
     self._TestGetMessageStrings(
         test_event, expected_message, expected_message_short)
-    {% set eventsBefore = eventsBefore + query.AmountEvents %}
+    {% set eventsBefore = eventsBefore + query.amount_events %}
 {% endfor %}{% endfor %}
 
 if __name__ == '__main__':
