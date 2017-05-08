@@ -238,10 +238,14 @@ class SQLiteController(object):
           text=message, abort=False, default=False)
 
       columns = self.GetTimestamps(query_data.columns)
+      if query_data.data is not None:
+        amount_events = len(query_data.data)
+      else:
+        amount_events = 0
 
     return sql_query_model.SQLQueryModel(
         query.strip(), name, columns[0], columns[1], needs_customizing,
-        0)
+        amount_events)
 
   def GetTimestamps(self, columns: [sql_query_column_model.SQLColumnModel]) -> (
       [sql_query_column_model.SQLColumnModel],
