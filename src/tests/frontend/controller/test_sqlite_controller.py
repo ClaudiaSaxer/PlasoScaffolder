@@ -102,7 +102,8 @@ class SQLiteControllerTest(unittest.TestCase):
                                 'Do you want to name the query parse row:  ?'
                                 'Does the event  need customizing?')
 
-      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False)
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
+                                               0)
 
       self.assertEqual(actual.Name, '')
       self.assertEqual(expected.Query, actual.Query)
@@ -143,7 +144,8 @@ class SQLiteControllerTest(unittest.TestCase):
                                 'Do you want to name the query parse row:  ?'
                                 'Does the event  need customizing?')
 
-      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False)
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
+                                               0)
 
       self.assertEqual(actual.Name, '')
       self.assertEqual(expected.Query, actual.Query)
@@ -183,7 +185,8 @@ class SQLiteControllerTest(unittest.TestCase):
                                 'Do you want to name the query parse row:  ?'
                                 'Does the event  need customizing?')
 
-      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False)
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
+                                               0)
 
       self.assertEqual(actual.Name, '')
       self.assertEqual(expected.Query, actual.Query)
@@ -222,7 +225,8 @@ class SQLiteControllerTest(unittest.TestCase):
                                 'Do you want to name the query parse row:  ?'
                                 'Does the event  need customizing?')
 
-      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False)
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
+                                               0)
 
       self.assertEqual(actual.Name, '')
       self.assertEqual(expected.Query, actual.Query)
@@ -268,7 +272,8 @@ class SQLiteControllerTest(unittest.TestCase):
         'What row does the SQL Query parse?'
         'Row name is not in a valid format. Choose new Name [RowName...]'
         'Does the event TheCorrectContanctName need customizing?')
-      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False)
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
+                                               0)
 
       self.assertEqual(actual.Name, name2)
       self.assertEqual(expected.Query, actual.Query)
@@ -302,7 +307,8 @@ class SQLiteControllerTest(unittest.TestCase):
                                 'Do you want to name the query parse row:  ?'
                                 'Does the event  need customizing?')
 
-      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False)
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
+                                               0)
 
       self.assertEqual(actual.Name, '')
       self.assertEqual(expected.Query, actual.Query)
@@ -701,7 +707,7 @@ class SQLiteControllerTest(unittest.TestCase):
       controller._name = "the_plugin"
       controller._testfile = file
       controller._query_execution = fake_execution
-      controller.Generate(template_path,yapf_path)
+      controller.Generate(template_path, yapf_path)
       file1 = os.path.join(tmpdir, 'plaso', 'formatters', 'the_plugin.py')
       file2 = os.path.join(tmpdir, 'plaso', 'parsers', 'sqlite_plugins',
                            'the_plugin.py')

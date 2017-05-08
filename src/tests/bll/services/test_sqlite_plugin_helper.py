@@ -104,24 +104,24 @@ class SQLitePluginHelperTest(unittest.TestCase):
                  sql_query_column_model.SQLColumnModel('updatedAt'),
                  sql_query_column_model.SQLColumnModel('screenName')],
         timestamp_columns=[],
-        query="", name="", needs_customizing=False)
+        query="", name="", needs_customizing=False, amount_events=0)
     column2 = sql_query_model.SQLQueryModel(
         columns=[sql_query_column_model.SQLColumnModel('profileImageUrl'),
                  sql_query_column_model.SQLColumnModel('screenName'),
                  sql_query_column_model.SQLColumnModel('userId')],
         timestamp_columns=[],
-        query="", name="", needs_customizing=False)
+        query="", name="", needs_customizing=False, amount_events=0)
     column3 = sql_query_model.SQLQueryModel(
         columns=[sql_query_column_model.SQLColumnModel('screenName'),
                  sql_query_column_model.SQLColumnModel('createdDate'),
                  sql_query_column_model.SQLColumnModel('createdDate')],
         timestamp_columns=[],
-        query="", name="", needs_customizing=False)
+        query="", name="", needs_customizing=False, amount_events=0)
     column4 = sql_query_model.SQLQueryModel(
         columns=[sql_query_column_model.SQLColumnModel('screenNameSecond'),
                  sql_query_column_model.SQLColumnModel('createdDate')],
         timestamp_columns=[],
-        query="", name="", needs_customizing=False)
+        query="", name="", needs_customizing=False, amount_events=0)
     queries.append(column1)
     queries.append(column2)
     queries.append(column3)
@@ -138,10 +138,11 @@ class SQLitePluginHelperTest(unittest.TestCase):
     queries = list()
     column1 = sql_query_model.SQLQueryModel(
         columns=[], timestamp_columns=[], query="", name="",
-        needs_customizing=False)
+        needs_customizing=False, amount_events=0)
     column2 = sql_query_model.SQLQueryModel(
         columns=[sql_query_column_model.SQLColumnModel('first')],
-        timestamp_columns=[], query="", name="", needs_customizing=False)
+        timestamp_columns=[], query="", name="", needs_customizing=False,
+        amount_events=0)
     queries.append(column1)
     queries.append(column2)
     actual = self.helper.GetDistinctColumnsFromSQLQueryData(queries)

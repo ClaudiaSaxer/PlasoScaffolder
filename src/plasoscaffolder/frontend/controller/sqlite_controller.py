@@ -3,7 +3,6 @@
 import os
 
 import click
-
 from plasoscaffolder.bll.mappings import formatter_init_mapping
 from plasoscaffolder.bll.mappings import formatter_mapping
 from plasoscaffolder.bll.mappings import formatter_test_mapping
@@ -241,7 +240,8 @@ class SQLiteController(object):
       columns = self.GetTimestamps(query_data.columns)
 
     return sql_query_model.SQLQueryModel(
-        query.strip(), name, columns[0], columns[1], needs_customizing)
+        query.strip(), name, columns[0], columns[1], needs_customizing,
+        0)
 
   def GetTimestamps(self, columns: [sql_query_column_model.SQLColumnModel]) -> (
       [sql_query_column_model.SQLColumnModel],

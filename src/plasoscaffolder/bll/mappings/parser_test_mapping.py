@@ -34,7 +34,7 @@ class ParserTestMapper(base_sqliteplugin_mapping.BaseSQLitePluginMapper):
       str: the rendered template
     """
     class_name = self._helper.GenerateClassName(parser_test_data.PluginName)
-    count_events =
+    count_events = 0
     context = {'plugin_name': parser_test_data.PluginName,
                'class_name': class_name,
                'queries': parser_test_data.Queries,
