@@ -18,7 +18,7 @@ from tests.test_helper import path_helper
 class GeneratingFilesTestCase(unittest.TestCase):
   """Class to do a integration test."""
 
-  def testNormalGenerate(self):
+  def testIntegrationNormalGenerate(self):
     """Test a normal generation."""
     expected_path = os.path.join(os.path.dirname(__file__),
                                  'expected_files_twitterdb')
@@ -127,7 +127,7 @@ class GeneratingFilesTestCase(unittest.TestCase):
       self.assertEqual(parser_test, expected_parser_test)
       self.assertEqual(console_output, expected_console_output)
 
-  def testNormalGenerateForAllTypes(self):
+  def testIntegrationNormalGenerateForAllTypes(self):
     """Test a normal generation."""
     expected_path = os.path.join(os.path.dirname(__file__),
                                  'expected_files_typesdb')
