@@ -34,8 +34,15 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
        """
     template = self._template_environment.get_template(
         template_filename).render(context)
+    # Because jinja template variable is first escaped and then word wrapped,
+    # the escaped backslash can be split and can result in an eol.
+    # The escaped backslash will be placed on the next line.
+    template = template.replace('\\\'\n        u\'\\','\'\n        u\'\\\\')
+
     formatter = code_formatter.CodeFormatter(self.yapf_path)
+
     formatted = formatter.Format(template)
+    # Removing the yapf comment because it should not be in the resulting file.
     formatted_removed_yapf = formatted[0].replace(
         '# yapf: disable\n', '').replace('# yapf: enable\n', '').replace('  \n',
                                                                          '\n')

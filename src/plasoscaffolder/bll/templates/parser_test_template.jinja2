@@ -29,6 +29,7 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
     # Test the first {{ query.name|lower }} {{ timestampcolumn.sql_column }} event.
     position = 0 #TODO
     test_event = storage_writer.events[position]
+
     expected_timestamp = timelib.Timestamp.CopyFromString(
         u'{{ timestampcolumn.timestamp}}')
     self.assertEqual(test_event.timestamp, expected_timestamp)
@@ -36,13 +37,13 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
     self.assertEqual(
       test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
     {% for datacolumn in query.columns|sort(attribute='sql_column',case_sensitive=False)%}{% if datacolumn.GetColumnAsSnakeCase()|length + datacolumn.GetFirstDataForTimeEvent(timestampcolumn.sql_column)|e|length < 40 %}self.assertEqual(test_event.{{ datacolumn.GetColumnAsSnakeCase()}}, u'{{datacolumn.GetFirstDataForTimeEvent(timestampcolumn.sql_column)|e}}'){% else %}expected_{{datacolumn.GetColumnAsSnakeCase()}} = (
-        u'{{ datacolumn.GetFirstDataForTimeEvent(timestampcolumn.sql_column)|e}}')
+        u'{{ datacolumn.GetFirstDataForTimeEvent(timestampcolumn.sql_column)|e|wordwrap(width=64,wrapstring="'\n        u'")|indent(8)}}')
     self.assertEqual(test_event.{{ datacolumn.GetColumnAsSnakeCase()}}, expected_{{datacolumn.GetColumnAsSnakeCase()}}){% endif %}
     {% endfor %}
     expected_message = (
-        u'{{ timestampcolumn.expected_message|e}}')
+        u'{{ timestampcolumn.expected_message|e|wordwrap(width=64,wrapstring="'\n        u'")}}')
     expected_message_short = (
-        u'{{ timestampcolumn.GetShortExpectedMessage()|e}}')
+        u'{{ timestampcolumn.GetShortExpectedMessage()|e|wordwrap(width=64,wrapstring="'\n        u'")}}')
 
     self._TestGetMessageStrings(
         test_event, expected_message, expected_message_short)
