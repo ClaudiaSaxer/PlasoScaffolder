@@ -8,7 +8,7 @@ class SQLColumnModelTimestamp(sql_query_column_model.SQLColumnModel):
 
   def __init__(
       self, sql_column: str, sql_column_type: type = None,
-      expected_message: str = ''):
+      expected_message: str = '', timestamp:str = ''):
     """initializes the SQL column model.
   
     Args:
@@ -16,9 +16,11 @@ class SQLColumnModelTimestamp(sql_query_column_model.SQLColumnModel):
       sql_column_type (str): the type of the SQL column
       expected_message (str): the expected Messages for the 
           timestamp
+      timestamp (str): the timestamp for the expected message
     """
     super().__init__(sql_column, sql_column_type)
     self.expected_message = expected_message
+    self.timestamp = timestamp
 
   def GetShortExpectedMessage(self) -> str:
     """Getting the short expected message

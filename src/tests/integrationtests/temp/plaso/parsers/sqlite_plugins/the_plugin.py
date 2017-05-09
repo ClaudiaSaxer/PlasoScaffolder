@@ -13,11 +13,12 @@ from plaso.lib import eventdata
 from plaso.parsers import sqlite
 from plaso.parsers.sqlite_plugins import interface
 
+
 class ThePluginUsersEventData(events.EventData):
   """the plugin users event data.
 
   TODO: add type and description of attributes
-  Attributes:  
+  Attributes:
     advertiser_account_type (int): TODO
     analytics_type (int): TODO
     bio_entities (bytes): TODO
@@ -91,12 +92,13 @@ class ThePluginUsersEventData(events.EventData):
     self.url = None
     self.url_entities = None
     self.verified = None
-    
+
+
 class ThePluginStatusesEventData(events.EventData):
   """the plugin statuses event data.
 
   TODO: add type and description of attributes
-  Attributes:  
+  Attributes:
     card (bytes): TODO
     card_users (bytes): TODO
     card_version (int): TODO
@@ -162,7 +164,7 @@ class ThePluginStatusesEventData(events.EventData):
     self.user_id = None
     self.withheld_in_countries = None
     self.withheld_scope = None
-    
+
 
 class ThePluginPlugin(interface.SQLitePlugin):
   """Parser for ThePlugin"""
@@ -170,23 +172,15 @@ class ThePluginPlugin(interface.SQLitePlugin):
   NAME = u'the_plugin'
   DESCRIPTION = u'Parser for ThePlugin'
 
-  QUERIES = [ 
-    ((u'select * from users)'),
-     u'ParseUsersRow'),
-    ((u'select * from users)'),
-     u'ParseStatusesRow')]
+  QUERIES = [((u'select * from users)'), u'ParseUsersRow'),
+             ((u'select * from users)'), u'ParseStatusesRow')]
 
   REQUIRED_TABLES = frozenset([
-      u'Lists',
-      u'ListsShadow',
-      u'MyRetweets',
-      u'Statuses',
-      u'StatusesShadow',
-      u'Users',
-      u'UsersShadow'])
+      u'Lists', u'ListsShadow', u'MyRetweets', u'Statuses', u'StatusesShadow',
+      u'Users', u'UsersShadow'
+  ])
 
-
-  def ParseUsersRow(self,  parser_mediator, row, query=None, **unused_kwargs):
+  def ParseUsersRow(self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:
@@ -232,29 +226,26 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data.url = row['']
     event_data.url_entities = row['']
     event_data.verified = row['']
-    
-    
+
     timestamp = row['createdDate']
     if timestamp:
-    # Convert the floating point value to an integer.
+      # Convert the floating point value to an integer.
       timestamp = int(timestamp)
       date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
       # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
       event = time_events.DateTimeValuesEvent(date_time, None)
       parser_mediator.ProduceEventWithEventData(event, event_data)
-    
+
     timestamp = row['updatedAt']
     if timestamp:
-    # Convert the floating point value to an integer.
+      # Convert the floating point value to an integer.
       timestamp = int(timestamp)
       date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
       # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
       event = time_events.DateTimeValuesEvent(date_time, None)
       parser_mediator.ProduceEventWithEventData(event, event_data)
-    
 
-
-  def ParseStatusesRow(self,  parser_mediator, row, query=None, **unused_kwargs):
+  def ParseStatusesRow(self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:
@@ -296,27 +287,24 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data.user_id = row['']
     event_data.withheld_in_countries = row['']
     event_data.withheld_scope = row['']
-    
-    
+
     timestamp = row['date']
     if timestamp:
-    # Convert the floating point value to an integer.
+      # Convert the floating point value to an integer.
       timestamp = int(timestamp)
       date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
       # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
       event = time_events.DateTimeValuesEvent(date_time, None)
       parser_mediator.ProduceEventWithEventData(event, event_data)
-    
+
     timestamp = row['updatedAt']
     if timestamp:
-    # Convert the floating point value to an integer.
+      # Convert the floating point value to an integer.
       timestamp = int(timestamp)
       date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
       # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
       event = time_events.DateTimeValuesEvent(date_time, None)
       parser_mediator.ProduceEventWithEventData(event, event_data)
-    
-
 
 
 sqlite.SQLiteParser.RegisterPlugin(ThePluginPlugin)

@@ -10,9 +10,7 @@ class ThePluginUsersFormatter(interface.ConditionalEventFormatter):
   """the plugin users event formatter."""
 
   DATA_TYPE = u'the:plugin:'
-
   """Correct Format String Pieces where needed"""
-# yapf: disable
 
   FORMAT_STRING_PIECES = [
     u'Id:{id}',
@@ -84,7 +82,6 @@ class ThePluginUsersFormatter(interface.ConditionalEventFormatter):
     u'Pinned Tweet Id:{pinned_tweet_id}',
     u'Business Profile State:{business_profile_state}',
     u'Analytics Type:{analytics_type}']
-# yapf: enable
 
   SOURCE_LONG = u'The Plugin Users'
   SOURCE_SHORT = u'The Plugin'
@@ -107,28 +104,27 @@ class ThePluginUsersFormatter(interface.ConditionalEventFormatter):
       WrongFormatter: if the event object cannot be formatted by the formatter.
     """
     if self.DATA_TYPE != event.data_type:
-      raise errors.WrongFormatter(u'Unsupported data type: {0:s}.'.format(
-          event.data_type))
+      raise errors.WrongFormatter(
+          u'Unsupported data type: {0:s}.'.format(event.data_type))
 
     event_values = event.CopyToDict()
 
     # TODO: replace variable replace_with_attribute_name with the attribute to customize
-    replace_with_attribute_name = event_values.get(u'replace_with_attribute_name', None)
+    replace_with_attribute_name = event_values.get(
+        u'replace_with_attribute_name', None)
     if replace_with_attribute_name is not None:
       event_values[u'replace_with_attribute_name'] = (
-          self._REPLACEWITHATTRIBUTENAME.get(replace_with_attribute_name, u'UNKNOWN'))
+          self._REPLACEWITHATTRIBUTENAME.get(replace_with_attribute_name,
+                                             u'UNKNOWN'))
 
     return self._ConditionalFormatMessages(event_values)
-
 
 
 class ThePluginStatusesFormatter(interface.ConditionalEventFormatter):
   """the plugin statuses event formatter."""
 
   DATA_TYPE = u'the:plugin:'
-
   """Correct Format String Pieces where needed"""
-# yapf: disable
 
   FORMAT_STRING_PIECES = [
     u'Id:{id}',
@@ -192,13 +188,10 @@ class ThePluginStatusesFormatter(interface.ConditionalEventFormatter):
     u'Include In Profile Timeline:{include_in_profile_timeline}',
     u'Quoted Status Id:{quoted_status_id}',
     u'Source:{source}']
-# yapf: enable
 
   SOURCE_LONG = u'The Plugin Statuses'
   SOURCE_SHORT = u'The Plugin'
-  
 
-manager.FormattersManager.RegisterFormatter([
-  ThePluginUsersFormatter,
-  ThePluginStatusesFormatter
-])
+
+manager.FormattersManager.RegisterFormatter(
+    [ThePluginUsersFormatter, ThePluginStatusesFormatter])

@@ -185,6 +185,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     normal_columns = list()
     timestamp_columns = list()
     message = {}
+    timestamps_data = {}
 
     for column in [column for column in columns if
                    column.sql_column in timestamps]:
@@ -200,7 +201,12 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
       column = columns[column_index]
       timestamp_counter = 0
       column_data = {}
-      if column.sql_column not in timestamps:
+      if column.sql_column in timestamps:
+        if len(data) > timestamp_counter:
+          timestamps_data[column.sql_column] = data[timestamp_counter][column_index]
+        else:
+          timestamps_data[column.sql_column] = ''
+      else:
         for timestamp in [timestamp.sql_column for timestamp in
                           timestamp_columns]:
           data_for_column_and_timestamp = ''
@@ -231,5 +237,6 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
 
     for timestamp in timestamp_columns:
       timestamp.expected_message = message[timestamp.sql_column]
+      timestamp.timestamp = timestamps_data[timestamp.sql_column]
 
     return normal_columns, timestamp_columns
