@@ -17,13 +17,6 @@ class FormatterTestDataModel(base_data_model.BaseDataModel):
       queries (sql_query_model.SQLQueryModel): the queries
     """
     super().__init__(plugin_name)
-    self._queries = queries
+    self.queries = queries
 
-  @property
-  def Queries(self) -> [sql_query_model.SQLQueryModel]:
-    """The queries.
 
-    Returns:
-      str: the sql queries
-    """
-    return self._queries

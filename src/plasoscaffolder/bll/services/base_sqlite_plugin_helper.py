@@ -6,6 +6,8 @@ from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.dal import base_sql_query_execution
 from plasoscaffolder.dal import sql_query_data
 from plasoscaffolder.model import sql_query_column_model
+from plasoscaffolder.model import sql_query_column_model_data
+from plasoscaffolder.model import sql_query_column_model_timestamp
 from plasoscaffolder.model import sql_query_model
 
 
@@ -129,19 +131,21 @@ class BaseSQLitePluginHelper(object):
   @abc.abstractmethod
   def GetColumnsAndTimestampColumn(
       self, columns: [sql_query_column_model.SQLColumnModel],
-      timestamps: [str]) -> (
-      [sql_query_column_model.SQLColumnModel],
-      [sql_query_column_model.SQLColumnModel]):
+      timestamps: [str], data: [str]) -> (
+      [sql_query_column_model_data.SQLColumnModelData],
+      [sql_query_column_model_timestamp.SQLColumnModelTimestamp]):
     """Splits the column list into a list of simple columns and a list for
-    timestamp event columns
+    timestamp event columns and adds the data to the simple columns
 
     Args:
-      columns ([sql_query_column_model.SQLColumnModel]): the columns from the 
-          SQL query
+      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns 
+          from the SQL query
       timestamps ([str]): the timestamp events
+      data ([str]): the data from the cursor
 
     Returns:
-      ([sql_query_column_model.SQLColumnModel],
-          [sql_query_column_model.SQLColumnModel): a tuple of columns,
+      ([sql_query_column_model_data.SQLColumnModelData],
+          [sql_query_column_model_timestamp.SQLColumnModelTimestamp): a tuple 
+          of columns,
           the first are the normal columns, the second are the timestamp events
     """

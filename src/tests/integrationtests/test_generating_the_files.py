@@ -48,31 +48,27 @@ class GeneratingFilesTestCase(unittest.TestCase):
 
       query_first = 'select * from users'
       query_data_first = plugin_helper.RunSQLQuery(query_first, query_execution)
-      query_data_first_timestamp = [data for data in query_data_first.columns
-                                    if data.SQLColumn == 'createdDate' or
-                                    data.SQLColumn == 'updatedAt']
-      query_data_first_normal = [data for data in query_data_first.columns
-                                 if data.SQLColumn != 'createdDate' and
-                                 data.SQLColumn != 'updatedAt']
+      data_first = plugin_helper.GetColumnsAndTimestampColumn(
+          query_data_first.columns, ['createdDate', 'updatedAt'],
+          query_data_first.data)
+      query_data_first_timestamp = data_first[1]
+      query_data_first_normal = data_first[0]
       query_model_first = sql_query_model.SQLQueryModel(
           'select * from users', 'Users', query_data_first_normal,
-          query_data_first_timestamp, True)
+          query_data_first_timestamp, True, len(query_data_first.data))
 
       query_second = 'select * from statuses'
       query_data_second = plugin_helper.RunSQLQuery(query_second,
                                                     query_execution)
-
-      query_data_second_timestamp = [data for data in query_data_second.columns
-                                     if data.SQLColumn == 'date' or
-                                     data.SQLColumn == 'updatedAt']
-      query_data_second_normal = [data for data in query_data_second.columns
-                                  if data.SQLColumn != 'date' and
-                                  data.SQLColumn != 'updatedAt']
+      data_second = plugin_helper.GetColumnsAndTimestampColumn(
+          query_data_second.columns, ['date', 'updatedAt'],
+          query_data_second.data)
+      query_data_second_timestamp = data_second[1]
+      query_data_second_normal = data_second[0]
 
       query_model_second = sql_query_model.SQLQueryModel(
           'select * from users', 'Statuses', query_data_second_normal,
-          query_data_second_timestamp,
-          False)
+          query_data_second_timestamp, False, len(query_data_second.data))
 
       sql_query = [query_model_first, query_model_second]
 
@@ -178,17 +174,19 @@ class GeneratingFilesTestCase(unittest.TestCase):
                                                      query_execution)
 
       query_model_blob = sql_query_model.SQLQueryModel(
-          query_blob, 'blobtypes', query_data_blob.columns, [], True)
+          query_blob, 'blobtypes', query_data_blob.columns, [], True, 0)
       query_model_integer = sql_query_model.SQLQueryModel(
-          query_integer, 'integertypes', query_data_integer.columns, [], True)
+          query_integer, 'integertypes', query_data_integer.columns, [], True,
+          0)
       query_model_numeric = sql_query_model.SQLQueryModel(
-          query_numeric, 'numerictypes', query_data_numeric.columns, [], True)
+          query_numeric, 'numerictypes', query_data_numeric.columns, [], True,
+          0)
       query_model_real = sql_query_model.SQLQueryModel(
-          query_real, 'realtypes', query_data_real.columns, [], True)
+          query_real, 'realtypes', query_data_real.columns, [], True, 0)
       query_model_text = sql_query_model.SQLQueryModel(
-          query_text, 'texttypes', query_data_text.columns, [], True)
+          query_text, 'texttypes', query_data_text.columns, [], True, 0)
       query_model_no_data = sql_query_model.SQLQueryModel(
-          query_no_data, 'nodata', query_data_no_data.columns, [], True)
+          query_no_data, 'nodata', query_data_no_data.columns, [], True, 0)
 
       sql_query = [query_model_blob, query_model_integer, query_model_numeric,
                    query_model_real, query_model_text, query_model_no_data]

@@ -106,9 +106,9 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
         cursor = self._connection.execute(query)
         query_data.data = cursor.fetchall()
         if detailed:
-          query_data.columns = \
+          query_data.columns = (
             self._type_helper.GetColumnInformationFromDescription(
-              cursor.description)
+                cursor.description))
         self._connection.execute('ROLLBACK')
     except sqlite3.Error as error:
       query_data.error_message = 'Error: {0}'.format(str(error))
