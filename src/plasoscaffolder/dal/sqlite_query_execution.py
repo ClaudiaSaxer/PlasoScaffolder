@@ -138,12 +138,3 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
         query_data.columns = None
     return query_data
 
-    query_data = sql_query_data.SQLQueryData()
-    if self._explain.IsReadOnly(query):
-      query_data = self.ExecuteQueryDetailed(query)
-    else:
-      query_data.data = None
-      query_data.has_error = True
-      query_data.error_message = 'Query has to be a single SELECT query.'
-      query_data.columns = None
-    return query_data
