@@ -680,6 +680,7 @@ class SQLiteControllerTest(unittest.TestCase):
   def testGenerateIfConfirmed(self):
     """ test the generate if confirmed"""
     template_path = path_helper.TemplatePath()
+    yapf_path = path_helper.YapfStyleFilePath()
 
     with tempfile.TemporaryDirectory() as tmpdir:
       file = os.path.join(tmpdir, 'testfile')
@@ -700,7 +701,7 @@ class SQLiteControllerTest(unittest.TestCase):
       controller._name = "the_plugin"
       controller._testfile = file
       controller._query_execution = fake_execution
-      controller.Generate(template_path)
+      controller.Generate(template_path,yapf_path)
       file1 = os.path.join(tmpdir, 'plaso', 'formatters', 'the_plugin.py')
       file2 = os.path.join(tmpdir, 'plaso', 'parsers', 'sqlite_plugins',
                            'the_plugin.py')
@@ -735,7 +736,7 @@ class SQLiteControllerTest(unittest.TestCase):
             change_bool_after_every_call_valid_name=True)
         controller = sqlite_controller.SQLiteController(output_handler,
                                                         plugin_helper)
-        controller.Generate('not used')
+        controller.Generate('not used', 'not used')
 
         self.assertFalse(template_path)
 

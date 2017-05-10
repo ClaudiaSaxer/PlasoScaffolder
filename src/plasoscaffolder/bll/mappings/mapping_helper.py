@@ -3,21 +3,24 @@
 import jinja2
 
 from plasoscaffolder.bll.mappings import base_mapping_helper
+from plasoscaffolder.common import code_formatter
 
 
 class MappingHelper(base_mapping_helper.BaseMappingHelper):
   """Mapping Helper class."""
 
-  def __init__(self, template_path: str):
+  def __init__(self, template_path: str, yapf_path: str):
     """Initializing the mapping helper class.
 
     Args:
       template_path (str): the path to the template directory
+      yapf_path (str): the path to the yapf path
     """
     super().__init__()
     template_loader = jinja2.FileSystemLoader(template_path)
     self._template_environment = jinja2.Environment(
         autoescape=False, loader=template_loader, trim_blocks=False)
+    self.yapf_path = yapf_path
 
   def RenderTemplate(self, template_filename: str, context: dict) -> str:
     """Renders the template.
@@ -29,8 +32,13 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
        Returns:
          str: the rendered template
        """
-    return self._template_environment.get_template(
+    template = self._template_environment.get_template(
         template_filename).render(context)
+    formatter = code_formatter.CodeFormatter(self.yapf_path)
+    formatted = formatter.Format(template)
+    return formatted[0]
+    # return self._template_environment.get_template(
+    #    template_filename).render(context)
 
   def GenerateClassName(self, plugin_name: str) -> str:
     """Generates the class name from the plugin name.

@@ -20,10 +20,10 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
     storage_writer = self._ParseDatabaseFileWithPlugin(
         [u'{{ database_name }}'], plugin_object)
 
-    # We should have {{ todo_count_events }} events in total.
+    # We should have {{ count_events }} events in total.
     {% for query in queries %}{% for column in query.TimestampColumns|sort(attribute='SQLColumn') %}# - x {{ query.Name }} {{ column.SQLColumn }} events.
     {% endfor %}{% endfor %}
-    self.assertEqual({{ todo_count_events }}, len(storage_writer.events))
+    self.assertEqual({{ count_events }}, len(storage_writer.events))
 
 {% for query in queries %}{% for column in query.TimestampColumns|sort(attribute='SQLColumn') %}
     # Test the first {{ query.Name|lower }} {{ column.SQLColumn }} event.

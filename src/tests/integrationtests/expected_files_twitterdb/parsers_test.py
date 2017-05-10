@@ -17,26 +17,24 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
   def testProcess(self):
     """Test the Process function on a The Plugin file."""
     plugin_object = the_plugin.ThePluginPlugin()
-    storage_writer = self._ParseDatabaseFileWithPlugin(
-        [u'the_plugin.db'], plugin_object)
+    storage_writer = self._ParseDatabaseFileWithPlugin([u'the_plugin.db'],
+                                                       plugin_object)
 
-    # We should have  events in total.
+    # We should have 0 events in total.
     # - x Users createdDate events.
     # - x Users updatedAt events.
     # - x Statuses date events.
     # - x Statuses updatedAt events.
-    
-    self.assertEqual(, len(storage_writer.events))
 
+    self.assertEqual(0, len(storage_writer.events))
 
     # Test the first users createdDate event.
     test_event = storage_writer.events[0]
-    expected_timestamp = timelib.Timestamp.CopyFromString(
-        u'todo')
+    expected_timestamp = timelib.Timestamp.CopyFromString(u'todo')
     self.assertEqual(test_event.timestamp, expected_timestamp)
 
-    self.assertEqual(
-      test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
+    self.assertEqual(test_event.timestamp_desc,
+                     eventdata.EventTimestamp.CREATION_TIME)
 
     self.assertEqual(test_event.advertiser_account_type, u'todo')
     self.assertEqual(test_event.analytics_type, u'todo')
@@ -71,7 +69,7 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
     self.assertEqual(test_event.url, u'todo')
     self.assertEqual(test_event.url_entities, u'todo')
     self.assertEqual(test_event.verified, u'todo')
-    
+
     expected_description = (u'todo')
     self.assertEqual(test_event.description, expected_description)
 
@@ -81,17 +79,16 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
     expected_message = ('todo')
     expected_message_short = ('todo')
 
-    self._TestGetMessageStrings(
-        test_event, expected_message, expected_message_short)
+    self._TestGetMessageStrings(test_event, expected_message,
+                                expected_message_short)
 
     # Test the first users updatedAt event.
     test_event = storage_writer.events[0]
-    expected_timestamp = timelib.Timestamp.CopyFromString(
-        u'todo')
+    expected_timestamp = timelib.Timestamp.CopyFromString(u'todo')
     self.assertEqual(test_event.timestamp, expected_timestamp)
 
-    self.assertEqual(
-      test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
+    self.assertEqual(test_event.timestamp_desc,
+                     eventdata.EventTimestamp.CREATION_TIME)
 
     self.assertEqual(test_event.advertiser_account_type, u'todo')
     self.assertEqual(test_event.analytics_type, u'todo')
@@ -126,7 +123,7 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
     self.assertEqual(test_event.url, u'todo')
     self.assertEqual(test_event.url_entities, u'todo')
     self.assertEqual(test_event.verified, u'todo')
-    
+
     expected_description = (u'todo')
     self.assertEqual(test_event.description, expected_description)
 
@@ -136,17 +133,16 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
     expected_message = ('todo')
     expected_message_short = ('todo')
 
-    self._TestGetMessageStrings(
-        test_event, expected_message, expected_message_short)
+    self._TestGetMessageStrings(test_event, expected_message,
+                                expected_message_short)
 
     # Test the first statuses date event.
     test_event = storage_writer.events[0]
-    expected_timestamp = timelib.Timestamp.CopyFromString(
-        u'todo')
+    expected_timestamp = timelib.Timestamp.CopyFromString(u'todo')
     self.assertEqual(test_event.timestamp, expected_timestamp)
 
-    self.assertEqual(
-      test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
+    self.assertEqual(test_event.timestamp_desc,
+                     eventdata.EventTimestamp.CREATION_TIME)
 
     self.assertEqual(test_event.card, u'todo')
     self.assertEqual(test_event.card_users, u'todo')
@@ -177,7 +173,7 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
     self.assertEqual(test_event.user_id, u'todo')
     self.assertEqual(test_event.withheld_in_countries, u'todo')
     self.assertEqual(test_event.withheld_scope, u'todo')
-    
+
     expected_description = (u'todo')
     self.assertEqual(test_event.description, expected_description)
 
@@ -187,17 +183,16 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
     expected_message = ('todo')
     expected_message_short = ('todo')
 
-    self._TestGetMessageStrings(
-        test_event, expected_message, expected_message_short)
+    self._TestGetMessageStrings(test_event, expected_message,
+                                expected_message_short)
 
     # Test the first statuses updatedAt event.
     test_event = storage_writer.events[0]
-    expected_timestamp = timelib.Timestamp.CopyFromString(
-        u'todo')
+    expected_timestamp = timelib.Timestamp.CopyFromString(u'todo')
     self.assertEqual(test_event.timestamp, expected_timestamp)
 
-    self.assertEqual(
-      test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
+    self.assertEqual(test_event.timestamp_desc,
+                     eventdata.EventTimestamp.CREATION_TIME)
 
     self.assertEqual(test_event.card, u'todo')
     self.assertEqual(test_event.card_users, u'todo')
@@ -228,7 +223,7 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
     self.assertEqual(test_event.user_id, u'todo')
     self.assertEqual(test_event.withheld_in_countries, u'todo')
     self.assertEqual(test_event.withheld_scope, u'todo')
-    
+
     expected_description = (u'todo')
     self.assertEqual(test_event.description, expected_description)
 
@@ -238,8 +233,8 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
     expected_message = ('todo')
     expected_message_short = ('todo')
 
-    self._TestGetMessageStrings(
-        test_event, expected_message, expected_message_short)
+    self._TestGetMessageStrings(test_event, expected_message,
+                                expected_message_short)
 
 
 if __name__ == '__main__':

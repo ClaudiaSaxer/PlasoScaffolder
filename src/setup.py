@@ -9,7 +9,7 @@ setup(name='plasoscaffolder',
       packages=find_packages(),
       include_package_data=True,
       package_data={'plasoscaffolder.bll.templates': ['*.jinja2'], },
-      install_requires=['Click', 'setuptools', 'jinja2', 'colorama'],
+      install_requires=['Click', 'setuptools', 'jinja2', 'colorama', 'yapf'],
       entry_points='''
         [console_scripts]
         plasoscaffolder=plasoscaffolder.frontend.main:entry_point
