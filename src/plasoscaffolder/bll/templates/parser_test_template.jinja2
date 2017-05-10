@@ -27,7 +27,11 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
 
 {% for query in queries %}{% for timestampcolumn in query.timestamp_columns %}
     # Test the first {{ query.name|lower }} {{ timestampcolumn.sql_column }} event.
-    position = 0 #TODO
+    guessed_event = [
+        e for e in storage_writer.events if{% for datacolumn in query.columns|sort(attribute='sql_column',case_sensitive=False)%}
+        e.{{datacolumn.GetColumnAsSnakeCase()}} == u'{{ datacolumn.GetFirstDataForTimeEvent(timestampcolumn.sql_column)|e|wordwrap(width=64,wrapstring="'\n                 u'")|indent(17)}}'{% if not loop.last %}and{% endif %}{% endfor %}
+    ][0]
+    position = storage_writer.index(guessed_event)
     test_event = storage_writer.events[position]
 
     expected_timestamp = timelib.Timestamp.CopyFromString(
