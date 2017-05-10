@@ -149,6 +149,14 @@ class SQLitePluginHelperTest(unittest.TestCase):
     expected = ['first']
     self.assertEqual(actual, expected)
 
+  def testGetDistinctColumnsFromSQLQueryQueryEmpty(self):
+    """test the creating of a distinct list of all attributes of the queries
+    with an empty array"""
+    queries = list()
+    actual = self.helper.GetDistinctColumnsFromSQLQueryData(queries)
+    expected = []
+    self.assertEqual(actual, expected)
+
   def testIsValidRowNameShort(self):
     """test the row name for its validity"""
     actual = self.helper.IsValidRowName('Short')

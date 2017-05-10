@@ -386,7 +386,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     """test execute read only with two queries at the same time"""
     query = 'SELECT id from users;SELECT id from users;'
     result = self.execute.ExecuteReadOnlyQuery(query)
-    expected_error = 'Query has to be a single SELECT query.'
+    expected_error = 'Warning: You can only execute one statement at a time.'
     self.assertTrue(result.has_error)
     self.assertEqual(str(result.error_message), expected_error)
     self.assertIsNone(result.data)

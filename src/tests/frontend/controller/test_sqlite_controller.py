@@ -834,6 +834,44 @@ class SQLiteControllerTest(unittest.TestCase):
       self.assertEqual(model[1][1].sql_column, 'thisdate')
       self.assertEqual(model[1][2].sql_column, 'timethat')
 
+  def testGetTimestampNormalWithAbort(self):
+    """test the function GetTimestamp"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_info='abort',
+          confirm_amount_same=2)
+      plugin_helper = sqlite_plugin_helper.SQLitePluginHelper()
+      controller = sqlite_controller.SQLiteController(
+          output_handler, plugin_helper)
+
+      columns = [sql_query_column_model.SQLColumnModel('this'),
+                 sql_query_column_model.SQLColumnModel('that'),
+                 sql_query_column_model.SQLColumnModel('test'),
+                 sql_query_column_model.SQLColumnModel('thisdate'),
+                 sql_query_column_model.SQLColumnModel('timethat')
+                 ]
+
+      model = controller.GetTimestamps(columns, [])
+      expected = (
+        'Is the column a time event? thisdate'
+        'Is the column a time event? timethat'
+        'Enter (additional) timestamp events from the query '
+        '[columnName,aliasName...] or [abort]'
+      )
+
+      actual = self._ReadFromFile(path)
+      self.assertEqual(expected, actual)
+      self.assertEqual(len(model[0]), 3)
+      self.assertEqual(len(model[1]), 2)
+      self.assertEqual(model[0][0].sql_column, 'this')
+      self.assertEqual(model[0][1].sql_column, 'that')
+      self.assertEqual(model[0][2].sql_column, 'test')
+      self.assertEqual(model[1][0].sql_column, 'thisdate')
+      self.assertEqual(model[1][1].sql_column, 'timethat')
+
   def testGetTimestampRefuseATimeEvent(self):
     """test the function GetTimestamp"""
     with tempfile.TemporaryDirectory() as tmpdir:
