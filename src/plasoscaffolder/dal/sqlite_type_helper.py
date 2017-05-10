@@ -204,8 +204,7 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
           position
   
     """
-    all_appearances = (filter(
-        lambda start: start > 0,
-        map(lambda space: text.rfind(space, 0, end_position),
-            self._POSSIBLEQUERYSEPERATOR)))
+    all_appearances = [text.rfind(space, 0, end_position) for space in
+                       self._POSSIBLEQUERYSEPERATOR
+                       if text.rfind(space, 0, end_position) > 0]
     return max(all_appearances) + 1
