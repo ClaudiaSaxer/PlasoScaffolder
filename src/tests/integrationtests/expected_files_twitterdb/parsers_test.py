@@ -61,8 +61,8 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
     expected_timestamp = timelib.Timestamp.CopyFromString(u'1449070544.333328')
     self.assertEqual(test_event.timestamp, expected_timestamp)
 
-    self.assertEqual(test_event.timestamp_desc,
-                     eventdata.EventTimestamp.CREATION_TIME)
+    self.assertEqual(
+        test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
     self.assertEqual(test_event.advertiser_account_type, u'0')
     self.assertEqual(test_event.analytics_type, u'0')
     self.assertEqual(test_event.bio_entities, u'None')
@@ -129,8 +129,8 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
         u'Id: 5402612 Screen Name: BBCBreaking Profile Image Url:'
         u'https://pbs.twimg.com...')
 
-    self._TestGetMessageStrings(test_event, expected_message,
-                                expected_message_short)
+    self._TestGetMessageStrings(
+        test_event, expected_message, expected_message_short)
 
     # Test the first users createdDate event.
     guessed_event = [
@@ -167,8 +167,8 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
     expected_timestamp = timelib.Timestamp.CopyFromString(u'1202704910.0')
     self.assertEqual(test_event.timestamp, expected_timestamp)
 
-    self.assertEqual(test_event.timestamp_desc,
-                     eventdata.EventTimestamp.CREATION_TIME)
+    self.assertEqual(
+        test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
     self.assertEqual(test_event.advertiser_account_type, u'0')
     self.assertEqual(test_event.analytics_type, u'0')
     self.assertEqual(test_event.bio_entities, u'b&#39;{}&#39;')
@@ -239,8 +239,8 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
         u'Id: 13334762 Screen Name: github Profile Image Url:'
         u'https://pbs.twimg.com/pro...')
 
-    self._TestGetMessageStrings(test_event, expected_message,
-                                expected_message_short)
+    self._TestGetMessageStrings(
+        test_event, expected_message, expected_message_short)
 
     # Test the first statuses date event.
     guessed_event = [
@@ -285,8 +285,8 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
     expected_timestamp = timelib.Timestamp.CopyFromString(u'1410435976.0')
     self.assertEqual(test_event.timestamp, expected_timestamp)
 
-    self.assertEqual(test_event.timestamp_desc,
-                     eventdata.EventTimestamp.CREATION_TIME)
+    self.assertEqual(
+        test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
     self.assertEqual(test_event.card, u'None')
     self.assertEqual(test_event.card_users, u'None')
     self.assertEqual(test_event.card_version, u'0')
@@ -367,11 +367,12 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
         u'None Include In Profile Timeline: 1 Quoted Status Id: None'
         u'Source: &lt;a href=&#34;http://twitter.com/download/iphone&#34;'
         u'rel=&#34;nofollow&#34;&gt;Twitter for iPhone&lt;/a&gt;')
-    expected_message_short = (u'Id: 510031570397577216 Text: Never forget.'
-                              u'http://t.co/L7bjWue1A2 User Id: 47...')
+    expected_message_short = (
+        u'Id: 510031570397577216 Text: Never forget.'
+        u'http://t.co/L7bjWue1A2 User Id: 47...')
 
-    self._TestGetMessageStrings(test_event, expected_message,
-                                expected_message_short)
+    self._TestGetMessageStrings(
+        test_event, expected_message, expected_message_short)
 
     # Test the first statuses updatedAt event.
     guessed_event = [
@@ -425,8 +426,8 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
     expected_timestamp = timelib.Timestamp.CopyFromString(u'1449070777.569438')
     self.assertEqual(test_event.timestamp, expected_timestamp)
 
-    self.assertEqual(test_event.timestamp_desc,
-                     eventdata.EventTimestamp.CREATION_TIME)
+    self.assertEqual(
+        test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
     self.assertEqual(test_event.card, u'None')
     self.assertEqual(test_event.card_users, u'None')
     self.assertEqual(test_event.card_version, u'0')
@@ -475,8 +476,9 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
     self.assertEqual(test_event.quoted_status_id, u'None')
     self.assertEqual(test_event.retweet_count, u'0')
     self.assertEqual(test_event.retweeted_status_id, u'None')
-    expected_source = (u'&lt;a href=&#34;http://sproutsocial.com&#34;'
-                       u'rel=&#34;nofollow&#34;&gt;Sprout Social&lt;/a&gt;')
+    expected_source = (
+        u'&lt;a href=&#34;http://sproutsocial.com&#34;'
+        u'rel=&#34;nofollow&#34;&gt;Sprout Social&lt;/a&gt;')
     self.assertEqual(test_event.source, expected_source)
     self.assertEqual(test_event.supplmental_language, u'None')
     expected_text = (
@@ -529,8 +531,8 @@ class ThePluginTest(test_lib.SQLitePluginTestCase):
         u'Id: 666269245827747840 Text: We don&#39;t care how you spend'
         u'your $5 voucher - we...')
 
-    self._TestGetMessageStrings(test_event, expected_message,
-                                expected_message_short)
+    self._TestGetMessageStrings(
+        test_event, expected_message, expected_message_short)
 
 
 if __name__ == '__main__':

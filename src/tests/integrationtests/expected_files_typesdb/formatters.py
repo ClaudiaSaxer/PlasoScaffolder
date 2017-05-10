@@ -50,8 +50,8 @@ class ThePluginBlobtypesFormatter(interface.ConditionalEventFormatter):
         u'replace_with_attribute_name', None)
     if replace_with_attribute_name is not None:
       event_values[u'replace_with_attribute_name'] = (
-          self._REPLACEWITHATTRIBUTENAME.get(replace_with_attribute_name,
-                                             u'UNKNOWN'))
+          self._REPLACEWITHATTRIBUTENAME.get(
+              replace_with_attribute_name, u'UNKNOWN'))
 
     return self._ConditionalFormatMessages(event_values)
 
@@ -116,8 +116,8 @@ class ThePluginIntegertypesFormatter(interface.ConditionalEventFormatter):
         u'replace_with_attribute_name', None)
     if replace_with_attribute_name is not None:
       event_values[u'replace_with_attribute_name'] = (
-          self._REPLACEWITHATTRIBUTENAME.get(replace_with_attribute_name,
-                                             u'UNKNOWN'))
+          self._REPLACEWITHATTRIBUTENAME.get(
+              replace_with_attribute_name, u'UNKNOWN'))
 
     return self._ConditionalFormatMessages(event_values)
 
@@ -174,8 +174,8 @@ class ThePluginNumerictypesFormatter(interface.ConditionalEventFormatter):
         u'replace_with_attribute_name', None)
     if replace_with_attribute_name is not None:
       event_values[u'replace_with_attribute_name'] = (
-          self._REPLACEWITHATTRIBUTENAME.get(replace_with_attribute_name,
-                                             u'UNKNOWN'))
+          self._REPLACEWITHATTRIBUTENAME.get(
+              replace_with_attribute_name, u'UNKNOWN'))
 
     return self._ConditionalFormatMessages(event_values)
 
@@ -230,8 +230,8 @@ class ThePluginRealtypesFormatter(interface.ConditionalEventFormatter):
         u'replace_with_attribute_name', None)
     if replace_with_attribute_name is not None:
       event_values[u'replace_with_attribute_name'] = (
-          self._REPLACEWITHATTRIBUTENAME.get(replace_with_attribute_name,
-                                             u'UNKNOWN'))
+          self._REPLACEWITHATTRIBUTENAME.get(
+              replace_with_attribute_name, u'UNKNOWN'))
 
     return self._ConditionalFormatMessages(event_values)
 
@@ -294,8 +294,8 @@ class ThePluginTexttypesFormatter(interface.ConditionalEventFormatter):
         u'replace_with_attribute_name', None)
     if replace_with_attribute_name is not None:
       event_values[u'replace_with_attribute_name'] = (
-          self._REPLACEWITHATTRIBUTENAME.get(replace_with_attribute_name,
-                                             u'UNKNOWN'))
+          self._REPLACEWITHATTRIBUTENAME.get(
+              replace_with_attribute_name, u'UNKNOWN'))
 
     return self._ConditionalFormatMessages(event_values)
 
@@ -396,8 +396,8 @@ class ThePluginNodataFormatter(interface.ConditionalEventFormatter):
         u'replace_with_attribute_name', None)
     if replace_with_attribute_name is not None:
       event_values[u'replace_with_attribute_name'] = (
-          self._REPLACEWITHATTRIBUTENAME.get(replace_with_attribute_name,
-                                             u'UNKNOWN'))
+          self._REPLACEWITHATTRIBUTENAME.get(
+              replace_with_attribute_name, u'UNKNOWN'))
 
     return self._ConditionalFormatMessages(event_values)
 

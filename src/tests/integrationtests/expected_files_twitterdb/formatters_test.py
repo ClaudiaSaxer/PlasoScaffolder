@@ -34,8 +34,8 @@ class ThePluginUsersFormatterTest(test_lib.EventFormatterTestCase):
         u'verified'
     ]
 
-    self._TestGetFormatStringAttributeNames(event_formatter,
-                                            expected_attribute_names)
+    self._TestGetFormatStringAttributeNames(
+        event_formatter, expected_attribute_names)
 
 
 class ThePluginStatusesFormatterTest(test_lib.EventFormatterTestCase):
@@ -62,8 +62,8 @@ class ThePluginStatusesFormatterTest(test_lib.EventFormatterTestCase):
         u'withheld_in_countries', u'withheld_scope'
     ]
 
-    self._TestGetFormatStringAttributeNames(event_formatter,
-                                            expected_attribute_names)
+    self._TestGetFormatStringAttributeNames(
+        event_formatter, expected_attribute_names)
 
 
 if __name__ == '__main__':

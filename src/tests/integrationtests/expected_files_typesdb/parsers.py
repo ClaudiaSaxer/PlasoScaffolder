@@ -214,20 +214,20 @@ class ThePluginPlugin(interface.SQLitePlugin):
   NAME = u'the_plugin'
   DESCRIPTION = u'Parser for ThePlugin'
 
-  QUERIES = [((u'select * from blobtypes)'), u'ParseBlobtypesRow'),
-             ((u'select * from integertypes)'), u'ParseIntegertypesRow'), (
-                 (u'select * from numerictypes)'), u'ParseNumerictypesRow'), (
-                     (u'select * from realtypes)'), u'ParseRealtypesRow'), (
-                         (u'select * from texttypes)'), u'ParseTexttypesRow'), (
-                             (u'select * from nodata)'), u'ParseNodataRow')]
+  QUERIES = [((u'select * from blobtypes)'), u'ParseBlobtypesRow'), ((
+      u'select * from integertypes)'), u'ParseIntegertypesRow'), ((
+          u'select * from numerictypes)'), u'ParseNumerictypesRow'), ((
+              u'select * from realtypes)'), u'ParseRealtypesRow'), ((
+                  u'select * from texttypes)'), u'ParseTexttypesRow'), ((
+                      u'select * from nodata)'), u'ParseNodataRow')]
 
   REQUIRED_TABLES = frozenset([
       u'blobtypes', u'integertypes', u'nodata', u'numerictypes', u'realtypes',
       u'texttypes'
   ])
 
-  def ParseBlobtypesRow(self, parser_mediator, row, query=None,
-                        **unused_kwargs):
+  def ParseBlobtypesRow(
+      self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:
@@ -242,11 +242,8 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data = ThePluginEventData()
     event_data.blobval = row['']
 
-  def ParseIntegertypesRow(self,
-                           parser_mediator,
-                           row,
-                           query=None,
-                           **unused_kwargs):
+  def ParseIntegertypesRow(
+      self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:
@@ -269,11 +266,8 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data.tinyintval = row['']
     event_data.unsignedbigintval = row['']
 
-  def ParseNumerictypesRow(self,
-                           parser_mediator,
-                           row,
-                           query=None,
-                           **unused_kwargs):
+  def ParseNumerictypesRow(
+      self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:
@@ -292,8 +286,8 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data.decimalval = row['']
     event_data.numericval = row['']
 
-  def ParseRealtypesRow(self, parser_mediator, row, query=None,
-                        **unused_kwargs):
+  def ParseRealtypesRow(
+      self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:
@@ -311,8 +305,8 @@ class ThePluginPlugin(interface.SQLitePlugin):
     event_data.floatval = row['']
     event_data.realval = row['']
 
-  def ParseTexttypesRow(self, parser_mediator, row, query=None,
-                        **unused_kwargs):
+  def ParseTexttypesRow(
+      self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:

@@ -172,8 +172,8 @@ class ThePluginPlugin(interface.SQLitePlugin):
   NAME = u'the_plugin'
   DESCRIPTION = u'Parser for ThePlugin'
 
-  QUERIES = [((u'select * from users)'), u'ParseUsersRow'),
-             ((u'select * from users)'), u'ParseStatusesRow')]
+  QUERIES = [((u'select * from users)'), u'ParseUsersRow'), ((
+      u'select * from users)'), u'ParseStatusesRow')]
 
   REQUIRED_TABLES = frozenset([
       u'Lists', u'ListsShadow', u'MyRetweets', u'Statuses', u'StatusesShadow',

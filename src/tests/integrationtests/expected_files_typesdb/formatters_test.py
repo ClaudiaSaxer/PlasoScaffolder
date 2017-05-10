@@ -22,8 +22,8 @@ class ThePluginBlobtypesFormatterTest(test_lib.EventFormatterTestCase):
 
     expected_attribute_names = [u'blobval']
 
-    self._TestGetFormatStringAttributeNames(event_formatter,
-                                            expected_attribute_names)
+    self._TestGetFormatStringAttributeNames(
+        event_formatter, expected_attribute_names)
 
 
 class ThePluginIntegertypesFormatterTest(test_lib.EventFormatterTestCase):
@@ -43,8 +43,8 @@ class ThePluginIntegertypesFormatterTest(test_lib.EventFormatterTestCase):
         u'mediumintval', u'smallintval', u'tinyintval', u'unsignedbigintval'
     ]
 
-    self._TestGetFormatStringAttributeNames(event_formatter,
-                                            expected_attribute_names)
+    self._TestGetFormatStringAttributeNames(
+        event_formatter, expected_attribute_names)
 
 
 class ThePluginNumerictypesFormatterTest(test_lib.EventFormatterTestCase):
@@ -63,8 +63,8 @@ class ThePluginNumerictypesFormatterTest(test_lib.EventFormatterTestCase):
         u'booleanval', u'datetimeval', u'dateval', u'decimalval', u'numericval'
     ]
 
-    self._TestGetFormatStringAttributeNames(event_formatter,
-                                            expected_attribute_names)
+    self._TestGetFormatStringAttributeNames(
+        event_formatter, expected_attribute_names)
 
 
 class ThePluginRealtypesFormatterTest(test_lib.EventFormatterTestCase):
@@ -83,8 +83,8 @@ class ThePluginRealtypesFormatterTest(test_lib.EventFormatterTestCase):
         u'doubleprecesionval', u'doubleval', u'floatval', u'realval'
     ]
 
-    self._TestGetFormatStringAttributeNames(event_formatter,
-                                            expected_attribute_names)
+    self._TestGetFormatStringAttributeNames(
+        event_formatter, expected_attribute_names)
 
 
 class ThePluginTexttypesFormatterTest(test_lib.EventFormatterTestCase):
@@ -104,8 +104,8 @@ class ThePluginTexttypesFormatterTest(test_lib.EventFormatterTestCase):
         u'nvarchar_val', u'textval', u'varcharval', u'varyingcharacterval'
     ]
 
-    self._TestGetFormatStringAttributeNames(event_formatter,
-                                            expected_attribute_names)
+    self._TestGetFormatStringAttributeNames(
+        event_formatter, expected_attribute_names)
 
 
 class ThePluginNodataFormatterTest(test_lib.EventFormatterTestCase):
@@ -130,8 +130,8 @@ class ThePluginNodataFormatterTest(test_lib.EventFormatterTestCase):
         u'varyingcharacterval'
     ]
 
-    self._TestGetFormatStringAttributeNames(event_formatter,
-                                            expected_attribute_names)
+    self._TestGetFormatStringAttributeNames(
+        event_formatter, expected_attribute_names)
 
 
 if __name__ == '__main__':

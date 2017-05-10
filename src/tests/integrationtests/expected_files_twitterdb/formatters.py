@@ -114,8 +114,8 @@ class ThePluginUsersFormatter(interface.ConditionalEventFormatter):
         u'replace_with_attribute_name', None)
     if replace_with_attribute_name is not None:
       event_values[u'replace_with_attribute_name'] = (
-          self._REPLACEWITHATTRIBUTENAME.get(replace_with_attribute_name,
-                                             u'UNKNOWN'))
+          self._REPLACEWITHATTRIBUTENAME.get(
+              replace_with_attribute_name, u'UNKNOWN'))
 
     return self._ConditionalFormatMessages(event_values)
 
