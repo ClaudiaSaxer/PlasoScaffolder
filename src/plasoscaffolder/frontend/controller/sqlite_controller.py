@@ -286,7 +286,9 @@ class SQLiteController(object):
       own_timestamps = self._output_handler.PromptInfo(
           'Enter (additional) timestamp events from the query [columnName,'
           'aliasName...] or [abort]')
-      if not own_timestamps == 'abort':
+      if own_timestamps == 'abort':
+        add_own_timestamps = False
+      else:
         if len(timestamps) == 0:
           own_timestamps = self._output_handler.PromptInfo(
               'At least one timestamp is required, please add a timestamp')
