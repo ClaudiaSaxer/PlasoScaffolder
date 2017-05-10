@@ -167,9 +167,9 @@
 <p>Fake Module containing helper functions for the SQLite plugin</p>
 <dl class="class">
 <dt id="tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper">
-<em class="property">class </em><code class="descclassname">tests.fake.fake_sqlite_plugin_helper.</code><code class="descname">FakeSQLitePluginHelper</code><span class="sig-paren">(</span><em>plugin_exists=False</em>, <em>folder_exists=False</em>, <em>file_exists=False</em>, <em>valid_name=True</em>, <em>change_bool_after_every_call_plugin_exists=False</em>, <em>change_bool_after_every_call_folder_exists=False</em>, <em>change_bool_after_every_call_file_exists=False</em>, <em>change_bool_after_every_call_valid_name=False</em>, <em>distinct_columns=None</em>, <em>valid_row_name=True</em>, <em>change_bool_after_every_call_valid_row_name=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqlite_plugin_helper.html#FakeSQLitePluginHelper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">tests.fake.fake_sqlite_plugin_helper.</code><code class="descname">FakeSQLitePluginHelper</code><span class="sig-paren">(</span><em>plugin_exists=False</em>, <em>folder_exists=False</em>, <em>file_exists=False</em>, <em>valid_name=True</em>, <em>change_bool_after_every_call_plugin_exists=False</em>, <em>change_bool_after_every_call_folder_exists=False</em>, <em>change_bool_after_every_call_file_exists=False</em>, <em>change_bool_after_every_call_valid_name=False</em>, <em>distinct_columns=None</em>, <em>valid_row_name=True</em>, <em>change_bool_after_every_call_valid_row_name=False</em>, <em>change_bool_after_every_call_valid_comma_separated_string=False</em>, <em>valid_comma_separated_string=True</em>, <em>columns_and_timestamp_column=([]</em>, <span class="optional">[</span><span class="optional">]</span><em>)</em>, <em>assumed_timestamps=[]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqlite_plugin_helper.html#FakeSQLitePluginHelper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="plasoscaffolder.bll.services.html#plasoscaffolder.bll.services.base_sqlite_plugin_helper.BaseSQLitePluginHelper" title="plasoscaffolder.bll.services.base_sqlite_plugin_helper.BaseSQLitePluginHelper"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.bll.services.base_sqlite_plugin_helper.BaseSQLitePluginHelper</span></code></a></p>
-<p>fake for the sqlite plugin helper</p>
+<p>Fake for the SQLite plugin helper</p>
 <dl class="method">
 <dt id="tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.FileExists">
 <code class="descname">FileExists</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/tests/fake/fake_sqlite_plugin_helper.html#FakeSQLitePluginHelper.FileExists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.FileExists" title="Permalink to this definition">¶</a></dt>
@@ -182,6 +182,54 @@ loops while testing)</p>
 <code class="descname">FolderExists</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/tests/fake/fake_sqlite_plugin_helper.html#FakeSQLitePluginHelper.FolderExists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.FolderExists" title="Permalink to this definition">¶</a></dt>
 <dd><p>will return true false true ... starting with the initial (against
 loops while testing)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.GetAssumedTimestamps">
+<code class="descname">GetAssumedTimestamps</code><span class="sig-paren">(</span><em>columns: [&lt;module 'plasoscaffolder.model.sql_query_column_model' from 'C:\\git\\PlasoScaffolder\\src\\plasoscaffolder\\model\\sql_query_column_model.py'&gt;]</em><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/tests/fake/fake_sqlite_plugin_helper.html#FakeSQLitePluginHelper.GetAssumedTimestamps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.GetAssumedTimestamps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all columns assumed that they are timestamps</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong></strong><strong>[</strong><strong>sql_query_column_model</strong><strong>]</strong><strong></strong> (<em>columns</em>) &#8211; the columns from the query</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the names from the columns assumed they could be a timestamp</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">[str]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.GetColumnsAndTimestampColumn">
+<code class="descname">GetColumnsAndTimestampColumn</code><span class="sig-paren">(</span><em>columns: [&lt;class 'plasoscaffolder.model.sql_query_column_model.SQLColumnModel'&gt;], timestamps: [&lt;class 'str'&gt;], data: [&lt;class 'str'&gt;]) -&gt; ([&lt;class 'plasoscaffolder.model.sql_query_column_model_data.SQLColumnModelData'&gt;], [&lt;class 'plasoscaffolder.model.sql_query_column_model.SQLColumnModel'&gt;]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqlite_plugin_helper.html#FakeSQLitePluginHelper.GetColumnsAndTimestampColumn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.GetColumnsAndTimestampColumn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits the column list into a list of simple columns and a list for
+timestamp event columns and adds the data to the simple columns</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>columns</strong> (<em></em><em>[</em><em>sql_query_column_model_data.SQLColumnModelData</em><em>]</em><em></em>) &#8211; the columns
+from the SQL query</li>
+<li><strong>timestamps</strong> (<em></em><em>[</em><em>str</em><em>]</em><em></em>) &#8211; the timestamp events</li>
+<li><strong>data</strong> (<em></em><em>[</em><em>str</em><em>]</em><em></em>) &#8211; the data from the cursor</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>([sql_query_column_model_data.SQLColumnModelData],</dt>
+<dd><p class="first last">[sql_query_column_model.SQLColumnModel): a tuple of columns,
+the first are the normal columns, the second are the timestamp events</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -201,6 +249,13 @@ sql query data objects</td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.IsValidCommaSeparatedString">
+<code class="descname">IsValidCommaSeparatedString</code><span class="sig-paren">(</span><em>text: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/tests/fake/fake_sqlite_plugin_helper.html#FakeSQLitePluginHelper.IsValidCommaSeparatedString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.IsValidCommaSeparatedString" title="Permalink to this definition">¶</a></dt>
+<dd><p>will return true false true ... starting with the initial (against
+loops while testing)</p>
 </dd></dl>
 
 <dl class="method">
@@ -224,7 +279,7 @@ loops while testing)</p>
 
 <dl class="method">
 <dt id="tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.RunSQLQuery">
-<code class="descname">RunSQLQuery</code><span class="sig-paren">(</span><em>query: str</em>, <em>executor: &lt;plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution object at 0x0559E070&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqlite_plugin_helper.html#FakeSQLitePluginHelper.RunSQLQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.RunSQLQuery" title="Permalink to this definition">¶</a></dt>
+<code class="descname">RunSQLQuery</code><span class="sig-paren">(</span><em>query: str</em>, <em>executor: &lt;plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution object at 0x058E0570&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqlite_plugin_helper.html#FakeSQLitePluginHelper.RunSQLQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.RunSQLQuery" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validates the sql Query</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

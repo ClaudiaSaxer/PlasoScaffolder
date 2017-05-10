@@ -82,10 +82,10 @@
 <span class="sd">    Returns:</span>
 <span class="sd">      str: the rendered template</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">class_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_helper</span><span class="o">.</span><span class="n">GenerateClassName</span><span class="p">(</span><span class="n">formatter_data</span><span class="o">.</span><span class="n">PluginName</span><span class="p">)</span>
-    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;plugin_name&#39;</span><span class="p">:</span> <span class="n">formatter_data</span><span class="o">.</span><span class="n">PluginName</span><span class="p">,</span>
+    <span class="n">class_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_helper</span><span class="o">.</span><span class="n">GenerateClassName</span><span class="p">(</span><span class="n">formatter_data</span><span class="o">.</span><span class="n">plugin_name</span><span class="p">)</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;plugin_name&#39;</span><span class="p">:</span> <span class="n">formatter_data</span><span class="o">.</span><span class="n">plugin_name</span><span class="p">,</span>
                <span class="s1">&#39;class_name&#39;</span><span class="p">:</span> <span class="n">class_name</span><span class="p">,</span>
-               <span class="s1">&#39;queries&#39;</span><span class="p">:</span> <span class="n">formatter_data</span><span class="o">.</span><span class="n">Queries</span><span class="p">}</span>
+               <span class="s1">&#39;queries&#39;</span><span class="p">:</span> <span class="n">formatter_data</span><span class="o">.</span><span class="n">queries</span><span class="p">}</span>
     <span class="n">rendered</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_helper</span><span class="o">.</span><span class="n">RenderTemplate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_FORMATTER_TEMPLATE</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">rendered</span></div></div>
 </pre></div>

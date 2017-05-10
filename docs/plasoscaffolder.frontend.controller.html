@@ -56,18 +56,52 @@
 <p>File representing the Controller for SQLite plugin.</p>
 <dl class="class">
 <dt id="plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController">
-<em class="property">class </em><code class="descclassname">plasoscaffolder.frontend.controller.sqlite_controller.</code><code class="descname">SQLiteController</code><span class="sig-paren">(</span><em>output_handler: &lt;plasoscaffolder.common.base_output_handler.BaseOutputHandler object at 0x054599D0&gt;</em>, <em>plugin_helper: &lt;plasoscaffolder.bll.services.base_sqlite_plugin_helper.BaseSQLitePluginHelper object at 0x05459B10&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/frontend/controller/sqlite_controller.html#SQLiteController"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">plasoscaffolder.frontend.controller.sqlite_controller.</code><code class="descname">SQLiteController</code><span class="sig-paren">(</span><em>output_handler: &lt;plasoscaffolder.common.base_output_handler.BaseOutputHandler object at 0x05315D50&gt;</em>, <em>plugin_helper: &lt;plasoscaffolder.bll.services.base_sqlite_plugin_helper.BaseSQLitePluginHelper object at 0x053152B0&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/frontend/controller/sqlite_controller.html#SQLiteController"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Class representing the SQLite Controller.</p>
 <dl class="method">
 <dt id="plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController.Generate">
-<code class="descname">Generate</code><span class="sig-paren">(</span><em>template_path: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/frontend/controller/sqlite_controller.html#SQLiteController.Generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController.Generate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">Generate</code><span class="sig-paren">(</span><em>template_path: str</em>, <em>yapf_path: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/frontend/controller/sqlite_controller.html#SQLiteController.Generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController.Generate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generating the files.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>template_path</strong> (<em>str</em>) &#8211; the path to the template directory</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>template_path</strong> (<em>str</em>) &#8211; the path to the template directory</li>
+<li><strong>yapf_path</strong> (<em>str</em>) &#8211; the path to the yapf style file</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController.GetTimestamps">
+<code class="descname">GetTimestamps</code><span class="sig-paren">(</span><em>columns: [&lt;class 'plasoscaffolder.model.sql_query_column_model.SQLColumnModel'&gt;], data: [&lt;class 'str'&gt;]) -&gt; ([&lt;class 'plasoscaffolder.model.sql_query_column_model_data.SQLColumnModelData'&gt;], [&lt;class 'plasoscaffolder.model.sql_query_column_model_timestamp.SQLColumnModelTimestamp'&gt;]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/frontend/controller/sqlite_controller.html#SQLiteController.GetTimestamps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController.GetTimestamps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the timestamp from the user and the columns</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>columns</strong> (<em></em><em>[</em><a class="reference internal" href="plasoscaffolder.model.html#plasoscaffolder.model.sql_query_column_model.SQLColumnModel" title="plasoscaffolder.model.sql_query_column_model.SQLColumnModel"><em>sql_query_column_model.SQLColumnModel</em></a><em>]</em><em></em>) &#8211; the columns from the</li>
+<li><strong>SQL</strong> &#8211; query.</li>
+<li><strong>data</strong> (<em></em><em>[</em><em>str</em><em>]</em><em></em>) &#8211; the data from the cursor</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><dl class="docutils">
+<dt>[sql_query_column_model_data.SQLColumnModelData],</dt>
+<dd><p class="first last">[sql_query_column_model_timestamp.SQLColumnModelTimestamp]: A
+tuple of columns. The first column represents the
+normal column for the query. The second
+column represents the timestamp events.</p>
+</dd>
+</dl>
+</p>
+</td>
 </tr>
 </tbody>
 </table>

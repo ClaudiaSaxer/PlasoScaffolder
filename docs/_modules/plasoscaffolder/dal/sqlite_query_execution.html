@@ -122,18 +122,19 @@
 <span class="sd">      sql_query_data.SQLQueryData: The data to the Query</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">data_from_executed_query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ExecuteQuery</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-    <span class="n">duplicate_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_type_helper</span><span class="o">.</span><span class="n">GetDuplicateColumnNames</span><span class="p">(</span>
-        <span class="n">data_from_executed_query</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">duplicate_names</span><span class="p">:</span>
-      <span class="n">duplicate_names_as_string</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">duplicate_names</span><span class="p">)</span>
-      <span class="n">data_from_executed_query</span><span class="o">.</span><span class="n">has_error</span> <span class="o">=</span> <span class="kc">True</span>
-      <span class="n">data_from_executed_query</span><span class="o">.</span><span class="n">error_message</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s1">&#39;Please use an alias (AS) for &#39;</span>
-        <span class="s1">&#39;those column names: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">duplicate_names_as_string</span><span class="p">))</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">data_from_executed_query</span><span class="o">.</span><span class="n">has_error</span><span class="p">:</span>
-      <span class="n">data_from_executed_query</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_type_helper</span><span class="o">.</span><span class="n">AddMissingTypesFromSchema</span><span class="p">(</span>
-            <span class="n">data_from_executed_query</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">query</span><span class="p">))</span>
+      <span class="n">duplicate_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_type_helper</span><span class="o">.</span><span class="n">GetDuplicateColumnNames</span><span class="p">(</span>
+          <span class="n">data_from_executed_query</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">duplicate_names</span><span class="p">:</span>
+        <span class="n">duplicate_names_as_string</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">duplicate_names</span><span class="p">)</span>
+        <span class="n">data_from_executed_query</span><span class="o">.</span><span class="n">has_error</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">data_from_executed_query</span><span class="o">.</span><span class="n">error_message</span> <span class="o">=</span> <span class="p">(</span>
+          <span class="s1">&#39;Please use an alias (AS) for &#39;</span>
+          <span class="s1">&#39;those column names: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">duplicate_names_as_string</span><span class="p">))</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">data_from_executed_query</span><span class="o">.</span><span class="n">has_error</span><span class="p">:</span>
+        <span class="n">data_from_executed_query</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">(</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_type_helper</span><span class="o">.</span><span class="n">AddMissingTypesFromSchema</span><span class="p">(</span>
+              <span class="n">data_from_executed_query</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">query</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">data_from_executed_query</span></div>
 
@@ -156,9 +157,9 @@
         <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
         <span class="n">query_data</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">detailed</span><span class="p">:</span>
-          <span class="n">query_data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> \
+          <span class="n">query_data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_type_helper</span><span class="o">.</span><span class="n">GetColumnInformationFromDescription</span><span class="p">(</span>
-              <span class="n">cursor</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">description</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;ROLLBACK&#39;</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">Error</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
       <span class="n">query_data</span><span class="o">.</span><span class="n">error_message</span> <span class="o">=</span> <span class="s1">&#39;Error: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
@@ -178,15 +179,15 @@
 <span class="sd">      Returns:</span>
 <span class="sd">        sql_query_data.SQLQueryData: The data to the Query</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">query_data</span> <span class="o">=</span> <span class="n">sql_query_data</span><span class="o">.</span><span class="n">SQLQueryData</span><span class="p">()</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_explain</span><span class="o">.</span><span class="n">IsReadOnly</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
-      <span class="n">query_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ExecuteQueryDetailed</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-      <span class="n">query_data</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
-      <span class="n">query_data</span><span class="o">.</span><span class="n">has_error</span> <span class="o">=</span> <span class="kc">True</span>
-      <span class="n">query_data</span><span class="o">.</span><span class="n">error_message</span> <span class="o">=</span> <span class="s1">&#39;Query has to be a single SELECT query.&#39;</span>
-      <span class="n">query_data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">query_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ExecuteQueryDetailed</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">query_data</span><span class="o">.</span><span class="n">has_error</span><span class="p">:</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_explain</span><span class="o">.</span><span class="n">IsReadOnly</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
+        <span class="n">query_data</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">query_data</span><span class="o">.</span><span class="n">has_error</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">query_data</span><span class="o">.</span><span class="n">error_message</span> <span class="o">=</span> <span class="s1">&#39;Query has to be a single SELECT query.&#39;</span>
+        <span class="n">query_data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="n">query_data</span></div></div>
+
 </pre></div>
 
           </div>
