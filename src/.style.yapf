@@ -1,6 +1,4 @@
 [style]
-based_on_style = google
-spaces_before_comment = 2
-indent_width = 2
-CONTINUATION_INDENT_WIDTH = 2
-COLUMN_LIMIT = 80
+based_on_style = chromium
+COALESCE_BRACKETS = True
+SPLIT_BEFORE_FIRST_ARGUMENT = True

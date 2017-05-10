@@ -32,8 +32,8 @@ class ParserInitMapping(
     Returns:
       str: the rendered template
     """
-    context = {'plugin_name': data.PluginName,
-               'is_create_template': data.IsCreateTemplate}
+    context = {'plugin_name': data.plugin_name,
+               'is_create_template': data.is_create_template}
     rendered = self._helper.RenderTemplate(
         self._PARSER_INIT_TEMPLATE, context)
     return rendered

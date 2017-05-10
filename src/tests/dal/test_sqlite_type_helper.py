@@ -56,10 +56,10 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
         description)
 
     self.assertEqual(len(result), 2)
-    self.assertEqual(result[0].SQLColumn, 'this')
-    self.assertEqual(result[0].SQLColumnType, type(None))
-    self.assertEqual(result[1].SQLColumn, 'second')
-    self.assertEqual(result[1].SQLColumnType, type(None))
+    self.assertEqual(result[0].sql_column, 'this')
+    self.assertEqual(result[0].sql_column_type, type(None))
+    self.assertEqual(result[1].sql_column, 'second')
+    self.assertEqual(result[1].sql_column_type, type(None))
 
   def testGetColumnDescriptionEmpty(self):
     """test getting column description if description is empty."""
@@ -185,14 +185,14 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
              sql_query_column_model.SQLColumnModel('bla')]
     result = self.sql_type_helper._ColumnTypeForOnlyOneTable('other', model)
     self.assertEqual(len(result), 4)
-    self.assertEqual(result[0].SQLColumn, 'id')
-    self.assertEqual(result[1].SQLColumn, 'that')
-    self.assertEqual(result[2].SQLColumn, 'different')
-    self.assertEqual(result[3].SQLColumn, 'bla')
-    self.assertEqual(result[0].SQLColumnType, float)
-    self.assertEqual(result[1].SQLColumnType, str)
-    self.assertEqual(result[2].SQLColumnType, int)
-    self.assertEqual(result[3].SQLColumnType, float)
+    self.assertEqual(result[0].sql_column, 'id')
+    self.assertEqual(result[1].sql_column, 'that')
+    self.assertEqual(result[2].sql_column, 'different')
+    self.assertEqual(result[3].sql_column, 'bla')
+    self.assertEqual(result[0].sql_column_type, float)
+    self.assertEqual(result[1].sql_column_type, str)
+    self.assertEqual(result[2].sql_column_type, int)
+    self.assertEqual(result[3].sql_column_type, float)
 
   def testColumnTypeForMultipleTables(self):
     """test getting the column type for multiple table"""
@@ -212,16 +212,16 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     result = self.sql_type_helper._ColumnTypeForMultipleTables(
         tables, model, query)
     self.assertEqual(len(result), 5)
-    self.assertEqual(result[0].SQLColumn, 'id')
-    self.assertEqual(result[1].SQLColumn, 'that')
-    self.assertEqual(result[2].SQLColumn, 'different')
-    self.assertEqual(result[3].SQLColumn, 'id2')
-    self.assertEqual(result[4].SQLColumn, 'id3')
-    self.assertEqual(result[0].SQLColumnType, bytes)
-    self.assertEqual(result[1].SQLColumnType, str)
-    self.assertEqual(result[2].SQLColumnType, int)
-    self.assertEqual(result[3].SQLColumnType, bytes)
-    self.assertEqual(result[4].SQLColumnType, bytes)
+    self.assertEqual(result[0].sql_column, 'id')
+    self.assertEqual(result[1].sql_column, 'that')
+    self.assertEqual(result[2].sql_column, 'different')
+    self.assertEqual(result[3].sql_column, 'id2')
+    self.assertEqual(result[4].sql_column, 'id3')
+    self.assertEqual(result[0].sql_column_type, bytes)
+    self.assertEqual(result[1].sql_column_type, str)
+    self.assertEqual(result[2].sql_column_type, int)
+    self.assertEqual(result[3].sql_column_type, bytes)
+    self.assertEqual(result[4].sql_column_type, bytes)
 
   def testAddMissingTypesFromSchemaForOnlyOneTable(self):
     """test getting missing types from schema if only one table"""
@@ -243,14 +243,14 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
     result = self.sql_type_helper.AddMissingTypesFromSchema(model, query)
     self.assertEqual(len(result), 4)
-    self.assertEqual(result[0].SQLColumn, 'id')
-    self.assertEqual(result[1].SQLColumn, 'that')
-    self.assertEqual(result[2].SQLColumn, 'different')
-    self.assertEqual(result[3].SQLColumn, 'bla')
-    self.assertEqual(result[0].SQLColumnType, float)
-    self.assertEqual(result[1].SQLColumnType, str)
-    self.assertEqual(result[2].SQLColumnType, int)
-    self.assertEqual(result[3].SQLColumnType, float)
+    self.assertEqual(result[0].sql_column, 'id')
+    self.assertEqual(result[1].sql_column, 'that')
+    self.assertEqual(result[2].sql_column, 'different')
+    self.assertEqual(result[3].sql_column, 'bla')
+    self.assertEqual(result[0].sql_column_type, float)
+    self.assertEqual(result[1].sql_column_type, str)
+    self.assertEqual(result[2].sql_column_type, int)
+    self.assertEqual(result[3].sql_column_type, float)
 
   def testAddMissingTypesFromSchemaForMultipleOneTable(self):
     """test getting missing types from schema multiple tables"""
@@ -272,16 +272,16 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     result = self.sql_type_helper.AddMissingTypesFromSchema(model, query)
 
     self.assertEqual(len(result), 5)
-    self.assertEqual(result[0].SQLColumn, 'id')
-    self.assertEqual(result[1].SQLColumn, 'that')
-    self.assertEqual(result[2].SQLColumn, 'different')
-    self.assertEqual(result[3].SQLColumn, 'id2')
-    self.assertEqual(result[4].SQLColumn, 'id3')
-    self.assertEqual(result[0].SQLColumnType, bytes)
-    self.assertEqual(result[1].SQLColumnType, str)
-    self.assertEqual(result[2].SQLColumnType, int)
-    self.assertEqual(result[3].SQLColumnType, bytes)
-    self.assertEqual(result[4].SQLColumnType, bytes)
+    self.assertEqual(result[0].sql_column, 'id')
+    self.assertEqual(result[1].sql_column, 'that')
+    self.assertEqual(result[2].sql_column, 'different')
+    self.assertEqual(result[3].sql_column, 'id2')
+    self.assertEqual(result[4].sql_column, 'id3')
+    self.assertEqual(result[0].sql_column_type, bytes)
+    self.assertEqual(result[1].sql_column_type, str)
+    self.assertEqual(result[2].sql_column_type, int)
+    self.assertEqual(result[3].sql_column_type, bytes)
+    self.assertEqual(result[4].sql_column_type, bytes)
 
   if __name__ == '__main__':
     unittest.main()
