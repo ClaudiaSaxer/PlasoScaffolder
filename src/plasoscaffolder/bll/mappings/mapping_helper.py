@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """Helper methods for mapping."""
-import re
 
 import jinja2
 
@@ -76,7 +75,7 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
     to_be_replaced = '\\\'\n        u\'\\'
     to_be_replaced_with = '\'\n        u\'\\\\'
 
-    template = template.replace(to_be_replaced,to_be_replaced_with)
+    template = template.replace(to_be_replaced, to_be_replaced_with)
     return template
 
   def _RemoveYapfComment(self, template: str) -> str:
