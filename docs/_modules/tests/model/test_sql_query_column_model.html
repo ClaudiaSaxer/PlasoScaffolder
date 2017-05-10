@@ -61,35 +61,35 @@
 <div class="viewcode-block" id="SQLColumnModelTest.testColumnAsSnakeCaseLongNameCamelCase"><a class="viewcode-back" href="../../../tests.model.html#tests.model.test_sql_query_column_model.SQLColumnModelTest.testColumnAsSnakeCaseLongNameCamelCase">[docs]</a>  <span class="k">def</span> <span class="nf">testColumnAsSnakeCaseLongNameCamelCase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Test snake case for a long name with camel case.&quot;&quot;&quot;</span>
     <span class="n">column</span> <span class="o">=</span> <span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">(</span><span class="s1">&#39;theOneLongColumnName&#39;</span><span class="p">)</span>
-    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">ColumnAsSnakeCase</span><span class="p">()</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">GetColumnAsSnakeCase</span><span class="p">()</span>
     <span class="n">expected</span> <span class="o">=</span> <span class="s1">&#39;the_one_long_column_name&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SQLColumnModelTest.testColumnAsSnakeCaseLongNamePascalCase"><a class="viewcode-back" href="../../../tests.model.html#tests.model.test_sql_query_column_model.SQLColumnModelTest.testColumnAsSnakeCaseLongNamePascalCase">[docs]</a>  <span class="k">def</span> <span class="nf">testColumnAsSnakeCaseLongNamePascalCase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Test snake case for for a long name with pascal case.&quot;&quot;&quot;</span>
     <span class="n">column</span> <span class="o">=</span> <span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">(</span><span class="s1">&#39;TheOneLongColumnName&#39;</span><span class="p">)</span>
-    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">ColumnAsSnakeCase</span><span class="p">()</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">GetColumnAsSnakeCase</span><span class="p">()</span>
     <span class="n">expected</span> <span class="o">=</span> <span class="s1">&#39;the_one_long_column_name&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SQLColumnModelTest.testColumnAsSnakeCaseShortName"><a class="viewcode-back" href="../../../tests.model.html#tests.model.test_sql_query_column_model.SQLColumnModelTest.testColumnAsSnakeCaseShortName">[docs]</a>  <span class="k">def</span> <span class="nf">testColumnAsSnakeCaseShortName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Test snake case for a short name only small letters.&quot;&quot;&quot;</span>
     <span class="n">column</span> <span class="o">=</span> <span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">(</span><span class="s1">&#39;short&#39;</span><span class="p">)</span>
-    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">ColumnAsSnakeCase</span><span class="p">()</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">GetColumnAsSnakeCase</span><span class="p">()</span>
     <span class="n">expected</span> <span class="o">=</span> <span class="s1">&#39;short&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SQLColumnModelTest.testColumnAsSnakeCaseWithNumber"><a class="viewcode-back" href="../../../tests.model.html#tests.model.test_sql_query_column_model.SQLColumnModelTest.testColumnAsSnakeCaseWithNumber">[docs]</a>  <span class="k">def</span> <span class="nf">testColumnAsSnakeCaseWithNumber</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Test snake case for a short name only small letters.&quot;&quot;&quot;</span>
     <span class="n">column</span> <span class="o">=</span> <span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">(</span><span class="s1">&#39;int2val&#39;</span><span class="p">)</span>
-    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">ColumnAsSnakeCase</span><span class="p">()</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">GetColumnAsSnakeCase</span><span class="p">()</span>
     <span class="n">expected</span> <span class="o">=</span> <span class="s1">&#39;int2val&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SQLColumnModelTest.testColumnAsSnakeCaseStartWithNumber"><a class="viewcode-back" href="../../../tests.model.html#tests.model.test_sql_query_column_model.SQLColumnModelTest.testColumnAsSnakeCaseStartWithNumber">[docs]</a>  <span class="k">def</span> <span class="nf">testColumnAsSnakeCaseStartWithNumber</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Test snake case for a name with numbers resulting in an error.&quot;&quot;&quot;</span>
     <span class="n">column</span> <span class="o">=</span> <span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">(</span><span class="s1">&#39;123error&#39;</span><span class="p">)</span>
-    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">ColumnAsSnakeCase</span><span class="p">()</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">GetColumnAsSnakeCase</span><span class="p">()</span>
     <span class="n">expected</span> <span class="o">=</span> <span class="s1">&#39;123error&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span></div>
 
@@ -97,28 +97,28 @@
     <span class="sd">&quot;&quot;&quot;Test column as description for a name ending with an underscore</span>
 <span class="sd">    resulting in an error.&quot;&quot;&quot;</span>
     <span class="n">column</span> <span class="o">=</span> <span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">(</span><span class="s1">&#39;error_&#39;</span><span class="p">)</span>
-    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">ColumnAsSnakeCase</span><span class="p">()</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">GetColumnAsSnakeCase</span><span class="p">()</span>
     <span class="n">expected</span> <span class="o">=</span> <span class="s1">&#39;error_&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SQLColumnModelTest.testColumnAsDescriptionLongNameCamelCase"><a class="viewcode-back" href="../../../tests.model.html#tests.model.test_sql_query_column_model.SQLColumnModelTest.testColumnAsDescriptionLongNameCamelCase">[docs]</a>  <span class="k">def</span> <span class="nf">testColumnAsDescriptionLongNameCamelCase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Test column as description for a long name with camel case.&quot;&quot;&quot;</span>
     <span class="n">column</span> <span class="o">=</span> <span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">(</span><span class="s1">&#39;theOneLongColumnName&#39;</span><span class="p">)</span>
-    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">ColumnAsDescription</span><span class="p">()</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">GetColumnAsDescription</span><span class="p">()</span>
     <span class="n">expected</span> <span class="o">=</span> <span class="s1">&#39;The One Long Column Name&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SQLColumnModelTest.testColumnAsDescriptionLongNamePascalCase"><a class="viewcode-back" href="../../../tests.model.html#tests.model.test_sql_query_column_model.SQLColumnModelTest.testColumnAsDescriptionLongNamePascalCase">[docs]</a>  <span class="k">def</span> <span class="nf">testColumnAsDescriptionLongNamePascalCase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Test column as description for a long name with pascal case.&quot;&quot;&quot;</span>
     <span class="n">column</span> <span class="o">=</span> <span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">(</span><span class="s1">&#39;TheOneLongColumnName&#39;</span><span class="p">)</span>
-    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">ColumnAsDescription</span><span class="p">()</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">GetColumnAsDescription</span><span class="p">()</span>
     <span class="n">expected</span> <span class="o">=</span> <span class="s1">&#39;The One Long Column Name&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SQLColumnModelTest.testColumnAsDescriptionShortName"><a class="viewcode-back" href="../../../tests.model.html#tests.model.test_sql_query_column_model.SQLColumnModelTest.testColumnAsDescriptionShortName">[docs]</a>  <span class="k">def</span> <span class="nf">testColumnAsDescriptionShortName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Test column as description for a short name.&quot;&quot;&quot;</span>
     <span class="n">column</span> <span class="o">=</span> <span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">(</span><span class="s1">&#39;short&#39;</span><span class="p">)</span>
-    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">ColumnAsDescription</span><span class="p">()</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">GetColumnAsDescription</span><span class="p">()</span>
     <span class="n">expected</span> <span class="o">=</span> <span class="s1">&#39;Short&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span></div>
 
@@ -126,9 +126,9 @@
     <span class="sd">&quot;&quot;&quot;Test getting the type for a string.&quot;&quot;&quot;</span>
     <span class="n">column</span> <span class="o">=</span> <span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
 
-    <span class="n">actual_type</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">SQLColumnType</span>
+    <span class="n">actual_type</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">sql_column_type</span>
     <span class="n">expected_type</span> <span class="o">=</span> <span class="nb">str</span>
-    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">ColumnTypeAsName</span><span class="p">()</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">GetColumnTypeAsName</span><span class="p">()</span>
     <span class="n">expected</span> <span class="o">=</span> <span class="s1">&#39;str&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual_type</span><span class="p">,</span> <span class="n">expected_type</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span></div>
@@ -137,12 +137,14 @@
     <span class="sd">&quot;&quot;&quot;Test getting the type for an int&quot;&quot;&quot;</span>
     <span class="n">column</span> <span class="o">=</span> <span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
 
-    <span class="n">actual_type</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">SQLColumnType</span>
+    <span class="n">actual_type</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">sql_column_type</span>
     <span class="n">expected_type</span> <span class="o">=</span> <span class="nb">int</span>
-    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">ColumnTypeAsName</span><span class="p">()</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">GetColumnTypeAsName</span><span class="p">()</span>
     <span class="n">expected</span> <span class="o">=</span> <span class="s1">&#39;int&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual_type</span><span class="p">,</span> <span class="n">expected_type</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span></div></div>
+
+
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>

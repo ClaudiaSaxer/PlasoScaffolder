@@ -70,6 +70,9 @@
 <span class="kn">from</span> <span class="nn">plasoscaffolder.dal</span> <span class="k">import</span> <span class="n">explain_query_plan</span>
 <span class="kn">from</span> <span class="nn">plasoscaffolder.dal</span> <span class="k">import</span> <span class="n">sqlite_database_information</span>
 <span class="kn">from</span> <span class="nn">plasoscaffolder.dal</span> <span class="k">import</span> <span class="n">sqlite_query_execution</span>
+<span class="kn">from</span> <span class="nn">plasoscaffolder.model</span> <span class="k">import</span> <span class="n">sql_query_column_model</span>
+<span class="kn">from</span> <span class="nn">plasoscaffolder.model</span> <span class="k">import</span> <span class="n">sql_query_column_model_data</span>
+<span class="kn">from</span> <span class="nn">plasoscaffolder.model</span> <span class="k">import</span> <span class="n">sql_query_column_model_timestamp</span>
 <span class="kn">from</span> <span class="nn">plasoscaffolder.model</span> <span class="k">import</span> <span class="n">sql_query_model</span>
 
 
@@ -257,7 +260,7 @@
           <span class="bp">self</span><span class="o">.</span><span class="n">_output_handler</span><span class="o">.</span><span class="n">PrintInfo</span><span class="p">(</span>
               <span class="s1">&#39;Your query output could look like this.&#39;</span><span class="p">)</span>
           <span class="bp">self</span><span class="o">.</span><span class="n">_output_handler</span><span class="o">.</span><span class="n">PrintInfo</span><span class="p">(</span>
-              <span class="nb">str</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">SQLColumn</span><span class="p">,</span> <span class="n">query_data</span><span class="o">.</span><span class="n">columns</span><span class="p">))))</span>
+              <span class="nb">str</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sql_column</span><span class="p">,</span> <span class="n">query_data</span><span class="o">.</span><span class="n">columns</span><span class="p">))))</span>
           <span class="n">amount</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_NUMBER_OF_SQLITE_OUTPUT_EXAMPLES</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
           <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_output_handler</span><span class="o">.</span><span class="n">PrintInfo</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">query_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">]))</span>
@@ -287,19 +290,90 @@
       <span class="n">needs_customizing</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_handler</span><span class="o">.</span><span class="n">Confirm</span><span class="p">(</span>
           <span class="n">text</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">abort</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">sql_query_model</span><span class="o">.</span><span class="n">SQLQueryModel</span><span class="p">(</span>
-        <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">name</span><span class="p">,</span> <span class="n">query_data</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">needs_customizing</span><span class="p">)</span>
+      <span class="n">columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetTimestamps</span><span class="p">(</span><span class="n">query_data</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">query_data</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 
-<div class="viewcode-block" id="SQLiteController.Generate"><a class="viewcode-back" href="../../../../plasoscaffolder.frontend.controller.html#plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController.Generate">[docs]</a>  <span class="k">def</span> <span class="nf">Generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">query_data</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">amount_events</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">query_data</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">amount_events</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">return</span> <span class="n">sql_query_model</span><span class="o">.</span><span class="n">SQLQueryModel</span><span class="p">(</span>
+        <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">name</span><span class="p">,</span> <span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">needs_customizing</span><span class="p">,</span>
+        <span class="n">amount_events</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SQLiteController.GetTimestamps"><a class="viewcode-back" href="../../../../plasoscaffolder.frontend.controller.html#plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController.GetTimestamps">[docs]</a>  <span class="k">def</span> <span class="nf">GetTimestamps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="p">[</span><span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">],</span>
+                    <span class="n">data</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">(</span>
+      <span class="p">[</span><span class="n">sql_query_column_model_data</span><span class="o">.</span><span class="n">SQLColumnModelData</span><span class="p">],</span>
+      <span class="p">[</span><span class="n">sql_query_column_model_timestamp</span><span class="o">.</span><span class="n">SQLColumnModelTimestamp</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;Gets the timestamp from the user and the columns</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">      columns ([sql_query_column_model.SQLColumnModel]): the columns from the </span>
+<span class="sd">      SQL</span>
+<span class="sd">           query. </span>
+<span class="sd">      data ([str]): the data from the cursor</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">       [sql_query_column_model_data.SQLColumnModelData],</span>
+<span class="sd">           [sql_query_column_model_timestamp.SQLColumnModelTimestamp]: A </span>
+<span class="sd">           tuple of columns. The first column represents the </span>
+<span class="sd">           normal column for the query. The second</span>
+<span class="sd">           column represents the timestamp events.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">timestamps</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">wrong_timestamps</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="n">assumed_timestamps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_helper</span><span class="o">.</span><span class="n">GetAssumedTimestamps</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">timestamp</span> <span class="ow">in</span> <span class="n">assumed_timestamps</span><span class="p">:</span>
+      <span class="n">question_timestamp</span> <span class="o">=</span> <span class="s1">&#39;Is the column a time event? </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+      <span class="n">is_timestamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_handler</span><span class="o">.</span><span class="n">Confirm</span><span class="p">(</span><span class="n">question_timestamp</span><span class="p">,</span>
+                                                  <span class="n">abort</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">is_timestamp</span><span class="p">:</span>
+        <span class="n">timestamps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+
+    <span class="n">add_own_timestamps</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">while</span> <span class="n">add_own_timestamps</span><span class="p">:</span>
+      <span class="n">own_timestamps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_handler</span><span class="o">.</span><span class="n">PromptInfo</span><span class="p">(</span>
+          <span class="s1">&#39;Enter (additional) timestamp events from the query [columnName,&#39;</span>
+          <span class="s1">&#39;aliasName...] or [abort]&#39;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">own_timestamps</span> <span class="o">==</span> <span class="s1">&#39;abort&#39;</span><span class="p">:</span>
+        <span class="n">add_own_timestamps</span> <span class="o">=</span> <span class="kc">False</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+          <span class="n">own_timestamps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_handler</span><span class="o">.</span><span class="n">PromptInfo</span><span class="p">(</span>
+              <span class="s1">&#39;At least one timestamp is required, please add a timestamp&#39;</span><span class="p">)</span>
+        <span class="n">own_timestamps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ValidateTimestampString</span><span class="p">(</span><span class="n">own_timestamps</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">own_timestamp</span> <span class="ow">in</span> <span class="n">own_timestamps</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">):</span>
+          <span class="n">column_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">column</span><span class="o">.</span><span class="n">sql_column</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">]</span>
+          <span class="k">if</span> <span class="n">own_timestamp</span> <span class="ow">in</span> <span class="n">column_names</span><span class="p">:</span>
+            <span class="n">timestamps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">own_timestamp</span><span class="p">)</span>
+          <span class="k">else</span><span class="p">:</span>
+            <span class="n">wrong_timestamps</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">own_timestamp</span><span class="p">)</span>
+
+        <span class="n">timestamps_string</span> <span class="o">=</span> <span class="s1">&#39;Added: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)))</span>
+        <span class="n">timestamps_wrong_string</span> <span class="o">=</span> <span class="s1">&#39;Failed: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">wrong_timestamps</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_handler</span><span class="o">.</span><span class="n">PrintInfo</span><span class="p">(</span><span class="n">timestamps_string</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_handler</span><span class="o">.</span><span class="n">PrintInfo</span><span class="p">(</span><span class="n">timestamps_wrong_string</span><span class="p">)</span>
+        <span class="n">add_own_timestamps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_handler</span><span class="o">.</span><span class="n">Confirm</span><span class="p">(</span>
+            <span class="s1">&#39;Do you want to add more timestamps?&#39;</span><span class="p">,</span> <span class="n">abort</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_helper</span><span class="o">.</span><span class="n">GetColumnsAndTimestampColumn</span><span class="p">(</span>
+        <span class="n">columns</span><span class="p">,</span> <span class="n">timestamps</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SQLiteController.Generate"><a class="viewcode-back" href="../../../../plasoscaffolder.frontend.controller.html#plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController.Generate">[docs]</a>  <span class="k">def</span> <span class="nf">Generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">yapf_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generating the files.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">      template_path (str): the path to the template directory</span>
+<span class="sd">      yapf_path (str): the path to the yapf style file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_output_handler</span><span class="o">.</span><span class="n">Confirm</span><span class="p">(</span><span class="s1">&#39;Do you want to Generate the files?&#39;</span><span class="p">)</span>
 
     <span class="n">database_suffix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_testfile</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
-    <span class="n">helper</span> <span class="o">=</span> <span class="n">mapping_helper</span><span class="o">.</span><span class="n">MappingHelper</span><span class="p">(</span><span class="n">template_path</span><span class="p">)</span>
+    <span class="n">sqlite_mapping_helper</span> <span class="o">=</span> <span class="n">mapping_helper</span><span class="o">.</span><span class="n">MappingHelper</span><span class="p">(</span>
+        <span class="n">template_path</span><span class="p">,</span> <span class="n">yapf_path</span><span class="p">)</span>
 
     <span class="n">generator</span> <span class="o">=</span> <span class="n">sqlite_generator</span><span class="o">.</span><span class="n">SQLiteGenerator</span><span class="p">(</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">,</span>
@@ -313,13 +387,13 @@
 
     <span class="n">generator</span><span class="o">.</span><span class="n">GenerateSQLitePlugin</span><span class="p">(</span>
         <span class="n">template_path</span><span class="p">,</span> <span class="n">file_handler</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(),</span>
-        <span class="n">formatter_init_mapping</span><span class="o">.</span><span class="n">FormatterInitMapping</span><span class="p">(</span><span class="n">helper</span><span class="p">),</span>
-        <span class="n">parser_init_mapping</span><span class="o">.</span><span class="n">ParserInitMapping</span><span class="p">(</span><span class="n">helper</span><span class="p">),</span>
-        <span class="n">parser_mapping</span><span class="o">.</span><span class="n">ParserMapper</span><span class="p">(</span><span class="n">helper</span><span class="p">),</span>
-        <span class="n">formatter_mapping</span><span class="o">.</span><span class="n">FormatterMapper</span><span class="p">(</span><span class="n">helper</span><span class="p">),</span>
-        <span class="n">parser_test_mapping</span><span class="o">.</span><span class="n">ParserTestMapper</span><span class="p">(</span><span class="n">helper</span><span class="p">),</span>
-        <span class="n">formatter_test_mapping</span><span class="o">.</span><span class="n">FormatterTestMapper</span><span class="p">(</span><span class="n">helper</span><span class="p">),</span>
-        <span class="n">mapping_helper</span><span class="o">.</span><span class="n">MappingHelper</span><span class="p">(</span><span class="n">template_path</span><span class="p">),</span>
+        <span class="n">formatter_init_mapping</span><span class="o">.</span><span class="n">FormatterInitMapping</span><span class="p">(</span><span class="n">sqlite_mapping_helper</span><span class="p">),</span>
+        <span class="n">parser_init_mapping</span><span class="o">.</span><span class="n">ParserInitMapping</span><span class="p">(</span><span class="n">sqlite_mapping_helper</span><span class="p">),</span>
+        <span class="n">parser_mapping</span><span class="o">.</span><span class="n">ParserMapper</span><span class="p">(</span><span class="n">sqlite_mapping_helper</span><span class="p">),</span>
+        <span class="n">formatter_mapping</span><span class="o">.</span><span class="n">FormatterMapper</span><span class="p">(</span><span class="n">sqlite_mapping_helper</span><span class="p">),</span>
+        <span class="n">parser_test_mapping</span><span class="o">.</span><span class="n">ParserTestMapper</span><span class="p">(</span><span class="n">sqlite_mapping_helper</span><span class="p">),</span>
+        <span class="n">formatter_test_mapping</span><span class="o">.</span><span class="n">FormatterTestMapper</span><span class="p">(</span><span class="n">sqlite_mapping_helper</span><span class="p">),</span>
+        <span class="n">sqlite_mapping_helper</span><span class="p">,</span>
         <span class="n">sqlite_database_information</span><span class="o">.</span><span class="n">SQLiteDatabaseInformation</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_query_execution</span><span class="p">))</span></div>
 
@@ -350,7 +424,22 @@
     <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_helper</span><span class="o">.</span><span class="n">IsValidRowName</span><span class="p">(</span><span class="n">row_name</span><span class="p">):</span>
       <span class="n">row_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_handler</span><span class="o">.</span><span class="n">PromptError</span><span class="p">(</span>
           <span class="s1">&#39;Row name is not in a valid format. Choose new Name [RowName...]&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">row_name</span></div>
+    <span class="k">return</span> <span class="n">row_name</span>
+
+  <span class="k">def</span> <span class="nf">_ValidateTimestampString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestamp_string</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Validate the timestamp string and prompt until valid</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">      timestamp_string: the string with the timestamps</span>
+<span class="sd"> </span>
+<span class="sd">    Returns:</span>
+<span class="sd">      str: a comma separated string with timestamps</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugin_helper</span><span class="o">.</span><span class="n">IsValidCommaSeparatedString</span><span class="p">(</span><span class="n">timestamp_string</span><span class="p">):</span>
+      <span class="n">timestamp_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_handler</span><span class="o">.</span><span class="n">PromptError</span><span class="p">(</span>
+          <span class="s1">&#39;Timestamps are not in valid format. Reenter them correctly [name,&#39;</span>
+          <span class="s1">&#39;name...]&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">timestamp_string</span></div>
 </pre></div>
 
           </div>
