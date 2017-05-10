@@ -72,18 +72,19 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       sql_query_data.SQLQueryData: The data to the Query
     """
     data_from_executed_query = self._ExecuteQuery(query, True)
-    duplicate_names = self._type_helper.GetDuplicateColumnNames(
-        data_from_executed_query.columns)
-    if duplicate_names:
-      duplicate_names_as_string = ' '.join(duplicate_names)
-      data_from_executed_query.has_error = True
-      data_from_executed_query.error_message = (
-        'Please use an alias (AS) for '
-        'those column names: {0}'.format(duplicate_names_as_string))
     if not data_from_executed_query.has_error:
-      data_from_executed_query.columns = (
-        self._type_helper.AddMissingTypesFromSchema(
-            data_from_executed_query.columns, query))
+      duplicate_names = self._type_helper.GetDuplicateColumnNames(
+          data_from_executed_query.columns)
+      if duplicate_names:
+        duplicate_names_as_string = ' '.join(duplicate_names)
+        data_from_executed_query.has_error = True
+        data_from_executed_query.error_message = (
+          'Please use an alias (AS) for '
+          'those column names: {0}'.format(duplicate_names_as_string))
+      if not data_from_executed_query.has_error:
+        data_from_executed_query.columns = (
+          self._type_helper.AddMissingTypesFromSchema(
+              data_from_executed_query.columns, query))
 
     return data_from_executed_query
 
@@ -128,12 +129,12 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       Returns:
         sql_query_data.SQLQueryData: The data to the Query
     """
-    query_data = sql_query_data.SQLQueryData()
-    if self._explain.IsReadOnly(query):
-      query_data = self.ExecuteQueryDetailed(query)
-    else:
-      query_data.data = None
-      query_data.has_error = True
-      query_data.error_message = 'Query has to be a single SELECT query.'
-      query_data.columns = None
+    query_data = self.ExecuteQueryDetailed(query)
+    if not query_data.has_error:
+      if not self._explain.IsReadOnly(query):
+        query_data.data = None
+        query_data.has_error = True
+        query_data.error_message = 'Query has to be a single SELECT query.'
+        query_data.columns = None
     return query_data
+
