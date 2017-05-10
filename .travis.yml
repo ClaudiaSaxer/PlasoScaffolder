@@ -18,6 +18,6 @@ install:
   - pip install coveralls
 script: 
   - python src/run_tests.py
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then coverage run --source=src/plasoscaffolder src/run_tests.py test ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then coverage run --source=src/plasoscaffolder src/run_tests_for_coverage.py test ; fi
 after_success:
   if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then coveralls ; fi

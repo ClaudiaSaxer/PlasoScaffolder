@@ -20,35 +20,38 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
     storage_writer = self._ParseDatabaseFileWithPlugin(
         [u'{{ database_name }}'], plugin_object)
 
-    # We should have {{ todo_count_events }} events in total.
-    {% for query in queries %}# - x {{ query.Name }} events.
-    {% endfor %}
-    self.assertEqual({{ todo_count_events }}, len(storage_writer.events))
+    # We should have {{ count_events }} events in total.
+    {% for query in queries %}{% for column in query.timestamp_columns|sort(attribute='sql_column') %}# - {{ query.amount_events }} {{ query.name }} {{ column.sql_column }} events.
+    {% endfor %}{% endfor %}
+    self.assertEqual({{ count_events }}, len(storage_writer.events))
 
-{% for query in queries %}
-    # Test the first {{ query.Name|lower }} todo event.
-    test_event = storage_writer.events[0]
+{% for query in queries %}{% for timestampcolumn in query.timestamp_columns %}
+    # Test the first {{ query.name|lower }} {{ timestampcolumn.sql_column }} event.
+    guessed_event = [
+        e for e in storage_writer.events if{% for datacolumn in query.columns|sort(attribute='sql_column',case_sensitive=False)%}
+        e.{{datacolumn.GetColumnAsSnakeCase()}} == u'{{ datacolumn.GetFirstDataForTimeEvent(timestampcolumn.sql_column)|e|wordwrap(width=64,wrapstring="'\n                 u'")|indent(17)}}'{% if not loop.last %}and{% endif %}{% endfor %}
+    ][0]
+    position = storage_writer.index(guessed_event)
+    test_event = storage_writer.events[position]
+
     expected_timestamp = timelib.Timestamp.CopyFromString(
-        u'todo')
+        u'{{ timestampcolumn.timestamp}}')
     self.assertEqual(test_event.timestamp, expected_timestamp)
 
     self.assertEqual(
       test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
-
-    {% for column in query.Columns|sort(attribute='SQLColumn',case_sensitive=False)%}self.assertEqual(test_event.{{ column.ColumnAsSnakeCase()}}, u'todo')
+    {% for datacolumn in query.columns|sort(attribute='sql_column',case_sensitive=False)%}{% if datacolumn.GetColumnAsSnakeCase()|length + datacolumn.GetFirstDataForTimeEvent(timestampcolumn.sql_column)|e|length < 40 %}self.assertEqual(test_event.{{ datacolumn.GetColumnAsSnakeCase()}}, u'{{datacolumn.GetFirstDataForTimeEvent(timestampcolumn.sql_column)|e}}'){% else %}expected_{{datacolumn.GetColumnAsSnakeCase()}} = (
+        u'{{ datacolumn.GetFirstDataForTimeEvent(timestampcolumn.sql_column)|e|wordwrap(width=64,wrapstring="'\n        u'")|indent(8)}}')
+    self.assertEqual(test_event.{{ datacolumn.GetColumnAsSnakeCase()}}, expected_{{datacolumn.GetColumnAsSnakeCase()}}){% endif %}
     {% endfor %}
-    expected_description = (u'todo')
-    self.assertEqual(test_event.description, expected_description)
-
-    expected_profile_url = ('todo')
-    self.assertEqual(test_event.profile_url, expected_profile_url)
-
-    expected_message = ('todo')
-    expected_message_short = ('todo')
+    expected_message = (
+        u'{{ timestampcolumn.expected_message|e|wordwrap(width=64,wrapstring="'\n        u'")}}')
+    expected_message_short = (
+        u'{{ timestampcolumn.GetShortExpectedMessage()|e|wordwrap(width=64,wrapstring="'\n        u'")}}')
 
     self._TestGetMessageStrings(
         test_event, expected_message, expected_message_short)
-{% endfor %}
+{% endfor %}{% endfor %}
 
 if __name__ == '__main__':
   unittest.main()

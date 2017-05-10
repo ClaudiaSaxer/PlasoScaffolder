@@ -2,3 +2,4 @@ click
 setuptools
 jinja2
 colorama
+yapf

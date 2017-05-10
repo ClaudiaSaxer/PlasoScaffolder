@@ -32,9 +32,9 @@ class FormatterMapper(base_sqliteplugin_mapping.BaseSQLitePluginMapper):
     Returns:
       str: the rendered template
     """
-    class_name = self._helper.GenerateClassName(formatter_data.PluginName)
-    context = {'plugin_name': formatter_data.PluginName,
+    class_name = self._helper.GenerateClassName(formatter_data.plugin_name)
+    context = {'plugin_name': formatter_data.plugin_name,
                'class_name': class_name,
-               'queries': formatter_data.Queries}
+               'queries': formatter_data.queries}
     rendered = self._helper.RenderTemplate(self._FORMATTER_TEMPLATE, context)
     return rendered

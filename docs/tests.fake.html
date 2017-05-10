@@ -142,8 +142,8 @@
 <dd><p>Bases: <a class="reference internal" href="plasoscaffolder.dal.html#plasoscaffolder.dal.base_database_information.BaseDatabaseInformation" title="plasoscaffolder.dal.base_database_information.BaseDatabaseInformation"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.dal.base_database_information.BaseDatabaseInformation</span></code></a></p>
 <p>Class representing the fake SQLite Database validator</p>
 <dl class="method">
-<dt id="tests.fake.fake_sqlite_database_information.FakeSQLiteDatabaseInformation.getTablesFromDatabase">
-<code class="descname">getTablesFromDatabase</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/tests/fake/fake_sqlite_database_information.html#FakeSQLiteDatabaseInformation.getTablesFromDatabase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_database_information.FakeSQLiteDatabaseInformation.getTablesFromDatabase" title="Permalink to this definition">¶</a></dt>
+<dt id="tests.fake.fake_sqlite_database_information.FakeSQLiteDatabaseInformation.GetTablesFromDatabase">
+<code class="descname">GetTablesFromDatabase</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/tests/fake/fake_sqlite_database_information.html#FakeSQLiteDatabaseInformation.GetTablesFromDatabase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_database_information.FakeSQLiteDatabaseInformation.GetTablesFromDatabase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the SQL Query.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -186,13 +186,13 @@ loops while testing)</p>
 
 <dl class="method">
 <dt id="tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.GetDistinctColumnsFromSQLQueryData">
-<code class="descname">GetDistinctColumnsFromSQLQueryData</code><span class="sig-paren">(</span><em>queries: [&lt;class 'plasoscaffolder.dal.base_sql_query_execution.SQLQueryData'&gt;]</em><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/tests/fake/fake_sqlite_plugin_helper.html#FakeSQLitePluginHelper.GetDistinctColumnsFromSQLQueryData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.GetDistinctColumnsFromSQLQueryData" title="Permalink to this definition">¶</a></dt>
+<code class="descname">GetDistinctColumnsFromSQLQueryData</code><span class="sig-paren">(</span><em>queries: [&lt;class 'plasoscaffolder.dal.sql_query_data.SQLQueryData'&gt;]</em><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/tests/fake/fake_sqlite_plugin_helper.html#FakeSQLitePluginHelper.GetDistinctColumnsFromSQLQueryData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.GetDistinctColumnsFromSQLQueryData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a distinct list of all attributes from multiple queries</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>queries</strong> (<em></em><em>[</em><a class="reference internal" href="plasoscaffolder.dal.html#plasoscaffolder.dal.base_sql_query_execution.SQLQueryData" title="plasoscaffolder.dal.base_sql_query_execution.SQLQueryData"><em>base_sql_query_execution.SQLQueryData</em></a><em>]</em><em></em>) &#8211; an array of multiple
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>queries</strong> (<em></em><em>[</em><em>base_sql_query_execution.SQLQueryData</em><em>]</em><em></em>) &#8211; an array of multiple
 sql query data objects</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a distinct list of all attributes used in the query</td>
@@ -224,7 +224,7 @@ loops while testing)</p>
 
 <dl class="method">
 <dt id="tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.RunSQLQuery">
-<code class="descname">RunSQLQuery</code><span class="sig-paren">(</span><em>query: str</em>, <em>executor: &lt;plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution object at 0x05435CB0&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqlite_plugin_helper.html#FakeSQLitePluginHelper.RunSQLQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.RunSQLQuery" title="Permalink to this definition">¶</a></dt>
+<code class="descname">RunSQLQuery</code><span class="sig-paren">(</span><em>query: str</em>, <em>executor: &lt;plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution object at 0x0559E070&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqlite_plugin_helper.html#FakeSQLitePluginHelper.RunSQLQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.RunSQLQuery" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validates the sql Query</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -239,7 +239,7 @@ loops while testing)</p>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the data to the executed Query</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="plasoscaffolder.dal.html#plasoscaffolder.dal.base_sql_query_execution.SQLQueryData" title="plasoscaffolder.dal.base_sql_query_execution.SQLQueryData">base_sql_query_execution.SQLQueryData</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">base_sql_query_execution.SQLQueryData</p>
 </td>
 </tr>
 </tbody>
@@ -265,18 +265,18 @@ loops while testing)</p>
 <p>Base for SQL query validators</p>
 <dl class="class">
 <dt id="tests.fake.fake_sqlite_query_execution.SQLQueryExecution">
-<em class="property">class </em><code class="descclassname">tests.fake.fake_sqlite_query_execution.</code><code class="descname">SQLQueryExecution</code><span class="sig-paren">(</span><em>to_return: plasoscaffolder.dal.base_sql_query_execution.SQLQueryData</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqlite_query_execution.html#SQLQueryExecution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_query_execution.SQLQueryExecution" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">tests.fake.fake_sqlite_query_execution.</code><code class="descname">SQLQueryExecution</code><span class="sig-paren">(</span><em>to_return: plasoscaffolder.dal.sql_query_data.SQLQueryData</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqlite_query_execution.html#SQLQueryExecution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_query_execution.SQLQueryExecution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="plasoscaffolder.dal.html#plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution" title="plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution</span></code></a></p>
 <p>Class representing the SQLite Query validator</p>
 <dl class="method">
-<dt id="tests.fake.fake_sqlite_query_execution.SQLQueryExecution.executeQuery">
-<code class="descname">executeQuery</code><span class="sig-paren">(</span><em>query: str</em>, <em>detailed: bool = False</em><span class="sig-paren">)</span> &#x2192; plasoscaffolder.dal.base_sql_query_execution.SQLQueryData<a class="reference internal" href="_modules/tests/fake/fake_sqlite_query_execution.html#SQLQueryExecution.executeQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_query_execution.SQLQueryExecution.executeQuery" title="Permalink to this definition">¶</a></dt>
+<dt id="tests.fake.fake_sqlite_query_execution.SQLQueryExecution.ExecuteQuery">
+<code class="descname">ExecuteQuery</code><span class="sig-paren">(</span><em>query: str</em>, <em>detailed: bool = False</em><span class="sig-paren">)</span> &#x2192; plasoscaffolder.dal.sql_query_data.SQLQueryData<a class="reference internal" href="_modules/tests/fake/fake_sqlite_query_execution.html#SQLQueryExecution.ExecuteQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_query_execution.SQLQueryExecution.ExecuteQuery" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the SQL Query.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="tests.fake.fake_sqlite_query_execution.SQLQueryExecution.executeReadOnlyQuery">
-<code class="descname">executeReadOnlyQuery</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqlite_query_execution.html#SQLQueryExecution.executeReadOnlyQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_query_execution.SQLQueryExecution.executeReadOnlyQuery" title="Permalink to this definition">¶</a></dt>
+<dt id="tests.fake.fake_sqlite_query_execution.SQLQueryExecution.ExecuteReadOnlyQuery">
+<code class="descname">ExecuteReadOnlyQuery</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqlite_query_execution.html#SQLQueryExecution.ExecuteReadOnlyQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_query_execution.SQLQueryExecution.ExecuteReadOnlyQuery" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the SQL Query if it is read only.</p>
 </dd></dl>
 

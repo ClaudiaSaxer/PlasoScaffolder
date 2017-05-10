@@ -13,17 +13,17 @@ from plaso.lib import eventdata
 from plaso.parsers import sqlite
 from plaso.parsers.sqlite_plugins import interface
 
+
 class ThePluginUsersEventData(events.EventData):
   """the plugin users event data.
 
   TODO: add type and description of attributes
-  Attributes:  
+  Attributes:
     advertiser_account_type (int): TODO
     analytics_type (int): TODO
     bio_entities (bytes): TODO
     business_profile_state (int): TODO
     could_be_stale (int): TODO
-    created_date (float): TODO
     description (str): TODO
     device_following (int): TODO
     extended_profile_fields (bytes): TODO
@@ -49,13 +49,12 @@ class ThePluginUsersEventData(events.EventData):
     screen_name (str): TODO
     statuses_count (int): TODO
     structured_location (bytes): TODO
-    updated_at (float): TODO
     url (str): TODO
     url_entities (bytes): TODO
     verified (int): TODO
   """
 
-  DATA_TYPE = u'the:plugin:users'
+  DATA_TYPE = u'the:plugin:'
 
   def __init__(self):
     """Initializes event data."""
@@ -65,7 +64,6 @@ class ThePluginUsersEventData(events.EventData):
     self.bio_entities = None
     self.business_profile_state = None
     self.could_be_stale = None
-    self.created_date = None
     self.description = None
     self.device_following = None
     self.extended_profile_fields = None
@@ -91,20 +89,19 @@ class ThePluginUsersEventData(events.EventData):
     self.screen_name = None
     self.statuses_count = None
     self.structured_location = None
-    self.updated_at = None
     self.url = None
     self.url_entities = None
     self.verified = None
-    
+
+
 class ThePluginStatusesEventData(events.EventData):
   """the plugin statuses event data.
 
   TODO: add type and description of attributes
-  Attributes:  
+  Attributes:
     card (bytes): TODO
     card_users (bytes): TODO
     card_version (int): TODO
-    date (float): TODO
     entities (bytes): TODO
     extra_scribe_item (bytes): TODO
     favorite_count (int): TODO
@@ -128,13 +125,12 @@ class ThePluginStatusesEventData(events.EventData):
     source (str): TODO
     supplmental_language (str): TODO
     text (str): TODO
-    updated_at (float): TODO
     user_id (int): TODO
     withheld_in_countries (str): TODO
     withheld_scope (str): TODO
   """
 
-  DATA_TYPE = u'the:plugin:statuses'
+  DATA_TYPE = u'the:plugin:'
 
   def __init__(self):
     """Initializes event data."""
@@ -142,7 +138,6 @@ class ThePluginStatusesEventData(events.EventData):
     self.card = None
     self.card_users = None
     self.card_version = None
-    self.date = None
     self.entities = None
     self.extra_scribe_item = None
     self.favorite_count = None
@@ -166,11 +161,10 @@ class ThePluginStatusesEventData(events.EventData):
     self.source = None
     self.supplmental_language = None
     self.text = None
-    self.updated_at = None
     self.user_id = None
     self.withheld_in_countries = None
     self.withheld_scope = None
-    
+
 
 class ThePluginPlugin(interface.SQLitePlugin):
   """Parser for ThePlugin"""
@@ -178,23 +172,15 @@ class ThePluginPlugin(interface.SQLitePlugin):
   NAME = u'the_plugin'
   DESCRIPTION = u'Parser for ThePlugin'
 
-  QUERIES = [ 
-    ((u'select id from users)'),
-     u'ParseUsersRow'),
-    ((u'select id from users)'),
-     u'ParseStatusesRow')]
+  QUERIES = [((u'select * from users)'), u'ParseUsersRow'), ((
+      u'select * from users)'), u'ParseStatusesRow')]
 
   REQUIRED_TABLES = frozenset([
-      u'Lists',
-      u'ListsShadow',
-      u'MyRetweets',
-      u'Statuses',
-      u'StatusesShadow',
-      u'Users',
-      u'UsersShadow'])
+      u'Lists', u'ListsShadow', u'MyRetweets', u'Statuses', u'StatusesShadow',
+      u'Users', u'UsersShadow'
+  ])
 
-
-  def ParseUsersRow(self,  parser_mediator, row, query=None, **unused_kwargs):
+  def ParseUsersRow(self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:
@@ -206,54 +192,60 @@ class ThePluginPlugin(interface.SQLitePlugin):
     # Note that pysqlite does not accept a Unicode string in row['string'] and
     # will raise "IndexError: Index must be int or string".
 
-    event_data = ThePluginUsersEventData()
-    event_data.advertiser_account_type = row['advertiserAccountType']
-    event_data.analytics_type = row['analyticsType']
-    event_data.bio_entities = row['bioEntities']
-    event_data.business_profile_state = row['businessProfileState']
-    event_data.could_be_stale = row['couldBeStale']
-    event_data.created_date = row['createdDate']
-    event_data.description = row['description']
-    event_data.device_following = row['deviceFollowing']
-    event_data.extended_profile_fields = row['extendedProfileFields']
-    event_data.favorites_count = row['favoritesCount']
-    event_data.followers_count = row['followersCount']
-    event_data.followers_count_fast = row['followersCountFast']
-    event_data.followers_count_normal = row['followersCountNormal']
-    event_data.following = row['following']
-    event_data.following_count = row['followingCount']
-    event_data.has_collections = row['hasCollections']
-    event_data.has_extended_profile_fields = row['hasExtendedProfileFields']
-    event_data.id = row['id']
-    event_data.is_lifeline_institution = row['isLifelineInstitution']
-    event_data.is_translator = row['isTranslator']
-    event_data.location = row['location']
-    event_data.media_count = row['mediaCount']
-    event_data.name = row['name']
-    event_data.pinned_tweet_id = row['pinnedTweetId']
-    event_data.profile_banner_url = row['profileBannerUrl']
-    event_data.profile_image_url = row['profileImageUrl']
-    event_data.profile_link_color_hex_triplet = row['profileLinkColorHexTriplet']
-    event_data.protected = row['protected']
-    event_data.screen_name = row['screenName']
-    event_data.statuses_count = row['statusesCount']
-    event_data.structured_location = row['structuredLocation']
-    event_data.updated_at = row['updatedAt']
-    event_data.url = row['url']
-    event_data.url_entities = row['urlEntities']
-    event_data.verified = row['verified']
-    
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
+    event_data = ThePluginEventData()
+    event_data.advertiser_account_type = row['']
+    event_data.analytics_type = row['']
+    event_data.bio_entities = row['']
+    event_data.business_profile_state = row['']
+    event_data.could_be_stale = row['']
+    event_data.description = row['']
+    event_data.device_following = row['']
+    event_data.extended_profile_fields = row['']
+    event_data.favorites_count = row['']
+    event_data.followers_count = row['']
+    event_data.followers_count_fast = row['']
+    event_data.followers_count_normal = row['']
+    event_data.following = row['']
+    event_data.following_count = row['']
+    event_data.has_collections = row['']
+    event_data.has_extended_profile_fields = row['']
+    event_data.id = row['']
+    event_data.is_lifeline_institution = row['']
+    event_data.is_translator = row['']
+    event_data.location = row['']
+    event_data.media_count = row['']
+    event_data.name = row['']
+    event_data.pinned_tweet_id = row['']
+    event_data.profile_banner_url = row['']
+    event_data.profile_image_url = row['']
+    event_data.profile_link_color_hex_triplet = row['']
+    event_data.protected = row['']
+    event_data.screen_name = row['']
+    event_data.statuses_count = row['']
+    event_data.structured_location = row['']
+    event_data.url = row['']
+    event_data.url_entities = row['']
+    event_data.verified = row['']
+
+    timestamp = row['createdDate']
     if timestamp:
-    # Convert the floating point value to an integer.
+      # Convert the floating point value to an integer.
       timestamp = int(timestamp)
       date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
       # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
       event = time_events.DateTimeValuesEvent(date_time, None)
       parser_mediator.ProduceEventWithEventData(event, event_data)
 
-  def ParseStatusesRow(self,  parser_mediator, row, query=None, **unused_kwargs):
+    timestamp = row['updatedAt']
+    if timestamp:
+      # Convert the floating point value to an integer.
+      timestamp = int(timestamp)
+      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
+      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
+      event = time_events.DateTimeValuesEvent(date_time, None)
+      parser_mediator.ProduceEventWithEventData(event, event_data)
+
+  def ParseStatusesRow(self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:
@@ -265,43 +257,49 @@ class ThePluginPlugin(interface.SQLitePlugin):
     # Note that pysqlite does not accept a Unicode string in row['string'] and
     # will raise "IndexError: Index must be int or string".
 
-    event_data = ThePluginStatusesEventData()
-    event_data.card = row['card']
-    event_data.card_users = row['cardUsers']
-    event_data.card_version = row['cardVersion']
-    event_data.date = row['date']
-    event_data.entities = row['entities']
-    event_data.extra_scribe_item = row['extraScribeItem']
-    event_data.favorite_count = row['favoriteCount']
-    event_data.favorited = row['favorited']
-    event_data.full_text_length = row['fullTextLength']
-    event_data.geotag = row['geotag']
-    event_data.id = row['id']
-    event_data.include_in_profile_timeline = row['includeInProfileTimeline']
-    event_data.in_reply_to_status_id = row['inReplyToStatusId']
-    event_data.in_reply_to_username = row['inReplyToUsername']
-    event_data.is_lifeline_alert = row['isLifelineAlert']
-    event_data.is_possibly_sensitive_appealable = row['isPossiblySensitiveAppealable']
-    event_data.is_truncated = row['isTruncated']
-    event_data.lang = row['lang']
-    event_data.possibly_sensitive = row['possiblySensitive']
-    event_data.preview_length = row['previewLength']
-    event_data.primary_card_type = row['primaryCardType']
-    event_data.quoted_status_id = row['quotedStatusId']
-    event_data.retweet_count = row['retweetCount']
-    event_data.retweeted_status_id = row['retweetedStatusId']
-    event_data.source = row['source']
-    event_data.supplmental_language = row['supplmentalLanguage']
-    event_data.text = row['text']
-    event_data.updated_at = row['updatedAt']
-    event_data.user_id = row['userId']
-    event_data.withheld_in_countries = row['withheldInCountries']
-    event_data.withheld_scope = row['withheldScope']
-    
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
+    event_data = ThePluginEventData()
+    event_data.card = row['']
+    event_data.card_users = row['']
+    event_data.card_version = row['']
+    event_data.entities = row['']
+    event_data.extra_scribe_item = row['']
+    event_data.favorite_count = row['']
+    event_data.favorited = row['']
+    event_data.full_text_length = row['']
+    event_data.geotag = row['']
+    event_data.id = row['']
+    event_data.include_in_profile_timeline = row['']
+    event_data.in_reply_to_status_id = row['']
+    event_data.in_reply_to_username = row['']
+    event_data.is_lifeline_alert = row['']
+    event_data.is_possibly_sensitive_appealable = row['']
+    event_data.is_truncated = row['']
+    event_data.lang = row['']
+    event_data.possibly_sensitive = row['']
+    event_data.preview_length = row['']
+    event_data.primary_card_type = row['']
+    event_data.quoted_status_id = row['']
+    event_data.retweet_count = row['']
+    event_data.retweeted_status_id = row['']
+    event_data.source = row['']
+    event_data.supplmental_language = row['']
+    event_data.text = row['']
+    event_data.user_id = row['']
+    event_data.withheld_in_countries = row['']
+    event_data.withheld_scope = row['']
+
+    timestamp = row['date']
     if timestamp:
-    # Convert the floating point value to an integer.
+      # Convert the floating point value to an integer.
+      timestamp = int(timestamp)
+      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
+      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
+      event = time_events.DateTimeValuesEvent(date_time, None)
+      parser_mediator.ProduceEventWithEventData(event, event_data)
+
+    timestamp = row['updatedAt']
+    if timestamp:
+      # Convert the floating point value to an integer.
       timestamp = int(timestamp)
       date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
       # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME

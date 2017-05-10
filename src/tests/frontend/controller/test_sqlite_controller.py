@@ -8,10 +8,11 @@ import tempfile
 import unittest
 from unittest import mock
 
+from plasoscaffolder.bll.services import sqlite_plugin_helper
 from plasoscaffolder.common import file_handler
-from plasoscaffolder.dal import base_sql_query_execution
+from plasoscaffolder.dal import sql_query_data
 from plasoscaffolder.frontend.controller import sqlite_controller
-from plasoscaffolder.model import sql_query_model
+from plasoscaffolder.model import sql_query_column_model, sql_query_model
 from tests.fake import fake_sqlite_plugin_helper
 from tests.fake import fake_sqlite_query_execution
 from tests.test_helper import output_handler_file
@@ -78,7 +79,7 @@ class SQLiteControllerTest(unittest.TestCase):
     """test method CreateEventModelWithUserInput"""
 
     fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
-        base_sql_query_execution.SQLQueryData(has_error=False)
+        sql_query_data.SQLQueryData(has_error=False)
     )
     sql_query = 'SELECT createdDate FROM Users ORDER BY createdDate'
     name = 'Contact'
@@ -93,6 +94,7 @@ class SQLiteControllerTest(unittest.TestCase):
           folder_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
+      controller.GetTimestamps = mock.MagicMock(return_value=([], []))
       actual = controller._CreateSQLQueryModelWithUserInput(sql_query, False,
                                                             fake_execution)
       prompt_output_actual = self._ReadFromFile(path)
@@ -100,20 +102,21 @@ class SQLiteControllerTest(unittest.TestCase):
                                 'Do you want to name the query parse row:  ?'
                                 'Does the event  need customizing?')
 
-      expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
+                                               0)
 
-      self.assertEqual(actual.Name, '')
-      self.assertEqual(expected.Query, actual.Query)
+      self.assertEqual(actual.name, '')
+      self.assertEqual(expected.query, actual.query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
   def testCreateSQLQueryModelWithUserInputWithExamplesAndFourDataExamples(self):
     """test method CreateEventModelWithUserInput with examples"""
 
     fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
-        base_sql_query_execution.SQLQueryData(
+        sql_query_data.SQLQueryData(
             has_error=False, data=['first', 'second', 'third', 'fourth'],
-            columns=[type('Columns', (object,), {'SQLColumn': 'id'}),
-                     type('Columns', (object,), {'SQLColumn': 'name'})])
+            columns=[type('columns', (object,), {'sql_column': 'id'}),
+                     type('columns', (object,), {'sql_column': 'name'})])
     )
     sql_query = 'SELECT id from Users'
     name = 'Contact'
@@ -128,6 +131,7 @@ class SQLiteControllerTest(unittest.TestCase):
           folder_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
+      controller.GetTimestamps = mock.MagicMock(return_value=([], []))
       actual = controller._CreateSQLQueryModelWithUserInput(sql_query, True,
                                                             fake_execution)
       prompt_output_actual = self._ReadFromFile(path)
@@ -140,20 +144,21 @@ class SQLiteControllerTest(unittest.TestCase):
                                 'Do you want to name the query parse row:  ?'
                                 'Does the event  need customizing?')
 
-      expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
+                                               0)
 
-      self.assertEqual(actual.Name, '')
-      self.assertEqual(expected.Query, actual.Query)
+      self.assertEqual(actual.name, '')
+      self.assertEqual(expected.query, actual.query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
   def testCreateSQLQueryModelWithUserInputWithExamplesAndTwoDataExamples(self):
     """test method CreateEventModelWithUserInput with examples"""
 
     fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
-        base_sql_query_execution.SQLQueryData(
+        sql_query_data.SQLQueryData(
             has_error=False, data=['first', 'second'],
-            columns=[type('Columns', (object,), {'SQLColumn': 'id'}),
-                     type('Columns', (object,), {'SQLColumn': 'name'})])
+            columns=[type('columns', (object,), {'sql_column': 'id'}),
+                     type('columns', (object,), {'sql_column': 'name'})])
     )
     sql_query = 'SELECT id from Users'
     name = 'Contact'
@@ -168,6 +173,7 @@ class SQLiteControllerTest(unittest.TestCase):
           folder_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
+      controller.GetTimestamps = mock.MagicMock(return_value=([], []))
       actual = controller._CreateSQLQueryModelWithUserInput(sql_query, True,
                                                             fake_execution)
       prompt_output_actual = self._ReadFromFile(path)
@@ -179,20 +185,21 @@ class SQLiteControllerTest(unittest.TestCase):
                                 'Do you want to name the query parse row:  ?'
                                 'Does the event  need customizing?')
 
-      expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
+                                               0)
 
-      self.assertEqual(actual.Name, '')
-      self.assertEqual(expected.Query, actual.Query)
+      self.assertEqual(actual.name, '')
+      self.assertEqual(expected.query, actual.query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
   def testCreateSQLQueryModelWithUserInputWithExamplesAndOneDataExamples(self):
     """test method CreateEventModelWithUserInput with examples"""
 
     fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
-        base_sql_query_execution.SQLQueryData(
+        sql_query_data.SQLQueryData(
             has_error=False, data=['first'],
-            columns=[type('Columns', (object,), {'SQLColumn': 'id'}),
-                     type('Columns', (object,), {'SQLColumn': 'name'})])
+            columns=[type('columns', (object,), {'sql_column': 'id'}),
+                     type('columns', (object,), {'sql_column': 'name'})])
     )
     sql_query = 'SELECT id from Users'
     name = 'Contact'
@@ -207,6 +214,7 @@ class SQLiteControllerTest(unittest.TestCase):
           folder_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
+      controller.GetTimestamps = mock.MagicMock(return_value=([], []))
       actual = controller._CreateSQLQueryModelWithUserInput(sql_query, True,
                                                             fake_execution)
       prompt_output_actual = self._ReadFromFile(path)
@@ -217,10 +225,11 @@ class SQLiteControllerTest(unittest.TestCase):
                                 'Do you want to name the query parse row:  ?'
                                 'Does the event  need customizing?')
 
-      expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
+                                               0)
 
-      self.assertEqual(actual.Name, '')
-      self.assertEqual(expected.Query, actual.Query)
+      self.assertEqual(actual.name, '')
+      self.assertEqual(expected.query, actual.query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
   def testCreateSQLQueryModelWithUserInputExamplesNewRowNameValidationError(
@@ -228,10 +237,10 @@ class SQLiteControllerTest(unittest.TestCase):
     """test method CreateEventModelWithUserInput with examples"""
 
     fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
-        base_sql_query_execution.SQLQueryData(
+        sql_query_data.SQLQueryData(
             has_error=False, data=['first'],
-            columns=[type('Columns', (object,), {'SQLColumn': 'id'}),
-                     type('Columns', (object,), {'SQLColumn': 'name'})])
+            columns=[type('columns', (object,), {'sql_column': 'id'}),
+                     type('columns', (object,), {'sql_column': 'name'})])
     )
     sql_query = 'SELECT id from Users'
     name = 'Contact'
@@ -250,29 +259,31 @@ class SQLiteControllerTest(unittest.TestCase):
           change_bool_after_every_call_valid_row_name=True)
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
+      controller.GetTimestamps = mock.MagicMock(return_value=([], []))
       actual = controller._CreateSQLQueryModelWithUserInput(sql_query, True,
                                                             fake_execution)
       prompt_output_actual = self._ReadFromFile(path)
-      prompt_output_expected = ('Your query output could look like this.'
-                                '[\'id\', \'name\']'
-                                'first'
-                                'Do you want to add this query?'
-                                'Do you want to name the query parse row:  ?'
-                                'What row does the SQL Query parse?'
-                                'Row name is not in a valid format. Choose '
-                                'new Name [RowName...]'
-                                'Does the event TheCorrectContanctName need '
-                                'customizing?')
-      expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
-      self.assertEqual(actual.Name, name2)
-      self.assertEqual(expected.Query, actual.Query)
+      prompt_output_expected = (
+        'Your query output could look like this.'
+        '[\'id\', \'name\']'
+        'first'
+        'Do you want to add this query?'
+        'Do you want to name the query parse row:  ?'
+        'What row does the SQL Query parse?'
+        'Row name is not in a valid format. Choose new Name [RowName...]'
+        'Does the event TheCorrectContanctName need customizing?')
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
+                                               0)
+
+      self.assertEqual(actual.name, name2)
+      self.assertEqual(expected.query, actual.query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
   def testCreateSQLQueryModelWithUserInputWithExamplesAndNoDataFromQuery(self):
     """test method CreateEventModelWithUserInput with examples"""
 
     fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
-        base_sql_query_execution.SQLQueryData(has_error=False, data=[])
+        sql_query_data.SQLQueryData(has_error=False, data=[])
     )
     sql_query = 'SELECT id from Users'
     name = 'Contact'
@@ -287,6 +298,7 @@ class SQLiteControllerTest(unittest.TestCase):
           folder_exists=True)
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
+      controller.GetTimestamps = mock.MagicMock(return_value=([], []))
       actual = controller._CreateSQLQueryModelWithUserInput(sql_query, True,
                                                             fake_execution)
       prompt_output_actual = self._ReadFromFile(path)
@@ -295,18 +307,19 @@ class SQLiteControllerTest(unittest.TestCase):
                                 'Do you want to name the query parse row:  ?'
                                 'Does the event  need customizing?')
 
-      expected = sql_query_model.SQLQueryModel(sql_query, name, [], False)
+      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
+                                               0)
 
-      self.assertEqual(actual.Name, '')
-      self.assertEqual(expected.Query, actual.Query)
+      self.assertEqual(actual.name, '')
+      self.assertEqual(expected.query, actual.query)
       self.assertEqual(prompt_output_expected, prompt_output_actual)
 
   def testCreateSQLQueryModelWithUserInputWithError(self):
     """test method CreateEventModelWithUserInput"""
     error_message = "Some Error..."
     fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
-        base_sql_query_execution.SQLQueryData(has_error=True,
-                                              error_message=error_message)
+        sql_query_data.SQLQueryData(has_error=True,
+                                    error_message=error_message)
     )
     sql_query = 'SELECT createdDate FROM Users ORDER BY createdDate'
     name = 'Contact'
@@ -337,7 +350,7 @@ class SQLiteControllerTest(unittest.TestCase):
                                                       plugin_helper)
 
       controller._CreateSQLQueryModelWithUserInput = mock.MagicMock(
-          return_value=base_sql_query_execution.SQLQueryData(
+          return_value=sql_query_data.SQLQueryData(
               data='test', has_error=False, error_message=None))
 
       actual = controller.SQLQuery(None, None, True)
@@ -345,13 +358,40 @@ class SQLiteControllerTest(unittest.TestCase):
       prompt_output_actual = self._ReadFromFile(path)
 
       prompt_output_expected = ('Please write your SQL script for the '
-                                'pluginDo you want to add another Query?')
+                                'plugin [\'abort\' to '
+                                'continue]Do you want to add another Query?')
 
       self.assertEqual(len(actual), 1)
       self.assertEqual(actual[0].data, 'test')
       self.assertEqual(actual[0].has_error, False)
       self.assertEqual(actual[0].error_message, None)
       self.assertEqual(prompt_output_actual, prompt_output_expected)
+
+  def testSqlQueryWithAbort(self):
+    """test method after getting the source path from the user using abort"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_info='abort')
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper()
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+
+      controller._CreateSQLQueryModelWithUserInput = mock.MagicMock(
+          return_value=sql_query_data.SQLQueryData(
+              data='test', has_error=False, error_message=None))
+
+      actual = controller.SQLQuery(None, None, True)
+
+      prompt_output_actual = self._ReadFromFile(path)
+
+      prompt_output_expected = ('Please write your SQL script for the '
+                                'plugin [\'abort\' to '
+                                'continue]')
+
+      self.assertEqual(len(actual), 0)
 
   def testSqlQueryMultiple(self):
     """test method after getting the source path from the user"""
@@ -366,13 +406,15 @@ class SQLiteControllerTest(unittest.TestCase):
                                                       plugin_helper)
 
       controller._CreateSQLQueryModelWithUserInput = mock.MagicMock(
-          return_value=base_sql_query_execution.SQLQueryData(
+          return_value=sql_query_data.SQLQueryData(
               data='test', has_error=False, error_message=None))
 
       actual = controller.SQLQuery(None, None, True)
 
       prompt_output_expected = ('Please write your SQL script for the '
-                                'pluginDo you want to add another Query?') * 3
+                                'plugin [\'abort\' to '
+                                'continue]Do you want to add another Query?') \
+                               * 3
 
       prompt_output_actual = self._ReadFromFile(path)
       self.assertEqual(len(actual), 3)
@@ -504,47 +546,118 @@ class SQLiteControllerTest(unittest.TestCase):
       self.assertEqual(expected, actual)
       self.assertEqual(valid, 'valid_name')
 
+  def testValidateRowNameNameIfOk(self):
+    """test the validate row name method if ok"""
+    plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+        valid_name=True)
+    controller = sqlite_controller.SQLiteController(None, plugin_helper)
+    valid = controller._ValidateRowName("TheRowName")
+    self.assertEqual(valid, 'TheRowName')
+
+  def testValidateRowNameIfNotOk(self):
+    """test the validate row name method if not ok"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_error='TheValidRowName')
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+          valid_row_name=False,
+          change_bool_after_every_call_valid_row_name=True)
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+      valid = controller._ValidateRowName("theWrongName")
+      expected = ('Row name is not in a valid format. Choose new Name ['
+                  'RowName...]')
+      actual = self._ReadFromFile(path)
+      print(actual)
+      self.assertEqual(expected, actual)
+      self.assertEqual(valid, 'TheValidRowName')
+
+  def testValidateTimestampStringIfOk(self):
+    """test the validate timestamp string method if ok"""
+    plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+        valid_name=True)
+    controller = sqlite_controller.SQLiteController(None, plugin_helper)
+    valid = controller._ValidateTimestampString("this,that,bla")
+    self.assertEqual(valid, 'this,that,bla')
+
+  def testValidateTimestampStringIfNotOk(self):
+    """test the validate timestamp string method if not ok"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_error='this,that,bla')
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+          valid_comma_separated_string=False,
+          change_bool_after_every_call_valid_comma_separated_string=True)
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+      valid = controller._ValidateTimestampString("this, that,bla")
+      expected = (
+        'Timestamps are not in valid format. Reenter them correctly [name,'
+        'name...]')
+      actual = self._ReadFromFile(path)
+      print(actual)
+      self.assertEqual(expected, actual)
+      self.assertEqual(valid, 'this,that,bla')
+
   def testCreateSQLQueryModelWithUserInput(self):
     """test the creation of the sql Query model with the user input"""
     query = "select x "
     with_examples = True
     query_execution = fake_sqlite_query_execution.SQLQueryExecution(
-        base_sql_query_execution.SQLQueryData(
-            data=['first', 'second', 'third', 'fourth'], columns=[]))
+        sql_query_data.SQLQueryData(
+            data=['first', 'second', 'third', 'fourth'],
+            columns=[sql_query_column_model.SQLColumnModel('that')]))
 
     with tempfile.TemporaryDirectory() as tmpdir:
       path = os.path.join(tmpdir, 'testfile')
       pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler())
-      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper()
+          path, file_handler.FileHandler(), confirm_amount_same=3,
+          prompt_info='that,other')
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+          assumed_timestamps=['test'],
+      )
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
       model = controller._CreateSQLQueryModelWithUserInput(
           query, with_examples, query_execution
       )
-      expected = ('Your query output could look like this.'
-                  '[]'
-                  'first'
-                  'second'
-                  'third'
-                  'Do you want to add this query?'
-                  'Do you want to name the query parse row:  ?'
-                  'Does the event  need customizing?')
+      expected = (
+        'Your query output could look like this.'
+        '[\'that\']'
+        'first'
+        'second'
+        'third'
+        'Do you want to add this query?'
+        'Do you want to name the query parse row:  ?'
+        'Does the event  need customizing?'
+        'Is the column a time event? test'
+        'Enter (additional) timestamp events from the query [columnName,'
+        'aliasName...] or [abort]'
+        'At least one timestamp is required, please add a timestamp'
+        'Added: that'
+        'Failed: other'
+        'Do you want to add more timestamps?')
 
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
-      self.assertTrue(model.NeedsCustomizing)
-      self.assertEqual(model.Query, query.strip())
-      self.assertEqual(model.Columns, [])
+      self.assertTrue(model.needs_customizing)
+      self.assertEqual(model.query, query.strip())
+      self.assertEqual(model.columns, [])
 
   def testCreateSQLQueryModelWithUserInputNotAdding(self):
     """test the creation of the sql Query model with the user input"""
     query = "select x"
     with_examples = True
     query_execution = fake_sqlite_query_execution.SQLQueryExecution(
-        base_sql_query_execution.SQLQueryData(
+        sql_query_data.SQLQueryData(
             data=['first', 'second', 'third'], columns=[]))
 
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -573,13 +686,14 @@ class SQLiteControllerTest(unittest.TestCase):
   def testGenerateIfConfirmed(self):
     """ test the generate if confirmed"""
     template_path = path_helper.TemplatePath()
+    yapf_path = path_helper.YapfStyleFilePath()
 
     with tempfile.TemporaryDirectory() as tmpdir:
       file = os.path.join(tmpdir, 'testfile')
       pathlib.Path(file).touch()
 
       fake_execution = fake_sqlite_query_execution.SQLQueryExecution(
-          base_sql_query_execution.SQLQueryData(has_error=False, data=[(1, 2)])
+          sql_query_data.SQLQueryData(has_error=False, data=[(1, 2)])
       )
 
       output_handler = output_handler_file.OutputHandlerFile(
@@ -593,7 +707,7 @@ class SQLiteControllerTest(unittest.TestCase):
       controller._name = "the_plugin"
       controller._testfile = file
       controller._query_execution = fake_execution
-      controller.Generate(template_path)
+      controller.Generate(template_path, yapf_path)
       file1 = os.path.join(tmpdir, 'plaso', 'formatters', 'the_plugin.py')
       file2 = os.path.join(tmpdir, 'plaso', 'parsers', 'sqlite_plugins',
                            'the_plugin.py')
@@ -628,7 +742,7 @@ class SQLiteControllerTest(unittest.TestCase):
             change_bool_after_every_call_valid_name=True)
         controller = sqlite_controller.SQLiteController(output_handler,
                                                         plugin_helper)
-        controller.Generate('not used')
+        controller.Generate('not used', 'not used')
 
         self.assertFalse(template_path)
 
@@ -645,6 +759,163 @@ class SQLiteControllerTest(unittest.TestCase):
     actual = controller._IsDatabaseFile(
         os.path.join(path_helper.TestDatabasePath(), 'twitter_ios_error.db'))
     self.assertFalse(actual)
+
+  def testGetTimestampWithFake(self):
+    """test the function GetTimestamp"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_info='that,other',
+          confirm_amount_same=1)
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+          assumed_timestamps=['test'],
+          columns_and_timestamp_column=(['this'], ['that'])
+      )
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+      columns = [sql_query_column_model.SQLColumnModel('this'),
+                 sql_query_column_model.SQLColumnModel('that'),
+                 sql_query_column_model.SQLColumnModel('test')]
+
+      model = controller.GetTimestamps(columns,[])
+      expected = (
+        'Is the column a time event? '
+        'testEnter (additional) timestamp events from the query '
+        '[columnName,aliasName...] or [abort]'
+        'Added: test,that'
+        'Failed: other'
+        'Do you want to add more timestamps?')
+
+      actual = self._ReadFromFile(path)
+      self.assertEqual(expected, actual)
+      self.assertEqual(len(model[0]), 1)
+      self.assertEqual(len(model[1]), 1)
+
+  def testGetTimestampNormal(self):
+    """test the function GetTimestamp"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_info='thisdate,other,test',
+          confirm_amount_same=2)
+      plugin_helper = sqlite_plugin_helper.SQLitePluginHelper()
+      controller = sqlite_controller.SQLiteController(
+          output_handler, plugin_helper)
+
+      columns = [sql_query_column_model.SQLColumnModel('this'),
+                 sql_query_column_model.SQLColumnModel('that'),
+                 sql_query_column_model.SQLColumnModel('test'),
+                 sql_query_column_model.SQLColumnModel('thisdate'),
+                 sql_query_column_model.SQLColumnModel('timethat')
+                 ]
+
+      model = controller.GetTimestamps(columns,[])
+      expected = (
+        'Is the column a time event? thisdate'
+        'Is the column a time event? timethat'
+        'Enter (additional) timestamp events from the query '
+        '[columnName,aliasName...] or [abort]'
+        'Added: test,thisdate,timethat'
+        'Failed: other'
+        'Do you want to add more timestamps?'
+      )
+
+      actual = self._ReadFromFile(path)
+      self.assertEqual(expected, actual)
+      self.assertEqual(len(model[0]), 2)
+      self.assertEqual(len(model[1]), 3)
+      self.assertEqual(model[0][0].sql_column, 'this')
+      self.assertEqual(model[0][1].sql_column, 'that')
+      self.assertEqual(model[1][0].sql_column, 'test')
+      self.assertEqual(model[1][1].sql_column, 'thisdate')
+      self.assertEqual(model[1][2].sql_column, 'timethat')
+
+  def testGetTimestampRefuseATimeEvent(self):
+    """test the function GetTimestamp"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_info='test,other',
+          confirm_amount_same=1)
+      plugin_helper = sqlite_plugin_helper.SQLitePluginHelper()
+      controller = sqlite_controller.SQLiteController(
+          output_handler, plugin_helper)
+
+      columns = [sql_query_column_model.SQLColumnModel('this'),
+                 sql_query_column_model.SQLColumnModel('that'),
+                 sql_query_column_model.SQLColumnModel('test'),
+                 sql_query_column_model.SQLColumnModel('thisdate'),
+                 sql_query_column_model.SQLColumnModel('timethat')
+                 ]
+
+      model = controller.GetTimestamps(columns,[])
+      expected = (
+        'Is the column a time event? thisdate'
+        'Is the column a time event? timethat'
+        'Enter (additional) timestamp events from the query '
+        '[columnName,aliasName...] or [abort]'
+        'Added: test,thisdate'
+        'Failed: other'
+        'Do you want to add more timestamps?'
+      )
+
+      actual = self._ReadFromFile(path)
+      self.assertEqual(expected, actual)
+      self.assertEqual(len(model[0]), 3)
+      self.assertEqual(len(model[1]), 2)
+      self.assertEqual(model[0][0].sql_column, 'this')
+      self.assertEqual(model[0][1].sql_column, 'that')
+      self.assertEqual(model[0][2].sql_column, 'timethat')
+      self.assertEqual(model[1][0].sql_column, 'test')
+      self.assertEqual(model[1][1].sql_column, 'thisdate')
+
+  def testGetTimestampRefuseAllTimeEvent(self):
+    """test the function GetTimestamp"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_info='test,other',
+          confirm=False)
+      plugin_helper = sqlite_plugin_helper.SQLitePluginHelper()
+      controller = sqlite_controller.SQLiteController(
+          output_handler, plugin_helper)
+
+      columns = [sql_query_column_model.SQLColumnModel('this'),
+                 sql_query_column_model.SQLColumnModel('that'),
+                 sql_query_column_model.SQLColumnModel('test'),
+                 sql_query_column_model.SQLColumnModel('thisdate'),
+                 sql_query_column_model.SQLColumnModel('timethat')
+                 ]
+
+      model = controller.GetTimestamps(columns,[])
+      expected = (
+        'Is the column a time event? this'
+        'dateIs the column a time event? timethat'
+        'Enter (additional) timestamp events from the query '
+        '[columnName,aliasName...] or [abort]'
+        'At least one timestamp is required, please add a timestamp'
+        'Added: test'
+        'Failed: other'
+        'Do you want to add more timestamps?'
+      )
+
+      actual = self._ReadFromFile(path)
+      self.assertEqual(expected, actual)
+      self.assertEqual(len(model[0]), 4)
+      self.assertEqual(len(model[1]), 1)
+      self.assertEqual(model[0][0].sql_column, 'this')
+      self.assertEqual(model[0][1].sql_column, 'that')
+      self.assertEqual(model[0][2].sql_column, 'thisdate')
+      self.assertEqual(model[0][3].sql_column, 'timethat')
+      self.assertEqual(model[1][0].sql_column, 'test')
 
   def _ReadFromFile(self, path: str):
     """Read from file

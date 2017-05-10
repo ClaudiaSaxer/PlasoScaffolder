@@ -4,6 +4,10 @@ import abc
 
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
 from plasoscaffolder.dal import base_sql_query_execution
+from plasoscaffolder.dal import sql_query_data
+from plasoscaffolder.model import sql_query_column_model
+from plasoscaffolder.model import sql_query_column_model_data
+from plasoscaffolder.model import sql_query_column_model_timestamp
 from plasoscaffolder.model import sql_query_model
 
 
@@ -71,20 +75,34 @@ class BaseSQLitePluginHelper(object):
     """
 
   @abc.abstractmethod
-  def RunSQLQuery(self, query: str,
-                  executor: base_sql_query_execution.BaseSQLQueryExecution):
+  def IsValidCommaSeparatedString(self, text: str) -> bool:
+    """Validates a comma separated string
+
+    Args:
+      text (str): the string to validate
+
+    Returns:
+      bool: true if the text is valide
+    """
+
+  @abc.abstractmethod
+  def RunSQLQuery(
+      self, query: str,
+      executor: base_sql_query_execution.BaseSQLQueryExecution
+  ) -> sql_query_data.SQLQueryData:
     """ Validates the sql query
 
     Args:
-      executor (base_sql_query_execution.SQLQueryExecution): to validate the
+      executor (base_sql_query_execution.SQLiteQueryExecution): to validate the
         SQL queries provided by the user
       query (str): the SQL query
 
     Returns:
-      base_sql_query_execution.SQLQueryData: data returned by executing the
+      sql_query_data.SQLQueryData: data returned by executing the
         query
     """
 
+  @abc.abstractmethod
   def GetDistinctColumnsFromSQLQueryData(
       self,
       queries: [sql_query_model.SQLQueryModel]) -> [str]:
@@ -97,4 +115,37 @@ class BaseSQLitePluginHelper(object):
 
     Returns:
       list[str]: all distinct attributes used in the query
+    """
+
+  @abc.abstractmethod
+  def GetAssumedTimestamps(self, columns: [sql_query_column_model]) -> [str]:
+    """Gets all columns assumed that they are timestamps
+
+    Args:
+      columns ([sql_query_column_model]): the columns from the query
+
+    Returns:
+      [str]: the names from the columns assumed they could be a timestamp
+    """
+
+  @abc.abstractmethod
+  def GetColumnsAndTimestampColumn(
+      self, columns: [sql_query_column_model.SQLColumnModel],
+      timestamps: [str], data: [str]) -> (
+      [sql_query_column_model_data.SQLColumnModelData],
+      [sql_query_column_model_timestamp.SQLColumnModelTimestamp]):
+    """Splits the column list into a list of simple columns and a list for
+    timestamp event columns and adds the data to the simple columns
+
+    Args:
+      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns 
+          from the SQL query
+      timestamps ([str]): the timestamp events
+      data ([str]): the data from the cursor
+
+    Returns:
+      ([sql_query_column_model_data.SQLColumnModelData],
+          [sql_query_column_model_timestamp.SQLColumnModelTimestamp): a tuple 
+          of columns,
+          the first are the normal columns, the second are the timestamp events
     """

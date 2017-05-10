@@ -68,12 +68,12 @@
 
     <span class="n">database_path</span> <span class="o">=</span> <span class="n">path_helper</span><span class="o">.</span><span class="n">TestDatabasePath</span><span class="p">()</span>
     <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">database_path</span><span class="p">,</span> <span class="s1">&#39;twitter_ios.db&#39;</span><span class="p">)</span>
-    <span class="n">execute</span> <span class="o">=</span> <span class="n">sqlite_query_execution</span><span class="o">.</span><span class="n">SQLQueryExecution</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
-    <span class="n">connected</span> <span class="o">=</span> <span class="n">execute</span><span class="o">.</span><span class="n">tryToConnect</span><span class="p">()</span>
+    <span class="n">execute</span> <span class="o">=</span> <span class="n">sqlite_query_execution</span><span class="o">.</span><span class="n">SQLiteQueryExecution</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="n">connected</span> <span class="o">=</span> <span class="n">execute</span><span class="o">.</span><span class="n">TryToConnect</span><span class="p">()</span>
     <span class="n">database_information</span> <span class="o">=</span> <span class="p">(</span>
       <span class="n">sqlite_database_information</span><span class="o">.</span><span class="n">SQLiteDatabaseInformation</span><span class="p">(</span><span class="n">execute</span><span class="p">))</span>
 
-    <span class="n">result</span> <span class="o">=</span> <span class="n">database_information</span><span class="o">.</span><span class="n">getTablesFromDatabase</span><span class="p">()</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">database_information</span><span class="o">.</span><span class="n">GetTablesFromDatabase</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">),</span> <span class="mi">7</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">connected</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;Lists&#39;</span><span class="p">)</span>
@@ -88,24 +88,24 @@
     <span class="sd">&quot;&quot;&quot;get the required tables if anything went wrong&quot;&quot;&quot;</span>
     <span class="n">database_path</span> <span class="o">=</span> <span class="n">path_helper</span><span class="o">.</span><span class="n">TestDatabasePath</span><span class="p">()</span>
     <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">database_path</span><span class="p">,</span> <span class="s1">&#39;twitter_ios_error.db&#39;</span><span class="p">)</span>
-    <span class="n">execute</span> <span class="o">=</span> <span class="n">sqlite_query_execution</span><span class="o">.</span><span class="n">SQLQueryExecution</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
-    <span class="n">connected</span> <span class="o">=</span> <span class="n">execute</span><span class="o">.</span><span class="n">tryToConnect</span><span class="p">()</span>
+    <span class="n">execute</span> <span class="o">=</span> <span class="n">sqlite_query_execution</span><span class="o">.</span><span class="n">SQLiteQueryExecution</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="n">connected</span> <span class="o">=</span> <span class="n">execute</span><span class="o">.</span><span class="n">TryToConnect</span><span class="p">()</span>
     <span class="n">database_information</span> <span class="o">=</span> <span class="p">(</span>
       <span class="n">sqlite_database_information</span><span class="o">.</span><span class="n">SQLiteDatabaseInformation</span><span class="p">(</span><span class="n">execute</span><span class="p">))</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">database_information</span><span class="o">.</span><span class="n">getTablesFromDatabase</span><span class="p">()</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">database_information</span><span class="o">.</span><span class="n">GetTablesFromDatabase</span><span class="p">()</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="p">[])</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">connected</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SQLiteDatabaseInformationTest.getTableColumnsAndType"><a class="viewcode-back" href="../../../tests.dal.html#tests.dal.test_sqlite_database_information.SQLiteDatabaseInformationTest.getTableColumnsAndType">[docs]</a>  <span class="k">def</span> <span class="nf">getTableColumnsAndType</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;get the required tables if anything went wrong&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SQLiteDatabaseInformationTest.testGetTableColumnsAndType"><a class="viewcode-back" href="../../../tests.dal.html#tests.dal.test_sqlite_database_information.SQLiteDatabaseInformationTest.testGetTableColumnsAndType">[docs]</a>  <span class="k">def</span> <span class="nf">testGetTableColumnsAndType</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;get columns for the table nodata with every possible type.&quot;&quot;&quot;</span>
     <span class="n">database_path</span> <span class="o">=</span> <span class="n">path_helper</span><span class="o">.</span><span class="n">TestDatabasePath</span><span class="p">()</span>
     <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">database_path</span><span class="p">,</span> <span class="s1">&#39;test_database_types.db&#39;</span><span class="p">)</span>
-    <span class="n">execute</span> <span class="o">=</span> <span class="n">sqlite_query_execution</span><span class="o">.</span><span class="n">SQLQueryExecution</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
-    <span class="n">connected</span> <span class="o">=</span> <span class="n">execute</span><span class="o">.</span><span class="n">tryToConnect</span><span class="p">()</span>
+    <span class="n">execute</span> <span class="o">=</span> <span class="n">sqlite_query_execution</span><span class="o">.</span><span class="n">SQLiteQueryExecution</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="n">connected</span> <span class="o">=</span> <span class="n">execute</span><span class="o">.</span><span class="n">TryToConnect</span><span class="p">()</span>
     <span class="n">database_information</span> <span class="o">=</span> <span class="p">(</span>
       <span class="n">sqlite_database_information</span><span class="o">.</span><span class="n">SQLiteDatabaseInformation</span><span class="p">(</span><span class="n">execute</span><span class="p">))</span>
-    <span class="n">actual_data</span> <span class="o">=</span> <span class="n">database_information</span><span class="o">.</span><span class="n">getTableColumnsAndType</span><span class="p">(</span><span class="s1">&#39;nodata&#39;</span><span class="p">)</span>
+    <span class="n">actual_data</span> <span class="o">=</span> <span class="n">database_information</span><span class="o">.</span><span class="n">GetTableColumnsAndType</span><span class="p">(</span><span class="s1">&#39;nodata&#39;</span><span class="p">)</span>
     <span class="n">expected_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;intval&#39;</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span>
                      <span class="s1">&#39;integerval&#39;</span><span class="p">:</span> <span class="s1">&#39;integer&#39;</span><span class="p">,</span>
                      <span class="s1">&#39;tinyintval&#39;</span><span class="p">:</span> <span class="s1">&#39;tinyint&#39;</span><span class="p">,</span>
@@ -137,19 +137,36 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual_data</span><span class="p">,</span> <span class="n">expected_data</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">connected</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SQLiteDatabaseInformationTest.getTableColumnsAndTypeWithError"><a class="viewcode-back" href="../../../tests.dal.html#tests.dal.test_sqlite_database_information.SQLiteDatabaseInformationTest.getTableColumnsAndTypeWithError">[docs]</a>  <span class="k">def</span> <span class="nf">getTableColumnsAndTypeWithError</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;get the required tables if anything went wrong&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SQLiteDatabaseInformationTest.testGetTableColumnsAndTypeWithNoTables"><a class="viewcode-back" href="../../../tests.dal.html#tests.dal.test_sqlite_database_information.SQLiteDatabaseInformationTest.testGetTableColumnsAndTypeWithNoTables">[docs]</a>  <span class="k">def</span> <span class="nf">testGetTableColumnsAndTypeWithNoTables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;get the columns for the table if the table can not be found.&quot;&quot;&quot;</span>
     <span class="n">database_path</span> <span class="o">=</span> <span class="n">path_helper</span><span class="o">.</span><span class="n">TestDatabasePath</span><span class="p">()</span>
     <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">database_path</span><span class="p">,</span> <span class="s1">&#39;test_database_types.db&#39;</span><span class="p">)</span>
-    <span class="n">execute</span> <span class="o">=</span> <span class="n">sqlite_query_execution</span><span class="o">.</span><span class="n">SQLQueryExecution</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
-    <span class="n">connected</span> <span class="o">=</span> <span class="n">execute</span><span class="o">.</span><span class="n">tryToConnect</span><span class="p">()</span>
+    <span class="n">execute</span> <span class="o">=</span> <span class="n">sqlite_query_execution</span><span class="o">.</span><span class="n">SQLiteQueryExecution</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="n">connected</span> <span class="o">=</span> <span class="n">execute</span><span class="o">.</span><span class="n">TryToConnect</span><span class="p">()</span>
     <span class="n">database_information</span> <span class="o">=</span> <span class="p">(</span>
       <span class="n">sqlite_database_information</span><span class="o">.</span><span class="n">SQLiteDatabaseInformation</span><span class="p">(</span><span class="n">execute</span><span class="p">))</span>
-    <span class="n">actual_data</span> <span class="o">=</span> <span class="n">database_information</span><span class="o">.</span><span class="n">getTableColumnsAndType</span><span class="p">(</span><span class="s1">&#39;thisisnot&#39;</span><span class="p">)</span>
+    <span class="n">actual_data</span> <span class="o">=</span> <span class="n">database_information</span><span class="o">.</span><span class="n">GetTableColumnsAndType</span><span class="p">(</span><span class="s1">&#39;thisisnot&#39;</span><span class="p">)</span>
+    <span class="n">expected_data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">actual_data</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual_data</span><span class="p">,</span> <span class="n">expected_data</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">connected</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SQLiteDatabaseInformationTest.testGetTableColumnsAndTypeWithError"><a class="viewcode-back" href="../../../tests.dal.html#tests.dal.test_sqlite_database_information.SQLiteDatabaseInformationTest.testGetTableColumnsAndTypeWithError">[docs]</a>  <span class="k">def</span> <span class="nf">testGetTableColumnsAndTypeWithError</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;get the columns for the table if anything went wrong&quot;&quot;&quot;</span>
+    <span class="n">database_path</span> <span class="o">=</span> <span class="n">path_helper</span><span class="o">.</span><span class="n">TestDatabasePath</span><span class="p">()</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">database_path</span><span class="p">,</span> <span class="s1">&#39;test_database_types.db&#39;</span><span class="p">)</span>
+    <span class="n">execute</span> <span class="o">=</span> <span class="n">sqlite_query_execution</span><span class="o">.</span><span class="n">SQLiteQueryExecution</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="n">connected</span> <span class="o">=</span> <span class="n">execute</span><span class="o">.</span><span class="n">TryToConnect</span><span class="p">()</span>
+    <span class="n">database_information</span> <span class="o">=</span> <span class="p">(</span>
+      <span class="n">sqlite_database_information</span><span class="o">.</span><span class="n">SQLiteDatabaseInformation</span><span class="p">(</span><span class="n">execute</span><span class="p">))</span>
+    <span class="s1">&#39;PRAGMA table_info(</span><span class="si">{0}</span><span class="s1">)&#39;</span>
+    <span class="n">actual_data</span> <span class="o">=</span> <span class="n">database_information</span><span class="o">.</span><span class="n">GetTableColumnsAndType</span><span class="p">(</span>
+      <span class="s2">&quot;bla);select * from nodata; (&quot;</span><span class="p">)</span>
     <span class="n">expected_data</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">actual_data</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual_data</span><span class="p">,</span> <span class="n">expected_data</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">connected</span><span class="p">)</span></div></div>
+
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
   <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>

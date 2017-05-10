@@ -13,26 +13,28 @@ from plaso.lib import eventdata
 from plaso.parsers import sqlite
 from plaso.parsers.sqlite_plugins import interface
 
+
 class ThePluginBlobtypesEventData(events.EventData):
   """the plugin blobtypes event data.
 
   TODO: add type and description of attributes
-  Attributes:  
+  Attributes:
     blobval (bytes): TODO
   """
 
-  DATA_TYPE = u'the:plugin:blobtypes'
+  DATA_TYPE = u'the:plugin:'
 
   def __init__(self):
     """Initializes event data."""
     super(ThePluginBlobtypesEventData, self).__init__(data_type=self.DATA_TYPE)
     self.blobval = None
-    
+
+
 class ThePluginIntegertypesEventData(events.EventData):
   """the plugin integertypes event data.
 
   TODO: add type and description of attributes
-  Attributes:  
+  Attributes:
     bigintval (int): TODO
     int2val (int): TODO
     int8val (int): TODO
@@ -44,11 +46,12 @@ class ThePluginIntegertypesEventData(events.EventData):
     unsignedbigintval (int): TODO
   """
 
-  DATA_TYPE = u'the:plugin:integertypes'
+  DATA_TYPE = u'the:plugin:'
 
   def __init__(self):
     """Initializes event data."""
-    super(ThePluginIntegertypesEventData, self).__init__(data_type=self.DATA_TYPE)
+    super(ThePluginIntegertypesEventData, self).__init__(
+        data_type=self.DATA_TYPE)
     self.bigintval = None
     self.int2val = None
     self.int8val = None
@@ -58,42 +61,45 @@ class ThePluginIntegertypesEventData(events.EventData):
     self.smallintval = None
     self.tinyintval = None
     self.unsignedbigintval = None
-    
+
+
 class ThePluginNumerictypesEventData(events.EventData):
   """the plugin numerictypes event data.
 
   TODO: add type and description of attributes
-  Attributes:  
-    booleanval (int): TODO
+  Attributes:
+    booleanval (bool): TODO
     datetimeval (int): TODO
     dateval (int): TODO
     decimalval (int): TODO
     numericval (int): TODO
   """
 
-  DATA_TYPE = u'the:plugin:numerictypes'
+  DATA_TYPE = u'the:plugin:'
 
   def __init__(self):
     """Initializes event data."""
-    super(ThePluginNumerictypesEventData, self).__init__(data_type=self.DATA_TYPE)
+    super(ThePluginNumerictypesEventData, self).__init__(
+        data_type=self.DATA_TYPE)
     self.booleanval = None
     self.datetimeval = None
     self.dateval = None
     self.decimalval = None
     self.numericval = None
-    
+
+
 class ThePluginRealtypesEventData(events.EventData):
   """the plugin realtypes event data.
 
   TODO: add type and description of attributes
-  Attributes:  
+  Attributes:
     doubleprecesionval (float): TODO
     doubleval (float): TODO
     floatval (float): TODO
     realval (float): TODO
   """
 
-  DATA_TYPE = u'the:plugin:realtypes'
+  DATA_TYPE = u'the:plugin:'
 
   def __init__(self):
     """Initializes event data."""
@@ -102,12 +108,13 @@ class ThePluginRealtypesEventData(events.EventData):
     self.doubleval = None
     self.floatval = None
     self.realval = None
-    
+
+
 class ThePluginTexttypesEventData(events.EventData):
   """the plugin texttypes event data.
 
   TODO: add type and description of attributes
-  Attributes:  
+  Attributes:
     characterval (str): TODO
     clobval (str): TODO
     nativecharacterval (str): TODO
@@ -118,7 +125,7 @@ class ThePluginTexttypesEventData(events.EventData):
     varyingcharacterval (str): TODO
   """
 
-  DATA_TYPE = u'the:plugin:texttypes'
+  DATA_TYPE = u'the:plugin:'
 
   def __init__(self):
     """Initializes event data."""
@@ -131,20 +138,21 @@ class ThePluginTexttypesEventData(events.EventData):
     self.textval = None
     self.varcharval = None
     self.varyingcharacterval = None
-    
+
+
 class ThePluginNodataEventData(events.EventData):
   """the plugin nodata event data.
 
   TODO: add type and description of attributes
-  Attributes:  
+  Attributes:
     bigintval (int): TODO
     blobval (bytes): TODO
-    booleanval (float): TODO
+    booleanval (bool): TODO
     characterval (str): TODO
     clobval (str): TODO
-    datetimeval (float): TODO
-    dateval (float): TODO
-    decimalval (float): TODO
+    datetimeval (int): TODO
+    dateval (int): TODO
+    decimalval (int): TODO
     doubleprecisionval (float): TODO
     doubleval (float): TODO
     floatval (float): TODO
@@ -155,7 +163,7 @@ class ThePluginNodataEventData(events.EventData):
     mediuintval (int): TODO
     nativecharacterval (str): TODO
     ncharval (str): TODO
-    numericval (float): TODO
+    numericval (int): TODO
     nvarcharval (str): TODO
     realval (float): TODO
     smallintval (int): TODO
@@ -166,7 +174,7 @@ class ThePluginNodataEventData(events.EventData):
     varyingcharacterval (str): TODO
   """
 
-  DATA_TYPE = u'the:plugin:nodata'
+  DATA_TYPE = u'the:plugin:'
 
   def __init__(self):
     """Initializes event data."""
@@ -198,7 +206,7 @@ class ThePluginNodataEventData(events.EventData):
     self.unsignedbigintval = None
     self.varcharval = None
     self.varyingcharacterval = None
-    
+
 
 class ThePluginPlugin(interface.SQLitePlugin):
   """Parser for ThePlugin"""
@@ -206,30 +214,20 @@ class ThePluginPlugin(interface.SQLitePlugin):
   NAME = u'the_plugin'
   DESCRIPTION = u'Parser for ThePlugin'
 
-  QUERIES = [ 
-    ((u'select * from blobtypes)'),
-     u'ParseBlobtypesRow'),
-    ((u'select * from integertypes)'),
-     u'ParseIntegertypesRow'),
-    ((u'select * from numerictypes)'),
-     u'ParseNumerictypesRow'),
-    ((u'select * from realtypes)'),
-     u'ParseRealtypesRow'),
-    ((u'select * from texttypes)'),
-     u'ParseTexttypesRow'),
-    ((u'select * from nodata)'),
-     u'ParseNodataRow')]
+  QUERIES = [((u'select * from blobtypes)'), u'ParseBlobtypesRow'), ((
+      u'select * from integertypes)'), u'ParseIntegertypesRow'), ((
+          u'select * from numerictypes)'), u'ParseNumerictypesRow'), ((
+              u'select * from realtypes)'), u'ParseRealtypesRow'), ((
+                  u'select * from texttypes)'), u'ParseTexttypesRow'), ((
+                      u'select * from nodata)'), u'ParseNodataRow')]
 
   REQUIRED_TABLES = frozenset([
-      u'blobtypes',
-      u'integertypes',
-      u'nodata',
-      u'numerictypes',
-      u'realtypes',
-      u'texttypes'])
+      u'blobtypes', u'integertypes', u'nodata', u'numerictypes', u'realtypes',
+      u'texttypes'
+  ])
 
-
-  def ParseBlobtypesRow(self,  parser_mediator, row, query=None, **unused_kwargs):
+  def ParseBlobtypesRow(
+      self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:
@@ -241,20 +239,11 @@ class ThePluginPlugin(interface.SQLitePlugin):
     # Note that pysqlite does not accept a Unicode string in row['string'] and
     # will raise "IndexError: Index must be int or string".
 
-    event_data = ThePluginBlobtypesEventData()
-    event_data.blobval = row['blobval']
-    
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
-    if timestamp:
-    # Convert the floating point value to an integer.
-      timestamp = int(timestamp)
-      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
-      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
-      event = time_events.DateTimeValuesEvent(date_time, None)
-      parser_mediator.ProduceEventWithEventData(event, event_data)
+    event_data = ThePluginEventData()
+    event_data.blobval = row['']
 
-  def ParseIntegertypesRow(self,  parser_mediator, row, query=None, **unused_kwargs):
+  def ParseIntegertypesRow(
+      self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:
@@ -266,28 +255,19 @@ class ThePluginPlugin(interface.SQLitePlugin):
     # Note that pysqlite does not accept a Unicode string in row['string'] and
     # will raise "IndexError: Index must be int or string".
 
-    event_data = ThePluginIntegertypesEventData()
-    event_data.bigintval = row['bigintval']
-    event_data.int2val = row['int2val']
-    event_data.int8val = row['int8val']
-    event_data.integerval = row['integerval']
-    event_data.intval = row['intval']
-    event_data.mediumintval = row['mediumintval']
-    event_data.smallintval = row['smallintval']
-    event_data.tinyintval = row['tinyintval']
-    event_data.unsignedbigintval = row['unsignedbigintval']
-    
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
-    if timestamp:
-    # Convert the floating point value to an integer.
-      timestamp = int(timestamp)
-      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
-      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
-      event = time_events.DateTimeValuesEvent(date_time, None)
-      parser_mediator.ProduceEventWithEventData(event, event_data)
+    event_data = ThePluginEventData()
+    event_data.bigintval = row['']
+    event_data.int2val = row['']
+    event_data.int8val = row['']
+    event_data.integerval = row['']
+    event_data.intval = row['']
+    event_data.mediumintval = row['']
+    event_data.smallintval = row['']
+    event_data.tinyintval = row['']
+    event_data.unsignedbigintval = row['']
 
-  def ParseNumerictypesRow(self,  parser_mediator, row, query=None, **unused_kwargs):
+  def ParseNumerictypesRow(
+      self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:
@@ -299,24 +279,15 @@ class ThePluginPlugin(interface.SQLitePlugin):
     # Note that pysqlite does not accept a Unicode string in row['string'] and
     # will raise "IndexError: Index must be int or string".
 
-    event_data = ThePluginNumerictypesEventData()
-    event_data.booleanval = row['booleanval']
-    event_data.datetimeval = row['datetimeval']
-    event_data.dateval = row['dateval']
-    event_data.decimalval = row['decimalval']
-    event_data.numericval = row['numericval']
-    
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
-    if timestamp:
-    # Convert the floating point value to an integer.
-      timestamp = int(timestamp)
-      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
-      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
-      event = time_events.DateTimeValuesEvent(date_time, None)
-      parser_mediator.ProduceEventWithEventData(event, event_data)
+    event_data = ThePluginEventData()
+    event_data.booleanval = row['']
+    event_data.datetimeval = row['']
+    event_data.dateval = row['']
+    event_data.decimalval = row['']
+    event_data.numericval = row['']
 
-  def ParseRealtypesRow(self,  parser_mediator, row, query=None, **unused_kwargs):
+  def ParseRealtypesRow(
+      self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:
@@ -328,23 +299,14 @@ class ThePluginPlugin(interface.SQLitePlugin):
     # Note that pysqlite does not accept a Unicode string in row['string'] and
     # will raise "IndexError: Index must be int or string".
 
-    event_data = ThePluginRealtypesEventData()
-    event_data.doubleprecesionval = row['doubleprecesionval']
-    event_data.doubleval = row['doubleval']
-    event_data.floatval = row['floatval']
-    event_data.realval = row['realval']
-    
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
-    if timestamp:
-    # Convert the floating point value to an integer.
-      timestamp = int(timestamp)
-      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
-      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
-      event = time_events.DateTimeValuesEvent(date_time, None)
-      parser_mediator.ProduceEventWithEventData(event, event_data)
+    event_data = ThePluginEventData()
+    event_data.doubleprecesionval = row['']
+    event_data.doubleval = row['']
+    event_data.floatval = row['']
+    event_data.realval = row['']
 
-  def ParseTexttypesRow(self,  parser_mediator, row, query=None, **unused_kwargs):
+  def ParseTexttypesRow(
+      self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:
@@ -356,27 +318,17 @@ class ThePluginPlugin(interface.SQLitePlugin):
     # Note that pysqlite does not accept a Unicode string in row['string'] and
     # will raise "IndexError: Index must be int or string".
 
-    event_data = ThePluginTexttypesEventData()
-    event_data.characterval = row['characterval']
-    event_data.clobval = row['clobval']
-    event_data.nativecharacterval = row['nativecharacterval']
-    event_data.ncharval = row['ncharval']
-    event_data.nvarchar_val = row['nvarcharVal']
-    event_data.textval = row['textval']
-    event_data.varcharval = row['varcharval']
-    event_data.varyingcharacterval = row['varyingcharacterval']
-    
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
-    if timestamp:
-    # Convert the floating point value to an integer.
-      timestamp = int(timestamp)
-      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
-      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
-      event = time_events.DateTimeValuesEvent(date_time, None)
-      parser_mediator.ProduceEventWithEventData(event, event_data)
+    event_data = ThePluginEventData()
+    event_data.characterval = row['']
+    event_data.clobval = row['']
+    event_data.nativecharacterval = row['']
+    event_data.ncharval = row['']
+    event_data.nvarchar_val = row['']
+    event_data.textval = row['']
+    event_data.varcharval = row['']
+    event_data.varyingcharacterval = row['']
 
-  def ParseNodataRow(self,  parser_mediator, row, query=None, **unused_kwargs):
+  def ParseNodataRow(self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
 
     Args:
@@ -388,44 +340,34 @@ class ThePluginPlugin(interface.SQLitePlugin):
     # Note that pysqlite does not accept a Unicode string in row['string'] and
     # will raise "IndexError: Index must be int or string".
 
-    event_data = ThePluginNodataEventData()
-    event_data.bigintval = row['bigintval']
-    event_data.blobval = row['blobval']
-    event_data.booleanval = row['booleanval']
-    event_data.characterval = row['characterval']
-    event_data.clobval = row['clobval']
-    event_data.datetimeval = row['datetimeval']
-    event_data.dateval = row['dateval']
-    event_data.decimalval = row['decimalval']
-    event_data.doubleprecisionval = row['doubleprecisionval']
-    event_data.doubleval = row['doubleval']
-    event_data.floatval = row['floatval']
-    event_data.int2val = row['int2val']
-    event_data.int8val = row['int8val']
-    event_data.integerval = row['integerval']
-    event_data.intval = row['intval']
-    event_data.mediuintval = row['mediuintval']
-    event_data.nativecharacterval = row['nativecharacterval']
-    event_data.ncharval = row['ncharval']
-    event_data.numericval = row['numericval']
-    event_data.nvarcharval = row['nvarcharval']
-    event_data.realval = row['realval']
-    event_data.smallintval = row['smallintval']
-    event_data.textval = row['textval']
-    event_data.tinyintval = row['tinyintval']
-    event_data.unsignedbigintval = row['unsignedbigintval']
-    event_data.varcharval = row['varcharval']
-    event_data.varyingcharacterval = row['varyingcharacterval']
-    
-    # TODO: add timestamp row to convert
-    timestamp = row['TODO']
-    if timestamp:
-    # Convert the floating point value to an integer.
-      timestamp = int(timestamp)
-      date_time = dfdatetime_posix_time.PosixTime(timestamp=timestamp)
-      # TODO: Add correct time field for None value.  Example: eventdata.EventTimestamp.UPDATE_TIME
-      event = time_events.DateTimeValuesEvent(date_time, None)
-      parser_mediator.ProduceEventWithEventData(event, event_data)
+    event_data = ThePluginEventData()
+    event_data.bigintval = row['']
+    event_data.blobval = row['']
+    event_data.booleanval = row['']
+    event_data.characterval = row['']
+    event_data.clobval = row['']
+    event_data.datetimeval = row['']
+    event_data.dateval = row['']
+    event_data.decimalval = row['']
+    event_data.doubleprecisionval = row['']
+    event_data.doubleval = row['']
+    event_data.floatval = row['']
+    event_data.int2val = row['']
+    event_data.int8val = row['']
+    event_data.integerval = row['']
+    event_data.intval = row['']
+    event_data.mediuintval = row['']
+    event_data.nativecharacterval = row['']
+    event_data.ncharval = row['']
+    event_data.numericval = row['']
+    event_data.nvarcharval = row['']
+    event_data.realval = row['']
+    event_data.smallintval = row['']
+    event_data.textval = row['']
+    event_data.tinyintval = row['']
+    event_data.unsignedbigintval = row['']
+    event_data.varcharval = row['']
+    event_data.varyingcharacterval = row['']
 
 
 sqlite.SQLiteParser.RegisterPlugin(ThePluginPlugin)

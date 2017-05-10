@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=no-member
 # pylint does not recognize connect and close as member
-"""Base for sql Query validators."""
+"""SQLite Query Execution"""
 import sqlite3
 
-from plasoscaffolder.common import type_mapper
-from plasoscaffolder.dal import (base_sql_query_execution,
-                                 sqlite_database_information)
+from plasoscaffolder.dal import base_sql_query_execution
 from plasoscaffolder.dal import explain_query_plan
-from plasoscaffolder.model import sql_query_column_model
+from plasoscaffolder.dal import sql_query_data
+from plasoscaffolder.dal import sqlite_database_information
+from plasoscaffolder.dal import sqlite_type_helper
 
 
-class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
+class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
   """Class representing the SQLite Query validator."""
 
   def __init__(self, database_path: str):
@@ -24,84 +24,72 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     self._database_path = database_path
     self._connection = None
     self._explain = None
-    self._database_information = None
+    self._type_helper = None
 
-  def tryToConnect(self) -> bool:
+  def TryToConnect(self) -> bool:
     """Try to open the database File.
 
     Returns:
       bool: if the file can be opened and is a database file
     """
     try:
-      self._connection = sqlite3.connect(self._database_path)
+      self._connection = sqlite3.connect(
+          self._database_path)
       self._connection.isolation_level = None  # no autocommit mode
       self._explain = explain_query_plan.ExplainQueryPlan(self)
       # this query failes if is not a database or locked or anything went wrong
       self._connection.execute('PRAGMA schema_version')
-      self._database_information = (
+
+      database_information = (
         sqlite_database_information.SQLiteDatabaseInformation(self))
+      self._type_helper = sqlite_type_helper.SQLiteTypeHelper(
+          self, self._explain, database_information)
     except sqlite3.Error:
       return False
 
     return True
 
-  def executeQuery(
-      self, query: str) -> base_sql_query_execution.SQLQueryData:
+  def ExecuteQuery(
+      self, query: str) -> sql_query_data.SQLQueryData:
     """Executes the SQL Query.
 
     Args:
       query (str): The SQL Query to execute on the SQLite database.
 
     Returns:
-      base_sql_query_execution.SQLQueryData: The data to the Query
+      sql_query_data.SQLQueryData: The data to the Query
     """
-    return self._executeQuery(query, False)
+    return self._ExecuteQuery(query, False)
 
-  def executeQueryDetailed(
-      self, query: str) -> base_sql_query_execution.SQLQueryData:
+  def ExecuteQueryDetailed(
+      self, query: str) -> sql_query_data.SQLQueryData:
     """Executes the SQL Query and gets Detailed Information
 
     Args:
       query (str): The SQL Query to execute on the SQLite database.
 
     Returns:
-      base_sql_query_execution.SQLQueryData: The data to the Query
+      sql_query_data.SQLQueryData: The data to the Query
     """
-    data_from_executed_query = self._executeQuery(query, True)
-    data = self._addMissingTypesFromSchema(data_from_executed_query, query)
-    return data
+    data_from_executed_query = self._ExecuteQuery(query, True)
+    duplicate_names = self._type_helper.GetDuplicateColumnNames(
+        data_from_executed_query.columns)
+    if duplicate_names:
+      duplicate_names_as_string = ' '.join(duplicate_names)
+      data_from_executed_query.has_error = True
+      data_from_executed_query.error_message = (
+        'Please use an alias (AS) for '
+        'those column names: {0}'.format(duplicate_names_as_string))
+    if not data_from_executed_query.has_error:
+      data_from_executed_query.columns = (
+        self._type_helper.AddMissingTypesFromSchema(
+            data_from_executed_query.columns, query))
 
-  def _addMissingTypesFromSchema(
-      self,
-      data: base_sql_query_execution.SQLQueryData,
-      query: str) -> base_sql_query_execution.SQLQueryData:
-    """Tries to get the types from the schema for columns that have None as a 
-    type
+    return data_from_executed_query
 
-        Args:
-          query (str): The SQL Query to execute on the SQLite database.
-          data (base_sql_query_execution.SQLQueryData): The existing data to 
-            the Query
-
-        Returns:
-          base_sql_query_execution.SQLQueryData: The data to the Query
-        """
-    locked = self._explain.getLockedTables(query)
-
-    #TODO also try to get data if more than one Table is involved
-    if data.columns is not None and len(locked) == 1:
-      mappings = self._database_information.getTableColumnsAndType(locked[0])
-      for column in data.columns:
-        if column.SQLColumnType is type(None):
-          type_sqlite = mappings[column.SQLColumn].upper()
-          type_sqlite_basic = type_sqlite.split("(")[0]
-          type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS[type_sqlite_basic]
-          column.SQLColumnType = type_python
-    return data
-
-  def _executeQuery(
+  def _ExecuteQuery(
       self, query: str,
-      detailed: bool = True) -> base_sql_query_execution.SQLQueryData:
+      detailed: bool = True) -> sql_query_data.SQLQueryData:
     """Executes the SQL Query.
 
     Args:
@@ -109,18 +97,18 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       detailed (bool): True if additional information about the query is needed
 
     Returns:
-      base_sql_query_execution.SQLQueryData: The data to the Query
+      sql_query_data.SQLQueryData: The data to the Query
     """
-
-    query_data = base_sql_query_execution.SQLQueryData()
+    query_data = sql_query_data.SQLQueryData()
     try:
       with self._connection:
         self._connection.execute('BEGIN')
         cursor = self._connection.execute(query)
         query_data.data = cursor.fetchall()
         if detailed:
-          query_data.columns = self._getColumnInformationFromCursor(
-              cursor, query_data.data)
+          query_data.columns = (
+            self._type_helper.GetColumnInformationFromDescription(
+                cursor.description))
         self._connection.execute('ROLLBACK')
     except sqlite3.Error as error:
       query_data.error_message = 'Error: {0}'.format(str(error))
@@ -128,56 +116,24 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     except sqlite3.Warning as warning:
       query_data.error_message = 'Warning: {0}'.format(str(warning))
       query_data.has_error = True
+
     return query_data
 
-  def _getColumnInformationFromCursor(
-      self, cursor, query_data: []
-  ) -> [sql_query_column_model.SQLColumnModel]:
-    """Getting Information for the column out of the cursor.
-
-    Args:
-      cursor: the cursor
-      query_data: the data of the query
-      
-    Returns:
-      list(sql_query_column_model.SQLColumnModel): a list with all the columns
-    """
-    if cursor.description is not None:
-      sql_column = list()
-
-      # if there are no data examples
-      if len(query_data) == 0:
-        for description in cursor.description:
-          sql_column.append(sql_query_column_model.SQLColumnModel(
-              description[0], type(None)))
-
-      else:
-        for column in range(0, len(query_data[0])):
-          for data_row in query_data:
-            data_type = data_row[column]
-            if data_type is not None:
-              break
-
-          sql_column.append(sql_query_column_model.SQLColumnModel(
-              cursor.description[column][0], type(data_type)))
-
-      return sql_column
-    return None
-
-  def executeReadOnlyQuery(self, query: str):
+  def ExecuteReadOnlyQuery(self, query: str):
     """Executes the SQL Query if it is read only.
 
       Args:
         query (str): The SQL Query to execute on the SQLite database.
 
       Returns:
-        base_sql_query_execution.SQLQueryData: The data to the Query
+        sql_query_data.SQLQueryData: The data to the Query
     """
-    query_data = self.executeQueryDetailed(query)
-    if not query_data.has_error:
-      if not self._explain.isReadOnly(query):
-        query_data.data = None
-        query_data.has_error = True
-        query_data.error_message = 'Query has to be a SELECT query.'
-        query_data.columns = None
+    query_data = sql_query_data.SQLQueryData()
+    if self._explain.IsReadOnly(query):
+      query_data = self.ExecuteQueryDetailed(query)
+    else:
+      query_data.data = None
+      query_data.has_error = True
+      query_data.error_message = 'Query has to be a single SELECT query.'
+      query_data.columns = None
     return query_data

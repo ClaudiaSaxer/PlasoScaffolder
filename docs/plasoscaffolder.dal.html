@@ -60,8 +60,26 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Base class representing the SQLite Query validator.</p>
 <dl class="method">
-<dt id="plasoscaffolder.dal.base_database_information.BaseDatabaseInformation.getTablesFromDatabase">
-<code class="descname">getTablesFromDatabase</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/plasoscaffolder/dal/base_database_information.html#BaseDatabaseInformation.getTablesFromDatabase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.base_database_information.BaseDatabaseInformation.getTablesFromDatabase" title="Permalink to this definition">¶</a></dt>
+<dt id="plasoscaffolder.dal.base_database_information.BaseDatabaseInformation.GetTableColumnsAndType">
+<code class="descname">GetTableColumnsAndType</code><span class="sig-paren">(</span><em>table: str</em>, <em>all_lowercase=False</em><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/plasoscaffolder/dal/base_database_information.html#BaseDatabaseInformation.GetTableColumnsAndType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.base_database_information.BaseDatabaseInformation.GetTableColumnsAndType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the table information from the database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table</strong> (<em>str</em>) &#8211; the name of the table</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the table information</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">{name, type}</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="plasoscaffolder.dal.base_database_information.BaseDatabaseInformation.GetTablesFromDatabase">
+<code class="descname">GetTablesFromDatabase</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/plasoscaffolder/dal/base_database_information.html#BaseDatabaseInformation.GetTablesFromDatabase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.base_database_information.BaseDatabaseInformation.GetTablesFromDatabase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the SQL Query.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -78,17 +96,17 @@
 </dd></dl>
 
 </div>
-<div class="section" id="plasoscaffolder-dal-base-sql-query-execution-module">
-<h2>plasoscaffolder.dal.base_sql_query_execution module<a class="headerlink" href="#plasoscaffolder-dal-base-sql-query-execution-module" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-plasoscaffolder.dal.base_sql_query_execution"></span><p>The SQLite Query validator.</p>
+<div class="section" id="module-plasoscaffolder.dal.base_sql_query_execution">
+<span id="plasoscaffolder-dal-base-sql-query-execution-module"></span><h2>plasoscaffolder.dal.base_sql_query_execution module<a class="headerlink" href="#module-plasoscaffolder.dal.base_sql_query_execution" title="Permalink to this headline">¶</a></h2>
+<p>The SQLite Query validator.</p>
 <dl class="class">
 <dt id="plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution">
 <em class="property">class </em><code class="descclassname">plasoscaffolder.dal.base_sql_query_execution.</code><code class="descname">BaseSQLQueryExecution</code><a class="reference internal" href="_modules/plasoscaffolder/dal/base_sql_query_execution.html#BaseSQLQueryExecution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Class representing the SQLite query validator.</p>
 <dl class="method">
-<dt id="plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution.executeQuery">
-<code class="descname">executeQuery</code><span class="sig-paren">(</span><em>query: str</em>, <em>detailed: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/dal/base_sql_query_execution.html#BaseSQLQueryExecution.executeQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution.executeQuery" title="Permalink to this definition">¶</a></dt>
+<dt id="plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution.ExecuteQuery">
+<code class="descname">ExecuteQuery</code><span class="sig-paren">(</span><em>query: str</em>, <em>detailed: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/dal/base_sql_query_execution.html#BaseSQLQueryExecution.ExecuteQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution.ExecuteQuery" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the SQL Query.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -103,7 +121,7 @@
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The data to the Query</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#plasoscaffolder.dal.base_sql_query_execution.SQLQueryData" title="plasoscaffolder.dal.base_sql_query_execution.SQLQueryData">base_sql_query_execution.SQLQueryData</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">base_sql_query_execution.SQLQueryData</p>
 </td>
 </tr>
 </tbody>
@@ -111,8 +129,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution.executeReadOnlyQuery">
-<code class="descname">executeReadOnlyQuery</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/dal/base_sql_query_execution.html#BaseSQLQueryExecution.executeReadOnlyQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution.executeReadOnlyQuery" title="Permalink to this definition">¶</a></dt>
+<dt id="plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution.ExecuteReadOnlyQuery">
+<code class="descname">ExecuteReadOnlyQuery</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/dal/base_sql_query_execution.html#BaseSQLQueryExecution.ExecuteReadOnlyQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution.ExecuteReadOnlyQuery" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the SQL Query if it is read only.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -122,41 +140,10 @@
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The data to the Query</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#plasoscaffolder.dal.base_sql_query_execution.SQLQueryData" title="plasoscaffolder.dal.base_sql_query_execution.SQLQueryData">base_sql_query_execution.SQLQueryData</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">base_sql_query_execution.SQLQueryData</td>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="plasoscaffolder.dal.base_sql_query_execution.SQLQueryData">
-<em class="property">class </em><code class="descclassname">plasoscaffolder.dal.base_sql_query_execution.</code><code class="descname">SQLQueryData</code><a class="reference internal" href="_modules/plasoscaffolder/dal/base_sql_query_execution.html#SQLQueryData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.base_sql_query_execution.SQLQueryData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>The Data to the executed query.</p>
-<dl class="attribute">
-<dt id="plasoscaffolder.dal.base_sql_query_execution.SQLQueryData.has_error">
-<code class="descname">has_error</code><a class="headerlink" href="#plasoscaffolder.dal.base_sql_query_execution.SQLQueryData.has_error" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>bool</em> &#8211; if the query execution was erroneous</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="plasoscaffolder.dal.base_sql_query_execution.SQLQueryData.data">
-<code class="descname">data</code><a class="headerlink" href="#plasoscaffolder.dal.base_sql_query_execution.SQLQueryData.data" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>[str]</em> &#8211; the rows returned after execution</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="plasoscaffolder.dal.base_sql_query_execution.SQLQueryData.error_message">
-<code class="descname">error_message</code><a class="headerlink" href="#plasoscaffolder.dal.base_sql_query_execution.SQLQueryData.error_message" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>str</em> &#8211; the error message if the query was erroneous</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="plasoscaffolder.dal.base_sql_query_execution.SQLQueryData.columns">
-<code class="descname">columns</code><a class="headerlink" href="#plasoscaffolder.dal.base_sql_query_execution.SQLQueryData.columns" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>[str]</em> &#8211; the column names of the query</p>
 </dd></dl>
 
 </dd></dl>
@@ -168,11 +155,11 @@
 <dl class="class">
 <dt id="plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan">
 <em class="property">class </em><code class="descclassname">plasoscaffolder.dal.explain_query_plan.</code><code class="descname">ExplainQueryPlan</code><span class="sig-paren">(</span><em>sql_execution: plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/dal/explain_query_plan.html#ExplainQueryPlan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.dal.base_explain_query_plan.BaseExplainQueryPlan</span></code></p>
 <p>Class representing the explain query plan.</p>
 <dl class="method">
-<dt id="plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan.getLockedTables">
-<code class="descname">getLockedTables</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/plasoscaffolder/dal/explain_query_plan.html#ExplainQueryPlan.getLockedTables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan.getLockedTables" title="Permalink to this definition">¶</a></dt>
+<dt id="plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan.GetLockedTables">
+<code class="descname">GetLockedTables</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/plasoscaffolder/dal/explain_query_plan.html#ExplainQueryPlan.GetLockedTables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan.GetLockedTables" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines the table that were locked during the SQL query.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -189,8 +176,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan.isReadOnly">
-<code class="descname">isReadOnly</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/plasoscaffolder/dal/explain_query_plan.html#ExplainQueryPlan.isReadOnly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan.isReadOnly" title="Permalink to this definition">¶</a></dt>
+<dt id="plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan.IsReadOnly">
+<code class="descname">IsReadOnly</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/plasoscaffolder/dal/explain_query_plan.html#ExplainQueryPlan.IsReadOnly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.explain_query_plan.ExplainQueryPlan.IsReadOnly" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if the query is read only.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -218,8 +205,8 @@
 <dd><p>Bases: <a class="reference internal" href="#plasoscaffolder.dal.base_database_information.BaseDatabaseInformation" title="plasoscaffolder.dal.base_database_information.BaseDatabaseInformation"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.dal.base_database_information.BaseDatabaseInformation</span></code></a></p>
 <p>Class representing the SQLite Query validator.</p>
 <dl class="method">
-<dt id="plasoscaffolder.dal.sqlite_database_information.SQLiteDatabaseInformation.getTableColumnsAndType">
-<code class="descname">getTableColumnsAndType</code><span class="sig-paren">(</span><em>table: str</em><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/plasoscaffolder/dal/sqlite_database_information.html#SQLiteDatabaseInformation.getTableColumnsAndType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.sqlite_database_information.SQLiteDatabaseInformation.getTableColumnsAndType" title="Permalink to this definition">¶</a></dt>
+<dt id="plasoscaffolder.dal.sqlite_database_information.SQLiteDatabaseInformation.GetTableColumnsAndType">
+<code class="descname">GetTableColumnsAndType</code><span class="sig-paren">(</span><em>table: str</em>, <em>all_lowercase=False</em><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/plasoscaffolder/dal/sqlite_database_information.html#SQLiteDatabaseInformation.GetTableColumnsAndType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.sqlite_database_information.SQLiteDatabaseInformation.GetTableColumnsAndType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the table information from the database</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -236,8 +223,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="plasoscaffolder.dal.sqlite_database_information.SQLiteDatabaseInformation.getTablesFromDatabase">
-<code class="descname">getTablesFromDatabase</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/plasoscaffolder/dal/sqlite_database_information.html#SQLiteDatabaseInformation.getTablesFromDatabase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.sqlite_database_information.SQLiteDatabaseInformation.getTablesFromDatabase" title="Permalink to this definition">¶</a></dt>
+<dt id="plasoscaffolder.dal.sqlite_database_information.SQLiteDatabaseInformation.GetTablesFromDatabase">
+<code class="descname">GetTablesFromDatabase</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/plasoscaffolder/dal/sqlite_database_information.html#SQLiteDatabaseInformation.GetTablesFromDatabase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.sqlite_database_information.SQLiteDatabaseInformation.GetTablesFromDatabase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns all tables from the database</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -256,15 +243,15 @@
 </div>
 <div class="section" id="module-plasoscaffolder.dal.sqlite_query_execution">
 <span id="plasoscaffolder-dal-sqlite-query-execution-module"></span><h2>plasoscaffolder.dal.sqlite_query_execution module<a class="headerlink" href="#module-plasoscaffolder.dal.sqlite_query_execution" title="Permalink to this headline">¶</a></h2>
-<p>Base for sql Query validators.</p>
+<p>SQLite Query Execution</p>
 <dl class="class">
-<dt id="plasoscaffolder.dal.sqlite_query_execution.SQLQueryExecution">
-<em class="property">class </em><code class="descclassname">plasoscaffolder.dal.sqlite_query_execution.</code><code class="descname">SQLQueryExecution</code><span class="sig-paren">(</span><em>database_path: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/dal/sqlite_query_execution.html#SQLQueryExecution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.sqlite_query_execution.SQLQueryExecution" title="Permalink to this definition">¶</a></dt>
+<dt id="plasoscaffolder.dal.sqlite_query_execution.SQLiteQueryExecution">
+<em class="property">class </em><code class="descclassname">plasoscaffolder.dal.sqlite_query_execution.</code><code class="descname">SQLiteQueryExecution</code><span class="sig-paren">(</span><em>database_path: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/dal/sqlite_query_execution.html#SQLiteQueryExecution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.sqlite_query_execution.SQLiteQueryExecution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution" title="plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution</span></code></a></p>
 <p>Class representing the SQLite Query validator.</p>
 <dl class="method">
-<dt id="plasoscaffolder.dal.sqlite_query_execution.SQLQueryExecution.executeQuery">
-<code class="descname">executeQuery</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span> &#x2192; plasoscaffolder.dal.base_sql_query_execution.SQLQueryData<a class="reference internal" href="_modules/plasoscaffolder/dal/sqlite_query_execution.html#SQLQueryExecution.executeQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.sqlite_query_execution.SQLQueryExecution.executeQuery" title="Permalink to this definition">¶</a></dt>
+<dt id="plasoscaffolder.dal.sqlite_query_execution.SQLiteQueryExecution.ExecuteQuery">
+<code class="descname">ExecuteQuery</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span> &#x2192; plasoscaffolder.dal.sql_query_data.SQLQueryData<a class="reference internal" href="_modules/plasoscaffolder/dal/sqlite_query_execution.html#SQLiteQueryExecution.ExecuteQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.sqlite_query_execution.SQLiteQueryExecution.ExecuteQuery" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the SQL Query.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -274,15 +261,15 @@
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The data to the Query</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#plasoscaffolder.dal.base_sql_query_execution.SQLQueryData" title="plasoscaffolder.dal.base_sql_query_execution.SQLQueryData">base_sql_query_execution.SQLQueryData</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sql_query_data.SQLQueryData</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="plasoscaffolder.dal.sqlite_query_execution.SQLQueryExecution.executeQueryDetailed">
-<code class="descname">executeQueryDetailed</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span> &#x2192; plasoscaffolder.dal.base_sql_query_execution.SQLQueryData<a class="reference internal" href="_modules/plasoscaffolder/dal/sqlite_query_execution.html#SQLQueryExecution.executeQueryDetailed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.sqlite_query_execution.SQLQueryExecution.executeQueryDetailed" title="Permalink to this definition">¶</a></dt>
+<dt id="plasoscaffolder.dal.sqlite_query_execution.SQLiteQueryExecution.ExecuteQueryDetailed">
+<code class="descname">ExecuteQueryDetailed</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span> &#x2192; plasoscaffolder.dal.sql_query_data.SQLQueryData<a class="reference internal" href="_modules/plasoscaffolder/dal/sqlite_query_execution.html#SQLiteQueryExecution.ExecuteQueryDetailed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.sqlite_query_execution.SQLiteQueryExecution.ExecuteQueryDetailed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the SQL Query and gets Detailed Information</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -292,15 +279,15 @@
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The data to the Query</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#plasoscaffolder.dal.base_sql_query_execution.SQLQueryData" title="plasoscaffolder.dal.base_sql_query_execution.SQLQueryData">base_sql_query_execution.SQLQueryData</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sql_query_data.SQLQueryData</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="plasoscaffolder.dal.sqlite_query_execution.SQLQueryExecution.executeReadOnlyQuery">
-<code class="descname">executeReadOnlyQuery</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/dal/sqlite_query_execution.html#SQLQueryExecution.executeReadOnlyQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.sqlite_query_execution.SQLQueryExecution.executeReadOnlyQuery" title="Permalink to this definition">¶</a></dt>
+<dt id="plasoscaffolder.dal.sqlite_query_execution.SQLiteQueryExecution.ExecuteReadOnlyQuery">
+<code class="descname">ExecuteReadOnlyQuery</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/dal/sqlite_query_execution.html#SQLiteQueryExecution.ExecuteReadOnlyQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.sqlite_query_execution.SQLiteQueryExecution.ExecuteReadOnlyQuery" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the SQL Query if it is read only.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -310,15 +297,15 @@
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The data to the Query</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#plasoscaffolder.dal.base_sql_query_execution.SQLQueryData" title="plasoscaffolder.dal.base_sql_query_execution.SQLQueryData">base_sql_query_execution.SQLQueryData</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">sql_query_data.SQLQueryData</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="plasoscaffolder.dal.sqlite_query_execution.SQLQueryExecution.tryToConnect">
-<code class="descname">tryToConnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/plasoscaffolder/dal/sqlite_query_execution.html#SQLQueryExecution.tryToConnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.sqlite_query_execution.SQLQueryExecution.tryToConnect" title="Permalink to this definition">¶</a></dt>
+<dt id="plasoscaffolder.dal.sqlite_query_execution.SQLiteQueryExecution.TryToConnect">
+<code class="descname">TryToConnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/plasoscaffolder/dal/sqlite_query_execution.html#SQLiteQueryExecution.TryToConnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.dal.sqlite_query_execution.SQLiteQueryExecution.TryToConnect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Try to open the database File.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -351,7 +338,7 @@
 <li><a class="reference internal" href="#">plasoscaffolder.dal package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.dal.base_database_information">plasoscaffolder.dal.base_database_information module</a></li>
-<li><a class="reference internal" href="#plasoscaffolder-dal-base-sql-query-execution-module">plasoscaffolder.dal.base_sql_query_execution module</a></li>
+<li><a class="reference internal" href="#module-plasoscaffolder.dal.base_sql_query_execution">plasoscaffolder.dal.base_sql_query_execution module</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.dal.explain_query_plan">plasoscaffolder.dal.explain_query_plan module</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.dal.sqlite_database_information">plasoscaffolder.dal.sqlite_database_information module</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.dal.sqlite_query_execution">plasoscaffolder.dal.sqlite_query_execution module</a></li>

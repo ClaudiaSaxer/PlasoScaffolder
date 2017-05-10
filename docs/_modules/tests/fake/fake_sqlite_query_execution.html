@@ -54,12 +54,13 @@
 <span class="sd">&quot;&quot;&quot;Base for SQL query validators&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">plasoscaffolder.dal</span> <span class="k">import</span> <span class="n">base_sql_query_execution</span>
+<span class="kn">from</span> <span class="nn">plasoscaffolder.dal</span> <span class="k">import</span> <span class="n">sql_query_data</span>
 
 
 <div class="viewcode-block" id="SQLQueryExecution"><a class="viewcode-back" href="../../../tests.fake.html#tests.fake.fake_sqlite_query_execution.SQLQueryExecution">[docs]</a><span class="k">class</span> <span class="nc">SQLQueryExecution</span><span class="p">(</span><span class="n">base_sql_query_execution</span><span class="o">.</span><span class="n">BaseSQLQueryExecution</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Class representing the SQLite Query validator&quot;&quot;&quot;</span>
 
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">to_return</span><span class="p">:</span> <span class="n">base_sql_query_execution</span><span class="o">.</span><span class="n">SQLQueryData</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">to_return</span><span class="p">:</span> <span class="n">sql_query_data</span><span class="o">.</span><span class="n">SQLQueryData</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Initializes the SQL Query Validator</span>
 
 <span class="sd">    Args:</span>
@@ -67,14 +68,14 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">to_return</span> <span class="o">=</span> <span class="n">to_return</span>
 
-<div class="viewcode-block" id="SQLQueryExecution.executeQuery"><a class="viewcode-back" href="../../../tests.fake.html#tests.fake.fake_sqlite_query_execution.SQLQueryExecution.executeQuery">[docs]</a>  <span class="k">def</span> <span class="nf">executeQuery</span><span class="p">(</span>
+<div class="viewcode-block" id="SQLQueryExecution.ExecuteQuery"><a class="viewcode-back" href="../../../tests.fake.html#tests.fake.fake_sqlite_query_execution.SQLQueryExecution.ExecuteQuery">[docs]</a>  <span class="k">def</span> <span class="nf">ExecuteQuery</span><span class="p">(</span>
       <span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
       <span class="n">detailed</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span>
-  <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">base_sql_query_execution</span><span class="o">.</span><span class="n">SQLQueryData</span><span class="p">:</span>
+  <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sql_query_data</span><span class="o">.</span><span class="n">SQLQueryData</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Executes the SQL Query.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_return</span></div>
 
-<div class="viewcode-block" id="SQLQueryExecution.executeReadOnlyQuery"><a class="viewcode-back" href="../../../tests.fake.html#tests.fake.fake_sqlite_query_execution.SQLQueryExecution.executeReadOnlyQuery">[docs]</a>  <span class="k">def</span> <span class="nf">executeReadOnlyQuery</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="SQLQueryExecution.ExecuteReadOnlyQuery"><a class="viewcode-back" href="../../../tests.fake.html#tests.fake.fake_sqlite_query_execution.SQLQueryExecution.ExecuteReadOnlyQuery">[docs]</a>  <span class="k">def</span> <span class="nf">ExecuteReadOnlyQuery</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Executes the SQL Query if it is read only.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_return</span></div></div>
 </pre></div>
