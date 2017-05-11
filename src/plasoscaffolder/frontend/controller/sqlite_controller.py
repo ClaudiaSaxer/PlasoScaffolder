@@ -145,7 +145,7 @@ class SQLiteController(object):
 
   def SQLQuery(self, unused_ctx: click.core.Context,
                unused_param: click.core.Option,
-               value: str) -> str:
+               value: str) -> [sql_query_model.SQLQueryModel]:
     """The SQL Query of the plugin.
 
     Args:
@@ -156,19 +156,23 @@ class SQLiteController(object):
       value (str): the SQL Query (automatically given via callback)
 
     Returns:
-      str: the SQL Query
+      [sql_query_model.SQLQueryModel]: a list of SQL Query models
     """
 
     verbose = value
     add_more_queries = True
     sql_query_list = []
     while add_more_queries:
-      sql_query = self._output_handler.PromptInfo(
-          text='Please write your SQL script for the plugin [\'abort\' to '
-               'continue]')
-      if sql_query == 'abort':
-        add_more_queries = False
+      if len(sql_query_list) > 0:
+        sql_query = self._output_handler.PromptInfo(
+            text='Please write your SQL script for the plugin [\'abort\' to '
+                 'continue]')
+        if sql_query == 'abort':
+          add_more_queries = False
       else:
+        sql_query = self._output_handler.PromptInfo(
+            text='Please write your SQL script for the plugin')
+      if add_more_queries:
         query_model = self._CreateSQLQueryModelWithUserInput(
             sql_query, verbose, self._query_execution)
         if query_model is not None:
@@ -236,19 +240,22 @@ class SQLiteController(object):
         initial_name = self._output_handler.PromptInfo(question_event)
         name = self._ValidateRowName(initial_name)
 
-      message = 'Does the event {0} need customizing?'.format(name)
-      needs_customizing = self._output_handler.Confirm(
-          text=message, abort=False, default=False)
-
-      columns = self.GetTimestamps(query_data.columns, query_data.data)
+      data_column, timestamp_column = self.GetTimestamps(
+          query_data.columns, query_data.data)
 
       if query_data.data is not None:
         amount_events = len(query_data.data)
       else:
         amount_events = 0
 
+      message = 'Does the event {0} need customizing?'.format(name)
+      needs_customizing = self._output_handler.Confirm(
+          text=message, abort=False, default=False)
+      if needs_customizing:
+        data_column = self.GetCustomizable(data_column)
+
     return sql_query_model.SQLQueryModel(
-        query.strip(), name, columns[0], columns[1], needs_customizing,
+        query.strip(), name, data_column, timestamp_column, needs_customizing,
         amount_events)
 
   def GetTimestamps(self, columns: [sql_query_column_model.SQLColumnModel],
@@ -259,8 +266,7 @@ class SQLiteController(object):
     
     Args:
       columns ([sql_query_column_model.SQLColumnModel]): the columns from the 
-      SQL
-           query. 
+          SQL query. 
       data ([str]): the data from the cursor
 
     Returns:
@@ -294,23 +300,63 @@ class SQLiteController(object):
               'At least one timestamp is required, please add a timestamp')
         own_timestamps = self._ValidateTimestampString(own_timestamps)
 
-        for own_timestamp in own_timestamps.split(','):
-          column_names = [column.sql_column for column in columns]
-          if own_timestamp in column_names:
-            timestamps.add(own_timestamp)
-          else:
-            wrong_timestamps.add(own_timestamp)
+        new_columns = self._GetValideColumnsAndInvalid(columns, own_timestamps)
+        timestamps.update(new_columns[0])
+        wrong_timestamps.update(new_columns[1])
 
-        timestamps_string = 'Added: {0}'.format(','.join(sorted(timestamps)))
-        timestamps_wrong_string = 'Failed: {0}'.format(
-            ','.join(sorted(wrong_timestamps)))
-        self._output_handler.PrintInfo(timestamps_string)
-        self._output_handler.PrintInfo(timestamps_wrong_string)
+        self._PrintAddedAndFailedColumns(timestamps, wrong_timestamps)
         add_own_timestamps = self._output_handler.Confirm(
             'Do you want to add more timestamps?', abort=False, default=False)
 
     return self._plugin_helper.GetColumnsAndTimestampColumn(
         columns, timestamps, data)
+
+  def GetCustomizable(
+      self, columns: [sql_query_column_model_data.SQLColumnModelData]) -> (
+      [sql_query_column_model_data.SQLColumnModelData]):
+    """Gets the customizable columns from the user 
+
+    Args:
+      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns 
+          from the SQL query. 
+
+    Returns:
+      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns 
+          from the SQL query an set if the column is customizable
+    """
+    customizable = set()
+    wrong_customizable = set()
+
+    add_own_customizable = True
+    while add_own_customizable:
+      own_column = self._output_handler.PromptInfo(
+          'Enter columns that are customizable [columnName,aliasName...] or '
+          '[abort]')
+      own_column = self._ValidateColumnString(own_column)
+
+      if own_column == 'abort':
+        if len(customizable) == 0:
+          own_column = self._output_handler.PromptInfo(
+              'At least one column is required, please add a column')
+          own_column = self._ValidateColumnString(own_column)
+        else:
+          add_own_customizable = False
+
+      if add_own_customizable:
+        new_columns = self._GetValideColumnsAndInvalid(columns, own_column)
+        customizable.update(new_columns[0])
+        wrong_customizable.update(new_columns[1])
+
+        self._PrintAddedAndFailedColumns(customizable, wrong_customizable)
+        add_own_customizable = self._output_handler.Confirm(
+            'Do you want to add more columns that are customizable?',
+            abort=False, default=False)
+
+    for column in columns:
+      if column.sql_column in customizable:
+        column.customize = True
+
+    return columns
 
   def Generate(self, template_path: str, yapf_path: str):
     """Generating the files.
@@ -390,3 +436,54 @@ class SQLiteController(object):
           'Timestamps are not in valid format. Reenter them correctly [name,'
           'name...]')
     return timestamp_string
+
+  def _ValidateColumnString(self, column_string) -> str:
+    """Validate the timestamp string and prompt until valid
+
+    Args:
+      column_string: the string with the column names
+
+    Returns:
+      str: a comma separated string with column names
+    """
+    while not self._plugin_helper.IsValidCommaSeparatedString(column_string):
+      column_string = self._output_handler.PromptError(
+          'Column names are not in valid format. Reenter them correctly [name,'
+          'name...]')
+    return column_string
+
+  def _PrintAddedAndFailedColumns(self, added: [str], failed: [str]):
+    """Prints the user which columns failed and which are added
+    
+    Args:
+      added ([str]): the added columns 
+      failed ([str]): the failed columns 
+    """
+    added_string = 'Added: {0}'.format(','.join(sorted(added)))
+    failed_string = 'Failed: {0}'.format(','.join(sorted(failed)))
+    self._output_handler.PrintInfo(added_string)
+    self._output_handler.PrintInfo(failed_string)
+
+  def _GetValideColumnsAndInvalid(self, columns: [
+    sql_query_column_model.SQLColumnModel], user_input: str) -> (
+      [str], [str]):
+    """
+  
+    Args:
+      columns ([sql_query_column_model.SQLColumnModel]): the columns from the 
+          SQL query.
+      user_input: a comma separated list of column names
+  
+    Returns:
+      ([str], [str]): the columns for the right column names and the wrong
+          column names as the second part of the tuple
+    """
+    right_columns = set()
+    wrong_columns = set()
+    for column in user_input.split(','):
+      column_names = [column.sql_column for column in columns]
+      if column in column_names:
+        right_columns.add(column)
+      else:
+        wrong_columns.add(column)
+    return right_columns, wrong_columns

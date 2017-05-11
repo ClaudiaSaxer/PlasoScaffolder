@@ -202,6 +202,16 @@ class SQLitePluginHelperTest(unittest.TestCase):
     actual = self.helper.IsValidCommaSeparatedString('test, 213this,Hello')
     self.assertFalse(actual)
 
+  def testIsValidCommaSeparatedStringErrorSpace(self):
+    """test a comma separated string for its validity"""
+    actual = self.helper.IsValidCommaSeparatedString('test, ')
+    self.assertFalse(actual)
+
+  def testIsValidCommaSeparatedStringErrorSpaceTwoWords(self):
+    """test a comma separated string for its validity"""
+    actual = self.helper.IsValidCommaSeparatedString('test, test2')
+    self.assertFalse(actual)
+
   def testIsValidCommaSeparatedStringLongErrorComma(self):
     """test a comma separated string for its validity"""
     actual = self.helper.IsValidCommaSeparatedString('test, 213this,Hello,')
