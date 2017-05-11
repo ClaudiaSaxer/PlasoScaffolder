@@ -145,7 +145,7 @@ class SQLiteController(object):
 
   def SQLQuery(self, unused_ctx: click.core.Context,
                unused_param: click.core.Option,
-               value: str) -> str:
+               value: str) -> [sql_query_model.SQLQueryModel]:
     """The SQL Query of the plugin.
 
     Args:
@@ -156,19 +156,23 @@ class SQLiteController(object):
       value (str): the SQL Query (automatically given via callback)
 
     Returns:
-      str: the SQL Query
+      [sql_query_model.SQLQueryModel]: a list of SQL Query models
     """
 
     verbose = value
     add_more_queries = True
     sql_query_list = []
     while add_more_queries:
-      sql_query = self._output_handler.PromptInfo(
-          text='Please write your SQL script for the plugin [\'abort\' to '
-               'continue]')
-      if sql_query == 'abort':
-        add_more_queries = False
+      if len(sql_query_list) > 0:
+        sql_query = self._output_handler.PromptInfo(
+            text='Please write your SQL script for the plugin [\'abort\' to '
+                 'continue]')
+        if sql_query == 'abort':
+          add_more_queries = False
       else:
+        sql_query = self._output_handler.PromptInfo(
+            text='Please write your SQL script for the plugin')
+      if add_more_queries :
         query_model = self._CreateSQLQueryModelWithUserInput(
             sql_query, verbose, self._query_execution)
         if query_model is not None:
@@ -326,8 +330,10 @@ class SQLiteController(object):
     add_own_customizable = True
     while add_own_customizable:
       own_column = self._output_handler.PromptInfo(
-          'Enter columns that are customizable [columnName, aliasName...] or '
+          'Enter columns that are customizable [columnName,aliasName...] or '
           '[abort]')
+      own_column = self._ValidateColumnString(own_column)
+
       if own_column == 'abort':
         add_own_customizable = False
       else:
@@ -335,6 +341,7 @@ class SQLiteController(object):
           own_column = self._output_handler.PromptInfo(
               'At least one column is required, please add a column')
           own_column = self._ValidateColumnString(own_column)
+
 
         new_columns = self._GetValideColumnsAndInvalid(columns, own_column)
         customizable.update(new_columns[0])
@@ -346,7 +353,7 @@ class SQLiteController(object):
             abort=False, default=False)
 
     for column in columns:
-      if column in customizable:
+      if column.sql_column in customizable:
         column.customize = True
 
     return columns
@@ -430,7 +437,7 @@ class SQLiteController(object):
           'name...]')
     return timestamp_string
 
-  def _ValidatColumnString(self, column_string) -> str:
+  def _ValidateColumnString(self, column_string) -> str:
     """Validate the timestamp string and prompt until valid
 
     Args:
@@ -470,8 +477,6 @@ class SQLiteController(object):
     Returns:
       ([str], [str]): the columns for the right column names and the wrong
           column names as the second part of the tuple
-  
-  
     """
     right_columns = set()
     wrong_columns = set()

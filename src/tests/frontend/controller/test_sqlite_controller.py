@@ -102,7 +102,7 @@ class SQLiteControllerTest(unittest.TestCase):
         'The SQL query was ok.'
         'Do you want to name the query parse row:  ?'
         'Does the event  need customizing?'
-        'Enter columns that are customizable [columnName, aliasName...] '
+        'Enter columns that are customizable [columnName,aliasName...] '
         'or [abort]'
         'Added: Failed: Contact'
         'Do you want to add more columns that are customizable?')
@@ -189,8 +189,8 @@ class SQLiteControllerTest(unittest.TestCase):
                                 'Do you want to name the query parse row:  ?'
                                 'Does the event  need customizing?')
 
-      expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
-                                               0)
+      expected = sql_query_model.SQLQueryModel(
+          sql_query, name, [], [], False, 0)
 
       self.assertEqual(actual.name, '')
       self.assertEqual(expected.query, actual.query)
@@ -361,9 +361,8 @@ class SQLiteControllerTest(unittest.TestCase):
 
       prompt_output_actual = self._ReadFromFile(path)
 
-      prompt_output_expected = ('Please write your SQL script for the '
-                                'plugin [\'abort\' to '
-                                'continue]Do you want to add another Query?')
+      prompt_output_expected = ('Please write your SQL script for the plugin'
+                                'Do you want to add another Query?')
 
       self.assertEqual(len(actual), 1)
       self.assertEqual(actual[0].data, 'test')
@@ -378,24 +377,25 @@ class SQLiteControllerTest(unittest.TestCase):
       pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(), prompt_info='abort')
+          path, file_handler.FileHandler(), prompt_info='abort', confirm=False)
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper()
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
 
       controller._CreateSQLQueryModelWithUserInput = mock.MagicMock(
-          return_value=sql_query_data.SQLQueryData(
-              data='test', has_error=False, error_message=None))
+          return_value=sql_query_model.SQLQueryModel(
+              'query', 'name', None, None, True, 0))
 
       actual = controller.SQLQuery(None, None, True)
 
       prompt_output_actual = self._ReadFromFile(path)
+      prompt_output_expected = ('Please write your SQL script for the plugin'
+                                'Do you want to add another Query?')
 
-      prompt_output_expected = ('Please write your SQL script for the '
-                                'plugin [\'abort\' to '
-                                'continue]')
-
-      self.assertEqual(len(actual), 0)
+      self.assertEqual(len(actual), 1)
+      print(actual[0])
+      self.assertEqual(actual[0].query, 'query')
+      self.assertEqual(prompt_output_actual, prompt_output_expected)
 
   def testSqlQueryMultiple(self):
     """test method after getting the source path from the user"""
@@ -415,23 +415,27 @@ class SQLiteControllerTest(unittest.TestCase):
 
       actual = controller.SQLQuery(None, None, True)
 
-      prompt_output_expected = ('Please write your SQL script for the '
-                                'plugin [\'abort\' to '
-                                'continue]Do you want to add another Query?') \
-                               * 3
-
+      prompt_output_expected = (
+        'Please write your SQL script for the plugin'
+        'Do you want to add another Query?'
+        'Please write your SQL script for the plugin [\'abort\' to continue]'
+        'Do you want to add another Query?'
+        'Please write your SQL script for the plugin [\'abort\' to continue]'
+        'Do you want to add another Query?'
+      )
       prompt_output_actual = self._ReadFromFile(path)
-      self.assertEqual(len(actual), 3)
-      self.assertEqual(actual[0].data, 'test')
-      self.assertEqual(actual[0].has_error, False)
-      self.assertEqual(actual[0].error_message, None)
-      self.assertEqual(actual[1].data, 'test')
-      self.assertEqual(actual[1].has_error, False)
-      self.assertEqual(actual[1].error_message, None)
-      self.assertEqual(actual[2].data, 'test')
-      self.assertEqual(actual[2].has_error, False)
-      self.assertEqual(actual[2].error_message, None)
-      self.assertEqual(prompt_output_actual, prompt_output_expected)
+
+    self.assertEqual(len(actual), 3)
+    self.assertEqual(actual[0].data, 'test')
+    self.assertEqual(actual[0].has_error, False)
+    self.assertEqual(actual[0].error_message, None)
+    self.assertEqual(actual[1].data, 'test')
+    self.assertEqual(actual[1].has_error, False)
+    self.assertEqual(actual[1].error_message, None)
+    self.assertEqual(actual[2].data, 'test')
+    self.assertEqual(actual[2].has_error, False)
+    self.assertEqual(actual[2].error_message, None)
+    self.assertEqual(prompt_output_actual, prompt_output_expected)
 
   def testSourcePathIfNotExisting(self):
     """test method after getting the source path from the user"""
@@ -960,12 +964,12 @@ class SQLiteControllerTest(unittest.TestCase):
 
   def _ReadFromFile(self, path: str):
     """Read from file
-
+  
     Args:
       path (str): the file path
-
+  
       path (str): the file path
-
+  
     Returns:
       str: content of the file"""
     with open(path, 'r') as f:
