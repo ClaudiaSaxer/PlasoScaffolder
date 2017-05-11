@@ -12,7 +12,8 @@ from plasoscaffolder.bll.services import sqlite_plugin_helper
 from plasoscaffolder.common import file_handler
 from plasoscaffolder.dal import sql_query_data
 from plasoscaffolder.frontend.controller import sqlite_controller
-from plasoscaffolder.model import sql_query_column_model, sql_query_model
+from plasoscaffolder.model import (sql_query_column_model,
+                                   sql_query_column_model_data, sql_query_model)
 from tests.fake import fake_sqlite_plugin_helper
 from tests.fake import fake_sqlite_query_execution
 from tests.test_helper import output_handler_file
@@ -423,7 +424,7 @@ class SQLiteControllerTest(unittest.TestCase):
         'Do you want to add another Query?'
         'Please write your SQL script for the plugin [\'abort\' to continue]'
         'Do you want to add another Query?'
-        'Please write your SQL script for thfe plugin [\'abort\' to continue]'
+        'Please write your SQL script for the plugin [\'abort\' to continue]'
         'Do you want to add another Query?'
       )
       prompt_output_actual = self._ReadFromFile(path)
@@ -438,6 +439,7 @@ class SQLiteControllerTest(unittest.TestCase):
     self.assertEqual(actual[2].data, 'test')
     self.assertEqual(actual[2].has_error, False)
     self.assertEqual(actual[2].error_message, None)
+
     self.assertEqual(prompt_output_actual, prompt_output_expected)
 
   def testSourcePathIfNotExisting(self):
@@ -803,6 +805,71 @@ class SQLiteControllerTest(unittest.TestCase):
       self.assertEqual(expected, actual)
       self.assertEqual(len(model[0]), 1)
       self.assertEqual(len(model[1]), 1)
+
+  def testGetCustomizableNormal(self):
+    """test the function GetCustomizable"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_info='that,other',
+          confirm_amount_same=1)
+
+      plugin_helper = sqlite_plugin_helper.SQLitePluginHelper()
+      controller = sqlite_controller.SQLiteController(
+          output_handler, plugin_helper)
+
+      columns = [sql_query_column_model_data.SQLColumnModelData('this'),
+                 sql_query_column_model_data.SQLColumnModelData('that'),
+                 sql_query_column_model_data.SQLColumnModelData('test')]
+
+      model = controller.GetCustomizable(columns)
+      expected = (
+        'Enter columns that are customizable [columnName,aliasName...] '
+        'or [abort]'
+        'Added: thatFailed: other'
+        'Do you want to add more columns that are customizable?'
+        'Enter columns that are customizable [columnName,aliasName...] or '
+        '[abort]Added: thatFailed: other'
+        'Do you want to add more columns that are customizable?')
+
+      actual = self._ReadFromFile(path)
+      self.assertEqual(expected, actual)
+      self.assertEqual(len(model), 3)
+      self.assertEqual(model[0].customize, False)
+      self.assertEqual(model[1].customize, True)
+      self.assertEqual(model[1].sql_column, 'that')
+      self.assertEqual(model[2].customize, False)
+
+  def testGetCustomizableWithAbort(self):
+    """test the function GetCustomizable"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_info='abort',
+          confirm_amount_same=1)
+
+      plugin_helper = sqlite_plugin_helper.SQLitePluginHelper()
+      controller = sqlite_controller.SQLiteController(
+          output_handler, plugin_helper)
+      columns = [sql_query_column_model_data.SQLColumnModelData('this'),
+                 sql_query_column_model_data.SQLColumnModelData('that'),
+                 sql_query_column_model_data.SQLColumnModelData('test')]
+
+      model = controller.GetCustomizable(columns)
+      expected = (
+        'Enter columns that are customizable [columnName,aliasName...] '
+        'or [abort]')
+
+      actual = self._ReadFromFile(path)
+      self.assertEqual(expected, actual)
+      self.assertEqual(len(model), 3)
+      self.assertEqual(model[0].customize, False)
+      self.assertEqual(model[1].customize, False)
+      self.assertEqual(model[2].customize, False)
 
   def testGetTimestampNormal(self):
     """test the function GetTimestamp"""
