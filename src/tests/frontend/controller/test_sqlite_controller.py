@@ -616,6 +616,35 @@ class SQLiteControllerTest(unittest.TestCase):
       self.assertEqual(expected, actual)
       self.assertEqual(valid, 'this,that,bla')
 
+  def testValidateColumnStringIfOk(self):
+    """test the validate column string method if ok"""
+    plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+        valid_name=True)
+    controller = sqlite_controller.SQLiteController(None, plugin_helper)
+    valid = controller._ValidateColumnString("this,that,bla")
+    self.assertEqual(valid, 'this,that,bla')
+
+  def testValidateColumnStringIfNotOk(self):
+    """test the validate column string method if not ok"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_error='this,that,bla')
+      plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper(
+          valid_comma_separated_string=False,
+          change_bool_after_every_call_valid_comma_separated_string=True)
+      controller = sqlite_controller.SQLiteController(output_handler,
+                                                      plugin_helper)
+      valid = controller._ValidateColumnString("this, that,bla")
+      expected = (
+        'Column names are not in valid format. Reenter them correctly [name,'
+        'name...]')
+      actual = self._ReadFromFile(path)
+      self.assertEqual(expected, actual)
+      self.assertEqual(valid, 'this,that,bla')
+
   def testCreateSQLQueryModelWithUserInput(self):
     """test the creation of the sql Query model with the user input"""
     query = "select x "
