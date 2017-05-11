@@ -172,7 +172,7 @@ class SQLiteController(object):
       else:
         sql_query = self._output_handler.PromptInfo(
             text='Please write your SQL script for the plugin')
-      if add_more_queries :
+      if add_more_queries:
         query_model = self._CreateSQLQueryModelWithUserInput(
             sql_query, verbose, self._query_execution)
         if query_model is not None:
@@ -335,14 +335,14 @@ class SQLiteController(object):
       own_column = self._ValidateColumnString(own_column)
 
       if own_column == 'abort':
-        add_own_customizable = False
-      else:
-        if len(own_column) == 0:
-          own_column = self._output_handler.PromptInfo(
+        if len(customizable) == 0:
+          own_column = self._output_handler.PromptError(
               'At least one column is required, please add a column')
           own_column = self._ValidateColumnString(own_column)
+        else:
+          add_own_customizable = False
 
-
+      if add_own_customizable:
         new_columns = self._GetValideColumnsAndInvalid(columns, own_column)
         customizable.update(new_columns[0])
         wrong_customizable.update(new_columns[1])

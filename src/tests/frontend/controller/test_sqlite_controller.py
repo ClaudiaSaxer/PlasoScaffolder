@@ -850,7 +850,7 @@ class SQLiteControllerTest(unittest.TestCase):
 
       output_handler = output_handler_file.OutputHandlerFile(
           path, file_handler.FileHandler(), prompt_info='abort',
-          confirm_amount_same=1)
+          prompt_error='this', confirm=False)
 
       plugin_helper = sqlite_plugin_helper.SQLitePluginHelper()
       controller = sqlite_controller.SQLiteController(
@@ -862,12 +862,15 @@ class SQLiteControllerTest(unittest.TestCase):
       model = controller.GetCustomizable(columns)
       expected = (
         'Enter columns that are customizable [columnName,aliasName...] '
-        'or [abort]')
+        'or [abort]'
+        'At least one column is required, please add a column'
+        'Added: thisFailed: '
+        'Do you want to add more columns that are customizable?')
 
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
       self.assertEqual(len(model), 3)
-      self.assertEqual(model[0].customize, False)
+      self.assertEqual(model[0].customize, True)
       self.assertEqual(model[1].customize, False)
       self.assertEqual(model[2].customize, False)
 
