@@ -842,15 +842,15 @@ class SQLiteControllerTest(unittest.TestCase):
       self.assertEqual(model[1].sql_column, 'that')
       self.assertEqual(model[2].customize, False)
 
-  def testGetCustomizableWithAbort(self):
+  def testGetCustomizableWithAbortToEarly(self):
     """test the function GetCustomizable"""
     with tempfile.TemporaryDirectory() as tmpdir:
       path = os.path.join(tmpdir, 'testfile')
       pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(), prompt_info='abort',
-          prompt_error='this', confirm=False)
+          path, file_handler.FileHandler(), prompt_info_list=['abort','this'],
+          confirm=False)
 
       plugin_helper = sqlite_plugin_helper.SQLitePluginHelper()
       controller = sqlite_controller.SQLiteController(
@@ -866,6 +866,40 @@ class SQLiteControllerTest(unittest.TestCase):
         'At least one column is required, please add a column'
         'Added: thisFailed: '
         'Do you want to add more columns that are customizable?')
+
+      actual = self._ReadFromFile(path)
+      self.assertEqual(expected, actual)
+      self.assertEqual(len(model), 3)
+      self.assertEqual(model[0].customize, True)
+      self.assertEqual(model[1].customize, False)
+      self.assertEqual(model[2].customize, False)
+
+  def testGetCustomizableWithAbort(self):
+    """test the function GetCustomizable"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+      path = os.path.join(tmpdir, 'testfile')
+      pathlib.Path(path).touch()
+
+      output_handler = output_handler_file.OutputHandlerFile(
+          path, file_handler.FileHandler(), prompt_info_list=['this','abort'],
+          prompt_error='this', confirm=True)
+
+      plugin_helper = sqlite_plugin_helper.SQLitePluginHelper()
+      controller = sqlite_controller.SQLiteController(
+          output_handler, plugin_helper)
+      columns = [sql_query_column_model_data.SQLColumnModelData('this'),
+                 sql_query_column_model_data.SQLColumnModelData('that'),
+                 sql_query_column_model_data.SQLColumnModelData('test')]
+
+      model = controller.GetCustomizable(columns)
+
+      expected = (
+        'Enter columns that are customizable [columnName,aliasName...] '
+        'or [abort]'
+        'Added: thisFailed: '
+        'Do you want to add more columns that are customizable?'
+        'Enter columns that are customizable [columnName,aliasName...] '
+        'or [abort]')
 
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)

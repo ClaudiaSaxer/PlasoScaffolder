@@ -336,7 +336,7 @@ class SQLiteController(object):
 
       if own_column == 'abort':
         if len(customizable) == 0:
-          own_column = self._output_handler.PromptError(
+          own_column = self._output_handler.PromptInfo(
               'At least one column is required, please add a column')
           own_column = self._ValidateColumnString(own_column)
         else:

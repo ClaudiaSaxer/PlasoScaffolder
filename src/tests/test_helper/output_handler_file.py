@@ -14,10 +14,11 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       self,
       file_path: str,
       file_handler: base_file_handler.BaseFileHandler(),
-      prompt_info="",
-      prompt_error="",
-      confirm=True,
-      confirm_amount_same=100):
+      prompt_info: str = "",
+      prompt_error: str = "",
+      confirm: bool = True,
+      confirm_amount_same: int = 100,
+      prompt_info_list: [str] = []):
     """Initializes File Output Handler.
 
     Args:
@@ -26,6 +27,8 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       fileHandler (BaseFileHandler): the file Handler
       prompt_error (str): what to return in a prompt error
       prompt_info (str): what to return in a prompt info
+      prompt_info_list ([str]): what to return in prompt info as an array. 
+          if the array is empty, the prompt info will be returned.
       confirm_amount_same (int): how many times to confirm the same amount.
        Default = 100
     """
@@ -37,19 +40,25 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
     self.__confirm = confirm
     self.__confirm_counter = 0
     self.__confirm_amount_same = confirm_amount_same
+    self.__prompt_info_list = prompt_info_list
 
   def PromptInfo(self, text: str) -> str:
     """A prompt for information with click.
     Use with caution. Endless Loops possible
 
     Args:
-      text (str): the text to  prompt
+      text (str): the text to prompt
 
     Returns:
       str: the user input
     """
+    if len(self.__prompt_info_list) != 0:
+      to_return = self.__prompt_info_list.pop(0)
+    else:
+      to_return = self.__prompt_info
+
     self.__file_handler.AddContent(self.__path, text)
-    return self.__prompt_info
+    return to_return
 
   def PromptInfoWithDefault(self, text: str, text_type: object,
                             default: object) -> str:
