@@ -377,7 +377,8 @@ class SQLiteControllerTest(unittest.TestCase):
       pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(), prompt_info='abort', confirm=False)
+          path, file_handler.FileHandler(), prompt_info='abort', confirm=True,
+          confirm_amount_same=2)
       plugin_helper = fake_sqlite_plugin_helper.FakeSQLitePluginHelper()
       controller = sqlite_controller.SQLiteController(output_handler,
                                                       plugin_helper)
@@ -389,8 +390,10 @@ class SQLiteControllerTest(unittest.TestCase):
       actual = controller.SQLQuery(None, None, True)
 
       prompt_output_actual = self._ReadFromFile(path)
-      prompt_output_expected = ('Please write your SQL script for the plugin'
-                                'Do you want to add another Query?')
+      prompt_output_expected = (
+        'Please write your SQL script for the plugin'
+        'Do you want to add another Query?'
+        'Please write your SQL script for the plugin [\'abort\' to continue]')
 
       self.assertEqual(len(actual), 1)
       print(actual[0])
@@ -420,7 +423,7 @@ class SQLiteControllerTest(unittest.TestCase):
         'Do you want to add another Query?'
         'Please write your SQL script for the plugin [\'abort\' to continue]'
         'Do you want to add another Query?'
-        'Please write your SQL script for the plugin [\'abort\' to continue]'
+        'Please write your SQL script for thfe plugin [\'abort\' to continue]'
         'Do you want to add another Query?'
       )
       prompt_output_actual = self._ReadFromFile(path)
