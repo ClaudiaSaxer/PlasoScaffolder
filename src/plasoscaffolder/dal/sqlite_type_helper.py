@@ -49,7 +49,7 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
     duplicate_list = [column for column, count in
                       collections.Counter(single_column_name_list).items() if
                       count > 1]
-    return duplicate_list
+    return sorted(duplicate_list)
 
   def GetColumnInformationFromDescription(
       self, descriptions: []) -> [sql_query_column_model.SQLColumnModel]:
