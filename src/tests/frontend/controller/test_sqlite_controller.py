@@ -397,7 +397,6 @@ class SQLiteControllerTest(unittest.TestCase):
         'Please write your SQL script for the plugin [\'abort\' to continue]')
 
       self.assertEqual(len(actual), 1)
-      print(actual[0])
       self.assertEqual(actual[0].query, 'query')
       self.assertEqual(prompt_output_actual, prompt_output_expected)
 
@@ -687,8 +686,6 @@ class SQLiteControllerTest(unittest.TestCase):
         'Does the event  need customizing?')
 
       actual = self._ReadFromFile(path)
-      print(actual)
-      print(expected)
       self.assertEqual(expected, actual)
       self.assertFalse(model.needs_customizing)
       self.assertEqual(model.query, query.strip())

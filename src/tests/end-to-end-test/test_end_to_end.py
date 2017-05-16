@@ -22,9 +22,9 @@ class EndToEndTest(unittest.TestCase):
       database_path = path_helper.TestDatabasePath()
       setup_path = os.path.join(os.path.dirname(os.path.dirname(self.dir_path)), 'setup.py')
 
-      plasoscaffolder_spec = util.find_spec("plasoscaffolder")
-      found = plasoscaffolder_spec is not None
-      if not found:
+      try:
+        pexpect.spawn('plasoscaffolder sqlite --help')
+      except pexpect.ExceptionPexpect:
         call(["python", setup_path, 'build'])
         call(["python", setup_path, 'install'])
 
