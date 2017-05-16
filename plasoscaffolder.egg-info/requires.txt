@@ -1,5 +1,0 @@
-Click
-setuptools
-jinja2
-colorama
-yapf
