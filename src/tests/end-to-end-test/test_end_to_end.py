@@ -10,6 +10,8 @@ import unittest
 import pexpect
 import platform
 from subprocess import call
+
+from plasoscaffolder.frontend import main
 from tests.test_helper import path_helper
 
 
@@ -20,13 +22,7 @@ class EndToEndTest(unittest.TestCase):
       self.dir_path = os.path.dirname(os.path.realpath(__file__))
       database_path = path_helper.TestDatabasePath()
       setup_path = os.path.join(os.path.dirname(os.path.dirname(self.dir_path)), 'setup.py')
-
-      try:
-        pexpect.spawn('plasoscaffolder sqlite --help')
-      except pexpect.ExceptionPexpect:
-        call(["python", setup_path, 'build'])
-        call(["python", setup_path, 'install'])
-
+      self.main_path = os.path.join(os.path.dirname(os.path.dirname(self.dir_path)),'plasoscaffolder','frontend','main.py')
       self.path_question = 'What\'s the path to the plaso project\?\:'
       self.name_question = 'What\'s the name of the plugin\?\:'
       self.name_answer = 'test'
@@ -53,19 +49,12 @@ class EndToEndTest(unittest.TestCase):
       self.generate_question = 'Do you want to Generate the files\? \[Y\/n\]\:'
       self.generate_answer = 'Y'
 
-  def tearDown(self):
-    """remove generated folders and files"""
-    if platform.system() in ['Linux']:
-      if(os.path.exists(os.path.join(self.dir_path,'build'))):
-        shutil.rmtree(os.path.join(self.dir_path,'build'))
-        shutil.rmtree(os.path.join(self.dir_path,'plasoscaffolder.egg-info'))
-        shutil.rmtree(os.path.join(self.dir_path,'dist'))
 
   def testHelpMessage(self):
     """test the --help option for sqlite"""
     if platform.system() in ['Linux']:
       message_help = (
-        'Usage: plasoscaffolder sqlite [OPTIONS]\r\n\r\n'
+        'Usage: main.py sqlite [OPTIONS]\r\n\r\n'
         'Options:\r\n  '
         '--path TEXT       The path to plaso\r\n  '
         '--name TEXT       The plugin name\r\n  '
@@ -73,7 +62,8 @@ class EndToEndTest(unittest.TestCase):
         '--sql / --no-sql  The output example flag for the SQL Query for the plugin.\r\n  '
         '--help            Show this message and exit.')
 
-      child = pexpect.spawn('plasoscaffolder sqlite --help')
+      command = 'python {0} sqlite --help'.format(self.main_path)
+      child = pexpect.spawn(command)
       child.expect_exact(message_help)
 
   def testEasyGeneration(self):
@@ -91,7 +81,8 @@ class EndToEndTest(unittest.TestCase):
         parsers_init_path = os.path.join(tmpdir, "plaso/parsers/sqlite_plugins/__init__.py")
         formatter_init_path = os.path.join(tmpdir, "plaso/formatters/__init__.py")
 
-        child = pexpect.spawn('plasoscaffolder sqlite')
+        command = 'python {0} sqlite'.format(self.main_path)
+        child = pexpect.spawn(command)
 
         child.expect(self.path_question)
         child.sendline(path_answer)
