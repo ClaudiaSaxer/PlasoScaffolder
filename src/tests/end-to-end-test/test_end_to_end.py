@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Test Class for end to end Tests.
-These Tests can only be run on Linux because it makes use of pexpect. They will be run on travis.
-Rerun setup.py to run the test with the new version"""
+These Tests can only be run on Linux because it makes use of pexpect."""
 
 import os
 import shutil
