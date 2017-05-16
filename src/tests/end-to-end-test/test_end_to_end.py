@@ -10,7 +10,6 @@ import unittest
 import pexpect
 import platform
 from subprocess import call
-from importlib import util
 from tests.test_helper import path_helper
 
 

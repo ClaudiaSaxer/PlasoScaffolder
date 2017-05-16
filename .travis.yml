@@ -17,6 +17,8 @@ install:
   - pip install -r src/requirements.txt
   - pip install coveralls
 script: 
+  - python src/setup.py build
+  - python src/setup.py install
   - python src/run_tests.py
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then coverage run --source=src/plasoscaffolder src/run_tests_for_coverage.py test ; fi
 after_success:
