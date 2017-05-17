@@ -85,36 +85,7 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
     """
     locked = [table.lower() for table in self._explain.GetLockedTables(query)]
 
-    """if len(locked) == 1:
-      return self._ColumnTypeForOnlyOneTable(locked[0], columns)
-       else:"""
     return self._ColumnTypeForMultipleTables(locked, columns, query)
-
-  def _ColumnTypeForOnlyOneTable(
-      self, table_name: str,
-      column_model: sql_query_column_model.SQLColumnModel
-  ) -> [sql_query_column_model.SQLColumnModel]:
-    """Getting Types for Column if there is only one table
-    
-    Args:
-      table_name (str): the name of the table
-      column_model ([sql_query_column_model.SQLColumnModel]): the column to 
-          find the type for
-  
-    Returns:
-      [sql_query_column_model.SQLColumnModel]: the column model with the types
-    """
-    mappings = self._information.GetTableColumnsAndType(table_name)
-    for column in column_model:
-      column_name = column.sql_column.lower()
-
-      type_sqlite = mappings[column_name].upper()
-      type_sqlite_basic = type_sqlite.split("(")[0]
-      type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(
-          type_sqlite_basic, type(None))
-
-      column.sql_column_type = type_python
-    return column_model
 
   def _ColumnTypeForMultipleTables(
       self, tables: [str],
@@ -225,8 +196,6 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
     all_appearances = [text.rfind(space, 0, end_position) for space in
                        self._POSSIBLEQUERYSEPERATOR
                        if text.rfind(space, 0, end_position) > 0]
-    if len(all_appearances) == 0:
-      return end_position
     return max(all_appearances) + 1
 
   def _IsPrefixedWithAlias(self, query:str, tables: [str], column_name: str) -> bool:
