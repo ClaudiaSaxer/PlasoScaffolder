@@ -447,7 +447,6 @@
         <span class="s1">&#39;Please write your SQL script for the plugin [</span><span class="se">\&#39;</span><span class="s1">abort</span><span class="se">\&#39;</span><span class="s1"> to continue]&#39;</span><span class="p">)</span>
 
       <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">actual</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-      <span class="nb">print</span><span class="p">(</span><span class="n">actual</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">actual</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="s1">&#39;query&#39;</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">prompt_output_actual</span><span class="p">,</span> <span class="n">prompt_output_expected</span><span class="p">)</span></div>
 
@@ -737,8 +736,6 @@
         <span class="s1">&#39;Does the event  need customizing?&#39;</span><span class="p">)</span>
 
       <span class="n">actual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ReadFromFile</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-      <span class="nb">print</span><span class="p">(</span><span class="n">actual</span><span class="p">)</span>
-      <span class="nb">print</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">actual</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">needs_customizing</span><span class="p">)</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
