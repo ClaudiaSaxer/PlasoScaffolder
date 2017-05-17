@@ -12,7 +12,7 @@ from tests.end_to_end_test import end_to_end_test_helper
 
 
 class WrongTestDatabaseFileTest(unittest.TestCase):
-  def testWronTestFile(self):
+  def testWrongTestFile(self):
     """Test easy file generation without errors
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir

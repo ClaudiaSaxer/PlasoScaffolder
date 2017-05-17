@@ -39,7 +39,6 @@ class EasyGenerationTest(unittest.TestCase):
     if platform.system() in ['Linux']:
       with tempfile.TemporaryDirectory() as tmpdir:
         helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir, 'test_plugin')
-
         path_answer = tmpdir
         expected_path = os.path.join(helper.DIR_PATH,
                                      'ExpectedEasyGenerationLongNameFiles')

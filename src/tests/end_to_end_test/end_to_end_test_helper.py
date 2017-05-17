@@ -87,6 +87,8 @@ class EndToEndTestHelper(object):
   ADDITIONAL_TIMESTAMP_ABORT = 'abort'
   CUSTOM_QUESTION_USERS = ('Does the event Users need customizing\? \['
                            'y\/N\]\:')
+  CUSTOM_QUESTION_USERSSTATUSES = ('Does the event Usersstatuses need customizing\? \['
+                           'y\/N\]\:')
   CUSTOM_QUESTION_STATUSES = ('Does the event Statuses need customizing\? \['
                               'y\/N\]\:')
   CUSTOM_QUESTION_THEUSER = ('Does the event TheUser need customizing\? \['

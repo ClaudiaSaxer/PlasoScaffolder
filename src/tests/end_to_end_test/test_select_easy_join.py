@@ -83,10 +83,8 @@ class SelectEasyJoinTest(unittest.TestCase):
         child.expect('Error\: ambiguous column name\: id')
 
         child.expect(helper.SQL_QUESTION)
-        child.sendline('select users.id as userid , users.updatedAt,'
+        child.sendline('select users.id as user_id , users.updatedAt as updatedAt,'
                        ' createdDate from users join statuses')
-        child.expect('select users\.id as userid\, users\.updatedAt\,'
-                     ' createdDate from users join statuses')
         child.expect(helper.SQL_ANSWER_OK)
 
         child.expect(helper.NAME_ROW_QUESTION_USERSSTATUSES)
@@ -105,7 +103,7 @@ class SelectEasyJoinTest(unittest.TestCase):
         child.sendline(helper.ADDITIONAL_TIMESTAMP_ABORT)
         child.expect(helper.ADDITIONAL_TIMESTAMP_ABORT)
 
-        child.expect(helper.CUSTOM_QUESTION_USERS)
+        child.expect(helper.CUSTOM_QUESTION_USERSSTATUSES)
         child.sendline(helper.CUSTOM_ANSWER_NO)
         child.expect(helper.CUSTOM_ANSWER_NO)
 
@@ -115,6 +113,7 @@ class SelectEasyJoinTest(unittest.TestCase):
 
         child.expect(helper.GENERATE_QUESTION)
         child.sendline(helper.GENERATE_ANSWER_YES)
+        child.expect(helper.GENERATE_ANSWER_YES)
 
         child.expect('create.*{0}'.format(helper.formatter_path))
         child.expect('create.*{0}'.format(helper.parser_path))

@@ -75,13 +75,13 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     query_data = sql_query_data.SQLQueryData(
         data=None, has_error=True, columns=None)
     if not re.fullmatch('[A-Za-z,.;*=_0-9 ]*', query):
-      query_data.error_message = ('Warning: Don’t use any characters beside'
+      query_data.error_message = ('Warning: Don\'t use any characters beside'
                                   ' a-z A-Z 0-9 . ; , * = _')
       return query_data
 
     if query.lower()[query.lower().find(' from '):].find(' as ') != -1:
       query_data.error_message = ('Warning: '
-                                  'Don’t use any alias for a table name')
+                                  'Don\'t use any alias for a table name')
       return query_data
 
     data_from_executed_query = self._ExecuteQuery(query, True)

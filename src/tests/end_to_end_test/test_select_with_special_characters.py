@@ -23,11 +23,11 @@ class SelectWithSpecialCharactersTest(unittest.TestCase):
     7.  Info: Don’t use any characters beside a-z A-Z . ; , *
     8.  Please write your SQL script for the plugin: select hex(id) from users
     9.  Warning: Don’t use any characters beside a-z A-Z . ; , *
-    10. Please write your SQL script for the plugin: select [AS].[ID] AS [the ali-as], [AS].name AS “the name” , S.id from users as [AS] join statuses as “S”
+    10. Please write your SQL script for the plugin: select [AS].[ID] AS [the alias], [AS].name AS “the name” , S.id from users as [AS] join statuses as “S”
     11. Warning: Don’t use any characters beside a-z A-Z . ; , *
-    12. Please write your SQL script for the plugin: select id as the_id from us-ers
+    12. Please write your SQL script for the plugin: select id as the-id from users
     13. Warning: Don’t use any characters beside a-z A-Z . ; , *
-    14. Please write your SQL script for the plugin: select somealias.id from us-ers as somealias
+    14. Please write your SQL script for the plugin: select somealias.id from users as somealias
     15. Warning: Don’t use any alias for a table name
     16. Please write your SQL script for the plugin: select * from users
     17. The SQL query was ok.
@@ -72,13 +72,13 @@ class SelectWithSpecialCharactersTest(unittest.TestCase):
         child.sendline('select users.id as "userid" from users join statuses')
         child.expect('select users\.id as \"userid\" from users join statuses')
         child.expect('Warning\: Don\'t use any characters beside '
-                     'a\-z A\-Z \. \; \, \*')
+                     'a\-z A\-Z 0\-9 \. \; \, \* \= \_')
 
         child.expect(helper.SQL_QUESTION)
         child.sendline('select hex(id) from users')
-        child.expect('select hex/(id/) from users ')
+        child.expect('select hex\(id\) from users')
         child.expect('Warning\: Don\'t use any characters beside '
-                     'a\-z A\-Z \. \; \, \*')
+                     'a\-z A\-Z 0\-9 \. \; \, \* \= \_')
 
         child.expect(helper.SQL_QUESTION)
         child.sendline('select [AS].[ID] AS [the alias], '
@@ -88,18 +88,18 @@ class SelectWithSpecialCharactersTest(unittest.TestCase):
                      '\[AS\]\.name AS \"the name\" \, S\.id '
                      'from users as \[AS\] join statuses as \"S\"')
         child.expect('Warning\: Don\'t use any characters beside '
-                     'a\-z A\-Z \. \; \, \*')
+                     'a\-z A\-Z 0\-9 \. \; \, \* \= \_')
 
         child.expect(helper.SQL_QUESTION)
-        child.sendline('select id as the_id from users')
-        child.expect('select id as the\_id from users')
+        child.sendline('select id as the-id from users')
+        child.expect('select id as the\-id from users')
         child.expect('Warning\: Don\'t use any characters beside '
-                     'a\-z A\-Z \. \; \, \*')
+                     'a\-z A\-Z 0\-9 \. \; \, \* \= \_')
 
         child.expect(helper.SQL_QUESTION)
         child.sendline('select somealias.id from users as somealias')
         child.expect('select somealias\.id from users as somealias')
-        child.expect('Warning\: Don\’t use any alias for a table name')
+        child.expect('Warning\: Don\'t use any alias for a table name')
 
         child.expect(helper.SQL_QUESTION)
         child.sendline(helper.SQL_ANSWER)
