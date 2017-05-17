@@ -198,6 +198,105 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     self.assertEqual(result.columns[6].GetColumnTypeAsName(), 'int')
     self.assertEqual(result.columns[7].GetColumnTypeAsName(), 'float')
 
+  def testExecuteQueryDetailedWithSpecialCharacters(self):
+    """test the execution of a more complex Query"""
+    query = (
+      'SELECT [AS].[id] as [AS], [AS].name as "name" from Users AS [AS]')
+
+    result = self.execute.ExecuteQueryDetailed(query)
+    expected_error_message = (
+    'Warning: Don’t use any characters beside a-z A-Z 0-9 . ; , * = _')
+    self.assertTrue(result.has_error)
+    self.assertEqual(result.error_message, expected_error_message)
+    self.assertEqual(result.error_message, expected_error_message)
+
+  def testExecuteQueryDetailedWithAliasWithUnderscore(self):
+    """test the execution of a more complex Query"""
+    query = (
+      'SELECT id as the_id, name as the_name from users')
+
+    result = self.execute.ExecuteQueryDetailed(query)
+    expected_data = self._ReadFromFileRelative('expected_id_name_data')
+    self.assertIsNone(result.error_message)
+    self.assertFalse(result.has_error)
+    self.assertEqual(expected_data, str(result.data))
+
+  def testExecuteQueryDetailedWithAliasWithUnderscore2(self):
+    """test the execution of a more complex Query"""
+    query = (
+      'SELECT users.id as the_id, name as the_name from users')
+
+    result = self.execute.ExecuteQueryDetailed(query)
+    expected_data = self._ReadFromFileRelative('expected_id_name_data')
+    self.assertIsNone(result.error_message)
+    self.assertFalse(result.has_error)
+    self.assertEqual(expected_data, str(result.data))
+
+  def testExecuteQueryDetailedWithAliasWithUnderscore3(self):
+    """test the execution of a more complex Query"""
+    query = (
+      'SELECT users.id as the_id, name as the_name from users join statuses')
+
+    result = self.execute.ExecuteQueryDetailed(query)
+    expected_data = self._ReadFromFileRelative('expected_id_name_join_data')
+    self.assertIsNone(result.error_message)
+    self.assertFalse(result.has_error)
+    self.assertEqual(expected_data, str(result.data))
+
+  def testExecuteQueryDetailedWithJoinAndAliasWithUnderscore(self):
+    """test the execution of a more complex Query"""
+    query = (
+      'SELECT users.id as the_id, users.name as the_name from users join '
+      'statuses')
+
+    result = self.execute.ExecuteQueryDetailed(query)
+    expected_data = self._ReadFromFileRelative('expected_id_name_join_data')
+    self.assertIsNone(result.error_message)
+    self.assertFalse(result.has_error)
+    self.assertEqual(expected_data, str(result.data))
+
+  def testExecuteQueryDetailedWithAliasForTable(self):
+    """test the execution of a more complex Query"""
+    query = (
+      'SELECT x.id, x.name from users as x')
+    result = self.execute.ExecuteQueryDetailed(query)
+    expected_error_message = (
+      'Warning: Don’t use any alias for a table name')
+    self.assertTrue(result.has_error)
+    self.assertEqual(result.error_message, expected_error_message)
+
+  def testExecuteQueryReadOnlyWithAliasForMultipleTable(self):
+    """test the execution of a more complex Query"""
+    query = (
+      'SELECT x.id, x.name from users as x join statuses')
+    result = self.execute.ExecuteQueryDetailed(query)
+    expected_error_message = (
+      'Warning: Don’t use any alias for a table name')
+    self.assertTrue(result.has_error)
+    self.assertEqual(result.error_message, expected_error_message)
+
+  def testExecuteQueryDetailedWithJoinAndAliasForTable(self):
+    """test the execution of a more complex Query"""
+    query = (
+      'SELECT x.id as userid, x.name, y.id as statusid from users as x join '
+      'statuses as y')
+    result = self.execute.ExecuteQueryDetailed(query)
+
+    expected_error_message = (
+      'Warning: Don’t use any alias for a table name')
+    self.assertTrue(result.has_error)
+    self.assertEqual(result.error_message, expected_error_message)
+
+  def testExecuteQueryDetailedWithJoinAndNoTable(self):
+    """test the execution of a more complex Query"""
+    query = (
+      'SELECT users.id, name from users join statuses')
+    result = self.execute.ExecuteQueryDetailed(query)
+    expected_data = self._ReadFromFileRelative('expected_id_name_join_data')
+    self.assertIsNone(result.error_message)
+    self.assertFalse(result.has_error)
+    self.assertEqual(expected_data, str(result.data))
+
   def testExecuteReadOnlyQueryWithSelect(self):
     """test execute read only with a simple select query"""
     query = 'SELECT id from users where id==2220776716'
