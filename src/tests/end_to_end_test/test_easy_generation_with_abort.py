@@ -106,6 +106,8 @@ class EasyGenerationWithAbortTest(unittest.TestCase):
         self.assertFalse(parser_init)
         self.assertFalse(parser)
         self.assertFalse(parser_test)
+    else:
+      raise NotImplementedError("test only implemented for linux platform")
 
   if __name__ == '__main__':
     unittest.main()

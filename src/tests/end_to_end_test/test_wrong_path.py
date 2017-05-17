@@ -134,6 +134,8 @@ class WrongPathTest(unittest.TestCase):
         self.assertEqual(parser_init, expected_parser_init)
         self.assertEqual(parser, expected_parser)
         self.assertEqual(parser_test, expected_parser_test)
+    else:
+      raise NotImplementedError("test only implemented for linux platform")
 
 
 if __name__ == '__main__':

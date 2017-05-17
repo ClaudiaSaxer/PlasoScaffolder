@@ -25,6 +25,8 @@ class HelpFunctionTest(unittest.TestCase):
       command = 'python {0} --help'.format(helper.MAIN_PATH)
       child = pexpect.spawn(command)
       child.expect_exact(message_help)
+    else:
+      raise NotImplementedError("test only implemented for linux platform")
 
 
 if __name__ == '__main__':

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Parser for test plugin database.
+"""Parser for test database.
 
 SQLite database path:
 # TODO: add database path
-SQLite database Name: test_plugin.db
+SQLite database Name: test.db
 """
 
 from dfdatetime import posix_time as dfdatetime_posix_time
@@ -14,8 +14,8 @@ from plaso.parsers import sqlite
 from plaso.parsers.sqlite_plugins import interface
 
 
-class TestPluginUsersEventData(events.EventData):
-  """test plugin users event data.
+class TestUsersEventData(events.EventData):
+  """test users event data.
 
   TODO: add type and description of attributes
   Attributes:
@@ -54,11 +54,11 @@ class TestPluginUsersEventData(events.EventData):
     verified (int): TODO
   """
 
-  DATA_TYPE = u'test:plugin:'
+  DATA_TYPE = u'test:'
 
   def __init__(self):
     """Initializes event data."""
-    super(TestPluginUsersEventData, self).__init__(data_type=self.DATA_TYPE)
+    super(TestUsersEventData, self).__init__(data_type=self.DATA_TYPE)
     self.advertiser_account_type = None
     self.analytics_type = None
     self.bio_entities = None
@@ -94,11 +94,11 @@ class TestPluginUsersEventData(events.EventData):
     self.verified = None
 
 
-class TestPluginPlugin(interface.SQLitePlugin):
-  """Parser for TestPlugin"""
+class TestPlugin(interface.SQLitePlugin):
+  """Parser for Test"""
 
-  NAME = u'test_plugin'
-  DESCRIPTION = u'Parser for TestPlugin'
+  NAME = u'test'
+  DESCRIPTION = u'Parser for Test'
 
   QUERIES = [((u'select * from users)'), u'ParseUsersRow')]
 
@@ -119,7 +119,7 @@ class TestPluginPlugin(interface.SQLitePlugin):
     # Note that pysqlite does not accept a Unicode string in row['string'] and
     # will raise "IndexError: Index must be int or string".
 
-    event_data = TestPluginEventData()
+    event_data = TestEventData()
     event_data.advertiser_account_type = row['']
     event_data.analytics_type = row['']
     event_data.bio_entities = row['']
@@ -173,4 +173,4 @@ class TestPluginPlugin(interface.SQLitePlugin):
       parser_mediator.ProduceEventWithEventData(event, event_data)
 
 
-sqlite.SQLiteParser.RegisterPlugin(TestPluginPlugin)
+sqlite.SQLiteParser.RegisterPlugin(TestPlugin)

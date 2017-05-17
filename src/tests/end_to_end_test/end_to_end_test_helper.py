@@ -9,13 +9,14 @@ class EndToEndTestHelper(object):
   DIR_PATH = os.path.dirname(os.path.realpath(__file__))
   DATABASE_PATH = path_helper.TestDatabasePath()
   MAIN_PATH = os.path.join(
-    os.path.dirname(os.path.dirname(DIR_PATH)), 'plasoscaffolder',
-    'frontend', 'main.py')
+      os.path.dirname(os.path.dirname(DIR_PATH)), 'plasoscaffolder',
+      'frontend', 'main.py')
   PATH_QUESTION = 'What\'s the path to the plaso project\?\:'
   PATH_WRONG_QUESTION = 'Folder does not exists\. Enter correct one'
   NAME_QUESTION = 'What\'s the name of the plugin\?\:'
   NAME_QUESTION_NOT_VALID = ('Plugin is not in a valid format\. Choose new '
                              'Name \[plugin\_name\_\.\.\.\]')
+  NAME_QUESTION_EXISTS = 'Plugin exists\. Choose new Name'
 
   NAME_ANSWER = 'test'
   TESTFILE_QUESTION = 'What\'s the path to your test file\?\:'
@@ -34,10 +35,14 @@ class EndToEndTestHelper(object):
   OUTPUT_ADD_ANSWER_NO = 'n'
   OUTPUT_ADD_ANSWER_YES = 'y'
   OUTPUT_EXAMPLE_FIRST_ROW = 'Your query output could look like this\.'
-  OUTPUT_USERS_ID_NAME_EXAMPLE_HEADER = '\[\'id\'\, \'name\'\, \'createdDate\'\]'
-  OUTPUT_USERS_ID_EXAMPLE_FIRST_ROW = '\(5402612\, \'BBC Breaking News\'\, 1177252957\.0\)'
-  OUTPUT_USERS_ID_EXAMPLE_SECOND_ROW = '\(13334762\, \'GitHub\'\, 1202704910\.0\)'
-  OUTPUT_USERS_ID_EXAMPLE_THIRD_ROW = '\(14388264\, \'Tom Pohl\'\, 1208195714\.0\)'
+  OUTPUT_USERS_ID_NAME_EXAMPLE_HEADER = '\[\'id\'\, \'name\'\, ' \
+                                        '\'createdDate\'\]'
+  OUTPUT_USERS_ID_EXAMPLE_FIRST_ROW = '\(5402612\, \'BBC Breaking News\'\, ' \
+                                      '1177252957\.0\)'
+  OUTPUT_USERS_ID_EXAMPLE_SECOND_ROW = '\(13334762\, \'GitHub\'\, ' \
+                                       '1202704910\.0\)'
+  OUTPUT_USERS_ID_EXAMPLE_THIRD_ROW = '\(14388264\, \'Tom Pohl\'\, ' \
+                                      '1208195714\.0\)'
 
   SQL_QUESTION = 'Please write your SQL script for the plugin\:'
   SQL_QUESTION_WITH_ABORT = (
@@ -53,6 +58,10 @@ class EndToEndTestHelper(object):
                              'Users \? \[Y\/n\]\:')
   NAME_ROW_QUESTION_STATUSES = ('Do you want to name the query parse row\: '
                                 'Statuses \? \[Y\/n\]\:')
+  NAME_ROW_QUESTION_USERSSTATUSES = ('Do you want to name the query parse row\: '
+                             'Usersstatuses \? \[Y\/n\]\:')
+  NAME_ROW_QUESTION_INVALID = ('Row name is not in a valid format\. '
+                               'Choose new Name \[RowName\.\.\.\]')
   NAME_ROW_ANSWER_YES = 'Y'
   NAME_ROW_ANSWER_NO = 'N'
   COLUMN_ANSWER_YES = 'Y'
@@ -69,12 +78,26 @@ class EndToEndTestHelper(object):
   ADDITIONAL_TIMESTAMP = ('Enter \(additional\) timestamp events from '
                           'the query \[columnName,aliasName...\] or \['
                           'abort\]\:')
+  ADDITIONAL_TIMESTAMP_INVALID = ('Timestamps are not in valid format\. '
+                                  'Reenter them correctly \[name\,name\.\.\.\]')
+  MORE_TIMESTAMPS_QUESTION = 'Do you want to add more timestamps\? \[y\/N\]\:'
+  MORE_TIMESTAMPS_ANSWER_NO = 'N'
+  MORE_TIMESTAMPS_ANSWER_YES = 'Y'
   ADDITIONAL_TIMESTAMP_ABORT = 'abort'
   CUSTOM_QUESTION_USERS = ('Does the event Users need customizing\? \['
                            'y\/N\]\:')
   CUSTOM_QUESTION_STATUSES = ('Does the event Statuses need customizing\? \['
                               'y\/N\]\:')
   CUSTOM_ANSWER_NO = 'N'
+  CUSTON_ANSWER_YES = 'Y'
+  CUSTOM_ADD_QUESTION = ('Enter columns that are customizable '
+                         '\[columnName\,aliasName\.\.\.\] or \[abort\]\:')
+  CUSTOM_ADD_INVALID = ('Column names are not in valid format\. '
+                        'Reenter them correctly \[name\,name\.\.\.\]\:')
+  CUSTOM_ADD_MORE_QUESTION = ('Do you want to add more columns that are customizable\?'
+                       ' \[y\/N\]\:')
+  CUSTOM_ADD_MORE_ANSWER_NO = 'N'
+  CUSTOM_ADD_MORE_ANSWER_NO = 'Y'
   ADD_QUESTION = 'Do you want to add another Query\? \[Y\/n\]\:'
   ADD_ANSWER_NO = 'n'
   ADD_ANSWER_YES = 'Y'
@@ -89,12 +112,22 @@ class EndToEndTestHelper(object):
       dir (str): the path of the directory of plaso
       name (str): the name of the plugin.
     """
-    self.formatter_path = os.path.join(dir, 'plaso/formatters/{0}.py'.format(name))
-    self.parser_path = os.path.join(dir, 'plaso/parsers/sqlite_plugins/{0}.py'.format(name))
-    self.formatter_test_path = os.path.join(dir, 'tests/formatters/{0}.py'.format(name))
-    self.parser_test_path = os.path.join(dir, 'tests/parsers/sqlite_plugins/{0}.py'.format(name))
+    self.formatter_path = os.path.join(dir,
+                                       'plaso/formatters/{0}.py'.format(name))
+    self.parser_path = os.path.join(dir,
+                                    'plaso/parsers/sqlite_plugins/{'
+                                    '0}.py'.format(
+                                      name))
+    self.formatter_test_path = os.path.join(dir,
+                                            'tests/formatters/{0}.py'.format(
+                                              name))
+    self.parser_test_path = os.path.join(dir,
+                                         'tests/parsers/sqlite_plugins/{'
+                                         '0}.py'.format(
+                                           name))
     self.test_data_path = os.path.join(dir, 'test_data/{0}.db'.format(name))
-    self.parsers_init_path = os.path.join(dir, 'plaso/parsers/sqlite_plugins/__init__.py')
+    self.parsers_init_path = os.path.join(dir,
+                                          'plaso/parsers/sqlite_plugins/__init__.py')
     self.formatter_init_path = os.path.join(dir, 'plaso/formatters/__init__.py')
 
   def ReadFromFile(self, path: str):

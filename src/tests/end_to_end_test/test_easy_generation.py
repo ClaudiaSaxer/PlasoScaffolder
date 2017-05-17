@@ -32,7 +32,6 @@ class EasyGenerationTest(unittest.TestCase):
     14. Do you want to Generate the files [Y/n]: y
     """
     if platform.system() in ['Linux']:
-
       with tempfile.TemporaryDirectory() as tmpdir:
         helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir, 'test')
 
@@ -125,6 +124,8 @@ class EasyGenerationTest(unittest.TestCase):
         self.assertEqual(parser_init, expected_parser_init)
         self.assertEqual(parser, expected_parser)
         self.assertEqual(parser_test, expected_parser_test)
+    else:
+      raise NotImplementedError("test only implemented for linux platform")
 
 
 if __name__ == '__main__':

@@ -11,14 +11,11 @@ import pexpect
 from tests.end_to_end_test import end_to_end_test_helper
 
 
-class EasyGenerationWithMultipleSelectsTest(unittest.TestCase):
-  def testEasyGenerationWithMultipleSelects(self):
-    """Test easy file generation without errors with two select queries
-    1.  plasoscaffolder sqlite
-    2.  What's the path to the plaso project?: tmpdir
-    3.  What's the name of the plugin?: test
-    4.  What's the path to your test file?: test_database/twitter_ios.db
-    5.  Do you want to have a output example for your SQL Query? [Y/n]: n
+class GenerateWithOptionAtToolCallTest(unittest.TestCase):
+  def testGenerateWithOptionAtToolCall(self):
+    """Test file generation with additional options calling the tool
+    1.  plasoscaffolder sqlite --path tmpdir --name test --testfile 
+        test_database/twitter_ios.db –-no-sql
     6.  Please write your SQL script for the plugin: select * from users
     7.  The SQL query was ok.
     8.  Do you want to name the query parse row: Users ? [Y/n]:  Y
@@ -27,48 +24,20 @@ class EasyGenerationWithMultipleSelectsTest(unittest.TestCase):
     11. Enter (additional) timestamp events from the query [column-Name,
         aliasName...] or [abort]: abort
     12. Does the event Users need customizing? [y/N]: N
-    13. Do you want to add another Query? [Y/n]: Y
-    14. Please write your SQL script for the plugin: select * from statuses
-    15. The SQL query was ok.
-    16. Do you want to name the query parse row: Statuses ? [Y/n]:  Y
-    17. Is the column a time event? date [Y/n]:  Y
-    18. Is the column a time event? updatedAt [Y/n]: Y
-    19. Is the column a time event? includeInProfileTimeline [Y/n]: N
-    20. Enter (additional) timestamp events from the query [column-Name,
-        aliasName...] or [abort]: abort
-    21. Does the event Users need customizing? [y/N]: N
-    22. Do you want to add another Query? [Y/n]: Y
-    23. Please write your SQL script for the plugin ['abort' to continue]: abort
-    24. Do you want to Generate the files [Y/n]: Y
-
+    13. Do you want to add another Query? [Y/n]: n
+    14. Do you want to Generate the files [Y/n]: y
     """
     if platform.system() in ['Linux']:
-
       with tempfile.TemporaryDirectory() as tmpdir:
         helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir, 'test')
 
-        path_answer = tmpdir
         expected_path = os.path.join(helper.DIR_PATH,
-                                     'ExpectedEasyGenerationMultipleSelectsFiles')
+                                     'ExpectedEasyGenerationFiles')
 
-        command = 'python {0} sqlite'.format(helper.MAIN_PATH)
+        command = ('python {0} sqlite --path {1} --name test --testfile '
+                   '{2} –-no-sql'.format(helper.MAIN_PATH, tmpdir,
+                                         helper.TESTFILE_ANSWER))
         child = pexpect.spawn(command)
-
-        child.expect(helper.PATH_QUESTION)
-        child.sendline(path_answer)
-        child.expect(path_answer)
-
-        child.expect(helper.NAME_QUESTION)
-        child.sendline(helper.NAME_ANSWER)
-        child.expect(helper.NAME_ANSWER)
-
-        child.expect(helper.TESTFILE_QUESTION)
-        child.sendline(helper.TESTFILE_ANSWER)
-        child.expect(helper.TESTFILE_ANSWER)
-
-        child.expect(helper.OUTPUT_QUESTION)
-        child.sendline(helper.COLUMN_ANSWER_NO)
-        child.expect(helper.COLUMN_ANSWER_NO)
 
         child.expect(helper.SQL_QUESTION)
         child.sendline(helper.SQL_ANSWER)
@@ -96,45 +65,8 @@ class EasyGenerationWithMultipleSelectsTest(unittest.TestCase):
         child.expect(helper.CUSTOM_ANSWER_NO)
 
         child.expect(helper.ADD_QUESTION)
-        child.sendline(helper.ADD_ANSWER_YES)
-        child.expect(helper.ADD_ANSWER_YES)
-
-        child.expect(helper.SQL_QUESTION_WITH_ABORT)
-        child.sendline(helper.SQL_ANSWER_2)
-        child.expect(helper.SQL_ANSWER_ESCAPED_2)
-        child.expect(helper.SQL_ANSWER_OK)
-
-        child.expect(helper.NAME_ROW_QUESTION_STATUSES)
-        child.sendline(helper.NAME_ROW_ANSWER_YES)
-        child.expect(helper.NAME_ROW_ANSWER_YES)
-
-        child.expect(helper.COLUMN_QUESTION_DATE)
-        child.sendline(helper.COLUMN_ANSWER_YES)
-        child.expect(helper.COLUMN_ANSWER_YES)
-
-        child.expect(helper.COLUMN_QUESTION_UPDATED_AT)
-        child.sendline(helper.COLUMN_ANSWER_YES)
-        child.expect(helper.COLUMN_ANSWER_YES)
-
-        child.expect(helper.COLUMN_QUESTION_PROFILE_TIMELINE)
-        child.sendline(helper.COLUMN_ANSWER_NO)
-        child.expect(helper.COLUMN_ANSWER_NO)
-
-        child.expect(helper.ADDITIONAL_TIMESTAMP)
-        child.sendline(helper.ADDITIONAL_TIMESTAMP_ABORT)
-        child.expect(helper.ADDITIONAL_TIMESTAMP_ABORT)
-
-        child.expect(helper.CUSTOM_QUESTION_STATUSES)
-        child.sendline(helper.CUSTOM_ANSWER_NO)
-        child.expect(helper.CUSTOM_ANSWER_NO)
-
-        child.expect(helper.ADD_QUESTION)
-        child.sendline(helper.ADD_ANSWER_YES)
-        child.expect(helper.ADD_ANSWER_YES)
-
-        child.expect(helper.SQL_QUESTION_WITH_ABORT)
-        child.sendline('abort')
-        child.expect('abort')
+        child.sendline(helper.ADD_ANSWER_NO)
+        child.expect(helper.ADD_ANSWER_NO)
 
         child.expect(helper.GENERATE_QUESTION)
         child.sendline(helper.GENERATE_ANSWER_YES)

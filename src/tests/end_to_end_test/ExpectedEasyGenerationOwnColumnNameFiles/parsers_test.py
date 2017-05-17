@@ -1,23 +1,23 @@
 # -*- coding: utf-8 -*-
-"""Tests for test plugin plugin."""
+"""Tests for test plugin."""
 import unittest
 
 from plaso.lib import eventdata
 from plaso.lib import timelib
-from plaso.parsers.sqlite_plugins import test_plugin
+from plaso.parsers.sqlite_plugins import test
 
 from tests import test_lib as shared_test_lib
 from tests.parsers.sqlite_plugins import test_lib
 
 
-class TestPluginTest(test_lib.SQLitePluginTestCase):
-  """Tests for test plugin database plugin."""
+class TestTest(test_lib.SQLitePluginTestCase):
+  """Tests for test database plugin."""
 
-  @shared_test_lib.skipUnlessHasTestFile([u'test_plugin.db'])
+  @shared_test_lib.skipUnlessHasTestFile([u'test.db'])
   def testProcess(self):
-    """Test the Process function on a Test Plugin file."""
-    plugin_object = test_plugin.TestPluginPlugin()
-    storage_writer = self._ParseDatabaseFileWithPlugin([u'test_plugin.db'],
+    """Test the Process function on a Test file."""
+    plugin_object = test.TestPlugin()
+    storage_writer = self._ParseDatabaseFileWithPlugin([u'test.db'],
                                                        plugin_object)
 
     # We should have 50 events in total.

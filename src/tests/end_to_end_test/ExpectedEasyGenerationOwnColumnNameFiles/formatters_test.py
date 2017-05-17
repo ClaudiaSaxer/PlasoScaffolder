@@ -1,24 +1,24 @@
 # !/usr/bin/python
 # -*- coding: utf-8 -*-
-"""Tests for Test Plugin event formatter."""
+"""Tests for Test event formatter."""
 
 import unittest
 
-from plaso.formatters import test_plugin
+from plaso.formatters import test
 from tests.formatters import test_lib
 
 
-class TestPluginUsersFormatterTest(test_lib.EventFormatterTestCase):
-  """Tests the Test Plugin users event formatter."""
+class TestUsersFormatterTest(test_lib.EventFormatterTestCase):
+  """Tests the Test users event formatter."""
 
   def testInitialization(self):
     """Tests the initialization."""
-    event_formatter = test_plugin.TestPluginUsersFormatter()
+    event_formatter = test.TestUsersFormatter()
     self.assertIsNotNone(event_formatter)
 
   def testGetFormatStringAttributeNames(self):
     """Tests the GetFormatStringAttributeNames function."""
-    event_formatter = test_plugin.TestPluginUsersFormatter()
+    event_formatter = test.TestUsersFormatter()
 
     expected_attribute_names = [
         u'advertiser_account_type', u'analytics_type', u'bio_entities',

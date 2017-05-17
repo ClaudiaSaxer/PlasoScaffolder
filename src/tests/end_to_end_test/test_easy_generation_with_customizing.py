@@ -11,9 +11,10 @@ import pexpect
 from tests.end_to_end_test import end_to_end_test_helper
 
 
-class EasyGenerationWithMultipleSelectsTest(unittest.TestCase):
-  def testEasyGenerationWithMultipleSelects(self):
-    """Test easy file generation without errors with two select queries
+class EasyGenerationWithCustomizingTest(unittest.TestCase):
+
+  def testEasyGenerationWithCustomizing(self):
+    """Test easy file generation without errors with customizing option
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test
@@ -26,30 +27,28 @@ class EasyGenerationWithMultipleSelectsTest(unittest.TestCase):
     10. Is the column a time event? createdDate [Y/n]: Y
     11. Enter (additional) timestamp events from the query [column-Name,
         aliasName...] or [abort]: abort
-    12. Does the event Users need customizing? [y/N]: N
-    13. Do you want to add another Query? [Y/n]: Y
-    14. Please write your SQL script for the plugin: select * from statuses
-    15. The SQL query was ok.
-    16. Do you want to name the query parse row: Statuses ? [Y/n]:  Y
-    17. Is the column a time event? date [Y/n]:  Y
-    18. Is the column a time event? updatedAt [Y/n]: Y
-    19. Is the column a time event? includeInProfileTimeline [Y/n]: N
-    20. Enter (additional) timestamp events from the query [column-Name,
-        aliasName...] or [abort]: abort
-    21. Does the event Users need customizing? [y/N]: N
-    22. Do you want to add another Query? [Y/n]: Y
-    23. Please write your SQL script for the plugin ['abort' to continue]: abort
-    24. Do you want to Generate the files [Y/n]: Y
+    12. Does the event Users need customizing? [y/N]: Y
+    13. Enter columns that are customizable [columnName,aliasName...] or [abort]: this that
+    14. Column names are not in valid format. Reenter them correctly [name,name...]: this, that
+    15. Column names are not in valid format. Reenter them correctly [name,name...]: this,that
+    16. Added:
+        Failed: that,this
+    17. Do you want to add more columns that are customizable? [y/N]: Y
+    18. Enter columns that are customizable [columnName,aliasName...] or [abort]: this,location,id
+    19. Added: location
+        Failed: id,that,this
+    20. Do you want to add more columns that are customizable? [y/N]: N
+    21. Do you want to add another Query? [Y/n]: n
+    22. Do you want to Generate the files [Y/n]: Y
 
     """
     if platform.system() in ['Linux']:
-
       with tempfile.TemporaryDirectory() as tmpdir:
         helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir, 'test')
 
         path_answer = tmpdir
-        expected_path = os.path.join(helper.DIR_PATH,
-                                     'ExpectedEasyGenerationMultipleSelectsFiles')
+        expected_path = os.path.join(
+            helper.DIR_PATH, 'ExpectedEasyGenerationWithCustomizationFiles')
 
         command = 'python {0} sqlite'.format(helper.MAIN_PATH)
         child = pexpect.spawn(command)
@@ -92,49 +91,37 @@ class EasyGenerationWithMultipleSelectsTest(unittest.TestCase):
         child.expect(helper.ADDITIONAL_TIMESTAMP_ABORT)
 
         child.expect(helper.CUSTOM_QUESTION_USERS)
-        child.sendline(helper.CUSTOM_ANSWER_NO)
-        child.expect(helper.CUSTOM_ANSWER_NO)
+        child.sendline(helper.CUSTOM_ANSWER_YES)
+        child.expect(helper.CUSTOM_ANSWER_YES)
 
+        child.expect(helper.CUSTOM_ADD_QUESTION)
+        child.sendline('this that')
+        child.expect('this that')
+
+        child.expect(helper.CUSTOM_ADD_INVALID)
+        child.sendline('this, that')
+        child.expect('this/, that')
+
+        child.expect(helper.CUSTOM_ADD_INVALID)
+        child.sendline('this,that')
+        child.expect('this/,that')
+        child.expect('Added/:')
+        child.expect('Failed/: that/,this')
+
+        child.expect(helper.CUSTOM_ADD_MORE_QUESTION)
+        child.sendline(helper.CUSTOM_ADD_MORE_ANSWER_YES)
+
+        child.expect(helper.CUSTOM_ADD_QUESTION)
+        child.sendline(' this,location,id')
+        child.expect(' this/,location/,id')
+        child.expect('Added/: location')
+        child.expect('Failed/: id/,that/,this')
         child.expect(helper.ADD_QUESTION)
-        child.sendline(helper.ADD_ANSWER_YES)
-        child.expect(helper.ADD_ANSWER_YES)
+        child.sendline(helper.ADD_ANSWER_NO)
+        child.expect(helper.ADD_ANSWER_NO)
 
-        child.expect(helper.SQL_QUESTION_WITH_ABORT)
-        child.sendline(helper.SQL_ANSWER_2)
-        child.expect(helper.SQL_ANSWER_ESCAPED_2)
-        child.expect(helper.SQL_ANSWER_OK)
-
-        child.expect(helper.NAME_ROW_QUESTION_STATUSES)
-        child.sendline(helper.NAME_ROW_ANSWER_YES)
-        child.expect(helper.NAME_ROW_ANSWER_YES)
-
-        child.expect(helper.COLUMN_QUESTION_DATE)
-        child.sendline(helper.COLUMN_ANSWER_YES)
-        child.expect(helper.COLUMN_ANSWER_YES)
-
-        child.expect(helper.COLUMN_QUESTION_UPDATED_AT)
-        child.sendline(helper.COLUMN_ANSWER_YES)
-        child.expect(helper.COLUMN_ANSWER_YES)
-
-        child.expect(helper.COLUMN_QUESTION_PROFILE_TIMELINE)
-        child.sendline(helper.COLUMN_ANSWER_NO)
-        child.expect(helper.COLUMN_ANSWER_NO)
-
-        child.expect(helper.ADDITIONAL_TIMESTAMP)
-        child.sendline(helper.ADDITIONAL_TIMESTAMP_ABORT)
-        child.expect(helper.ADDITIONAL_TIMESTAMP_ABORT)
-
-        child.expect(helper.CUSTOM_QUESTION_STATUSES)
-        child.sendline(helper.CUSTOM_ANSWER_NO)
-        child.expect(helper.CUSTOM_ANSWER_NO)
-
-        child.expect(helper.ADD_QUESTION)
-        child.sendline(helper.ADD_ANSWER_YES)
-        child.expect(helper.ADD_ANSWER_YES)
-
-        child.expect(helper.SQL_QUESTION_WITH_ABORT)
-        child.sendline('abort')
-        child.expect('abort')
+        child.expect(helper.CUSTOM_ADD_MORE_QUESTION)
+        child.sendline(helper.CUSTOM_ADD_MORE_ANSWER_NO)
 
         child.expect(helper.GENERATE_QUESTION)
         child.sendline(helper.GENERATE_ANSWER_YES)

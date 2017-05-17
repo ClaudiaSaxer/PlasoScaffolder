@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-"""test plugin database formatter."""
+"""test database formatter."""
 
 from plaso.formatters import interface
 from plaso.formatters import manager
 from plaso.lib import errors
 
 
-class TestPluginUsersFormatter(interface.ConditionalEventFormatter):
-  """test plugin users event formatter."""
+class TestUsersFormatter(interface.ConditionalEventFormatter):
+  """test users event formatter."""
 
-  DATA_TYPE = u'test:plugin:'
+  DATA_TYPE = u'test:'
   """Correct Format String Pieces where needed"""
 
   FORMAT_STRING_PIECES = [
@@ -83,8 +83,8 @@ class TestPluginUsersFormatter(interface.ConditionalEventFormatter):
     u'Business Profile State:{business_profile_state}',
     u'Analytics Type:{analytics_type}']
 
-  SOURCE_LONG = u'Test Plugin Users'
-  SOURCE_SHORT = u'Test Plugin'
+  SOURCE_LONG = u'Test Users'
+  SOURCE_SHORT = u'Test'
 
 
-manager.FormattersManager.RegisterFormatter([TestPluginUsersFormatter])
+manager.FormattersManager.RegisterFormatter([TestUsersFormatter])
