@@ -62,6 +62,7 @@ class EndToEndTestHelper(object):
                              'Usersstatuses \? \[Y\/n\]\:')
   NAME_ROW_QUESTION_INVALID = ('Row name is not in a valid format\. '
                                'Choose new Name \[RowName\.\.\.\]')
+  NAME_ROW_QUESTION_QUERY = 'What row does the SQL Query parse\?\:'
   NAME_ROW_ANSWER_YES = 'Y'
   NAME_ROW_ANSWER_NO = 'N'
   COLUMN_ANSWER_YES = 'Y'
@@ -88,8 +89,10 @@ class EndToEndTestHelper(object):
                            'y\/N\]\:')
   CUSTOM_QUESTION_STATUSES = ('Does the event Statuses need customizing\? \['
                               'y\/N\]\:')
+  CUSTOM_QUESTION_THEUSER = ('Does the event TheUser need customizing\? \['
+                              'y\/N\]\:')
   CUSTOM_ANSWER_NO = 'N'
-  CUSTON_ANSWER_YES = 'Y'
+  CUSTOM_ANSWER_YES = 'Y'
   CUSTOM_ADD_QUESTION = ('Enter columns that are customizable '
                          '\[columnName\,aliasName\.\.\.\] or \[abort\]\:')
   CUSTOM_ADD_INVALID = ('Column names are not in valid format\. '

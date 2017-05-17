@@ -46,13 +46,13 @@ class EasyGenerationTest(unittest.TestCase):
     27. Does the event Users need customizing? [y/N]: N
     28. Do you want to add another Query? [Y/n]: n
     29. Do you want to Generate the files [Y/n]: Y
-
     """
     if platform.system() in ['Linux']:
       with tempfile.TemporaryDirectory() as tmpdir:
-        path_answer = tmpdir
 
         helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir, 'test')
+        path_answer = tmpdir
+
         expected_path = os.path.join(helper.DIR_PATH,
                                      'ExpectedEasyGenerationFiles')
 
@@ -126,7 +126,6 @@ class EasyGenerationTest(unittest.TestCase):
             tmpdir, 'test_plugin')
         expected_path_second_plugin = os.path.join(helper_second_plugin.DIR_PATH,
                                      'ExpectedTwoPluginsFiles')
-
         command = 'python {0} sqlite'.format(helper_second_plugin.MAIN_PATH)
         child = pexpect.spawn(command)
 
@@ -140,7 +139,7 @@ class EasyGenerationTest(unittest.TestCase):
 
         child.expect(helper_second_plugin.NAME_QUESTION_EXISTS)
         child.sendline('test_plugin')
-        child.expect('test/_plugin')
+        child.expect('test_plugin')
 
         child.expect(helper_second_plugin.TESTFILE_QUESTION)
         child.sendline(helper_second_plugin.TESTFILE_ANSWER)
@@ -187,8 +186,8 @@ class EasyGenerationTest(unittest.TestCase):
         child.expect('create.*{0}'.format(helper_second_plugin.formatter_test_path))
         child.expect('create.*{0}'.format(helper_second_plugin.parser_test_path))
         child.expect('copy.*{0}'.format(helper_second_plugin.test_data_path))
-        child.expect('create.*{0}'.format(helper_second_plugin.parsers_init_path))
-        child.expect('create.*{0}'.format(helper_second_plugin.formatter_init_path))
+        child.expect('edit.*{0}'.format(helper_second_plugin.parsers_init_path))
+        child.expect('edit.*{0}'.format(helper_second_plugin.formatter_init_path))
 
         formatter_init_second_plugin = helper_second_plugin.ReadFromFile(helper_second_plugin.formatter_init_path)
         formatter_second_plugin = helper_second_plugin.ReadFromFile(helper_second_plugin.formatter_path)
@@ -210,18 +209,27 @@ class EasyGenerationTest(unittest.TestCase):
         expected_parser_test = helper.ReadFromFile(
             os.path.join(expected_path, 'parsers_test.py'))
 
+        expected_formatter_first_plugin = helper_second_plugin.ReadFromFile(
+            os.path.join(expected_path_second_plugin, 'formatters1.py'))
+        expected_formatter_test_first_plugin = helper_second_plugin.ReadFromFile(os.path.join(
+            expected_path_second_plugin, 'formatters_test1.py'))
+        expected_parser_first_plugin = helper_second_plugin.ReadFromFile(
+            os.path.join(expected_path_second_plugin, 'parsers1.py'))
+        expected_parser_test_first_plugin = helper_second_plugin.ReadFromFile(
+            os.path.join(expected_path_second_plugin, 'parsers_test1.py'))
+
         expected_formatter_init_second_plugin = helper_second_plugin.ReadFromFile(os.path.join(
             expected_path_second_plugin, 'formatters_init.py'))
         expected_formatter_second_plugin = helper_second_plugin.ReadFromFile(
-            os.path.join(expected_path_second_plugin, 'formatters.py'))
+            os.path.join(expected_path_second_plugin, 'formatters2.py'))
         expected_formatter_test_second_plugin = helper_second_plugin.ReadFromFile(os.path.join(
-            expected_path_second_plugin, 'formatters_test.py'))
+            expected_path_second_plugin, 'formatters_test2.py'))
         expected_parser_init_second_plugin = helper_second_plugin.ReadFromFile(
             os.path.join(expected_path_second_plugin, 'parsers_init.py'))
         expected_parser_second_plugin = helper_second_plugin.ReadFromFile(
-            os.path.join(expected_path_second_plugin, 'parsers.py'))
+            os.path.join(expected_path_second_plugin, 'parsers2.py'))
         expected_parser_test_second_plugin = helper_second_plugin.ReadFromFile(
-            os.path.join(expected_path_second_plugin, 'parsers_test.py'))
+            os.path.join(expected_path_second_plugin, 'parsers_test2.py'))
 
         self.assertEqual(formatter_init, expected_formatter_init)
         self.assertEqual(formatter, expected_formatter)
@@ -236,6 +244,10 @@ class EasyGenerationTest(unittest.TestCase):
         self.assertEqual(parser_init_second_plugin, expected_parser_init_second_plugin)
         self.assertEqual(parser_second_plugin, expected_parser_second_plugin)
         self.assertEqual(parser_test_second_plugin, expected_parser_test_second_plugin)
+        self.assertEqual(formatter, expected_formatter_first_plugin)
+        self.assertEqual(formatter_test, expected_formatter_test_first_plugin)
+        self.assertEqual(parser, expected_parser_first_plugin)
+        self.assertEqual(parser_test, expected_parser_test_first_plugin)
     else:
       raise NotImplementedError("test only implemented for linux platform")
 

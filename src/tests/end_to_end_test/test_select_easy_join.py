@@ -75,17 +75,17 @@ class SelectEasyJoinTest(unittest.TestCase):
         child.expect(helper.SQL_QUESTION)
         child.sendline('select id as userid join statuses')
         child.expect('select id as userid join statuses')
-        child.expect('Error/: near /"join/"/: syntax error')
+        child.expect('Error\: near \"join\"\: syntax error')
 
         child.expect(helper.SQL_QUESTION)
         child.sendline('select id as userid from users join statuses')
         child.expect('select id as userid from users join statuses')
-        child.expect('Error/: ambiguous column name/: id')
+        child.expect('Error\: ambiguous column name\: id')
 
         child.expect(helper.SQL_QUESTION)
         child.sendline('select users.id as userid , users.updatedAt,'
                        ' createdDate from users join statuses')
-        child.expect('select users/.id as userid/, users.updatedAt/,'
+        child.expect('select users\.id as userid\, users\.updatedAt\,'
                      ' createdDate from users join statuses')
         child.expect(helper.SQL_ANSWER_OK)
 

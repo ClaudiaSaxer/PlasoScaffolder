@@ -24,13 +24,13 @@ class EasyGenerationWithOwnRowNameTest(unittest.TestCase):
     7.  The SQL query was ok.
     8.  Do you want to name the query parse row: Users ? [Y/n]:  n
     9.  What row does the SQL Query parse?: The User
-    10. Row name is not in a valid format. Choose new Name [RowName...]: theuser
+        11. Row name is not in a valid format. Choose new Name [RowName...]: theuser
     11. Row name is not in a valid format. Choose new Name [RowName...]: TheUser123
     12. Row name is not in a valid format. Choose new Name [RowName...]: TheUser
     13. Is the column a time event? updatedAt [Y/n]:  Y
     14. Is the column a time event? createdDate [Y/n]: Y
     15. Enter (additional) timestamp events from the query [column-Name,aliasName...] or [abort]: abort
-    16. Does the event Users need customizing? [y/N]: N
+    16. Does the event The User need customizing? [y/N]: N
     17. Do you want to add another Query? [Y/n]: n
     18. Do you want to Generate the files [Y/n]: Y
     """
@@ -41,7 +41,7 @@ class EasyGenerationWithOwnRowNameTest(unittest.TestCase):
 
         path_answer = tmpdir
         expected_path = os.path.join(helper.DIR_PATH,
-                                     'ExpectedEasyGenerationOwnColumnNameFiles')
+                                     'ExpectedEasyGenerationRowNameFiles')
 
         command = 'python {0} sqlite'.format(helper.MAIN_PATH)
         child = pexpect.spawn(command)
@@ -71,6 +71,10 @@ class EasyGenerationWithOwnRowNameTest(unittest.TestCase):
         child.sendline(helper.NAME_ROW_ANSWER_NO)
         child.expect(helper.NAME_ROW_ANSWER_NO)
 
+        child.expect(helper.NAME_ROW_QUESTION_QUERY)
+        child.sendline('The User')
+        child.expect('The User')
+
         child.expect(helper.NAME_ROW_QUESTION_INVALID)
         child.sendline('theuser')
         child.expect('theuser')
@@ -95,7 +99,7 @@ class EasyGenerationWithOwnRowNameTest(unittest.TestCase):
         child.sendline(helper.ADDITIONAL_TIMESTAMP_ABORT)
         child.expect(helper.ADDITIONAL_TIMESTAMP_ABORT)
 
-        child.expect(helper.CUSTOM_QUESTION_USERS)
+        child.expect(helper.CUSTOM_QUESTION_THEUSER)
         child.sendline(helper.CUSTOM_ANSWER_NO)
         child.expect(helper.CUSTOM_ANSWER_NO)
 

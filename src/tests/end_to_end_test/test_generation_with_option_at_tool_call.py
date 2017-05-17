@@ -35,7 +35,7 @@ class GenerateWithOptionAtToolCallTest(unittest.TestCase):
                                      'ExpectedEasyGenerationFiles')
 
         command = ('python {0} sqlite --path {1} --name test --testfile '
-                   '{2} –-no-sql'.format(helper.MAIN_PATH, tmpdir,
+                   '{2} --no-sql'.format(helper.MAIN_PATH, tmpdir,
                                          helper.TESTFILE_ANSWER))
         child = pexpect.spawn(command)
 

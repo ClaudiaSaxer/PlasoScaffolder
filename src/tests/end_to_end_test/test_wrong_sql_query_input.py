@@ -38,8 +38,6 @@ class WrongSQLQueryInputTest(unittest.TestCase):
     19. Do you want to add another Query? [Y/n]: y
     20. Please write your SQL script for the plugin ['abort' to continue]: abort
     21. Do you want to Generate the files [Y/n]: Y
-
-
     """
     if platform.system() in ['Linux']:
 

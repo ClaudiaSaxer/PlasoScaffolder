@@ -71,13 +71,13 @@ class SelectWithSpecialCharactersTest(unittest.TestCase):
         child.expect(helper.SQL_QUESTION)
         child.sendline('select users.id as "userid" from users join statuses')
         child.expect('select users\.id as \"userid\" from users join statuses')
-        child.expect('Warning\: Don\’t use any characters beside '
+        child.expect('Warning\: Don\'t use any characters beside '
                      'a\-z A\-Z \. \; \, \*')
 
         child.expect(helper.SQL_QUESTION)
         child.sendline('select hex(id) from users')
         child.expect('select hex/(id/) from users ')
-        child.expect('Warning\: Don\’t use any characters beside '
+        child.expect('Warning\: Don\'t use any characters beside '
                      'a\-z A\-Z \. \; \, \*')
 
         child.expect(helper.SQL_QUESTION)
@@ -87,13 +87,13 @@ class SelectWithSpecialCharactersTest(unittest.TestCase):
         child.expect('select \[AS\]\.\[ID\] AS \[the alias\]\, '
                      '\[AS\]\.name AS \"the name\" \, S\.id '
                      'from users as \[AS\] join statuses as \"S\"')
-        child.expect('Warning\: Don\’t use any characters beside '
+        child.expect('Warning\: Don\'t use any characters beside '
                      'a\-z A\-Z \. \; \, \*')
 
         child.expect(helper.SQL_QUESTION)
         child.sendline('select id as the_id from users')
         child.expect('select id as the\_id from users')
-        child.expect('Warning\: Don\’t use any characters beside '
+        child.expect('Warning\: Don\'t use any characters beside '
                      'a\-z A\-Z \. \; \, \*')
 
         child.expect(helper.SQL_QUESTION)
