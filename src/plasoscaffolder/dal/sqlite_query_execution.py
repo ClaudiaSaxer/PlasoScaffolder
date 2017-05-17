@@ -2,6 +2,7 @@
 # pylint: disable=no-member
 # pylint does not recognize connect and close as member
 """SQLite Query Execution"""
+import re
 import sqlite3
 
 from plasoscaffolder.dal import base_sql_query_execution
@@ -71,6 +72,18 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     Returns:
       sql_query_data.SQLQueryData: The data to the Query
     """
+    query_data = sql_query_data.SQLQueryData(
+        data=None, has_error=True, columns=None)
+    if not re.fullmatch('[A-Za-z,.;*=_0-9 ]*', query):
+      query_data.error_message = ('Warning: Don\'t use any characters beside'
+                                  ' a-z A-Z 0-9 . ; , * = _')
+      return query_data
+
+    if query.lower()[query.lower().find(' from '):].find(' as ') != -1:
+      query_data.error_message = ('Warning: '
+                                  'Don\'t use any alias for a table name')
+      return query_data
+
     data_from_executed_query = self._ExecuteQuery(query, True)
     if not data_from_executed_query.has_error:
       duplicate_names = self._type_helper.GetDuplicateColumnNames(
@@ -82,6 +95,8 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
           'Please use an alias (AS) for '
           'those column names: {0}'.format(duplicate_names_as_string))
       if not data_from_executed_query.has_error:
+
+
         data_from_executed_query.columns = (
           self._type_helper.AddMissingTypesFromSchema(
               data_from_executed_query.columns, query))
@@ -121,7 +136,7 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     return query_data
 
   def ExecuteReadOnlyQuery(self, query: str):
-    """Executes the SQL Query if it is read only.
+    """Executes the SQL Query if it is read only, and valid to parse.
 
       Args:
         query (str): The SQL Query to execute on the SQLite database.
@@ -137,4 +152,3 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
         query_data.error_message = 'Query has to be a single SELECT query.'
         query_data.columns = None
     return query_data
-

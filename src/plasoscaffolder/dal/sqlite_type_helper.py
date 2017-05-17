@@ -49,7 +49,7 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
     duplicate_list = [column for column, count in
                       collections.Counter(single_column_name_list).items() if
                       count > 1]
-    return duplicate_list
+    return sorted(duplicate_list)
 
   def GetColumnInformationFromDescription(
       self, descriptions: []) -> [sql_query_column_model.SQLColumnModel]:
@@ -85,35 +85,7 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
     """
     locked = [table.lower() for table in self._explain.GetLockedTables(query)]
 
-    if len(locked) == 1:
-      return self._ColumnTypeForOnlyOneTable(locked[0], columns)
-    else:
-      return self._ColumnTypeForMultipleTables(locked, columns, query)
-
-  def _ColumnTypeForOnlyOneTable(
-      self, table_name: str,
-      column_model: sql_query_column_model.SQLColumnModel
-  ) -> [sql_query_column_model.SQLColumnModel]:
-    """Getting Types for Column if there is only one table
-    
-    Args:
-      table_name (str): the name of the table
-      column_model ([sql_query_column_model.SQLColumnModel]): the column to 
-          find the type for
-  
-    Returns:
-      [sql_query_column_model.SQLColumnModel]: the column model with the types
-    """
-    mappings = self._information.GetTableColumnsAndType(table_name)
-    for column in column_model:
-
-      type_sqlite = mappings[column.sql_column].upper()
-      type_sqlite_basic = type_sqlite.split("(")[0]
-      type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(
-          type_sqlite_basic, type(None))
-
-      column.sql_column_type = type_python
-    return column_model
+    return self._ColumnTypeForMultipleTables(locked, columns, query)
 
   def _ColumnTypeForMultipleTables(
       self, tables: [str],
@@ -128,7 +100,8 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
       query (str): the SQL query
 
     Returns:
-      [sql_query_column_model.SQLColumnModel]: the column model with the types
+      [sql_query_column_model.SQLColumnModel]: the column model with the types,
+          or None if there was a prefix error and it could not be parsed
     """
     query = query.lower()
 
@@ -145,18 +118,34 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
 
       # column with alias
       if as_column_string_start:
-        table_end = query.rfind('.', 0, as_column_string_start)
-        table_start = self._GetPositionAfterSeparator(query, table_end)
+        if not self._IsPrefixedWithAlias(query,tables, column_name):
+          table_end = query.rfind(' ', 0, as_column_string_start)
+          table_start = table_end
+        else:
+          table_end = query.rfind('.', 0, as_column_string_start)
+          table_start = self._GetPositionAfterSeparator(query, table_end)
+
         sqlite_column_name = query[table_end + 1:as_column_string_start]
 
       # column without alias
       else:
-        table_end = self._GetEndOfTableIfNotAlias(query, column_name)
-        table_start = self._GetPositionAfterSeparator(query, table_end)
+        if not self._IsPrefixedWithoutAlias(query,tables, column_name):
+          table_end = query.rfind(' ', 0, as_column_string_start)
+          table_start = table_end
+        else:
+          table_end = self._GetEndOfTableIfNotAlias(query, column_name)
+          table_start = self._GetPositionAfterSeparator(query, table_end)
         sqlite_column_name = column_name
 
       table_name = query[table_start:table_end]
-      type_sqlite = table_and_type[table_name][sqlite_column_name].upper()
+
+      # has no table prefix
+      if table_name == '':
+        type_sqlite = \
+          [table_and_type[table][sqlite_column_name] for table in tables if
+           sqlite_column_name in table_and_type[table]][0].upper()
+      else:
+        type_sqlite = table_and_type[table_name][sqlite_column_name].upper()
 
       type_sqlite_basic = type_sqlite.split("(")[0]
       type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(
@@ -208,3 +197,42 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
                        self._POSSIBLEQUERYSEPERATOR
                        if text.rfind(space, 0, end_position) > 0]
     return max(all_appearances) + 1
+
+  def _IsPrefixedWithAlias(self, query:str, tables: [str], column_name: str) -> bool:
+    """If the column has a table prefixed and has an alias
+    
+    Args:
+      query (str): the query to parse
+      tables ([str]): the possible tables 
+      column_name (str): the column name 
+
+    Returns:
+      bool: True if it is prefixed, false if it isn't.
+
+    """
+    matches = [re.fullmatch(
+        '.*({0}.)+([^ ])*( )*(as)( )*{1}( ,)*.*'.format(table, column_name),query)
+      for table in tables if re.fullmatch(
+          '.*({0}.)+([^ ])*( )*(as)( )*{1}( ,)*.*'.format(
+              table, column_name),query) is not None]
+
+    return len(matches) != 0
+
+  def _IsPrefixedWithoutAlias(self, query:str,tables: [str], column_name: str) -> bool:
+    """If the column has a table prefixed and has an no alias
+
+    Args:
+      query (str): the query to parse
+      tables ([str]): the possible tables 
+      column_name (str): the column name 
+
+    Returns:
+      bool: True if it is prefixed, false if it isn't.
+
+    """
+    matches = [re.fullmatch(
+        '.*({0}.{1})+([^ ])*( ,)*.*'.format(table, column_name),query)
+      for table in tables if re.fullmatch(
+          '.*({0}.{1})+([^ ])*( ,)*.*'.format(
+              table, column_name),query) is not None]
+    return len(matches) != 0

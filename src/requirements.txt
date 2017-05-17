@@ -3,3 +3,4 @@ setuptools
 jinja2
 colorama
 yapf
+pexpect

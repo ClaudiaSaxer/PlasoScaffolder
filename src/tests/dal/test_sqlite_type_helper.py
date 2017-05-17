@@ -183,7 +183,8 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
              sql_query_column_model.SQLColumnModel('that'),
              sql_query_column_model.SQLColumnModel('different'),
              sql_query_column_model.SQLColumnModel('bla')]
-    result = self.sql_type_helper._ColumnTypeForOnlyOneTable('other', model)
+    result = self.sql_type_helper._ColumnTypeForMultipleTables(
+        'other', model, '')
     self.assertEqual(len(result), 4)
     self.assertEqual(result[0].sql_column, 'id')
     self.assertEqual(result[1].sql_column, 'that')
