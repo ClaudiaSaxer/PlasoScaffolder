@@ -34,7 +34,7 @@ class EasyGenerationTest(unittest.TestCase):
     if platform.system() in ['Linux']:
 
       with tempfile.TemporaryDirectory() as tmpdir:
-        helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir)
+        helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir, 'test')
 
         path_answer = tmpdir
         expected_path = os.path.join(helper.DIR_PATH,
@@ -64,7 +64,7 @@ class EasyGenerationTest(unittest.TestCase):
         child.expect(helper.SQL_ANSWER_ESCAPED)
         child.expect(helper.SQL_ANSWER_OK)
 
-        child.expect(helper.NAME_ROW_QUESTION)
+        child.expect(helper.NAME_ROW_QUESTION_USERS)
         child.sendline(helper.NAME_ROW_ANSWER_YES)
         child.expect(helper.NAME_ROW_ANSWER_YES)
 
@@ -80,7 +80,7 @@ class EasyGenerationTest(unittest.TestCase):
         child.sendline(helper.ADDITIONAL_TIMESTAMP_ABORT)
         child.expect(helper.ADDITIONAL_TIMESTAMP_ABORT)
 
-        child.expect(helper.CUSTOM_QUESTION)
+        child.expect(helper.CUSTOM_QUESTION_USERS)
         child.sendline(helper.CUSTOM_ANSWER_NO)
         child.expect(helper.CUSTOM_ANSWER_NO)
 

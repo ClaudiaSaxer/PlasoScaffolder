@@ -19,30 +19,29 @@ class EasyGenerationTest(unittest.TestCase):
     3.  What's the name of the plugin?: test
     4.  What's the path to your test file?: [pfad_file]
     5.  Do you want to have a output example for your SQL Query? [Y/n]: Y
-    6.  Please write your SQL script for the plugin: select id, name from users
+    6.  Please write your SQL script for the plugin: select id, name, createdDate from users
     7.  Your query output could look like this.
         ['id', 'name']
         (5402612, 'BBC Breaking News')
         (13334762, 'GitHub')
         (14388264, 'Tom Pohl')
-    8.  Do you want to add this query? [Y/n]:
+    8.  Do you want to add this query? [Y/n]: Y
     9.  Do you want to name the query parse row: Users ? [Y/n]:  Y
-    10. Is the column a time event? updatedAt [Y/n]:  Y
-    11. Is the column a time event? createdDate [Y/n]: Y
-    12. Enter (additional) timestamp events from the query [column-Name,
+    10. Is the column a time event? createdDate [Y/n]: Y
+    11. Enter (additional) timestamp events from the query [column-Name,
         aliasName...] or [abort]: abort
-    13. Does the event Users need customizing? [y/N]: N
-    14. Do you want to add another Query? [Y/n]: n
+    12. Does the event Users need customizing? [y/N]: N
+    13. Do you want to add another Query? [Y/n]: n
 
     """
     if platform.system() in ['Linux']:
 
       with tempfile.TemporaryDirectory() as tmpdir:
-        helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir)
+        helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir, 'test')
 
         path_answer = tmpdir
         expected_path = os.path.join(helper.DIR_PATH,
-                                     'ExpectedEasyGenerationFiles')
+                                     'ExpectedEasyGenerationWithOutputFiles')
 
         command = 'python {0} sqlite'.format(helper.MAIN_PATH)
         child = pexpect.spawn(command)
@@ -64,21 +63,21 @@ class EasyGenerationTest(unittest.TestCase):
         child.expect(helper.OUTPUT_ANSWER_YES)
 
         child.expect(helper.SQL_QUESTION)
-        child.sendline(helper.SQL_ANSWER)
-        child.expect(helper.SQL_ANSWER_ESCAPED)
+        child.sendline(helper.SQL_ANSWER_ID_NAME)
+        child.expect(helper.SQL_ANSWER_ESCAPED_ID_NAME)
         child.expect(helper.OUTPUT_EXAMPLE_FIRST_ROW)
         child.expect(helper.OUTPUT_USERS_ID_NAME_EXAMPLE_HEADER)
         child.expect(helper.OUTPUT_USERS_ID_EXAMPLE_FIRST_ROW)
         child.expect(helper.OUTPUT_USERS_ID_EXAMPLE_SECOND_ROW)
         child.expect(helper.OUTPUT_USERS_ID_EXAMPLE_THIRD_ROW)
 
-        child.expect(helper.NAME_ROW_QUESTION)
+        child.expect(helper.OUTPUT_ADD_QUESTION)
+        child.sendline(helper.OUTPUT_ADD_ANSWER_YES)
+        child.expect(helper.OUTPUT_ADD_ANSWER_YES)
+
+        child.expect(helper.NAME_ROW_QUESTION_USERS)
         child.sendline(helper.NAME_ROW_ANSWER_YES)
         child.expect(helper.NAME_ROW_ANSWER_YES)
-
-        child.expect(helper.COLUMN_QUESTION_UPDATED_AT)
-        child.sendline(helper.COLUMN_ANSWER_YES)
-        child.expect(helper.COLUMN_ANSWER_YES)
 
         child.expect(helper.COLUMN_QUESTION_CREATED_DATE)
         child.sendline(helper.COLUMN_ANSWER_YES)
@@ -88,7 +87,7 @@ class EasyGenerationTest(unittest.TestCase):
         child.sendline(helper.ADDITIONAL_TIMESTAMP_ABORT)
         child.expect(helper.ADDITIONAL_TIMESTAMP_ABORT)
 
-        child.expect(helper.CUSTOM_QUESTION)
+        child.expect(helper.CUSTOM_QUESTION_USERS)
         child.sendline(helper.CUSTOM_ANSWER_NO)
         child.expect(helper.CUSTOM_ANSWER_NO)
 

@@ -35,7 +35,7 @@ class EasyGenerationWithAbortTest(unittest.TestCase):
     if platform.system() in ['Linux']:
 
       with tempfile.TemporaryDirectory() as tmpdir:
-        helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir)
+        helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir, 'test')
 
         path_answer = tmpdir
         expected_path = os.path.join(helper.DIR_PATH,
@@ -57,15 +57,15 @@ class EasyGenerationWithAbortTest(unittest.TestCase):
         child.expect(helper.TESTFILE_ANSWER)
 
         child.expect(helper.OUTPUT_QUESTION)
-        child.sendline(helper.OUTPUT_ANSWER_YES)
-        child.expect(helper.OUTPUT_ANSWER_YES)
+        child.sendline(helper.OUTPUT_ANSWER_NO)
+        child.expect(helper.OUTPUT_ANSWER_NO)
 
         child.expect(helper.SQL_QUESTION)
         child.sendline(helper.SQL_ANSWER)
         child.expect(helper.SQL_ANSWER_ESCAPED)
         child.expect(helper.SQL_ANSWER_OK)
 
-        child.expect(helper.NAME_ROW_QUESTION)
+        child.expect(helper.NAME_ROW_QUESTION_USERS)
         child.sendline(helper.NAME_ROW_ANSWER_YES)
         child.expect(helper.NAME_ROW_ANSWER_YES)
 
@@ -81,7 +81,7 @@ class EasyGenerationWithAbortTest(unittest.TestCase):
         child.sendline(helper.ADDITIONAL_TIMESTAMP_ABORT)
         child.expect(helper.ADDITIONAL_TIMESTAMP_ABORT)
 
-        child.expect(helper.CUSTOM_QUESTION)
+        child.expect(helper.CUSTOM_QUESTION_USERS)
         child.sendline(helper.CUSTOM_ANSWER_NO)
         child.expect(helper.CUSTOM_ANSWER_NO)
 
@@ -91,14 +91,7 @@ class EasyGenerationWithAbortTest(unittest.TestCase):
 
         child.expect(helper.GENERATE_QUESTION)
         child.sendline(helper.GENERATE_ANSWER_NO)
-
-        child.expect('create.*{0}'.format(helper.formatter_path))
-        child.expect('create.*{0}'.format(helper.parser_path))
-        child.expect('create.*{0}'.format(helper.formatter_test_path))
-        child.expect('create.*{0}'.format(helper.parser_test_path))
-        child.expect('copy.*{0}'.format(helper.test_data_path))
-        child.expect('create.*{0}'.format(helper.parsers_init_path))
-        child.expect('create.*{0}'.format(helper.formatter_init_path))
+        child.expect('Aborted\!')
 
         formatter_init = os.path.isfile(helper.formatter_init_path)
         formatter = os.path.isfile(helper.formatter_path)

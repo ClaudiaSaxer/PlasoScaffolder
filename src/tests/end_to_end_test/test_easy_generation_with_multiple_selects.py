@@ -45,11 +45,11 @@ class EasyGenerationWithMultipleSelectsTest(unittest.TestCase):
     if platform.system() in ['Linux']:
 
       with tempfile.TemporaryDirectory() as tmpdir:
-        helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir)
+        helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir, 'test')
 
         path_answer = tmpdir
         expected_path = os.path.join(helper.DIR_PATH,
-                                     'ExpectedEasyGenerationMultipleSelects')
+                                     'ExpectedEasyGenerationMultipleSelectsFiles')
 
         command = 'python {0} sqlite'.format(helper.MAIN_PATH)
         child = pexpect.spawn(command)
@@ -75,7 +75,7 @@ class EasyGenerationWithMultipleSelectsTest(unittest.TestCase):
         child.expect(helper.SQL_ANSWER_ESCAPED)
         child.expect(helper.SQL_ANSWER_OK)
 
-        child.expect(helper.NAME_ROW_QUESTION)
+        child.expect(helper.NAME_ROW_QUESTION_USERS)
         child.sendline(helper.NAME_ROW_ANSWER_YES)
         child.expect(helper.NAME_ROW_ANSWER_YES)
 
@@ -91,7 +91,7 @@ class EasyGenerationWithMultipleSelectsTest(unittest.TestCase):
         child.sendline(helper.ADDITIONAL_TIMESTAMP_ABORT)
         child.expect(helper.ADDITIONAL_TIMESTAMP_ABORT)
 
-        child.expect(helper.CUSTOM_QUESTION)
+        child.expect(helper.CUSTOM_QUESTION_USERS)
         child.sendline(helper.CUSTOM_ANSWER_NO)
         child.expect(helper.CUSTOM_ANSWER_NO)
 
@@ -99,12 +99,12 @@ class EasyGenerationWithMultipleSelectsTest(unittest.TestCase):
         child.sendline(helper.ADD_ANSWER_YES)
         child.expect(helper.ADD_ANSWER_YES)
 
-        child.expect(helper.SQL_QUESTION)
+        child.expect(helper.SQL_QUESTION_WITH_ABORT)
         child.sendline(helper.SQL_ANSWER_2)
         child.expect(helper.SQL_ANSWER_ESCAPED_2)
         child.expect(helper.SQL_ANSWER_OK)
 
-        child.expect(helper.NAME_ROW_QUESTION)
+        child.expect(helper.NAME_ROW_QUESTION_STATUSES)
         child.sendline(helper.NAME_ROW_ANSWER_YES)
         child.expect(helper.NAME_ROW_ANSWER_YES)
 
@@ -124,7 +124,7 @@ class EasyGenerationWithMultipleSelectsTest(unittest.TestCase):
         child.sendline(helper.ADDITIONAL_TIMESTAMP_ABORT)
         child.expect(helper.ADDITIONAL_TIMESTAMP_ABORT)
 
-        child.expect(helper.CUSTOM_QUESTION)
+        child.expect(helper.CUSTOM_QUESTION_STATUSES)
         child.sendline(helper.CUSTOM_ANSWER_NO)
         child.expect(helper.CUSTOM_ANSWER_NO)
 

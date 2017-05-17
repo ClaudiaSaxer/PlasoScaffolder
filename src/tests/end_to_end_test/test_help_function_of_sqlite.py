@@ -12,7 +12,7 @@ from tests.end_to_end_test import end_to_end_test_helper
 class HelpFunctionOfSQLiteTest(unittest.TestCase):
   def testHelpMessageForSQLitePlugin(self):
     """test the --help option for SQLite"""
-    helper = end_to_end_test_helper.EndToEndTestHelper()
+    helper = end_to_end_test_helper.EndToEndTestHelper('not needed', 'not needed')
 
     if platform.system() in ['Linux']:
       message_help = (

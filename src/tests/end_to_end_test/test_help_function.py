@@ -12,15 +12,15 @@ from tests.end_to_end_test import end_to_end_test_helper
 class HelpFunctionTest(unittest.TestCase):
   def testHelpMessage(self):
     """test the universal --help Option"""
-    helper = end_to_end_test_helper.EndToEndTestHelper()
+    helper = end_to_end_test_helper.EndToEndTestHelper('not needed', 'not needed')
 
     if platform.system() in ['Linux']:
       message_help = (
-        'Usage: plasoscaffolder[OPTIONS] COMMAND[ARGS]...\r\n\r\n'
-        'Options:\r\n  '
-        '--help            Show this message and exit.\r\n\r\n'
+        'Usage: main.py [OPTIONS] COMMAND [ARGS]...\r\n\r\n'
+        'Options:\r\n'
+        '  --help  Show this message and exit.\r\n\r\n'
         'Commands:\r\n'
-        '  Sqlite'
+        '  sqlite'
       )
       command = 'python {0} --help'.format(helper.MAIN_PATH)
       child = pexpect.spawn(command)
