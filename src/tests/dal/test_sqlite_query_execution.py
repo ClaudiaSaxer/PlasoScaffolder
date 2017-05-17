@@ -205,7 +205,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
     result = self.execute.ExecuteQueryDetailed(query)
     expected_error_message = (
-    'Warning: Don’t use any characters beside a-z A-Z 0-9 . ; , * = _')
+    'Warning: Don\'t use any characters beside a-z A-Z 0-9 . ; , * = _')
     self.assertTrue(result.has_error)
     self.assertEqual(result.error_message, expected_error_message)
     self.assertEqual(result.error_message, expected_error_message)
@@ -261,7 +261,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
       'SELECT x.id, x.name from users as x')
     result = self.execute.ExecuteQueryDetailed(query)
     expected_error_message = (
-      'Warning: Don’t use any alias for a table name')
+      'Warning: Don\'t use any alias for a table name')
     self.assertTrue(result.has_error)
     self.assertEqual(result.error_message, expected_error_message)
 
@@ -271,7 +271,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
       'SELECT x.id, x.name from users as x join statuses')
     result = self.execute.ExecuteQueryDetailed(query)
     expected_error_message = (
-      'Warning: Don’t use any alias for a table name')
+      'Warning: Don\'t use any alias for a table name')
     self.assertTrue(result.has_error)
     self.assertEqual(result.error_message, expected_error_message)
 
@@ -283,7 +283,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     result = self.execute.ExecuteQueryDetailed(query)
 
     expected_error_message = (
-      'Warning: Don’t use any alias for a table name')
+      'Warning: Don\'t use any alias for a table name')
     self.assertTrue(result.has_error)
     self.assertEqual(result.error_message, expected_error_message)
 
