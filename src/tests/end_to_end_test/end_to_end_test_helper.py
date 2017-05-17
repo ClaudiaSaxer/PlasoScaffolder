@@ -96,7 +96,7 @@ class EndToEndTestHelper(object):
   CUSTOM_ADD_QUESTION = ('Enter columns that are customizable '
                          '\[columnName\,aliasName\.\.\.\] or \[abort\]\:')
   CUSTOM_ADD_INVALID = ('Column names are not in valid format\. '
-                        'Reenter them correctly \[name\,name\.\.\.\]\:')
+                        'Reenter them correctly \[name\,name\.\.\.\]')
   CUSTOM_ADD_MORE_QUESTION = ('Do you want to add more columns that are customizable\?'
                        ' \[y\/N\]\:')
   CUSTOM_ADD_MORE_ANSWER_NO = 'N'
