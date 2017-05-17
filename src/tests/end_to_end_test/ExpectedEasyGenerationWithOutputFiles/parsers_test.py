@@ -28,7 +28,7 @@ class TestTest(test_lib.SQLitePluginTestCase):
     # Test the first users createdDate event.
     guessed_event = [
         e for e in storage_writer.events
-        if e.id == u'5402612' and e.name == u'BBC Breaking News'
+        if e.id == 5402612 and e.name == u'BBC Breaking News'
     ][0]
     position = storage_writer.index(guessed_event)
     test_event = storage_writer.events[position]
@@ -38,7 +38,7 @@ class TestTest(test_lib.SQLitePluginTestCase):
 
     self.assertEqual(
         test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
-    self.assertEqual(test_event.id, u'5402612')
+    self.assertEqual(test_event.id, 5402612)
     self.assertEqual(test_event.name, u'BBC Breaking News')
 
     expected_message = (u'Id: 5402612 Name: BBC Breaking News')

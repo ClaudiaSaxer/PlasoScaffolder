@@ -31,28 +31,27 @@ class TestTest(test_lib.SQLitePluginTestCase):
     # Test the first users id event.
     guessed_event = [
         e for e in storage_writer.events
-        if e.advertiser_account_type == u'0' and e.analytics_type == u'0' and
-        e.bio_entities == u'None' and e.business_profile_state == u'0' and
-        e.could_be_stale == u'0' and e.description ==
+        if e.advertiser_account_type == 0 and e.analytics_type == 0 and
+        e.bio_entities is None and e.business_profile_state == 0 and
+        e.could_be_stale == 0 and e.description ==
         u'Breaking news alerts and updates from the BBC. For news,'
         u'features, analysis follow @BBCWorld (international) or @BBCNews'
-        u'(UK). Latest sport news @BBCSport.' and e.device_following == u'0' and
-        e.extended_profile_fields == u'None' and e.favorites_count == u'0' and
-        e.followers_count == u'19466932' and e.followers_count_fast == u'0' and
-        e.followers_count_normal == u'0' and e.following == u'0' and
-        e.following_count == u'3' and e.has_collections == u'0' and
-        e.has_extended_profile_fields == u'0' and
-        e.is_lifeline_institution == u'0' and e.is_translator == u'0' and
-        e.location == u'London, UK' and e.media_count == u'None' and
-        e.pinned_tweet_id == u'None' and e.profile_banner_url ==
+        u'(UK). Latest sport news @BBCSport.' and e.device_following == 0 and
+        e.extended_profile_fields is None and e.favorites_count == 0 and
+        e.followers_count == 19466932 and e.followers_count_fast == 0 and
+        e.followers_count_normal == 0 and e.following == 0 and e.following_count
+        == 3 and e.has_collections == 0 and e.has_extended_profile_fields == 0
+        and e.is_lifeline_institution == 0 and e.is_translator == 0 and
+        e.location == u'London, UK' and e.media_count is None and
+        e.pinned_tweet_id is None and e.profile_banner_url ==
         u'https://pbs.twimg.com/profile_banners/5402612/1398336837' and
         e.profile_image_url ==
         u'https://pbs.twimg.com/profile_images/460740982498013184/wIPwMwru'
-        u'_normal.png' and e.profile_link_color_hex_triplet == u'2052731' and
-        e.protected == u'0' and e.screen_name == u'BBCBreaking' and
-        e.statuses_count == u'26697' and e.structured_location == u'None' and
-        e.url == u'http://www.bbc.co.uk/news' and e.url_entities == u'None' and
-        e.verified == u'1'
+        u'_normal.png' and e.profile_link_color_hex_triplet == 2052731 and
+        e.protected == 0 and e.screen_name == u'BBCBreaking' and
+        e.statuses_count == 26697 and e.structured_location is None and
+        e.url == u'http://www.bbc.co.uk/news' and e.url_entities is None and
+        e.verified == 1
     ][0]
     position = storage_writer.index(guessed_event)
     test_event = storage_writer.events[position]
@@ -62,31 +61,31 @@ class TestTest(test_lib.SQLitePluginTestCase):
 
     self.assertEqual(
         test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
-    self.assertEqual(test_event.advertiser_account_type, u'0')
-    self.assertEqual(test_event.analytics_type, u'0')
-    self.assertEqual(test_event.bio_entities, u'None')
-    self.assertEqual(test_event.business_profile_state, u'0')
-    self.assertEqual(test_event.could_be_stale, u'0')
+    self.assertEqual(test_event.advertiser_account_type, 0)
+    self.assertEqual(test_event.analytics_type, 0)
+    self.assertIsNone(test_event.bio_entities)
+    self.assertEqual(test_event.business_profile_state, 0)
+    self.assertEqual(test_event.could_be_stale, 0)
     expected_description = (
         u'Breaking news alerts and updates from the BBC. For news,'
         u'features, analysis follow @BBCWorld (international) or @BBCNews'
         u'(UK). Latest sport news @BBCSport.')
     self.assertEqual(test_event.description, expected_description)
-    self.assertEqual(test_event.device_following, u'0')
-    self.assertEqual(test_event.extended_profile_fields, u'None')
-    self.assertEqual(test_event.favorites_count, u'0')
-    self.assertEqual(test_event.followers_count, u'19466932')
-    self.assertEqual(test_event.followers_count_fast, u'0')
-    self.assertEqual(test_event.followers_count_normal, u'0')
-    self.assertEqual(test_event.following, u'0')
-    self.assertEqual(test_event.following_count, u'3')
-    self.assertEqual(test_event.has_collections, u'0')
-    self.assertEqual(test_event.has_extended_profile_fields, u'0')
-    self.assertEqual(test_event.is_lifeline_institution, u'0')
-    self.assertEqual(test_event.is_translator, u'0')
+    self.assertEqual(test_event.device_following, 0)
+    self.assertIsNone(test_event.extended_profile_fields)
+    self.assertEqual(test_event.favorites_count, 0)
+    self.assertEqual(test_event.followers_count, 19466932)
+    self.assertEqual(test_event.followers_count_fast, 0)
+    self.assertEqual(test_event.followers_count_normal, 0)
+    self.assertEqual(test_event.following, 0)
+    self.assertEqual(test_event.following_count, 3)
+    self.assertEqual(test_event.has_collections, 0)
+    self.assertEqual(test_event.has_extended_profile_fields, 0)
+    self.assertEqual(test_event.is_lifeline_institution, 0)
+    self.assertEqual(test_event.is_translator, 0)
     self.assertEqual(test_event.location, u'London, UK')
-    self.assertEqual(test_event.media_count, u'None')
-    self.assertEqual(test_event.pinned_tweet_id, u'None')
+    self.assertIsNone(test_event.media_count)
+    self.assertIsNone(test_event.pinned_tweet_id)
     expected_profile_banner_url = (
         u'https://pbs.twimg.com/profile_banners/5402612/1398336837')
     self.assertEqual(test_event.profile_banner_url, expected_profile_banner_url)
@@ -94,14 +93,14 @@ class TestTest(test_lib.SQLitePluginTestCase):
         u'https://pbs.twimg.com/profile_images/460740982498013184/wIPwMwru'
         u'_normal.png')
     self.assertEqual(test_event.profile_image_url, expected_profile_image_url)
-    self.assertEqual(test_event.profile_link_color_hex_triplet, u'2052731')
-    self.assertEqual(test_event.protected, u'0')
+    self.assertEqual(test_event.profile_link_color_hex_triplet, 2052731)
+    self.assertEqual(test_event.protected, 0)
     self.assertEqual(test_event.screen_name, u'BBCBreaking')
-    self.assertEqual(test_event.statuses_count, u'26697')
-    self.assertEqual(test_event.structured_location, u'None')
+    self.assertEqual(test_event.statuses_count, 26697)
+    self.assertIsNone(test_event.structured_location)
     self.assertEqual(test_event.url, u'http://www.bbc.co.uk/news')
-    self.assertEqual(test_event.url_entities, u'None')
-    self.assertEqual(test_event.verified, u'1')
+    self.assertIsNone(test_event.url_entities)
+    self.assertEqual(test_event.verified, 1)
 
     expected_message = (
         u'Screen Name: BBCBreaking Profile Image Url: https://pbs.twimg.co'
@@ -131,31 +130,29 @@ class TestTest(test_lib.SQLitePluginTestCase):
     # Test the first users name event.
     guessed_event = [
         e for e in storage_writer.events
-        if e.advertiser_account_type == u'0' and e.analytics_type == u'0' and
-        e.bio_entities == u'b&#39;{}&#39;' and
-        e.business_profile_state == u'0' and e.could_be_stale == u'0' and
-        e.description == u'How people build software' and
-        e.device_following == u'0' and e.extended_profile_fields == u'None' and
-        e.favorites_count == u'155' and e.followers_count == u'742086' and
-        e.followers_count_fast == u'0' and e.followers_count_normal == u'742086'
-        and e.following == u'0' and e.following_count == u'172' and
-        e.has_collections == u'0' and e.has_extended_profile_fields == u'0' and
-        e.is_lifeline_institution == u'0' and e.is_translator == u'0' and
-        e.location == u'San Francisco, CA' and e.media_count == u'33' and
-        e.pinned_tweet_id == u'None' and e.profile_banner_url ==
+        if e.advertiser_account_type == 0 and e.analytics_type == 0 and
+        e.bio_entities == u'b&#39;{}&#39;' and e.business_profile_state == 0 and
+        e.could_be_stale == 0 and e.description == u'How people build software'
+        and e.device_following == 0 and e.extended_profile_fields is None and
+        e.favorites_count == 155 and e.followers_count == 742086 and
+        e.followers_count_fast == 0 and e.followers_count_normal == 742086 and
+        e.following == 0 and e.following_count == 172 and
+        e.has_collections == 0 and e.has_extended_profile_fields == 0 and
+        e.is_lifeline_institution == 0 and e.is_translator == 0 and
+        e.location == u'San Francisco, CA' and e.media_count == 33 and
+        e.pinned_tweet_id is None and e.profile_banner_url ==
         u'https://pbs.twimg.com/profile_banners/13334762/1415719104' and
         e.profile_image_url ==
         u'https://pbs.twimg.com/profile_images/616309728688238592/pBeeJQDQ'
-        u'_normal.png' and e.profile_link_color_hex_triplet == u'255' and
-        e.protected == u'0' and e.screen_name == u'github' and
-        e.statuses_count == u'3120' and e.structured_location == u'None' and
+        u'_normal.png' and e.profile_link_color_hex_triplet == 255 and
+        e.protected == 0 and e.screen_name == u'github' and
+        e.statuses_count == 3120 and e.structured_location is None and
         e.url == u'https://t.co/FoKGHcCyJJ' and e.url_entities ==
         u'b&#39;{&#34;urls&#34;:[{&#34;url&#34;:&#34;https:\\/\\/t.co\\/Fo'
         u'KGHcCyJJ&#34;,&#34;rangeInDisplay.length&#34;:0,&#34;displayURL&'
         u'#34;:&#34;github.com&#34;,&#34;rangeInDisplay.location&#34;:0,&#'
         u'34;expandedURL&#34;:&#34;https:\\/\\/github.com&#34;,&#34;range.'
-        u'location&#34;:0,&#34;range.length&#34;:23}]}&#39;' and
-        e.verified == u'1'
+        u'location&#34;:0,&#34;range.length&#34;:23}]}&#39;' and e.verified == 1
     ][0]
     position = storage_writer.index(guessed_event)
     test_event = storage_writer.events[position]
@@ -165,27 +162,27 @@ class TestTest(test_lib.SQLitePluginTestCase):
 
     self.assertEqual(
         test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
-    self.assertEqual(test_event.advertiser_account_type, u'0')
-    self.assertEqual(test_event.analytics_type, u'0')
+    self.assertEqual(test_event.advertiser_account_type, 0)
+    self.assertEqual(test_event.analytics_type, 0)
     self.assertEqual(test_event.bio_entities, u'b&#39;{}&#39;')
-    self.assertEqual(test_event.business_profile_state, u'0')
-    self.assertEqual(test_event.could_be_stale, u'0')
+    self.assertEqual(test_event.business_profile_state, 0)
+    self.assertEqual(test_event.could_be_stale, 0)
     self.assertEqual(test_event.description, u'How people build software')
-    self.assertEqual(test_event.device_following, u'0')
-    self.assertEqual(test_event.extended_profile_fields, u'None')
-    self.assertEqual(test_event.favorites_count, u'155')
-    self.assertEqual(test_event.followers_count, u'742086')
-    self.assertEqual(test_event.followers_count_fast, u'0')
-    self.assertEqual(test_event.followers_count_normal, u'742086')
-    self.assertEqual(test_event.following, u'0')
-    self.assertEqual(test_event.following_count, u'172')
-    self.assertEqual(test_event.has_collections, u'0')
-    self.assertEqual(test_event.has_extended_profile_fields, u'0')
-    self.assertEqual(test_event.is_lifeline_institution, u'0')
-    self.assertEqual(test_event.is_translator, u'0')
+    self.assertEqual(test_event.device_following, 0)
+    self.assertIsNone(test_event.extended_profile_fields)
+    self.assertEqual(test_event.favorites_count, 155)
+    self.assertEqual(test_event.followers_count, 742086)
+    self.assertEqual(test_event.followers_count_fast, 0)
+    self.assertEqual(test_event.followers_count_normal, 742086)
+    self.assertEqual(test_event.following, 0)
+    self.assertEqual(test_event.following_count, 172)
+    self.assertEqual(test_event.has_collections, 0)
+    self.assertEqual(test_event.has_extended_profile_fields, 0)
+    self.assertEqual(test_event.is_lifeline_institution, 0)
+    self.assertEqual(test_event.is_translator, 0)
     self.assertEqual(test_event.location, u'San Francisco, CA')
-    self.assertEqual(test_event.media_count, u'33')
-    self.assertEqual(test_event.pinned_tweet_id, u'None')
+    self.assertEqual(test_event.media_count, 33)
+    self.assertIsNone(test_event.pinned_tweet_id)
     expected_profile_banner_url = (
         u'https://pbs.twimg.com/profile_banners/13334762/1415719104')
     self.assertEqual(test_event.profile_banner_url, expected_profile_banner_url)
@@ -193,11 +190,11 @@ class TestTest(test_lib.SQLitePluginTestCase):
         u'https://pbs.twimg.com/profile_images/616309728688238592/pBeeJQDQ'
         u'_normal.png')
     self.assertEqual(test_event.profile_image_url, expected_profile_image_url)
-    self.assertEqual(test_event.profile_link_color_hex_triplet, u'255')
-    self.assertEqual(test_event.protected, u'0')
+    self.assertEqual(test_event.profile_link_color_hex_triplet, 255)
+    self.assertEqual(test_event.protected, 0)
     self.assertEqual(test_event.screen_name, u'github')
-    self.assertEqual(test_event.statuses_count, u'3120')
-    self.assertEqual(test_event.structured_location, u'None')
+    self.assertEqual(test_event.statuses_count, 3120)
+    self.assertIsNone(test_event.structured_location)
     self.assertEqual(test_event.url, u'https://t.co/FoKGHcCyJJ')
     expected_url_entities = (
         u'b&#39;{&#34;urls&#34;:[{&#34;url&#34;:&#34;https:\\/\\/t.co\\/Fo'
@@ -206,7 +203,7 @@ class TestTest(test_lib.SQLitePluginTestCase):
         u'34;expandedURL&#34;:&#34;https:\\/\\/github.com&#34;,&#34;range.'
         u'location&#34;:0,&#34;range.length&#34;:23}]}&#39;')
     self.assertEqual(test_event.url_entities, expected_url_entities)
-    self.assertEqual(test_event.verified, u'1')
+    self.assertEqual(test_event.verified, 1)
 
     expected_message = (
         u'Screen Name: github Profile Image Url: https://pbs.twimg.com/pro'
@@ -239,36 +236,34 @@ class TestTest(test_lib.SQLitePluginTestCase):
     # Test the first users updatedAt event.
     guessed_event = [
         e for e in storage_writer.events
-        if e.advertiser_account_type == u'0' and e.analytics_type == u'0' and
+        if e.advertiser_account_type == 0 and e.analytics_type == 0 and
         e.bio_entities ==
         u'b&#39;{&#34;urls&#34;:[{&#34;url&#34;:&#34;http:\\/\\/t.co\\/Ndc'
         u'gVZ9Un6&#34;,&#34;rangeInDisplay.length&#34;:0,&#34;displayURL&#'
         u'34;:&#34;tompohl.com\\/bio.png&#34;,&#34;rangeInDisplay.location'
         u'&#34;:0,&#34;expandedURL&#34;:&#34;http:\\/\\/tompohl.com\\/bio.'
         u'png&#34;,&#34;range.location&#34;:0,&#34;range.length&#34;:22}]}'
-        u'&#39;' and e.business_profile_state == u'0' and e.could_be_stale ==
-        u'0' and e.description == u'http://t.co/NdcgVZ9Un6' and
-        e.device_following == u'0' and e.extended_profile_fields == u'None' and
-        e.favorites_count == u'267' and e.followers_count == u'681' and
-        e.followers_count_fast == u'0' and e.followers_count_normal == u'0' and
-        e.following == u'0' and e.following_count == u'661' and
-        e.has_collections == u'0' and e.has_extended_profile_fields == u'0' and
-        e.is_lifeline_institution == u'0' and e.is_translator == u'0' and
-        e.location == u'Des Moines, Iowa' and e.media_count == u'None' and
-        e.pinned_tweet_id == u'None' and e.profile_banner_url == u'None' and
-        e.profile_image_url ==
+        u'&#39;' and e.business_profile_state == 0 and e.could_be_stale == 0 and
+        e.description == u'http://t.co/NdcgVZ9Un6' and e.device_following == 0
+        and e.extended_profile_fields is None and e.favorites_count == 267 and
+        e.followers_count == 681 and e.followers_count_fast == 0 and
+        e.followers_count_normal == 0 and e.following == 0 and
+        e.following_count == 661 and e.has_collections == 0 and
+        e.has_extended_profile_fields == 0 and e.is_lifeline_institution == 0
+        and e.is_translator == 0 and e.location == u'Des Moines, Iowa' and
+        e.media_count is None and e.pinned_tweet_id is None and
+        e.profile_banner_url is None and e.profile_image_url ==
         u'https://pbs.twimg.com/profile_images/378800000102859706/83b823ec'
         u'53247f689a48d5d3bdeeeb16_normal.jpeg' and
-        e.profile_link_color_hex_triplet == u'33972' and e.protected == u'0' and
-        e.screen_name == u'tompohl' and e.statuses_count == u'4922' and
-        e.structured_location == u'None' and
-        e.url == u'http://t.co/FN9hFrj9Mm' and e.url_entities ==
+        e.profile_link_color_hex_triplet == 33972 and e.protected == 0 and
+        e.screen_name == u'tompohl' and e.statuses_count == 4922 and
+        e.structured_location is None and e.url == u'http://t.co/FN9hFrj9Mm' and
+        e.url_entities ==
         u'b&#39;{&#34;urls&#34;:[{&#34;url&#34;:&#34;http:\\/\\/t.co\\/FN9'
         u'hFrj9Mm&#34;,&#34;rangeInDisplay.length&#34;:0,&#34;displayURL&#'
         u'34;:&#34;tompohl.com&#34;,&#34;rangeInDisplay.location&#34;:0,&#'
         u'34;expandedURL&#34;:&#34;http:\\/\\/tompohl.com&#34;,&#34;range.'
-        u'location&#34;:0,&#34;range.length&#34;:22}]}&#39;' and
-        e.verified == u'0'
+        u'location&#34;:0,&#34;range.length&#34;:22}]}&#39;' and e.verified == 0
     ][0]
     position = storage_writer.index(guessed_event)
     test_event = storage_writer.events[position]
@@ -278,8 +273,8 @@ class TestTest(test_lib.SQLitePluginTestCase):
 
     self.assertEqual(
         test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
-    self.assertEqual(test_event.advertiser_account_type, u'0')
-    self.assertEqual(test_event.analytics_type, u'0')
+    self.assertEqual(test_event.advertiser_account_type, 0)
+    self.assertEqual(test_event.analytics_type, 0)
     expected_bio_entities = (
         u'b&#39;{&#34;urls&#34;:[{&#34;url&#34;:&#34;http:\\/\\/t.co\\/Ndc'
         u'gVZ9Un6&#34;,&#34;rangeInDisplay.length&#34;:0,&#34;displayURL&#'
@@ -288,34 +283,34 @@ class TestTest(test_lib.SQLitePluginTestCase):
         u'png&#34;,&#34;range.location&#34;:0,&#34;range.length&#34;:22}]}'
         u'&#39;')
     self.assertEqual(test_event.bio_entities, expected_bio_entities)
-    self.assertEqual(test_event.business_profile_state, u'0')
-    self.assertEqual(test_event.could_be_stale, u'0')
+    self.assertEqual(test_event.business_profile_state, 0)
+    self.assertEqual(test_event.could_be_stale, 0)
     self.assertEqual(test_event.description, u'http://t.co/NdcgVZ9Un6')
-    self.assertEqual(test_event.device_following, u'0')
-    self.assertEqual(test_event.extended_profile_fields, u'None')
-    self.assertEqual(test_event.favorites_count, u'267')
-    self.assertEqual(test_event.followers_count, u'681')
-    self.assertEqual(test_event.followers_count_fast, u'0')
-    self.assertEqual(test_event.followers_count_normal, u'0')
-    self.assertEqual(test_event.following, u'0')
-    self.assertEqual(test_event.following_count, u'661')
-    self.assertEqual(test_event.has_collections, u'0')
-    self.assertEqual(test_event.has_extended_profile_fields, u'0')
-    self.assertEqual(test_event.is_lifeline_institution, u'0')
-    self.assertEqual(test_event.is_translator, u'0')
+    self.assertEqual(test_event.device_following, 0)
+    self.assertIsNone(test_event.extended_profile_fields)
+    self.assertEqual(test_event.favorites_count, 267)
+    self.assertEqual(test_event.followers_count, 681)
+    self.assertEqual(test_event.followers_count_fast, 0)
+    self.assertEqual(test_event.followers_count_normal, 0)
+    self.assertEqual(test_event.following, 0)
+    self.assertEqual(test_event.following_count, 661)
+    self.assertEqual(test_event.has_collections, 0)
+    self.assertEqual(test_event.has_extended_profile_fields, 0)
+    self.assertEqual(test_event.is_lifeline_institution, 0)
+    self.assertEqual(test_event.is_translator, 0)
     self.assertEqual(test_event.location, u'Des Moines, Iowa')
-    self.assertEqual(test_event.media_count, u'None')
-    self.assertEqual(test_event.pinned_tweet_id, u'None')
-    self.assertEqual(test_event.profile_banner_url, u'None')
+    self.assertIsNone(test_event.media_count)
+    self.assertIsNone(test_event.pinned_tweet_id)
+    self.assertIsNone(test_event.profile_banner_url)
     expected_profile_image_url = (
         u'https://pbs.twimg.com/profile_images/378800000102859706/83b823ec'
         u'53247f689a48d5d3bdeeeb16_normal.jpeg')
     self.assertEqual(test_event.profile_image_url, expected_profile_image_url)
-    self.assertEqual(test_event.profile_link_color_hex_triplet, u'33972')
-    self.assertEqual(test_event.protected, u'0')
+    self.assertEqual(test_event.profile_link_color_hex_triplet, 33972)
+    self.assertEqual(test_event.protected, 0)
     self.assertEqual(test_event.screen_name, u'tompohl')
-    self.assertEqual(test_event.statuses_count, u'4922')
-    self.assertEqual(test_event.structured_location, u'None')
+    self.assertEqual(test_event.statuses_count, 4922)
+    self.assertIsNone(test_event.structured_location)
     self.assertEqual(test_event.url, u'http://t.co/FN9hFrj9Mm')
     expected_url_entities = (
         u'b&#39;{&#34;urls&#34;:[{&#34;url&#34;:&#34;http:\\/\\/t.co\\/FN9'
@@ -324,7 +319,7 @@ class TestTest(test_lib.SQLitePluginTestCase):
         u'34;expandedURL&#34;:&#34;http:\\/\\/tompohl.com&#34;,&#34;range.'
         u'location&#34;:0,&#34;range.length&#34;:22}]}&#39;')
     self.assertEqual(test_event.url_entities, expected_url_entities)
-    self.assertEqual(test_event.verified, u'0')
+    self.assertEqual(test_event.verified, 0)
 
     expected_message = (
         u'Screen Name: tompohl Profile Image Url: https://pbs.twimg.com/pr'
@@ -360,33 +355,32 @@ class TestTest(test_lib.SQLitePluginTestCase):
     # Test the first users createdDate event.
     guessed_event = [
         e for e in storage_writer.events
-        if e.advertiser_account_type == u'0' and e.analytics_type == u'0' and
-        e.bio_entities == u'b&#39;{}&#39;' and e.business_profile_state == u'0'
-        and e.could_be_stale == u'0' and e.description ==
+        if e.advertiser_account_type == 0 and e.analytics_type == 0 and
+        e.bio_entities == u'b&#39;{}&#39;' and e.business_profile_state == 0 and
+        e.could_be_stale == 0 and e.description ==
         u'Director of @SenatorLeahy Center for Digital Investigation,'
         u'@Champlainedu Professor, Forensic Examiner - Vermont ICAC,'
-        u'Marathoner, Bonsai enthusiast' and e.device_following == u'0' and
-        e.extended_profile_fields == u'None' and e.favorites_count == u'52' and
-        e.followers_count == u'1165' and e.followers_count_fast == u'0' and
-        e.followers_count_normal == u'0' and e.following == u'0' and
-        e.following_count == u'411' and e.has_collections == u'0' and
-        e.has_extended_profile_fields == u'0' and
-        e.is_lifeline_institution == u'0' and e.is_translator == u'0' and
-        e.location == u'Burlington, Vermont' and e.media_count == u'None' and
-        e.pinned_tweet_id == u'None' and e.profile_banner_url ==
+        u'Marathoner, Bonsai enthusiast' and e.device_following == 0 and
+        e.extended_profile_fields is None and e.favorites_count == 52 and
+        e.followers_count == 1165 and e.followers_count_fast == 0 and
+        e.followers_count_normal == 0 and e.following == 0 and e.following_count
+        == 411 and e.has_collections == 0 and e.has_extended_profile_fields == 0
+        and e.is_lifeline_institution == 0 and e.is_translator == 0 and
+        e.location == u'Burlington, Vermont' and e.media_count is None and
+        e.pinned_tweet_id is None and e.profile_banner_url ==
         u'https://pbs.twimg.com/profile_banners/15378399/1400611105' and
         e.profile_image_url ==
         u'https://pbs.twimg.com/profile_images/659825753/Rajewski_Pic_norm'
-        u'al.jpg' and e.profile_link_color_hex_triplet == u'39321' and
-        e.protected == u'0' and e.screen_name == u'jtrajewski' and
-        e.statuses_count == u'3096' and e.structured_location == u'None' and
+        u'al.jpg' and e.profile_link_color_hex_triplet == 39321 and
+        e.protected == 0 and e.screen_name == u'jtrajewski' and
+        e.statuses_count == 3096 and e.structured_location is None and
         e.url == u'http://t.co/GqYJCMnCeq' and e.url_entities ==
         u'b&#39;{&#34;urls&#34;:[{&#34;url&#34;:&#34;http:\\/\\/t.co\\/GqY'
         u'JCMnCeq&#34;,&#34;rangeInDisplay.length&#34;:0,&#34;displayURL&#'
         u'34;:&#34;jonrajewski.com\\/cyberblog&#34;,&#34;rangeInDisplay.lo'
         u'cation&#34;:0,&#34;expandedURL&#34;:&#34;http:\\/\\/jonrajewski.'
         u'com\\/cyberblog&#34;,&#34;range.location&#34;:0,&#34;range.lengt'
-        u'h&#34;:22}]}&#39;' and e.verified == u'0'
+        u'h&#34;:22}]}&#39;' and e.verified == 0
     ][0]
     position = storage_writer.index(guessed_event)
     test_event = storage_writer.events[position]
@@ -396,31 +390,31 @@ class TestTest(test_lib.SQLitePluginTestCase):
 
     self.assertEqual(
         test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
-    self.assertEqual(test_event.advertiser_account_type, u'0')
-    self.assertEqual(test_event.analytics_type, u'0')
+    self.assertEqual(test_event.advertiser_account_type, 0)
+    self.assertEqual(test_event.analytics_type, 0)
     self.assertEqual(test_event.bio_entities, u'b&#39;{}&#39;')
-    self.assertEqual(test_event.business_profile_state, u'0')
-    self.assertEqual(test_event.could_be_stale, u'0')
+    self.assertEqual(test_event.business_profile_state, 0)
+    self.assertEqual(test_event.could_be_stale, 0)
     expected_description = (
         u'Director of @SenatorLeahy Center for Digital Investigation,'
         u'@Champlainedu Professor, Forensic Examiner - Vermont ICAC,'
         u'Marathoner, Bonsai enthusiast')
     self.assertEqual(test_event.description, expected_description)
-    self.assertEqual(test_event.device_following, u'0')
-    self.assertEqual(test_event.extended_profile_fields, u'None')
-    self.assertEqual(test_event.favorites_count, u'52')
-    self.assertEqual(test_event.followers_count, u'1165')
-    self.assertEqual(test_event.followers_count_fast, u'0')
-    self.assertEqual(test_event.followers_count_normal, u'0')
-    self.assertEqual(test_event.following, u'0')
-    self.assertEqual(test_event.following_count, u'411')
-    self.assertEqual(test_event.has_collections, u'0')
-    self.assertEqual(test_event.has_extended_profile_fields, u'0')
-    self.assertEqual(test_event.is_lifeline_institution, u'0')
-    self.assertEqual(test_event.is_translator, u'0')
+    self.assertEqual(test_event.device_following, 0)
+    self.assertIsNone(test_event.extended_profile_fields)
+    self.assertEqual(test_event.favorites_count, 52)
+    self.assertEqual(test_event.followers_count, 1165)
+    self.assertEqual(test_event.followers_count_fast, 0)
+    self.assertEqual(test_event.followers_count_normal, 0)
+    self.assertEqual(test_event.following, 0)
+    self.assertEqual(test_event.following_count, 411)
+    self.assertEqual(test_event.has_collections, 0)
+    self.assertEqual(test_event.has_extended_profile_fields, 0)
+    self.assertEqual(test_event.is_lifeline_institution, 0)
+    self.assertEqual(test_event.is_translator, 0)
     self.assertEqual(test_event.location, u'Burlington, Vermont')
-    self.assertEqual(test_event.media_count, u'None')
-    self.assertEqual(test_event.pinned_tweet_id, u'None')
+    self.assertIsNone(test_event.media_count)
+    self.assertIsNone(test_event.pinned_tweet_id)
     expected_profile_banner_url = (
         u'https://pbs.twimg.com/profile_banners/15378399/1400611105')
     self.assertEqual(test_event.profile_banner_url, expected_profile_banner_url)
@@ -428,11 +422,11 @@ class TestTest(test_lib.SQLitePluginTestCase):
         u'https://pbs.twimg.com/profile_images/659825753/Rajewski_Pic_norm'
         u'al.jpg')
     self.assertEqual(test_event.profile_image_url, expected_profile_image_url)
-    self.assertEqual(test_event.profile_link_color_hex_triplet, u'39321')
-    self.assertEqual(test_event.protected, u'0')
+    self.assertEqual(test_event.profile_link_color_hex_triplet, 39321)
+    self.assertEqual(test_event.protected, 0)
     self.assertEqual(test_event.screen_name, u'jtrajewski')
-    self.assertEqual(test_event.statuses_count, u'3096')
-    self.assertEqual(test_event.structured_location, u'None')
+    self.assertEqual(test_event.statuses_count, 3096)
+    self.assertIsNone(test_event.structured_location)
     self.assertEqual(test_event.url, u'http://t.co/GqYJCMnCeq')
     expected_url_entities = (
         u'b&#39;{&#34;urls&#34;:[{&#34;url&#34;:&#34;http:\\/\\/t.co\\/GqY'
@@ -442,7 +436,7 @@ class TestTest(test_lib.SQLitePluginTestCase):
         u'com\\/cyberblog&#34;,&#34;range.location&#34;:0,&#34;range.lengt'
         u'h&#34;:22}]}&#39;')
     self.assertEqual(test_event.url_entities, expected_url_entities)
-    self.assertEqual(test_event.verified, u'0')
+    self.assertEqual(test_event.verified, 0)
 
     expected_message = (
         u'Screen Name: jtrajewski Profile Image Url: https://pbs.twimg.com'

@@ -27,9 +27,8 @@ class TestTest(test_lib.SQLitePluginTestCase):
     self.assertEqual(3350, len(storage_writer.events))
 
     # Test the first usersstatuses updatedAt event.
-    guessed_event = [
-        e for e in storage_writer.events if e.user_id == u'5402612'
-    ][0]
+    guessed_event = [e for e in storage_writer.events
+                     if e.user_id == 5402612][0]
     position = storage_writer.index(guessed_event)
     test_event = storage_writer.events[position]
 
@@ -38,7 +37,7 @@ class TestTest(test_lib.SQLitePluginTestCase):
 
     self.assertEqual(
         test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
-    self.assertEqual(test_event.user_id, u'5402612')
+    self.assertEqual(test_event.user_id, 5402612)
 
     expected_message = (u'User_Id: 5402612')
     expected_message_short = (u'User_Id: 5402612...')
@@ -47,9 +46,8 @@ class TestTest(test_lib.SQLitePluginTestCase):
         test_event, expected_message, expected_message_short)
 
     # Test the first usersstatuses createdDate event.
-    guessed_event = [
-        e for e in storage_writer.events if e.user_id == u'5402612'
-    ][0]
+    guessed_event = [e for e in storage_writer.events
+                     if e.user_id == 5402612][0]
     position = storage_writer.index(guessed_event)
     test_event = storage_writer.events[position]
 
@@ -58,7 +56,7 @@ class TestTest(test_lib.SQLitePluginTestCase):
 
     self.assertEqual(
         test_event.timestamp_desc, eventdata.EventTimestamp.CREATION_TIME)
-    self.assertEqual(test_event.user_id, u'5402612')
+    self.assertEqual(test_event.user_id, 5402612)
 
     expected_message = (u'User_Id: 5402612')
     expected_message_short = (u'User_Id: 5402612...')
