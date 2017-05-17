@@ -100,7 +100,7 @@ class EndToEndTestHelper(object):
   CUSTOM_ADD_MORE_QUESTION = ('Do you want to add more columns that are customizable\?'
                        ' \[y\/N\]\:')
   CUSTOM_ADD_MORE_ANSWER_NO = 'N'
-  CUSTOM_ADD_MORE_ANSWER_NO = 'Y'
+  CUSTOM_ADD_MORE_ANSWER_YES= 'Y'
   ADD_QUESTION = 'Do you want to add another Query\? \[Y\/n\]\:'
   ADD_ANSWER_NO = 'n'
   ADD_ANSWER_YES = 'Y'

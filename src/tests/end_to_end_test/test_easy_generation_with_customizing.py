@@ -34,9 +34,9 @@ class EasyGenerationWithCustomizingTest(unittest.TestCase):
     16. Added:
         Failed: that,this
     17. Do you want to add more columns that are customizable? [y/N]: Y
-    18. Enter columns that are customizable [columnName,aliasName...] or [abort]: this,location,id
+    18. Enter columns that are customizable [columnName,aliasName...] or [abort]: this,location,updatedAt
     19. Added: location
-        Failed: id,that,this
+        Failed: updatedAt,that,this
     20. Do you want to add more columns that are customizable? [y/N]: N
     21. Do you want to add another Query? [Y/n]: n
     22. Do you want to Generate the files [Y/n]: Y
@@ -100,28 +100,29 @@ class EasyGenerationWithCustomizingTest(unittest.TestCase):
 
         child.expect(helper.CUSTOM_ADD_INVALID)
         child.sendline('this, that')
-        child.expect('this/, that')
+        child.expect('this\, that')
 
         child.expect(helper.CUSTOM_ADD_INVALID)
         child.sendline('this,that')
-        child.expect('this/,that')
-        child.expect('Added/:')
-        child.expect('Failed/: that/,this')
+        child.expect('this\,that')
+        child.expect('Added\:')
+        child.expect('Failed\: that\,this')
 
         child.expect(helper.CUSTOM_ADD_MORE_QUESTION)
         child.sendline(helper.CUSTOM_ADD_MORE_ANSWER_YES)
 
         child.expect(helper.CUSTOM_ADD_QUESTION)
-        child.sendline(' this,location,id')
-        child.expect(' this/,location/,id')
-        child.expect('Added/: location')
-        child.expect('Failed/: id/,that/,this')
-        child.expect(helper.ADD_QUESTION)
-        child.sendline(helper.ADD_ANSWER_NO)
-        child.expect(helper.ADD_ANSWER_NO)
+        child.sendline('this,location,updatedAt')
+        child.expect('this\,location\,updatedAt')
+        child.expect('Added\: location')
+        child.expect('Failed\: that\,this\,updatedAt')
 
         child.expect(helper.CUSTOM_ADD_MORE_QUESTION)
         child.sendline(helper.CUSTOM_ADD_MORE_ANSWER_NO)
+
+        child.expect(helper.ADD_QUESTION)
+        child.sendline(helper.ADD_ANSWER_NO)
+        child.expect(helper.ADD_ANSWER_NO)
 
         child.expect(helper.GENERATE_QUESTION)
         child.sendline(helper.GENERATE_ANSWER_YES)
