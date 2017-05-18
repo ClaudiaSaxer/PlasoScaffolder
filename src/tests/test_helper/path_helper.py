@@ -43,7 +43,7 @@ def TestDatabasePath() -> str:
 
 def YapfStyleFilePath() -> str:
   """ gets the path to the yapf style file.
-  
+
   Returns:
     str: the yapf file path
   """

@@ -8,8 +8,7 @@ class BaseSQLQueryExecution(object):
   """Class representing the SQLite query validator."""
 
   @abc.abstractmethod
-  def ExecuteQuery(self, query: str,
-                   detailed: bool = True):
+  def ExecuteQuery(self, query: str):
     """Executes the SQL Query.
 
     Args:

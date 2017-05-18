@@ -33,5 +33,4 @@ class TypeMapperSQLitePython(object):
               'DECIMAL': int,
               'BOOLEAN': bool,
               'DATE': int,
-              'DATETIME': int
-              }
+              'DATETIME': int}

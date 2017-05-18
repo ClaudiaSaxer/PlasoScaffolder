@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# disable backslash in string because special characters need to be escaped
+# pylint: disable=anomalous-backslash-in-string
 """Test Class for end to end Tests.
 These Tests can only be run on Linux because it makes use of pexpect."""
 
@@ -12,6 +14,7 @@ from tests.end_to_end_test import end_to_end_test_helper
 
 
 class EasyGenerationWithCustomizingTest(unittest.TestCase):
+  """Test File for Generation with Customizing"""
 
   def testEasyGenerationWithCustomizing(self):
     """Test easy file generation without errors with customizing option
@@ -28,13 +31,17 @@ class EasyGenerationWithCustomizingTest(unittest.TestCase):
     11. Enter (additional) timestamp events from the query [column-Name,
         aliasName...] or [abort]: abort
     12. Does the event Users need customizing? [y/N]: Y
-    13. Enter columns that are customizable [columnName,aliasName...] or [abort]: this that
-    14. Column names are not in valid format. Reenter them correctly [name,name...]: this, that
-    15. Column names are not in valid format. Reenter them correctly [name,name...]: this,that
+    13. Enter columns that are customizable [columnName,aliasName...] or [
+    abort]: this that
+    14. Column names are not in valid format. Reenter them correctly [name,
+    name...]: this, that
+    15. Column names are not in valid format. Reenter them correctly [name,
+    name...]: this,that
     16. Added:
         Failed: that,this
     17. Do you want to add more columns that are customizable? [y/N]: Y
-    18. Enter columns that are customizable [columnName,aliasName...] or [abort]: this,location,updatedAt
+    18. Enter columns that are customizable [columnName,aliasName...] or [
+    abort]: this,location,updatedAt
     19. Added: location
         Failed: updatedAt,that,this
     20. Do you want to add more columns that are customizable? [y/N]: N

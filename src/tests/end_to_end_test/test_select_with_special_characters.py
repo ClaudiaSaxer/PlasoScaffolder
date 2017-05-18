@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# disable backslash in string because special characters need to be escaped
+# pylint: disable=anomalous-backslash-in-string
 """Test Class for end to end Tests.
 These Tests can only be run on Linux because it makes use of pexpect."""
 
@@ -12,6 +14,7 @@ from tests.end_to_end_test import end_to_end_test_helper
 
 
 class SelectWithSpecialCharactersTest(unittest.TestCase):
+  """Test file for select with special characters."""
   def testSelectWithSpecialCharacters(self):
     """Test different queries with special characters
     1.  plasoscaffolder sqlite
@@ -19,22 +22,28 @@ class SelectWithSpecialCharactersTest(unittest.TestCase):
     3.  What's the name of the plugin?: test
     4.  What's the path to your test file?: test_database/twitter_ios.db
     5.  Do you want to have a output example for your SQL Query? [Y/n]: n
-    6.  Please write your SQL script for the plugin: select users.id as “userid” from users join statuses
+    6.  Please write your SQL script for the plugin: select users.id as
+        “userid” from users join statuses
     7.  Info: Don’t use any characters beside a-z A-Z . ; , *
     8.  Please write your SQL script for the plugin: select hex(id) from users
     9.  Warning: Don’t use any characters beside a-z A-Z . ; , *
-    10. Please write your SQL script for the plugin: select [AS].[ID] AS [the alias], [AS].name AS “the name” , S.id from users as [AS] join statuses as “S”
+    10. Please write your SQL script for the plugin: select [AS].[ID] AS [the
+        alias], [AS].name AS “the name” , S.id from users as [AS] join statuses
+        as “S”
     11. Warning: Don’t use any characters beside a-z A-Z . ; , *
-    12. Please write your SQL script for the plugin: select id as the-id from users
+    12. Please write your SQL script for the plugin: select id as the-id from
+        users
     13. Warning: Don’t use any characters beside a-z A-Z . ; , *
-    14. Please write your SQL script for the plugin: select somealias.id from users as somealias
+    14. Please write your SQL script for the plugin: select somealias.id from
+       users as somealias
     15. Warning: Don’t use any alias for a table name
     16. Please write your SQL script for the plugin: select * from users
     17. The SQL query was ok.
     18. Do you want to name the query parse row: Users ? [Y/n]:  Y
     19. Is the column a time event? updatedAt [Y/n]:  Y
     20. Is the column a time event? createdDate [Y/n]: Y
-    21. Enter (additional) timestamp events from the query [column-Name,aliasName...] or [abort]: abort
+    21. Enter (additional) timestamp events from the query [column-Name,
+        aliasName...] or [abort]: abort
     22. Does the event Users need customizing? [y/N]: N
     23. Do you want to add another Query? [Y/n]: n
     24. Do you want to Generate the files [Y/n]: Y

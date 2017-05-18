@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# this default value is just for testing in a fake.
+# pylint: disable=dangerous-default-value
 """Fake Module containing helper functions for the SQLite plugin"""
 from plasoscaffolder.bll.services import base_sqlite_plugin_helper
 from plasoscaffolder.bll.services import base_sqlite_plugin_path_helper
@@ -11,20 +13,21 @@ from plasoscaffolder.model import sql_query_column_model_data
 class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
   """Fake for the SQLite plugin helper"""
 
-  def __init__(self, plugin_exists=False, folder_exists=False,
-               file_exists=False, valid_name=True,
-               change_bool_after_every_call_plugin_exists=False,
-               change_bool_after_every_call_folder_exists=False,
-               change_bool_after_every_call_file_exists=False,
-               change_bool_after_every_call_valid_name=False,
-               distinct_columns=None, valid_row_name=True,
-               change_bool_after_every_call_valid_row_name=False,
-               change_bool_after_every_call_valid_comma_separated_string=False,
-               valid_comma_separated_string=True,
-               columns_and_timestamp_column=([], []),
-               assumed_timestamps=[]):
+  def __init__(
+      self, plugin_exists=False, folder_exists=False,
+      file_exists=False, valid_name=True,
+      change_bool_after_every_call_plugin_exists=False,
+      change_bool_after_every_call_folder_exists=False,
+      change_bool_after_every_call_file_exists=False,
+      change_bool_after_every_call_valid_name=False,
+      distinct_columns=None, valid_row_name=True,
+      change_bool_after_every_call_valid_row_name=False,
+      change_bool_after_every_call_valid_comma_separated_string=False,
+      valid_comma_separated_string=True,
+      columns_and_timestamp_column=([], []),
+      assumed_timestamps=[]):
     """ Initializes the fake plugin helper
-    
+
     Args:
       change_bool_after_every_call_plugin_exists (bool): if the function
           boolean should change after every call.
@@ -34,7 +37,7 @@ class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
           boolean should change after every call.
       change_bool_after_every_call_valid_name (bool): if the function
           boolean should change after every call.
-      change_bool_after_every_call_valid_comma_separated_string (bool): if 
+      change_bool_after_every_call_valid_comma_separated_string (bool): if
           the function boolean should change after every call.
       file_exists (bool): what the FileExists function should return
       plugin_exists (bool): what the PluginExists function should return
@@ -47,9 +50,9 @@ class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
       change_bool_after_every_call_valid_row_name (bool): if the function
           boolean should change after every call.
       columns_and_timestamp_column ([sql_query_column_model.SQLColumnModel],
-          [sql_query_column_model.SQLColumnModel]): what to return for the 
+          [sql_query_column_model.SQLColumnModel]): what to return for the
           method GetColumnsAndTimestampColumn
-      assumed_timestamps ([str]): what to return for the method 
+      assumed_timestamps ([str]): what to return for the method
           GetAssumedTimestamps
     """
     self.change_valid_name = change_bool_after_every_call_valid_name
@@ -58,7 +61,7 @@ class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     self.change_plugin_exists = change_bool_after_every_call_plugin_exists
     self.change_valid_row_name = change_bool_after_every_call_valid_row_name
     self.change_valid_comma_separated_string = (
-      change_bool_after_every_call_valid_comma_separated_string)
+        change_bool_after_every_call_valid_comma_separated_string)
     self.plugin_exists = plugin_exists
     self.folder_exists = folder_exists
     self.file_exists = file_exists
@@ -124,7 +127,7 @@ class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
      loops while testing)"""
     if self.change_valid_comma_separated_string:
       self.is_valid_comma_separated_string = (
-        not self.is_valid_comma_separated_string)
+          not self.is_valid_comma_separated_string)
       return not self.is_valid_comma_separated_string
     else:
       return self.is_valid_comma_separated_string
@@ -171,14 +174,14 @@ class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
 
   def GetColumnsAndTimestampColumn(
       self, columns: [sql_query_column_model.SQLColumnModel],
-      timestamps: [str], data: [str]) -> (
-      [sql_query_column_model_data.SQLColumnModelData],
-      [sql_query_column_model.SQLColumnModel]):
+      timestamps: [str], data: [str]
+  ) -> ([sql_query_column_model_data.SQLColumnModelData],
+        [sql_query_column_model.SQLColumnModel]):
     """Splits the column list into a list of simple columns and a list for
     timestamp event columns and adds the data to the simple columns
 
     Args:
-      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns 
+      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns
           from the SQL query
       timestamps ([str]): the timestamp events
       data ([str]): the data from the cursor

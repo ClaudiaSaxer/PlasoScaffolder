@@ -131,21 +131,22 @@ class BaseSQLitePluginHelper(object):
   @abc.abstractmethod
   def GetColumnsAndTimestampColumn(
       self, columns: [sql_query_column_model.SQLColumnModel],
-      timestamps: [str], data: [str]) -> (
+      timestamps: [str], data: [str]
+  ) -> (
       [sql_query_column_model_data.SQLColumnModelData],
       [sql_query_column_model_timestamp.SQLColumnModelTimestamp]):
     """Splits the column list into a list of simple columns and a list for
     timestamp event columns and adds the data to the simple columns
 
     Args:
-      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns 
+      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns
           from the SQL query
       timestamps ([str]): the timestamp events
       data ([str]): the data from the cursor
 
     Returns:
       ([sql_query_column_model_data.SQLColumnModelData],
-          [sql_query_column_model_timestamp.SQLColumnModelTimestamp): a tuple 
+          [sql_query_column_model_timestamp.SQLColumnModelTimestamp): a tuple
           of columns,
           the first are the normal columns, the second are the timestamp events
     """

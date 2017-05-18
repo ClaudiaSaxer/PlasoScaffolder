@@ -12,15 +12,17 @@ from tests.end_to_end_test import end_to_end_test_helper
 
 
 class WrongTestDatabaseFileTest(unittest.TestCase):
+  """Test file for wrong test database file."""
+
   def testWrongTestFile(self):
     """Test easy file generation without errors
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test
     4.  What's the path to your test file?: test_database/does_not_exists
-    5.  File does not exists. Choose another.: 
+    5.  File does not exists. Choose another.:
         test_database/twitter_ios_error.db
-    6.  Unable to open the database file. Choose another.: 
+    6.  Unable to open the database file. Choose another.:
         test_database/twitter_ios.db
     7.  Do you want to have a output example for your SQL Query? [Y/n]: n
     8.  Please write your SQL script for the plugin: select * from users
@@ -38,7 +40,7 @@ class WrongTestDatabaseFileTest(unittest.TestCase):
     if platform.system() in ['Linux']:
 
       with tempfile.TemporaryDirectory() as tmpdir:
-        helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir,'test')
+        helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir, 'test')
 
         path_answer = tmpdir
         expected_path = os.path.join(helper.DIR_PATH,

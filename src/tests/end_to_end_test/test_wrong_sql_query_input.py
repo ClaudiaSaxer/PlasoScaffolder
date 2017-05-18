@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# disable backslash in string because special characters need to be escaped
+# pylint: disable=anomalous-backslash-in-string
 """Test Class for end to end Tests.
 These Tests can only be run on Linux because it makes use of pexpect."""
 
@@ -12,6 +14,8 @@ from tests.end_to_end_test import end_to_end_test_helper
 
 
 class WrongSQLQueryInputTest(unittest.TestCase):
+  """Test file for wrong input."""
+
   def testWrongSQLQueryInput(self):
     """Test easy file generation without errors
     1.  plasoscaffolder sqlite
@@ -21,12 +25,12 @@ class WrongSQLQueryInputTest(unittest.TestCase):
     5.  Do you want to have a output example for your SQL Query? [Y/n]: n
     6.  Please write your SQL script for the plugin: select * from user
     7.  Error: no such table: user
-    8.  Please write your SQL script for the plugin: select * from users; 
+    8.  Please write your SQL script for the plugin: select * from users;
         select * from users
     9.  Warning: You can only execute one statement at a time.
     10. Please write your SQL script for the plugin: drop table users
     11. Query has to be a single SELECT query.
-    12. Please write your SQL script for the plugin ['abort' to continue]: 
+    12. Please write your SQL script for the plugin ['abort' to continue]:
         select * from users
     13. The SQL query was ok.
     14. Do you want to name the query parse row: Users ? [Y/n]:  Y

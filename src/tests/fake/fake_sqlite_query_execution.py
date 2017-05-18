@@ -19,8 +19,7 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
     self.to_return = to_return
 
   def ExecuteQuery(
-      self, query: str,
-      detailed: bool=False
+      self, query: str
   ) -> sql_query_data.SQLQueryData:
     """Executes the SQL Query."""
     return self.to_return

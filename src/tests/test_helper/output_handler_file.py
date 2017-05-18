@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# default value just used for a test is fine
+# pylint: disable=dangerous-default-value
 """Output file handler for files."""
 
 import sys
@@ -14,11 +16,11 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       self,
       file_path: str,
       file_handler: base_file_handler.BaseFileHandler(),
-      prompt_info: str = "",
-      prompt_error: str = "",
-      confirm: bool = True,
-      confirm_amount_same: int = 100,
-      prompt_info_list: [str] = []):
+      prompt_info: str="",
+      prompt_error: str="",
+      confirm: bool=True,
+      confirm_amount_same: int=100,
+      prompt_info_list: [str]=[]):
     """Initializes File Output Handler.
 
     Args:
@@ -27,7 +29,7 @@ class OutputHandlerFile(base_output_handler.BaseOutputHandler):
       fileHandler (BaseFileHandler): the file Handler
       prompt_error (str): what to return in a prompt error
       prompt_info (str): what to return in a prompt info
-      prompt_info_list ([str]): what to return in prompt info as an array. 
+      prompt_info_list ([str]): what to return in prompt info as an array.
           if the array is empty, the prompt info will be returned.
       confirm_amount_same (int): how many times to confirm the same amount.
        Default = 100

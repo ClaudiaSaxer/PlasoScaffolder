@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 """To Format the code """
 
-from yapf.yapflib import yapf_api
-
 from plasoscaffolder.common import base_code_formatter
+from yapf.yapflib import yapf_api
 
 
 class CodeFormatter(base_code_formatter.BaseCodeFormatter):
@@ -11,8 +10,8 @@ class CodeFormatter(base_code_formatter.BaseCodeFormatter):
 
   def __init__(self, yapf_path: str):
     """Initializing the code formatter.
-    
-    Args: 
+
+    Args:
       yapf_path (str): the path to the yapf style file
     """
     super().__init__()
@@ -20,7 +19,7 @@ class CodeFormatter(base_code_formatter.BaseCodeFormatter):
 
   def Format(self, code: str) -> str:
     """Formats the code.
-    
+
     Args:
       code (str): the code to format
 

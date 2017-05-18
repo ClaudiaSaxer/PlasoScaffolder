@@ -112,16 +112,16 @@ class GeneratingFilesTestCase(unittest.TestCase):
       expected_parser_test = self._ReadFromFile(
           os.path.join(expected_path, 'parsers_test.py'))
       expected_console_output = (
-        'Do you want to Generate the files?create '
-        '{0}create {1}create {2}create '
-        '{3}copy {4}create {5}create {6}'.format(
-            sqlite_path_helper.formatter_file_path,
-            sqlite_path_helper.parser_file_path,
-            sqlite_path_helper.formatter_test_file_path,
-            sqlite_path_helper.parser_test_file_path,
-            sqlite_path_helper.database_path,
-            sqlite_path_helper.parser_init_file_path,
-            sqlite_path_helper.formatter_init_file_path))
+          'Do you want to Generate the files?create '
+          '{0}create {1}create {2}create '
+          '{3}copy {4}create {5}create {6}'.format(
+              sqlite_path_helper.formatter_file_path,
+              sqlite_path_helper.parser_file_path,
+              sqlite_path_helper.formatter_test_file_path,
+              sqlite_path_helper.parser_test_file_path,
+              sqlite_path_helper.database_path,
+              sqlite_path_helper.parser_init_file_path,
+              sqlite_path_helper.formatter_init_file_path))
 
       self.assertEqual(formatter_init, expected_formatter_init)
       self.assertEqual(formatter, expected_formatter)
@@ -231,16 +231,16 @@ class GeneratingFilesTestCase(unittest.TestCase):
       expected_parser_test = self._ReadFromFile(
           os.path.join(expected_path, 'parsers_test.py'))
       expected_console_output = (
-        'Do you want to Generate the files?create '
-        '{0}create {1}create {2}create '
-        '{3}copy {4}create {5}create {6}'.format(
-            sqlite_path_helper.formatter_file_path,
-            sqlite_path_helper.parser_file_path,
-            sqlite_path_helper.formatter_test_file_path,
-            sqlite_path_helper.parser_test_file_path,
-            sqlite_path_helper.database_path,
-            sqlite_path_helper.parser_init_file_path,
-            sqlite_path_helper.formatter_init_file_path))
+          'Do you want to Generate the files?create '
+          '{0}create {1}create {2}create '
+          '{3}copy {4}create {5}create {6}'.format(
+              sqlite_path_helper.formatter_file_path,
+              sqlite_path_helper.parser_file_path,
+              sqlite_path_helper.formatter_test_file_path,
+              sqlite_path_helper.parser_test_file_path,
+              sqlite_path_helper.database_path,
+              sqlite_path_helper.parser_init_file_path,
+              sqlite_path_helper.formatter_init_file_path))
 
       self.assertEqual(formatter_init, expected_formatter_init)
       self.assertEqual(formatter, expected_formatter)

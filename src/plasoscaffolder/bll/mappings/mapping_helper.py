@@ -57,14 +57,14 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
 
   def _RemoveEscapeError(self, template: str) -> str:
     """Remove the escape error.
-    
-    Because jinja template variable is first escaped and then word wrapped, 
+
+    Because jinja template variable is first escaped and then word wrapped,
     the escaped backslash can be split and can result in an eol.
     The escaped backslash will be placed on the next line.
     This is a workaround and can be removed if yapf supports unicode string
     formatting and it is also changed in the jinja2 template, and only works
     with 8 spaces.
-    
+
     Args:
       template (str): the resulting template as a python file string
 
@@ -80,12 +80,12 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
 
   def _RemoveYapfComment(self, template: str) -> str:
     """Remove the yapf comment line
-    
+
     The Line as well as the new line will be removed.
     The Yapf Comment has to be at the end of the line. Or on its own line.
-    
+
     Args:
-      template (str): the resulting template as a python file string 
+      template (str): the resulting template as a python file string
 
     Returns:
       str: the template without yapf comment lines
@@ -95,9 +95,9 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
 
   def _RemoveBlanksAtEndOfLine(self, template: str) -> str:
     """Removes blanks at the end of lines
-    
+
     This is for those parts that are ignored with yapf.
-    
+
     Args:
       template (str): the template to remove the blanks at the end of lines
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# disable because its to silly for that long sql queries
-# pylint: disable=bad-continuation
+# pylint: disable=protected-access
+# because tests should access protected members
 """test class"""
 import unittest
 
@@ -118,7 +118,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     self.assertEqual(result, expected)
 
   def testGetPositionAfterSeparatorCommaAndMultipleSpaceBeforeAndAfter(self):
-    """test getting position after comma and multiple space before and after 
+    """test getting position after comma and multiple space before and after
     comma"""
     text = 'this is a  ,   db.test'
     end = len(text)
@@ -156,10 +156,8 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
   def testGetEndOfTableIfNotAliasWithMultipleAliasBefore(self):
     """test get the end of a table with alias before"""
-    text = (
-      'select db.id as this db3.id as that, db4.id as here, db2.id from db '
-      'join '
-      'db2')
+    text = ('select db.id as this db3.id as that, db4.id as here, db2.id '
+            'from db join db2')
     result = self.sql_type_helper._GetEndOfTableIfNotAlias(text, 'id')
     expected = len('select db.id as this db3.id as that, db4.id as here, db2')
     self.assertEqual(result, expected)
@@ -176,8 +174,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     mappings = {'id': 'float', 'that': 'varchar', 'different': 'integer',
                 'bla': 'real'}
     self.sql_type_helper._information = (
-      fake_database_information.FakeDatabaseInformation(
-          None, mappings))
+        fake_database_information.FakeDatabaseInformation(None, mappings))
 
     model = [sql_query_column_model.SQLColumnModel('id'),
              sql_query_column_model.SQLColumnModel('that'),
@@ -202,8 +199,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     query = ('select db1.id , db2.that, db1.different,db2.id as id2, db3.id as '
              'id3 from db1 join db2 join db3')
     self.sql_type_helper._information = (
-      fake_database_information.FakeDatabaseInformation(
-          None, mappings))
+        fake_database_information.FakeDatabaseInformation(None, mappings))
 
     model = [sql_query_column_model.SQLColumnModel('id'),
              sql_query_column_model.SQLColumnModel('that'),
@@ -231,11 +227,9 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     query = "select id, that, db.different, bla from db"
     tables = ['db']
     self.sql_type_helper._explain = (
-      fake_explain_query_plan.FakeExplainQueryPlan(locked_tables=tables)
-    )
+        fake_explain_query_plan.FakeExplainQueryPlan(locked_tables=tables))
     self.sql_type_helper._information = (
-      fake_database_information.FakeDatabaseInformation(
-          tables, mappings))
+        fake_database_information.FakeDatabaseInformation(tables, mappings))
 
     model = [sql_query_column_model.SQLColumnModel('id'),
              sql_query_column_model.SQLColumnModel('that'),
@@ -260,11 +254,9 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     query = ('select db1.id , db2.that, db1.different,db2.id as id2, db3.id as '
              'id3 from db1 join db2 join db3')
     self.sql_type_helper._information = (
-      fake_database_information.FakeDatabaseInformation(
-          tables, mappings))
+        fake_database_information.FakeDatabaseInformation(tables, mappings))
     self.sql_type_helper._explain = (
-      fake_explain_query_plan.FakeExplainQueryPlan(locked_tables=tables)
-    )
+        fake_explain_query_plan.FakeExplainQueryPlan(locked_tables=tables))
     model = [sql_query_column_model.SQLColumnModel('id'),
              sql_query_column_model.SQLColumnModel('that'),
              sql_query_column_model.SQLColumnModel('different'),

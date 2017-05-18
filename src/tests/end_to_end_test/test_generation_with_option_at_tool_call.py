@@ -12,9 +12,11 @@ from tests.end_to_end_test import end_to_end_test_helper
 
 
 class GenerateWithOptionAtToolCallTest(unittest.TestCase):
+  """Test file for generation with options at tool call."""
+
   def testGenerateWithOptionAtToolCall(self):
     """Test file generation with additional options calling the tool
-    1.  plasoscaffolder sqlite --path tmpdir --name test --testfile 
+    1.  plasoscaffolder sqlite --path tmpdir --name test --testfile
         test_database/twitter_ios.db –-no-sql
     6.  Please write your SQL script for the plugin: select * from users
     7.  The SQL query was ok.
