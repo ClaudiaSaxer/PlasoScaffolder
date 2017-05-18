@@ -16,6 +16,7 @@ class EasyGenerationWithMultipleSelectsTest(unittest.TestCase):
 
   def testEasyGenerationWithMultipleSelects(self):
     """Test easy file generation without errors with two select queries
+    
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test

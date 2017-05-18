@@ -18,6 +18,7 @@ class EasyGenerationWithOwnTimeEventTest(unittest.TestCase):
 
   def testEasyGenerationWithOwnTimeEvent(self):
     """Test easy file generation without errors
+    
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test
@@ -29,16 +30,16 @@ class EasyGenerationWithOwnTimeEventTest(unittest.TestCase):
     9.  Is the column a time event? updatedAt [Y/n]:  n
     10. Is the column a time event? createdDate [Y/n]: Y
     11. Enter (additional) timestamp events from the query [column-Name,
-    aliasName...] or [abort]: id that this
+        aliasName...] or [abort]: id that this
     12. Timestamps are not in valid format. Reenter them correctly [name,
-    name...]: id, that, this
+        name...]: id, that, this
     13. Timestamps are not in valid format. Reenter them correctly [name,
-    name...]:id,that,this
+        name...]:id,that,this
     14. Added: createdDate,id
         Failed: that,this
     15. Do you want to add more timestamps? [y/N]: y
     16. Enter (additional) timestamp events from the query [column-Name,
-    aliasName...] or [abort]: name,that
+        aliasName...] or [abort]: name,that
     17. Added: createdDate,id,name
     18. Failed: that,this
     19. Do you want to add more timestamps? [y/N]: n

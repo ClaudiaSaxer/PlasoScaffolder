@@ -16,6 +16,7 @@ class WrongPathTest(unittest.TestCase):
 
   def testWrongPath(self):
     """Test easy file generation with using the wrong path
+    
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?:bla bla
     3.  Folder does not exists. Enter correct one: other/wrong
@@ -29,7 +30,7 @@ class WrongPathTest(unittest.TestCase):
     11. Is the column a time event? updatedAt [Y/n]:  Y
     12. Is the column a time event? createdDate [Y/n]: Y
     13. Enter (additional) timestamp events from the query [column-Name,
-    aliasName...] or [abort]: abort
+        aliasName...] or [abort]: abort
     14. Does the event Users need customizing? [y/N]: N
     15. Do you want to add another Query? [Y/n]: n
     16. Do you want to Generate the files [Y/n]: Y

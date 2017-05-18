@@ -17,6 +17,7 @@ class SelectWithSpecialCharactersTest(unittest.TestCase):
   """Test file for select with special characters."""
   def testSelectWithSpecialCharacters(self):
     """Test different queries with special characters
+    
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test
@@ -35,7 +36,7 @@ class SelectWithSpecialCharactersTest(unittest.TestCase):
         users
     13. Warning: Don’t use any characters beside a-z A-Z . ; , *
     14. Please write your SQL script for the plugin: select somealias.id from
-       users as somealias
+        users as somealias
     15. Warning: Don’t use any alias for a table name
     16. Please write your SQL script for the plugin: select * from users
     17. The SQL query was ok.

@@ -1,5 +1,5 @@
-plasoscaffolder.bll package
-===========================
+plasoscaffolder\.bll package
+============================
 
 Subpackages
 -----------

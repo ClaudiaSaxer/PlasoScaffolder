@@ -16,6 +16,7 @@ class EasyGenerationWithOutputTest(unittest.TestCase):
 
   def testEasyGenerationWithOutputExample(self):
     """Test easy file generation without errors and with an output example
+    
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: [pfad]
     3.  What's the name of the plugin?: test

@@ -1,11 +1,11 @@
-plasoscaffolder.frontend.controller package
-===========================================
+plasoscaffolder\.frontend\.controller package
+=============================================
 
 Submodules
 ----------
 
-plasoscaffolder.frontend.controller.sqlite_controller module
-------------------------------------------------------------
+plasoscaffolder\.frontend\.controller\.sqlite\_controller module
+----------------------------------------------------------------
 
 .. automodule:: plasoscaffolder.frontend.controller.sqlite_controller
     :members:

@@ -7,12 +7,17 @@ REM Command file for Sphinx documentation
 if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build
 )
+if "%SPHINXAPIDOC%" == "" (
+	set SPHINXAPIDOC=sphinx-apidoc
+)
 set SOURCEDIR=.
 set BUILDDIR=..\docs
+set APPDIR=..\src
 set SPHINXPROJ=PlasoSqlitePluginScaffolder
 
-if "%1" == "onlyhtml" goto onlyhtml
 if "%1" == "" goto help
+if "%1" == "rst" goto rst
+if "%1" == "onlyhtml" goto onlyhtml
 
 %SPHINXBUILD% >NUL 2>NUL
 if errorlevel 9009 (
@@ -33,15 +38,17 @@ goto end
 :help
 %SPHINXBUILD% -M help %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
 
-:onlyhtml
-%SPHINXBUILD% -M  html %SOURCEDIR% %BUILDDIR%
-xcopy %BUILDDIR%\html\*.* %BUILDDIR% /A /E /K /H
-rmdir /s /q %BUILDDIR%\doctrees
-rmdir /s /q %BUILDDIR%\html
-
-
-
-
+if "%1" == "onlyhtml"(
+	:onlyhtml
+	%SPHINXBUILD% -M html %SOURCEDIR% %BUILDDIR%
+	xcopy %BUILDDIR%\html\*.* %BUILDDIR% /A /E /K /H
+	rmdir /s /q %BUILDDIR%\doctrees
+	rmdir /s /q %BUILDDIR%\html
+)
+if "%1" == "rst"(
+	:rst
+	%SPHINXAPIDOC% -o %SOURCEDIR% %APPDIR%
+)
 
 :end
 popd

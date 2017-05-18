@@ -49,6 +49,8 @@
             
   <h1>Source code for tests.bll.mappings.test_mapping_helper</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># testing private members is on purpose</span>
+<span class="c1"># pylint: disable=protected-access</span>
 <span class="sd">&quot;&quot;&quot;test class&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">unittest</span>
 
@@ -80,8 +82,6 @@
     <span class="n">expected</span> <span class="o">=</span> <span class="s1">&#39;ThisIsATest&#39;</span>
     <span class="n">actual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">helper</span><span class="o">.</span><span class="n">GenerateClassName</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">actual</span><span class="p">)</span></div>
-
-
 
 <div class="viewcode-block" id="MappingHelperTest.testRemoveEscapeErrorWithSpacesLikeInTemplate"><a class="viewcode-back" href="../../../../tests.bll.mappings.html#tests.bll.mappings.test_mapping_helper.MappingHelperTest.testRemoveEscapeErrorWithSpacesLikeInTemplate">[docs]</a>  <span class="k">def</span> <span class="nf">testRemoveEscapeErrorWithSpacesLikeInTemplate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Tests the removing of an escape error&quot;&quot;&quot;</span>
@@ -133,8 +133,11 @@
 
 <div class="viewcode-block" id="MappingHelperTest.testRemoveYapfCommentOnlyTheEnableAndDisable"><a class="viewcode-back" href="../../../../tests.bll.mappings.html#tests.bll.mappings.test_mapping_helper.MappingHelperTest.testRemoveYapfCommentOnlyTheEnableAndDisable">[docs]</a>  <span class="k">def</span> <span class="nf">testRemoveYapfCommentOnlyTheEnableAndDisable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Tests the removing of the yapf enable comment&quot;&quot;&quot;</span>
-    <span class="n">string_with_yapf_enable</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s1">&#39;something</span><span class="se">\n</span><span class="s1"># yapf: disable</span><span class="se">\n</span><span class="s1">otherline</span><span class="se">\n</span><span class="s1"># yapf: enable</span><span class="se">\n</span><span class="s1">lastline&#39;</span><span class="p">)</span>
+    <span class="n">string_with_yapf_enable</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;something</span><span class="se">\n</span><span class="s1">&#39;</span>
+                               <span class="s1">&#39;# yapf: disable</span><span class="se">\n</span><span class="s1">&#39;</span>
+                               <span class="s1">&#39;otherline</span><span class="se">\n</span><span class="s1">&#39;</span>
+                               <span class="s1">&#39;# yapf: enable</span><span class="se">\n</span><span class="s1">&#39;</span>
+                               <span class="s1">&#39;lastline&#39;</span><span class="p">)</span>
     <span class="n">string_without_yapf_enable</span> <span class="o">=</span> <span class="s1">&#39;something</span><span class="se">\n</span><span class="s1">otherline</span><span class="se">\n</span><span class="s1">lastline&#39;</span>
     <span class="n">actual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">helper</span><span class="o">.</span><span class="n">_RemoveYapfComment</span><span class="p">(</span><span class="n">string_with_yapf_enable</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">string_without_yapf_enable</span><span class="p">,</span> <span class="n">actual</span><span class="p">)</span></div></div>

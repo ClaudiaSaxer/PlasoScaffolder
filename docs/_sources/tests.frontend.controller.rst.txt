@@ -1,11 +1,11 @@
-tests.frontend.controller package
-=================================
+tests\.frontend\.controller package
+===================================
 
 Submodules
 ----------
 
-tests.frontend.controller.test_sqlite_controller module
--------------------------------------------------------
+tests\.frontend\.controller\.test\_sqlite\_controller module
+------------------------------------------------------------
 
 .. automodule:: tests.frontend.controller.test_sqlite_controller
     :members:

@@ -1,5 +1,5 @@
-tests.test_template package
-===========================
+tests\.test\_template package
+=============================
 
 Module contents
 ---------------

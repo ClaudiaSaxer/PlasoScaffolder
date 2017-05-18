@@ -1,5 +1,5 @@
-plasoscaffolder.frontend package
-================================
+plasoscaffolder\.frontend package
+=================================
 
 Subpackages
 -----------
@@ -12,8 +12,8 @@ Subpackages
 Submodules
 ----------
 
-plasoscaffolder.frontend.main module
-------------------------------------
+plasoscaffolder\.frontend\.main module
+--------------------------------------
 
 .. automodule:: plasoscaffolder.frontend.main
     :members:

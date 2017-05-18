@@ -51,6 +51,98 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-tests.fake.fake_database_information">
+<span id="tests-fake-fake-database-information-module"></span><h2>tests.fake.fake_database_information module<a class="headerlink" href="#module-tests.fake.fake_database_information" title="Permalink to this headline">¶</a></h2>
+<p>Fake class for the Information for the SQLite Database</p>
+<dl class="class">
+<dt id="tests.fake.fake_database_information.FakeDatabaseInformation">
+<em class="property">class </em><code class="descclassname">tests.fake.fake_database_information.</code><code class="descname">FakeDatabaseInformation</code><span class="sig-paren">(</span><em>tables: []</em>, <em>column_type: {&lt;class 'type'&gt;</em>, <em>&lt;class 'str'&gt;}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_database_information.html#FakeDatabaseInformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_database_information.FakeDatabaseInformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Fake class representing the SQLite Query validator.</p>
+<dl class="method">
+<dt id="tests.fake.fake_database_information.FakeDatabaseInformation.GetTableColumnsAndType">
+<code class="descname">GetTableColumnsAndType</code><span class="sig-paren">(</span><em>table: str</em>, <em>all_lowercase=False</em><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/tests/fake/fake_database_information.html#FakeDatabaseInformation.GetTableColumnsAndType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_database_information.FakeDatabaseInformation.GetTableColumnsAndType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the table information from the database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>table</strong> (<em>str</em>) &#8211; the name of the table</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the table information</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">[{name, type}]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.fake.fake_database_information.FakeDatabaseInformation.GetTablesFromDatabase">
+<code class="descname">GetTablesFromDatabase</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/tests/fake/fake_database_information.html#FakeDatabaseInformation.GetTablesFromDatabase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_database_information.FakeDatabaseInformation.GetTablesFromDatabase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the SQL Query.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the name of the tables</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">[str]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tests.fake.fake_explain_query_plan">
+<span id="tests-fake-fake-explain-query-plan-module"></span><h2>tests.fake.fake_explain_query_plan module<a class="headerlink" href="#module-tests.fake.fake_explain_query_plan" title="Permalink to this headline">¶</a></h2>
+<p>Fake class for the explain query plan.</p>
+<dl class="class">
+<dt id="tests.fake.fake_explain_query_plan.FakeExplainQueryPlan">
+<em class="property">class </em><code class="descclassname">tests.fake.fake_explain_query_plan.</code><code class="descname">FakeExplainQueryPlan</code><span class="sig-paren">(</span><em>is_read_only: bool = True</em>, <em>locked_tables: [] = []</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_explain_query_plan.html#FakeExplainQueryPlan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_explain_query_plan.FakeExplainQueryPlan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="plasoscaffolder.dal.html#plasoscaffolder.dal.base_explain_query_plan.BaseExplainQueryPlan" title="plasoscaffolder.dal.base_explain_query_plan.BaseExplainQueryPlan"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.dal.base_explain_query_plan.BaseExplainQueryPlan</span></code></a></p>
+<p>Fake class representing the explain query plan.</p>
+<dl class="method">
+<dt id="tests.fake.fake_explain_query_plan.FakeExplainQueryPlan.GetLockedTables">
+<code class="descname">GetLockedTables</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/tests/fake/fake_explain_query_plan.html#FakeExplainQueryPlan.GetLockedTables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_explain_query_plan.FakeExplainQueryPlan.GetLockedTables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines the table that were locked during the SQL query.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> (<em>str</em>) &#8211; the sql query to get the locked tables from</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the list of tables</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">[str]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.fake.fake_explain_query_plan.FakeExplainQueryPlan.IsReadOnly">
+<code class="descname">IsReadOnly</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/tests/fake/fake_explain_query_plan.html#FakeExplainQueryPlan.IsReadOnly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_explain_query_plan.FakeExplainQueryPlan.IsReadOnly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if the query is read only.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> (<em>str</em>) &#8211; the sql query to determine if it is read only</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">true if it is read only, false if it is not</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-tests.fake.fake_file_handler">
 <span id="tests-fake-fake-file-handler-module"></span><h2>tests.fake.fake_file_handler module<a class="headerlink" href="#module-tests.fake.fake_file_handler" title="Permalink to this headline">¶</a></h2>
 <p>fake class to create files</p>
@@ -97,15 +189,6 @@
 </dd></dl>
 
 </div>
-<div class="section" id="tests-fake-fake-formatter-mapping-module">
-<h2>tests.fake.fake_formatter_mapping module<a class="headerlink" href="#tests-fake-fake-formatter-mapping-module" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="tests-fake-fake-formatter-test-mapping-module">
-<h2>tests.fake.fake_formatter_test_mapping module<a class="headerlink" href="#tests-fake-fake-formatter-test-mapping-module" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="tests-fake-fake-init-mapping-module">
-<h2>tests.fake.fake_init_mapping module<a class="headerlink" href="#tests-fake-fake-init-mapping-module" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-tests.fake.fake_mapping_helper">
 <span id="tests-fake-fake-mapping-helper-module"></span><h2>tests.fake.fake_mapping_helper module<a class="headerlink" href="#module-tests.fake.fake_mapping_helper" title="Permalink to this headline">¶</a></h2>
 <p>fake for __helper methods for mapping</p>
@@ -127,12 +210,6 @@
 </dd></dl>
 
 </div>
-<div class="section" id="tests-fake-fake-parser-mapping-module">
-<h2>tests.fake.fake_parser_mapping module<a class="headerlink" href="#tests-fake-fake-parser-mapping-module" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="tests-fake-fake-parser-test-mapping-module">
-<h2>tests.fake.fake_parser_test_mapping module<a class="headerlink" href="#tests-fake-fake-parser-test-mapping-module" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-tests.fake.fake_sqlite_database_information">
 <span id="tests-fake-fake-sqlite-database-information-module"></span><h2>tests.fake.fake_sqlite_database_information module<a class="headerlink" href="#module-tests.fake.fake_sqlite_database_information" title="Permalink to this headline">¶</a></h2>
 <p>Base for sql Query validators</p>
@@ -141,6 +218,37 @@
 <em class="property">class </em><code class="descclassname">tests.fake.fake_sqlite_database_information.</code><code class="descname">FakeSQLiteDatabaseInformation</code><span class="sig-paren">(</span><em>required_tables: [&lt;class 'str'&gt;]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqlite_database_information.html#FakeSQLiteDatabaseInformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_database_information.FakeSQLiteDatabaseInformation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="plasoscaffolder.dal.html#plasoscaffolder.dal.base_database_information.BaseDatabaseInformation" title="plasoscaffolder.dal.base_database_information.BaseDatabaseInformation"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.dal.base_database_information.BaseDatabaseInformation</span></code></a></p>
 <p>Class representing the fake SQLite Database validator</p>
+<dl class="method">
+<dt id="tests.fake.fake_sqlite_database_information.FakeSQLiteDatabaseInformation.GetTableColumnsAndType">
+<code class="descname">GetTableColumnsAndType</code><span class="sig-paren">(</span><em>table: str</em>, <em>all_lowercase=False</em><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/tests/fake/fake_sqlite_database_information.html#FakeSQLiteDatabaseInformation.GetTableColumnsAndType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_database_information.FakeSQLiteDatabaseInformation.GetTableColumnsAndType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getting Types for Column if there is are multiple tables</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>tables</strong> (<em></em><em>[</em><em>str</em><em>]</em><em></em>) &#8211; the name of the table</li>
+<li><strong>column_model</strong> (<em></em><em>[</em><a class="reference internal" href="plasoscaffolder.model.html#plasoscaffolder.model.sql_query_column_model.SQLColumnModel" title="plasoscaffolder.model.sql_query_column_model.SQLColumnModel"><em>sql_query_column_model.SQLColumnModel</em></a><em>]</em><em></em>) &#8211; the column to
+find the type for</li>
+<li><strong>query</strong> (<em>str</em>) &#8211; the SQL query</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>the column model with the types,</dt>
+<dd><p class="first last">or None if there was a prefix error and it could not be parsed</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">[<a class="reference internal" href="plasoscaffolder.model.html#plasoscaffolder.model.sql_query_column_model.SQLColumnModel" title="plasoscaffolder.model.sql_query_column_model.SQLColumnModel">sql_query_column_model.SQLColumnModel</a>]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="tests.fake.fake_sqlite_database_information.FakeSQLiteDatabaseInformation.GetTablesFromDatabase">
 <code class="descname">GetTablesFromDatabase</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; [&lt;class 'str'&gt;]<a class="reference internal" href="_modules/tests/fake/fake_sqlite_database_information.html#FakeSQLiteDatabaseInformation.GetTablesFromDatabase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_database_information.FakeSQLiteDatabaseInformation.GetTablesFromDatabase" title="Permalink to this definition">¶</a></dt>
@@ -192,7 +300,7 @@ loops while testing)</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong></strong><strong>[</strong><strong>sql_query_column_model</strong><strong>]</strong><strong></strong> (<em>columns</em>) &#8211; the columns from the query</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong></strong><strong>[</strong><strong>sql_query_column_model</strong><strong>]</strong><strong></strong> (<a class="reference internal" href="plasoscaffolder.dal.html#plasoscaffolder.dal.sql_query_data.SQLQueryData.columns" title="plasoscaffolder.dal.sql_query_data.SQLQueryData.columns"><em>columns</em></a>) &#8211; the columns from the query</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the names from the columns assumed they could be a timestamp</td>
 </tr>
@@ -212,7 +320,7 @@ timestamp event columns and adds the data to the simple columns</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>columns</strong> (<em></em><em>[</em><em>sql_query_column_model_data.SQLColumnModelData</em><em>]</em><em></em>) &#8211; the columns
+<li><strong>columns</strong> (<em></em><em>[</em><a class="reference internal" href="plasoscaffolder.model.html#plasoscaffolder.model.sql_query_column_model_data.SQLColumnModelData" title="plasoscaffolder.model.sql_query_column_model_data.SQLColumnModelData"><em>sql_query_column_model_data.SQLColumnModelData</em></a><em>]</em><em></em>) &#8211; the columns
 from the SQL query</li>
 <li><strong>timestamps</strong> (<em></em><em>[</em><em>str</em><em>]</em><em></em>) &#8211; the timestamp events</li>
 <li><strong>data</strong> (<em></em><em>[</em><em>str</em><em>]</em><em></em>) &#8211; the data from the cursor</li>
@@ -279,7 +387,7 @@ loops while testing)</p>
 
 <dl class="method">
 <dt id="tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.RunSQLQuery">
-<code class="descname">RunSQLQuery</code><span class="sig-paren">(</span><em>query: str</em>, <em>executor: &lt;plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution object at 0x057E1F10&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqlite_plugin_helper.html#FakeSQLitePluginHelper.RunSQLQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.RunSQLQuery" title="Permalink to this definition">¶</a></dt>
+<code class="descname">RunSQLQuery</code><span class="sig-paren">(</span><em>query: str</em>, <em>executor: &lt;plasoscaffolder.dal.base_sql_query_execution.BaseSQLQueryExecution object at 0x04E3D050&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqlite_plugin_helper.html#FakeSQLitePluginHelper.RunSQLQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_plugin_helper.FakeSQLitePluginHelper.RunSQLQuery" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validates the sql Query</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -325,7 +433,7 @@ loops while testing)</p>
 <p>Class representing the SQLite Query validator</p>
 <dl class="method">
 <dt id="tests.fake.fake_sqlite_query_execution.SQLQueryExecution.ExecuteQuery">
-<code class="descname">ExecuteQuery</code><span class="sig-paren">(</span><em>query: str</em>, <em>detailed: bool = False</em><span class="sig-paren">)</span> &#x2192; plasoscaffolder.dal.sql_query_data.SQLQueryData<a class="reference internal" href="_modules/tests/fake/fake_sqlite_query_execution.html#SQLQueryExecution.ExecuteQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_query_execution.SQLQueryExecution.ExecuteQuery" title="Permalink to this definition">¶</a></dt>
+<code class="descname">ExecuteQuery</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span> &#x2192; plasoscaffolder.dal.sql_query_data.SQLQueryData<a class="reference internal" href="_modules/tests/fake/fake_sqlite_query_execution.html#SQLQueryExecution.ExecuteQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_query_execution.SQLQueryExecution.ExecuteQuery" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the SQL Query.</p>
 </dd></dl>
 
@@ -334,6 +442,22 @@ loops while testing)</p>
 <code class="descname">ExecuteReadOnlyQuery</code><span class="sig-paren">(</span><em>query: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqlite_query_execution.html#SQLQueryExecution.ExecuteReadOnlyQuery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqlite_query_execution.SQLQueryExecution.ExecuteReadOnlyQuery" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the SQL Query if it is read only.</p>
 </dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tests.fake.fake_sqliteplugin_mapping">
+<span id="tests-fake-fake-sqliteplugin-mapping-module"></span><h2>tests.fake.fake_sqliteplugin_mapping module<a class="headerlink" href="#module-tests.fake.fake_sqliteplugin_mapping" title="Permalink to this headline">¶</a></h2>
+<p>fake formatter mapper</p>
+<dl class="class">
+<dt id="tests.fake.fake_sqliteplugin_mapping.FakeSQLitePluginMapper">
+<em class="property">class </em><code class="descclassname">tests.fake.fake_sqliteplugin_mapping.</code><code class="descname">FakeSQLitePluginMapper</code><span class="sig-paren">(</span><em>mapping_helper: plasoscaffolder.bll.mappings.base_mapping_helper.BaseMappingHelper</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/fake/fake_sqliteplugin_mapping.html#FakeSQLitePluginMapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqliteplugin_mapping.FakeSQLitePluginMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper</span></code></a></p>
+<p>class representing the fake parser mapper</p>
+<dl class="method">
+<dt id="tests.fake.fake_sqliteplugin_mapping.FakeSQLitePluginMapper.GetRenderedTemplate">
+<code class="descname">GetRenderedTemplate</code><span class="sig-paren">(</span><em>data: plasoscaffolder.model.base_data_model.BaseDataModel</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/tests/fake/fake_sqliteplugin_mapping.html#FakeSQLitePluginMapper.GetRenderedTemplate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tests.fake.fake_sqliteplugin_mapping.FakeSQLitePluginMapper.GetRenderedTemplate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -353,17 +477,15 @@ loops while testing)</p>
   <ul>
 <li><a class="reference internal" href="#">tests.fake package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-tests.fake.fake_database_information">tests.fake.fake_database_information module</a></li>
+<li><a class="reference internal" href="#module-tests.fake.fake_explain_query_plan">tests.fake.fake_explain_query_plan module</a></li>
 <li><a class="reference internal" href="#module-tests.fake.fake_file_handler">tests.fake.fake_file_handler module</a></li>
-<li><a class="reference internal" href="#tests-fake-fake-formatter-mapping-module">tests.fake.fake_formatter_mapping module</a></li>
-<li><a class="reference internal" href="#tests-fake-fake-formatter-test-mapping-module">tests.fake.fake_formatter_test_mapping module</a></li>
-<li><a class="reference internal" href="#tests-fake-fake-init-mapping-module">tests.fake.fake_init_mapping module</a></li>
 <li><a class="reference internal" href="#module-tests.fake.fake_mapping_helper">tests.fake.fake_mapping_helper module</a></li>
-<li><a class="reference internal" href="#tests-fake-fake-parser-mapping-module">tests.fake.fake_parser_mapping module</a></li>
-<li><a class="reference internal" href="#tests-fake-fake-parser-test-mapping-module">tests.fake.fake_parser_test_mapping module</a></li>
 <li><a class="reference internal" href="#module-tests.fake.fake_sqlite_database_information">tests.fake.fake_sqlite_database_information module</a></li>
 <li><a class="reference internal" href="#module-tests.fake.fake_sqlite_plugin_helper">tests.fake.fake_sqlite_plugin_helper module</a></li>
 <li><a class="reference internal" href="#module-tests.fake.fake_sqlite_plugin_path_helper">tests.fake.fake_sqlite_plugin_path_helper module</a></li>
 <li><a class="reference internal" href="#module-tests.fake.fake_sqlite_query_execution">tests.fake.fake_sqlite_query_execution module</a></li>
+<li><a class="reference internal" href="#module-tests.fake.fake_sqliteplugin_mapping">tests.fake.fake_sqliteplugin_mapping module</a></li>
 <li><a class="reference internal" href="#module-tests.fake">Module contents</a></li>
 </ul>
 </li>

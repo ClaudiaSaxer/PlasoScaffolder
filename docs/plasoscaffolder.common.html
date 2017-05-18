@@ -51,6 +51,17 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-plasoscaffolder.common.base_code_formatter">
+<span id="plasoscaffolder-common-base-code-formatter-module"></span><h2>plasoscaffolder.common.base_code_formatter module<a class="headerlink" href="#module-plasoscaffolder.common.base_code_formatter" title="Permalink to this headline">¶</a></h2>
+<p>Base code formatter.</p>
+<dl class="class">
+<dt id="plasoscaffolder.common.base_code_formatter.BaseCodeFormatter">
+<em class="property">class </em><code class="descclassname">plasoscaffolder.common.base_code_formatter.</code><code class="descname">BaseCodeFormatter</code><a class="reference internal" href="_modules/plasoscaffolder/common/base_code_formatter.html#BaseCodeFormatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.common.base_code_formatter.BaseCodeFormatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Base class representing the base class for the code formatter.</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-plasoscaffolder.common.base_file_handler">
 <span id="plasoscaffolder-common-base-file-handler-module"></span><h2>plasoscaffolder.common.base_file_handler module<a class="headerlink" href="#module-plasoscaffolder.common.base_file_handler" title="Permalink to this headline">¶</a></h2>
 <p>Base file handler.</p>
@@ -340,6 +351,35 @@ created.</li>
 </dd></dl>
 
 </div>
+<div class="section" id="module-plasoscaffolder.common.code_formatter">
+<span id="plasoscaffolder-common-code-formatter-module"></span><h2>plasoscaffolder.common.code_formatter module<a class="headerlink" href="#module-plasoscaffolder.common.code_formatter" title="Permalink to this headline">¶</a></h2>
+<p>To Format the code</p>
+<dl class="class">
+<dt id="plasoscaffolder.common.code_formatter.CodeFormatter">
+<em class="property">class </em><code class="descclassname">plasoscaffolder.common.code_formatter.</code><code class="descname">CodeFormatter</code><span class="sig-paren">(</span><em>yapf_path: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/common/code_formatter.html#CodeFormatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.common.code_formatter.CodeFormatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#plasoscaffolder.common.base_code_formatter.BaseCodeFormatter" title="plasoscaffolder.common.base_code_formatter.BaseCodeFormatter"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.common.base_code_formatter.BaseCodeFormatter</span></code></a></p>
+<p>Class handles the code formation of files.</p>
+<dl class="method">
+<dt id="plasoscaffolder.common.code_formatter.CodeFormatter.Format">
+<code class="descname">Format</code><span class="sig-paren">(</span><em>code: str</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/plasoscaffolder/common/code_formatter.html#CodeFormatter.Format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.common.code_formatter.CodeFormatter.Format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the code.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>code</strong> (<em>str</em>) &#8211; the code to format</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the formatted code.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-plasoscaffolder.common.file_handler">
 <span id="plasoscaffolder-common-file-handler-module"></span><h2>plasoscaffolder.common.file_handler module<a class="headerlink" href="#module-plasoscaffolder.common.file_handler" title="Permalink to this headline">¶</a></h2>
 <p>The file handler.</p>
@@ -616,6 +656,22 @@ created.</li>
 </dd></dl>
 
 </div>
+<div class="section" id="module-plasoscaffolder.common.type_mapper">
+<span id="plasoscaffolder-common-type-mapper-module"></span><h2>plasoscaffolder.common.type_mapper module<a class="headerlink" href="#module-plasoscaffolder.common.type_mapper" title="Permalink to this headline">¶</a></h2>
+<p>The mapper between SQL and python data types</p>
+<dl class="class">
+<dt id="plasoscaffolder.common.type_mapper.TypeMapperSQLitePython">
+<em class="property">class </em><code class="descclassname">plasoscaffolder.common.type_mapper.</code><code class="descname">TypeMapperSQLitePython</code><a class="reference internal" href="_modules/plasoscaffolder/common/type_mapper.html#TypeMapperSQLitePython"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.common.type_mapper.TypeMapperSQLitePython" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>The mapper between SQLite and python data types</p>
+<dl class="attribute">
+<dt id="plasoscaffolder.common.type_mapper.TypeMapperSQLitePython.MAPPINGS">
+<code class="descname">MAPPINGS</code><em class="property"> = {'BLOB': &lt;class 'bytes'&gt;, 'INTEGER': &lt;class 'int'&gt;, 'INT': &lt;class 'int'&gt;, 'TINYINT': &lt;class 'int'&gt;, 'SMALLINT': &lt;class 'int'&gt;, 'MEDIUMINT': &lt;class 'int'&gt;, 'BIGINT': &lt;class 'int'&gt;, 'UNSIGNED BIG INT': &lt;class 'int'&gt;, 'INT2': &lt;class 'int'&gt;, 'INT8': &lt;class 'int'&gt;, 'CHARACTER': &lt;class 'str'&gt;, 'CHAR': &lt;class 'str'&gt;, 'VARCHAR': &lt;class 'str'&gt;, 'VARYING CHARACTER': &lt;class 'str'&gt;, 'NCHAR': &lt;class 'str'&gt;, 'NATIVE CHARACTER': &lt;class 'str'&gt;, 'NVARCHAR': &lt;class 'str'&gt;, 'TEXT': &lt;class 'str'&gt;, 'CLOB': &lt;class 'str'&gt;, 'STRING': &lt;class 'str'&gt;, 'REAL': &lt;class 'float'&gt;, 'DOUBLE': &lt;class 'float'&gt;, 'DOUBLE PRECISION': &lt;class 'float'&gt;, 'FLOAT': &lt;class 'float'&gt;, 'NUMERIC': &lt;class 'int'&gt;, 'DECIMAL': &lt;class 'int'&gt;, 'BOOLEAN': &lt;class 'bool'&gt;, 'DATE': &lt;class 'int'&gt;, 'DATETIME': &lt;class 'int'&gt;}</em><a class="headerlink" href="#plasoscaffolder.common.type_mapper.TypeMapperSQLitePython.MAPPINGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-plasoscaffolder.common">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-plasoscaffolder.common" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -631,10 +687,13 @@ created.</li>
   <ul>
 <li><a class="reference internal" href="#">plasoscaffolder.common package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-plasoscaffolder.common.base_code_formatter">plasoscaffolder.common.base_code_formatter module</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.common.base_file_handler">plasoscaffolder.common.base_file_handler module</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.common.base_output_handler">plasoscaffolder.common.base_output_handler module</a></li>
+<li><a class="reference internal" href="#module-plasoscaffolder.common.code_formatter">plasoscaffolder.common.code_formatter module</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.common.file_handler">plasoscaffolder.common.file_handler module</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.common.output_handler_click">plasoscaffolder.common.output_handler_click module</a></li>
+<li><a class="reference internal" href="#module-plasoscaffolder.common.type_mapper">plasoscaffolder.common.type_mapper module</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.common">Module contents</a></li>
 </ul>
 </li>

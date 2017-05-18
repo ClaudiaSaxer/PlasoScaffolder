@@ -112,9 +112,9 @@
     <span class="sd">&quot;&quot;&quot;test the print for a create&quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
       <span class="n">fake_path_helper</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">fake_sqlite_plugin_path_helper</span><span class="o">.</span><span class="n">FakeSQLitePluginPathHelper</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;db&#39;</span><span class="p">))</span>
+          <span class="n">fake_sqlite_plugin_path_helper</span><span class="o">.</span><span class="n">FakeSQLitePluginPathHelper</span><span class="p">(</span>
+              <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;db&#39;</span><span class="p">))</span>
       <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s1">&#39;testfile&#39;</span><span class="p">)</span>
       <span class="n">generator</span> <span class="o">=</span> <span class="n">sqlite_generator</span><span class="o">.</span><span class="n">SQLiteGenerator</span><span class="p">(</span>
           <span class="n">tmpdir</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">],</span>
@@ -143,12 +143,12 @@
     <span class="n">formatter_test_mapper</span> <span class="o">=</span> <span class="n">fake_sqliteplugin_mapping</span><span class="o">.</span><span class="n">FakeSQLitePluginMapper</span><span class="p">(</span>
         <span class="n">mapping_helper</span><span class="p">)</span>
     <span class="n">fake_database_information</span> <span class="o">=</span> <span class="p">(</span>
-      <span class="n">fake_sqlite_database_information</span><span class="o">.</span><span class="n">FakeSQLiteDatabaseInformation</span><span class="p">([]))</span>
+        <span class="n">fake_sqlite_database_information</span><span class="o">.</span><span class="n">FakeSQLiteDatabaseInformation</span><span class="p">([]))</span>
 
     <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
       <span class="n">fake_path_helper</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">fake_sqlite_plugin_path_helper</span><span class="o">.</span><span class="n">FakeSQLitePluginPathHelper</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;db&#39;</span><span class="p">))</span>
+          <span class="n">fake_sqlite_plugin_path_helper</span><span class="o">.</span><span class="n">FakeSQLitePluginPathHelper</span><span class="p">(</span>
+              <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;db&#39;</span><span class="p">))</span>
       <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s1">&#39;testfile&#39;</span><span class="p">)</span>
 
       <span class="n">generator</span> <span class="o">=</span> <span class="n">sqlite_generator</span><span class="o">.</span><span class="n">SQLiteGenerator</span><span class="p">(</span>
@@ -181,15 +181,15 @@
     <span class="n">parser_test_mapper</span> <span class="o">=</span> <span class="n">fake_sqliteplugin_mapping</span><span class="o">.</span><span class="n">FakeSQLitePluginMapper</span><span class="p">(</span>
         <span class="n">mapping_helper</span><span class="p">)</span>
     <span class="n">formatter_test_mapper</span> <span class="o">=</span> <span class="p">(</span>
-      <span class="n">fake_sqliteplugin_mapping</span><span class="o">.</span><span class="n">FakeSQLitePluginMapper</span><span class="p">(</span>
-          <span class="n">mapping_helper</span><span class="p">))</span>
+        <span class="n">fake_sqliteplugin_mapping</span><span class="o">.</span><span class="n">FakeSQLitePluginMapper</span><span class="p">(</span>
+            <span class="n">mapping_helper</span><span class="p">))</span>
     <span class="n">fake_database_information</span> <span class="o">=</span> <span class="p">(</span>
-      <span class="n">fake_sqlite_database_information</span><span class="o">.</span><span class="n">FakeSQLiteDatabaseInformation</span><span class="p">([]))</span>
+        <span class="n">fake_sqlite_database_information</span><span class="o">.</span><span class="n">FakeSQLiteDatabaseInformation</span><span class="p">([]))</span>
 
     <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
       <span class="n">fake_path_helper</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">fake_sqlite_plugin_path_helper</span><span class="o">.</span><span class="n">FakeSQLitePluginPathHelper</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;db&#39;</span><span class="p">))</span>
+          <span class="n">fake_sqlite_plugin_path_helper</span><span class="o">.</span><span class="n">FakeSQLitePluginPathHelper</span><span class="p">(</span>
+              <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;db&#39;</span><span class="p">))</span>
       <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s1">&#39;testfile&#39;</span><span class="p">)</span>
 
       <span class="n">generator</span> <span class="o">=</span> <span class="n">sqlite_generator</span><span class="o">.</span><span class="n">SQLiteGenerator</span><span class="p">(</span>

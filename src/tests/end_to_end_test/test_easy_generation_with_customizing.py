@@ -18,6 +18,7 @@ class EasyGenerationWithCustomizingTest(unittest.TestCase):
 
   def testEasyGenerationWithCustomizing(self):
     """Test easy file generation without errors with customizing option
+    
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test
@@ -32,16 +33,16 @@ class EasyGenerationWithCustomizingTest(unittest.TestCase):
         aliasName...] or [abort]: abort
     12. Does the event Users need customizing? [y/N]: Y
     13. Enter columns that are customizable [columnName,aliasName...] or [
-    abort]: this that
+        abort]: this that
     14. Column names are not in valid format. Reenter them correctly [name,
-    name...]: this, that
+        name...]: this, that
     15. Column names are not in valid format. Reenter them correctly [name,
-    name...]: this,that
+        name...]: this,that
     16. Added:
         Failed: that,this
     17. Do you want to add more columns that are customizable? [y/N]: Y
     18. Enter columns that are customizable [columnName,aliasName...] or [
-    abort]: this,location,updatedAt
+        abort]: this,location,updatedAt
     19. Added: location
         Failed: updatedAt,that,this
     20. Do you want to add more columns that are customizable? [y/N]: N

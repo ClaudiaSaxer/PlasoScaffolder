@@ -1,5 +1,5 @@
-run_tests module
-================
+run\_tests module
+=================
 
 .. automodule:: run_tests
     :members:

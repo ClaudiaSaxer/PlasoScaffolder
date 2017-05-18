@@ -1,5 +1,5 @@
-tests.frontend package
-======================
+tests\.frontend package
+=======================
 
 Subpackages
 -----------
@@ -12,8 +12,8 @@ Subpackages
 Submodules
 ----------
 
-tests.frontend.test_main module
--------------------------------
+tests\.frontend\.test\_main module
+----------------------------------
 
 .. automodule:: tests.frontend.test_main
     :members:
