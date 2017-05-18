@@ -118,7 +118,7 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
 
       # column with alias
       if as_column_string_start:
-        if not self._IsPrefixedWithAlias(query,tables, column_name):
+        if not self._IsPrefixedWithAlias(query, tables, column_name):
           table_end = query.rfind(' ', 0, as_column_string_start)
           table_start = table_end
         else:
@@ -129,7 +129,7 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
 
       # column without alias
       else:
-        if not self._IsPrefixedWithoutAlias(query,tables, column_name):
+        if not self._IsPrefixedWithoutAlias(query, tables, column_name):
           table_end = query.rfind(' ', 0, as_column_string_start)
           table_start = table_end
         else:
@@ -141,11 +141,14 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
 
       # has no table prefix
       if table_name == '':
-        type_sqlite = \
-          [table_and_type[table][sqlite_column_name] for table in tables if
-           sqlite_column_name in table_and_type[table]][0].upper()
+        types_sqlite = (
+          [table_and_type.get(table, {}).get(sqlite_column_name, '') for table
+           in tables if sqlite_column_name in table_and_type.get(table, {})])
+        type_sqlite = types_sqlite[0].upper() if len(types_sqlite) else ''
+
       else:
-        type_sqlite = table_and_type[table_name][sqlite_column_name].upper()
+        type_sqlite = table_and_type.get(
+            table_name, {}).get(sqlite_column_name, '').upper()
 
       type_sqlite_basic = type_sqlite.split("(")[0]
       type_python = type_mapper.TypeMapperSQLitePython.MAPPINGS.get(
@@ -198,7 +201,8 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
                        if text.rfind(space, 0, end_position) > 0]
     return max(all_appearances) + 1
 
-  def _IsPrefixedWithAlias(self, query:str, tables: [str], column_name: str) -> bool:
+  def _IsPrefixedWithAlias(self, query: str, tables: [str],
+                           column_name: str) -> bool:
     """If the column has a table prefixed and has an alias
     
     Args:
@@ -211,14 +215,16 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
 
     """
     matches = [re.fullmatch(
-        '.*({0}.)+([^ ])*( )*(as)( )*{1}( ,)*.*'.format(table, column_name),query)
+        '.*({0}.)+([^ ])*( )*(as)( )*{1}( ,)*.*'.format(table, column_name),
+        query)
       for table in tables if re.fullmatch(
           '.*({0}.)+([^ ])*( )*(as)( )*{1}( ,)*.*'.format(
-              table, column_name),query) is not None]
+              table, column_name), query) is not None]
 
     return len(matches) != 0
 
-  def _IsPrefixedWithoutAlias(self, query:str,tables: [str], column_name: str) -> bool:
+  def _IsPrefixedWithoutAlias(self, query: str, tables: [str],
+                              column_name: str) -> bool:
     """If the column has a table prefixed and has an no alias
 
     Args:
@@ -231,8 +237,8 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
 
     """
     matches = [re.fullmatch(
-        '.*({0}.{1})+([^ ])*( ,)*.*'.format(table, column_name),query)
+        '.*({0}.{1})+([^ ])*( ,)*.*'.format(table, column_name), query)
       for table in tables if re.fullmatch(
           '.*({0}.{1})+([^ ])*( ,)*.*'.format(
-              table, column_name),query) is not None]
+              table, column_name), query) is not None]
     return len(matches) != 0
