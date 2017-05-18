@@ -53,6 +53,10 @@ class GeneratingFilesTestCase(unittest.TestCase):
           query_data_first.data)
       query_data_first_timestamp = data_first[1]
       query_data_first_normal = data_first[0]
+      query_data_first_normal[0].customize = True
+      query_data_first_normal[1].customize = True
+      query_data_first_normal[2].customize = True
+
       query_model_first = sql_query_model.SQLQueryModel(
           'select * from users', 'Users', query_data_first_normal,
           query_data_first_timestamp, True, len(query_data_first.data))
@@ -174,19 +178,19 @@ class GeneratingFilesTestCase(unittest.TestCase):
                                                      query_execution)
 
       query_model_blob = sql_query_model.SQLQueryModel(
-          query_blob, 'blobtypes', query_data_blob.columns, [], True, 0)
+          query_blob, 'blobtypes', query_data_blob.columns, [], False, 0)
       query_model_integer = sql_query_model.SQLQueryModel(
-          query_integer, 'integertypes', query_data_integer.columns, [], True,
+          query_integer, 'integertypes', query_data_integer.columns, [], False,
           0)
       query_model_numeric = sql_query_model.SQLQueryModel(
-          query_numeric, 'numerictypes', query_data_numeric.columns, [], True,
+          query_numeric, 'numerictypes', query_data_numeric.columns, [], False,
           0)
       query_model_real = sql_query_model.SQLQueryModel(
-          query_real, 'realtypes', query_data_real.columns, [], True, 0)
+          query_real, 'realtypes', query_data_real.columns, [], False, 0)
       query_model_text = sql_query_model.SQLQueryModel(
-          query_text, 'texttypes', query_data_text.columns, [], True, 0)
+          query_text, 'texttypes', query_data_text.columns, [], False, 0)
       query_model_no_data = sql_query_model.SQLQueryModel(
-          query_no_data, 'nodata', query_data_no_data.columns, [], True, 0)
+          query_no_data, 'nodata', query_data_no_data.columns, [], False, 0)
 
       sql_query = [query_model_blob, query_model_integer, query_model_numeric,
                    query_model_real, query_model_text, query_model_no_data]

@@ -36,7 +36,7 @@ class {{ class_name }}Plugin(interface.SQLitePlugin):
   DESCRIPTION = u'Parser for {{ class_name }}'
 
   QUERIES = [ {% for query in queries %}
-    ((u'{{ query.query|wordwrap(width=64,wrapstring='\nu')|indent(6)}})'),
+    ((u'{{ query.query|wordwrap(width=64,wrapstring="'\n      u'")}})'),
      u'Parse{{ query.name|capitalize }}Row'){% if not loop.last %},{% endif %}{% endfor %}]
 
   REQUIRED_TABLES = frozenset([

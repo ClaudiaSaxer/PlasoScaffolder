@@ -8,7 +8,7 @@ class SQLColumnModelData(sql_query_column_model.SQLColumnModel):
   """Class for columns of a SQL Query."""
 
   def __init__(self, sql_column: str, sql_column_type: type = None,
-               data: {str: str} = None):
+               data: {str: str} = None, customize=False):
     """initializes the SQL column model.
 
     Args:
@@ -18,6 +18,7 @@ class SQLColumnModelData(sql_query_column_model.SQLColumnModel):
     """
     super().__init__(sql_column, sql_column_type)
     self._data = data
+    self.customize = customize
 
   def GetFirstDataForTimeEvent(self, timestamp: str) -> str:
     """The Data for the Time Event

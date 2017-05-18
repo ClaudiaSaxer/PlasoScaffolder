@@ -64,10 +64,11 @@
       <span class="bp">self</span><span class="p">,</span>
       <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
       <span class="n">file_handler</span><span class="p">:</span> <span class="n">base_file_handler</span><span class="o">.</span><span class="n">BaseFileHandler</span><span class="p">(),</span>
-      <span class="n">prompt_info</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-      <span class="n">prompt_error</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-      <span class="n">confirm</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-      <span class="n">confirm_amount_same</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+      <span class="n">prompt_info</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+      <span class="n">prompt_error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+      <span class="n">confirm</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+      <span class="n">confirm_amount_same</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+      <span class="n">prompt_info_list</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]):</span>
     <span class="sd">&quot;&quot;&quot;Initializes File Output Handler.</span>
 
 <span class="sd">    Args:</span>
@@ -76,6 +77,8 @@
 <span class="sd">      fileHandler (BaseFileHandler): the file Handler</span>
 <span class="sd">      prompt_error (str): what to return in a prompt error</span>
 <span class="sd">      prompt_info (str): what to return in a prompt info</span>
+<span class="sd">      prompt_info_list ([str]): what to return in prompt info as an array. </span>
+<span class="sd">          if the array is empty, the prompt info will be returned.</span>
 <span class="sd">      confirm_amount_same (int): how many times to confirm the same amount.</span>
 <span class="sd">       Default = 100</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -87,19 +90,25 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">__confirm</span> <span class="o">=</span> <span class="n">confirm</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__confirm_counter</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__confirm_amount_same</span> <span class="o">=</span> <span class="n">confirm_amount_same</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__prompt_info_list</span> <span class="o">=</span> <span class="n">prompt_info_list</span>
 
 <div class="viewcode-block" id="OutputHandlerFile.PromptInfo"><a class="viewcode-back" href="../../../tests.test_helper.html#tests.test_helper.output_handler_file.OutputHandlerFile.PromptInfo">[docs]</a>  <span class="k">def</span> <span class="nf">PromptInfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A prompt for information with click.</span>
 <span class="sd">    Use with caution. Endless Loops possible</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">      text (str): the text to  prompt</span>
+<span class="sd">      text (str): the text to prompt</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">      str: the user input</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__prompt_info_list</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">to_return</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__prompt_info_list</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">to_return</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__prompt_info</span>
+
     <span class="bp">self</span><span class="o">.</span><span class="n">__file_handler</span><span class="o">.</span><span class="n">AddContent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__path</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__prompt_info</span></div>
+    <span class="k">return</span> <span class="n">to_return</span></div>
 
 <div class="viewcode-block" id="OutputHandlerFile.PromptInfoWithDefault"><a class="viewcode-back" href="../../../tests.test_helper.html#tests.test_helper.output_handler_file.OutputHandlerFile.PromptInfoWithDefault">[docs]</a>  <span class="k">def</span> <span class="nf">PromptInfoWithDefault</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text_type</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
                             <span class="n">default</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>

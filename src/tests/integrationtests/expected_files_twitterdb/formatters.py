@@ -47,7 +47,7 @@ class ThePluginUsersFormatter(interface.ConditionalEventFormatter):
     u'Business Profile State:{business_profile_state}',
     u'Analytics Type:{analytics_type}']
 
-  #TODO: add Format String Pieces for the short Format
+  #TODO: remove Format String Pieces for the short Format
   FORMAT_STRING_SHORT_PIECES = [
     u'Id:{id}',
     u'Screen Name:{screen_name}',
@@ -85,8 +85,13 @@ class ThePluginUsersFormatter(interface.ConditionalEventFormatter):
 
   SOURCE_LONG = u'The Plugin Users'
   SOURCE_SHORT = u'The Plugin'
-  #TODO: Replace constant _REPLACEWITHATTRIBUTENAME with the attribute to customize and add values
-  _REPLACEWITHATTRIBUTENAME = {}
+
+  #TODO: Add Mappings from value to description
+  _ID = {}
+  #TODO: Add Mappings from value to description
+  _SCREEN_NAME = {}
+  #TODO: Add Mappings from value to description
+  _PROFILE_IMAGE_URL = {}
 
   def GetMessages(self, unused_formatter_mediator, event):
     """Determines the formatted message strings for an event object.
@@ -109,13 +114,19 @@ class ThePluginUsersFormatter(interface.ConditionalEventFormatter):
 
     event_values = event.CopyToDict()
 
-    # TODO: replace variable replace_with_attribute_name with the attribute to customize
-    replace_with_attribute_name = event_values.get(
-        u'replace_with_attribute_name', None)
-    if replace_with_attribute_name is not None:
-      event_values[u'replace_with_attribute_name'] = (
-          self._REPLACEWITHATTRIBUTENAME.get(
-              replace_with_attribute_name, u'UNKNOWN'))
+    id = event_values.get(u'id', None)
+    if id is not None:
+      event_values[u'id'] = (self._ID.get(id, u'UNKNOWN'))
+
+    screen_name = event_values.get(u'screen_name', None)
+    if screen_name is not None:
+      event_values[u'screen_name'] = (
+          self._SCREEN_NAME.get(screen_name, u'UNKNOWN'))
+
+    profile_image_url = event_values.get(u'profile_image_url', None)
+    if profile_image_url is not None:
+      event_values[u'profile_image_url'] = (
+          self._PROFILE_IMAGE_URL.get(profile_image_url, u'UNKNOWN'))
 
     return self._ConditionalFormatMessages(event_values)
 
@@ -157,7 +168,7 @@ class ThePluginStatusesFormatter(interface.ConditionalEventFormatter):
     u'Quoted Status Id:{quoted_status_id}',
     u'Source:{source}']
 
-  #TODO: add Format String Pieces for the short Format
+  #TODO: remove Format String Pieces for the short Format
   FORMAT_STRING_SHORT_PIECES = [
     u'Id:{id}',
     u'Text:{text}',
