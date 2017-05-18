@@ -11,7 +11,9 @@ import pexpect
 from tests.end_to_end_test import end_to_end_test_helper
 
 
-class EasyGenerationTest(unittest.TestCase):
+class EasyGenerationWithOutputTest(unittest.TestCase):
+  """Test File for an Easy Generation Test With Output"""
+
   def testEasyGenerationWithOutputExample(self):
     """Test easy file generation without errors and with an output example
     1.  plasoscaffolder sqlite
@@ -19,7 +21,8 @@ class EasyGenerationTest(unittest.TestCase):
     3.  What's the name of the plugin?: test
     4.  What's the path to your test file?: [pfad_file]
     5.  Do you want to have a output example for your SQL Query? [Y/n]: Y
-    6.  Please write your SQL script for the plugin: select id, name, createdDate from users
+    6.  Please write your SQL script for the plugin: select id, name,
+        createdDate from users
     7.  Your query output could look like this.
         ['id', 'name']
         (5402612, 'BBC Breaking News')

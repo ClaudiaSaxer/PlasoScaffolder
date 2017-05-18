@@ -11,17 +11,19 @@ import pexpect
 from tests.end_to_end_test import end_to_end_test_helper
 
 
-class EasyGenerationTest(unittest.TestCase):
+class WrongPluginNameTest(unittest.TestCase):
+  """Test file for wrong plugin name."""
+
   def testWrongPluginName(self):
     """Test file generation with using a invalid plugin name
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: [pfad]
     3.  What's the name of the plugin?: test plugin
-    4.  Plugin is not in a valid format. Choose new Name [plugin_name_...]: 
+    4.  Plugin is not in a valid format. Choose new Name [plugin_name_...]:
         TestPlugin
-    5.  Plugin is not in a valid format. Choose new Name [plugin_name_...]: 
+    5.  Plugin is not in a valid format. Choose new Name [plugin_name_...]:
         test123_plugin
-    6.  Plugin is not in a valid format. Choose new Name [plugin_name_...]: 
+    6.  Plugin is not in a valid format. Choose new Name [plugin_name_...]:
         test_plugin
     7.  What's the path to your test file?: [pfad_file]
     8.  Do you want to have a output example for your SQL Query? [Y/n]: n
@@ -38,7 +40,8 @@ class EasyGenerationTest(unittest.TestCase):
     """
     if platform.system() in ['Linux']:
       with tempfile.TemporaryDirectory() as tmpdir:
-        helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir, 'test_plugin')
+        helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir,
+                                                           'test_plugin')
         path_answer = tmpdir
         expected_path = os.path.join(helper.DIR_PATH,
                                      'ExpectedEasyGenerationLongNameFiles')

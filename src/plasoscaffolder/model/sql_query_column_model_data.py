@@ -7,8 +7,8 @@ from plasoscaffolder.model import sql_query_column_model
 class SQLColumnModelData(sql_query_column_model.SQLColumnModel):
   """Class for columns of a SQL Query."""
 
-  def __init__(self, sql_column: str, sql_column_type: type = None,
-               data: {str: str} = None, customize=False):
+  def __init__(self, sql_column: str, sql_column_type: type=None,
+               data: {str: str}=None, customize=False):
     """initializes the SQL column model.
 
     Args:
@@ -22,10 +22,10 @@ class SQLColumnModelData(sql_query_column_model.SQLColumnModel):
 
   def GetFirstDataForTimeEvent(self, timestamp: str) -> str:
     """The Data for the Time Event
-  
+
     Args:
       timestamp: the timestamp column name
-  
+
     Returns:
       str: the data for the timestamp
     """

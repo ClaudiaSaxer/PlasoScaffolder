@@ -20,13 +20,13 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
       explain: base_explain_query_plan.BaseExplainQueryPlan,
       database_information: base_database_information.BaseDatabaseInformation):
     """Initializes the SQLite Type Helper
-  
+
     Args:
-      execution (base_sql_query_execution.BaseSQLQueryExecution): the class 
+      execution (base_sql_query_execution.BaseSQLQueryExecution): the class
           for the execution of the SQLite queries
       explain (base_explain_query_plan.BaseExplainQueryPlan): the class for
           explain information
-      database_information (base_database_information.BaseDatabaseInformation): 
+      database_information (base_database_information.BaseDatabaseInformation):
           the class for information about the database
     """
     super().__init__()
@@ -37,9 +37,9 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
   def GetDuplicateColumnNames(
       self, columns: sql_query_column_model.SQLColumnModel) -> [str]:
     """Find out if the query has duplicate column names and if a alias is needed
-    
+
     Args:
-      columns (sql_query_column_model.SQLColumnModel): all columns parsed 
+      columns (sql_query_column_model.SQLColumnModel): all columns parsed
       from the cursor
     Returns:
       [str]: a list of all the duplicate column names, if its empty it means it
@@ -54,12 +54,12 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
   def GetColumnInformationFromDescription(
       self, descriptions: []) -> [sql_query_column_model.SQLColumnModel]:
     """Getting Information for the column out of the cursor.
-  
+
     Args:
       descriptions: the descriptions of the cursor
-  
+
     Returns:
-      list(sql_query_column_model.SQLColumnModel): a list with all the column 
+      list(sql_query_column_model.SQLColumnModel): a list with all the column
           names, the types are None
     """
     sql_column = []
@@ -74,12 +74,12 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
       self, columns: [sql_query_column_model.SQLColumnModel], query: str,
   ) -> [sql_query_column_model.SQLColumnModel]:
     """Getting Information for the column out of the cursor.
-    
+
     Args:
-      columns ([sql_query_column_model.SQLColumnModel]): the columns with all 
+      columns ([sql_query_column_model.SQLColumnModel]): the columns with all
           the column names
       query: the query
-      
+
     Returns:
       list(sql_query_column_model.SQLColumnModel): a list with all the columns
     """
@@ -95,7 +95,7 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
 
     Args:
       tables ([str]): the name of the table
-      column_model ([sql_query_column_model.SQLColumnModel]): the column to 
+      column_model ([sql_query_column_model.SQLColumnModel]): the column to
           find the type for
       query (str): the SQL query
 
@@ -106,12 +106,13 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
     query = query.lower()
 
     table_and_type = {
-      table: self._information.GetTableColumnsAndType(table, True) for table
-      in tables}
+        table: self._information.GetTableColumnsAndType(table, True) for table
+        in tables}
 
     for column in column_model:
       column_name = column.sql_column.lower()
-
+      # calling cell var from loop because column_name is needed multiple times
+      # pylint: disable=cell-var-from-loop
       as_column_string_start = next(filter(lambda start: start > 0, map(
           lambda space: query.find(' as {0}{1}'.format(column_name, space)),
           self._POSSIBLEQUERYSEPERATOR)), None)
@@ -142,8 +143,8 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
       # has no table prefix
       if table_name == '':
         types_sqlite = (
-          [table_and_type.get(table, {}).get(sqlite_column_name, '') for table
-           in tables if sqlite_column_name in table_and_type.get(table, {})])
+            [table_and_type.get(table, {}).get(sqlite_column_name, '') for table
+             in tables if sqlite_column_name in table_and_type.get(table, {})])
         type_sqlite = types_sqlite[0].upper() if len(types_sqlite) else ''
 
       else:
@@ -159,14 +160,13 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
 
   def _GetEndOfTableIfNotAlias(self, query, column_name):
     """Getting the start of the column if it is not an alias column
-    
+
     Args:
       query: the query to be searched
       column_name: the name to be searched for
 
-    Returns: 0 if no column could be found or the starting position of the 
+    Returns: 0 if no column could be found or the starting position of the
         column
-
     """
     wrong_positions = [name.start() for name in
                        re.finditer('.{0} as'.format(column_name), query)]
@@ -183,18 +183,17 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
     else:
       return 0
 
-  def _GetPositionAfterSeparator(self, text, end_position: int):
-    """Get the first separator position, starting at the end and searching 
+  def _GetPositionAfterSeparator(self, text: str, end_position: int) -> int:
+    """Get the first separator position, starting at the end and searching
      in reverse
-    
+
     Args:
-      text: the text to be searched through
-      end_position: the end position the search should be started from
-  
+      text (str): the text to be searched through
+      end_position (int): the end position the search should be started from
+
     Returns:
-      the first separator position found in the text started from the end 
+      int: the first separator position found in the text started from the end
           position
-  
     """
     all_appearances = [text.rfind(space, 0, end_position) for space in
                        self._POSSIBLEQUERYSEPERATOR
@@ -204,22 +203,22 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
   def _IsPrefixedWithAlias(self, query: str, tables: [str],
                            column_name: str) -> bool:
     """If the column has a table prefixed and has an alias
-    
+
     Args:
       query (str): the query to parse
-      tables ([str]): the possible tables 
-      column_name (str): the column name 
+      tables ([str]): the possible tables
+      column_name (str): the column name
 
     Returns:
       bool: True if it is prefixed, false if it isn't.
-
     """
-    matches = [re.fullmatch(
-        '.*({0}.)+([^ ])*( )*(as)( )*{1}( ,)*.*'.format(table, column_name),
-        query)
-      for table in tables if re.fullmatch(
-          '.*({0}.)+([^ ])*( )*(as)( )*{1}( ,)*.*'.format(
-              table, column_name), query) is not None]
+    matches = [
+        re.fullmatch(
+            '.*({0}.)+([^ ])*( )*(as)( )*{1}( ,)*.*'.format(table, column_name),
+            query)
+        for table in tables if re.fullmatch(
+            '.*({0}.)+([^ ])*( )*(as)( )*{1}( ,)*.*'.format(
+                table, column_name), query) is not None]
 
     return len(matches) != 0
 
@@ -229,16 +228,17 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
 
     Args:
       query (str): the query to parse
-      tables ([str]): the possible tables 
-      column_name (str): the column name 
+      tables ([str]): the possible tables
+      column_name (str): the column name
 
     Returns:
       bool: True if it is prefixed, false if it isn't.
 
     """
-    matches = [re.fullmatch(
-        '.*({0}.{1})+([^ ])*( ,)*.*'.format(table, column_name), query)
-      for table in tables if re.fullmatch(
-          '.*({0}.{1})+([^ ])*( ,)*.*'.format(
-              table, column_name), query) is not None]
+    matches = [
+        re.fullmatch(
+            '.*({0}.{1})+([^ ])*( ,)*.*'.format(table, column_name), query)
+        for table in tables if re.fullmatch(
+            '.*({0}.{1})+([^ ])*( ,)*.*'.format(
+                table, column_name), query) is not None]
     return len(matches) != 0

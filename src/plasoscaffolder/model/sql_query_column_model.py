@@ -6,7 +6,7 @@ import re
 class SQLColumnModel(object):
   """Class for columns of a SQL Query."""
 
-  def __init__(self, sql_column: str, sql_column_type: type = None):
+  def __init__(self, sql_column: str, sql_column_type: type=None):
     """ initializes the SQL column model.
 
     Args:

@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=no-member
-# pylint does not recognize connect and close as member
+# this default value is just for testing in a fake.
+# pylint: disable=dangerous-default-value
 """Fake class for the explain query plan."""
 
 from plasoscaffolder.dal import base_explain_query_plan
-from plasoscaffolder.dal import base_sql_query_execution
 
 
 class FakeExplainQueryPlan(base_explain_query_plan.BaseExplainQueryPlan):
   """Fake class representing the explain query plan."""
 
-  def __init__(self,is_read_only:bool=True, locked_tables:[]=[]):
-
+  def __init__(self, is_read_only: bool=True, locked_tables: []=[]):
     """Initializes the explain query plan.
 
     Args:
@@ -32,7 +30,6 @@ class FakeExplainQueryPlan(base_explain_query_plan.BaseExplainQueryPlan):
       bool: true if it is read only, false if it is not
     """
     return self.is_read_only
-
 
   def GetLockedTables(self, query: str) -> [str]:
     """Determines the table that were locked during the SQL query.

@@ -12,6 +12,7 @@ from tests.end_to_end_test import end_to_end_test_helper
 
 
 class EasyGenerationTest(unittest.TestCase):
+  """Test File for easy Generation"""
 
   def testEasyGeneration(self):
     """Test easy file generation without errors

@@ -18,4 +18,3 @@ class FormatterDataModel(base_data_model.BaseDataModel):
     """
     super().__init__(plugin_name)
     self.queries = queries
-

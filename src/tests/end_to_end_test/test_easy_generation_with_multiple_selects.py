@@ -12,6 +12,8 @@ from tests.end_to_end_test import end_to_end_test_helper
 
 
 class EasyGenerationWithMultipleSelectsTest(unittest.TestCase):
+  """Test file for Generation with multiple selects."""
+
   def testEasyGenerationWithMultipleSelects(self):
     """Test easy file generation without errors with two select queries
     1.  plasoscaffolder sqlite
@@ -48,8 +50,8 @@ class EasyGenerationWithMultipleSelectsTest(unittest.TestCase):
         helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir, 'test')
 
         path_answer = tmpdir
-        expected_path = os.path.join(helper.DIR_PATH,
-                                     'ExpectedEasyGenerationMultipleSelectsFiles')
+        expected_path = os.path.join(
+            helper.DIR_PATH, 'ExpectedEasyGenerationMultipleSelectsFiles')
 
         command = 'python {0} sqlite'.format(helper.MAIN_PATH)
         child = pexpect.spawn(command)

@@ -146,12 +146,12 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     else:
       return []
 
-  def GetAssumedTimestamps(self, columns: [
-    sql_query_column_model.SQLColumnModel]) -> [str]:
+  def GetAssumedTimestamps(
+      self, columns: [sql_query_column_model.SQLColumnModel]) -> [str]:
     """Gets all columns assumed that they are timestamps
-    
+
     Args:
-      columns ([sql_query_column_model.SQLColumnModel]): the columns from the 
+      columns ([sql_query_column_model.SQLColumnModel]): the columns from the
           SQL query
 
     Returns:
@@ -164,21 +164,22 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
 
   def GetColumnsAndTimestampColumn(
       self, columns: [sql_query_column_model.SQLColumnModel],
-      timestamps: [str], data: [str]) -> (
+      timestamps: [str], data: [str]
+  ) -> (
       [sql_query_column_model_data.SQLColumnModelData],
       [sql_query_column_model_timestamp.SQLColumnModelTimestamp]):
     """Splits the column list into a list of simple columns and a list for
     timestamp event columns and adds the data to the simple columns
 
     Args:
-      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns 
+      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns
           from the SQL query
       timestamps ([str]): the timestamp events
       data ([str]): the data from the cursor
 
     Returns:
       ([sql_query_column_model_data.SQLColumnModelData],
-          [sql_query_column_model_timestamp.SQLColumnModelTimestamp]): a tuple 
+          [sql_query_column_model_timestamp.SQLColumnModelTimestamp]): a tuple
           of columns,
           the first are the normal columns, the second are the timestamp events
     """
@@ -213,18 +214,18 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
 
   def _AddMessageAndDataToTimestampColumns(
       self, timestamp_columns: [
-        sql_query_column_model_timestamp.SQLColumnModelTimestamp],
-      message: {str, str}, timestamps_data: {str, str}) -> [
-    sql_query_column_model_timestamp.SQLColumnModelTimestamp]:
+          sql_query_column_model_timestamp.SQLColumnModelTimestamp],
+      message: {str, str}, timestamps_data: {str, str}
+  ) -> [sql_query_column_model_timestamp.SQLColumnModelTimestamp]:
     """Add Missing Message and data to the timestamp columns
-    
+
     Args:
       timestamp_columns ([
-          sql_query_column_model_timestamp.SQLColumnModelTimestamp]): the 
+          sql_query_column_model_timestamp.SQLColumnModelTimestamp]): the
           columns to be changed
-      message {str_str}: The message to be added.Dictionary with first 
+      message {str_str}: The message to be added.Dictionary with first
           part the timestamp name as key and second the message
-      timestamps_data {str,str}: The data to be added. Dictionary with first 
+      timestamps_data {str,str}: The data to be added. Dictionary with first
           part the timestamp name as key and second the data
 
     Returns:
@@ -239,27 +240,26 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
   def _GetDataForColumnAndAppendMessage(
       self, data: [str], column: sql_query_column_model_data.SQLColumnModelData,
       timestamp_columns: [
-        sql_query_column_model_timestamp.SQLColumnModelTimestamp],
-      column_index: int, message: {str, str}) -> (
-      sql_query_column_model_data.SQLColumnModelData, {str, str}):
-    """Get the data for the column and append data to the message for the 
+          sql_query_column_model_timestamp.SQLColumnModelTimestamp],
+      column_index: int, message: {str, str}
+  ) -> (sql_query_column_model_data.SQLColumnModelData, {str, str}):
+    """Get the data for the column and append data to the message for the
     timestamp message.
-    
+
     Args:
       data ([str]): the data to the query.
-      column (sql_query_column_model_data.SQLColumnModelData): the column to 
-          get the data for 
+      column (sql_query_column_model_data.SQLColumnModelData): the column to
+          get the data for
       timestamp_columns ([
-          sql_query_column_model_timestamp.SQLColumnModelTimestamp]): the 
+          sql_query_column_model_timestamp.SQLColumnModelTimestamp]): the
               timestamp columns to get data for each timestamp
-      column_index (int): the index of the column in the data 
-      message {str,str}: the existing message for the timestamp to append the 
-          new content 
+      column_index (int): the index of the column in the data
+      message {str,str}: the existing message for the timestamp to append the
+          new content
 
     Returns:
        sql_query_column_model_data.SQLColumnModelData, {str, str}: the data
            model for the column and the passed message with the appended data
-
     """
     column_data = {}
     data_row = 0
@@ -268,8 +268,7 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
 
       data_for_column_and_timestamp = ''
       if data:
-        data_for_column_and_timestamp = data[data_row][
-          column_index]
+        data_for_column_and_timestamp = data[data_row][column_index]
         # if not enough data results it shall take the same data as before
         if data_row < len(data) - 1:
           data_row += 1
@@ -280,24 +279,23 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
           timestamp, message, column.GetColumnAsDescription(),
           data_for_column_and_timestamp)
 
-    column_data_model = (
-      sql_query_column_model_data.SQLColumnModelData(
-          sql_column=column.sql_column,
-          sql_column_type=column.sql_column_type,
-          data=column_data
-      ))
+    column_data_model = sql_query_column_model_data.SQLColumnModelData(
+        sql_column=column.sql_column,
+        sql_column_type=column.sql_column_type,
+        data=column_data)
+
     return column_data_model, message
 
   def _GetTimestampMessageWithAddedColumnData(
       self, timestamp: str, message: {str: str}, description: str,
       data: str) -> {str: str}:
     """Append Data to the given message for a timestamp
-    
+
     Args:
-      timestamp (str): the timestamp to append data to 
-      message {str,str}: the message to be changed 
-      description (str): the description to be added for the timestamp 
-      data (str): the data to be added for the timestamp 
+      timestamp (str): the timestamp to append data to
+      message {str,str}: the message to be changed
+      description (str): the description to be added for the timestamp
+      data (str): the data to be added for the timestamp
 
     Returns:
       {str:str} the given message with new data added for the given timestamp
@@ -313,12 +311,12 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
   def _GetDataForTimestamp(self, data: [str], data_row: int,
                            timestamp_index: int):
     """Get the data for the timestamp out of the data array
-    
+
     Args:
-      data [str]: the data array 
-      data_row [int]: the data row from the data array to get the data from  
-      timestamp_index [int]: the index in the data row where the data for the 
-        timestamp is located 
+      data [str]: the data array
+      data_row [int]: the data row from the data array to get the data from
+      timestamp_index [int]: the index in the data row where the data for the
+        timestamp is located
 
     Returns:
       str: the data for the timestamp
@@ -334,16 +332,16 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
 
   def _GetTimestampColumnsFromColumnsWithoutMessage(
       self, columns: [sql_query_column_model.SQLColumnModel],
-      timestamps: [str]) -> [
-    sql_query_column_model_timestamp.SQLColumnModelTimestamp]:
+      timestamps: [str]
+  ) -> [sql_query_column_model_timestamp.SQLColumnModelTimestamp]:
     """Gets the timestamp columns from the columns and sets the type and the
     name but not the message
-    
+
     Args:
-    columns ([sql_query_column_model_data.SQLColumnModelData]): the columns 
+    columns ([sql_query_column_model_data.SQLColumnModelData]): the columns
           from the SQL query
       timestamps ([str]): the timestamp events
-  
+
     Returns:
       [sql_query_column_model_data.SQLColumnModelData]: the timestamp columns
           but without the message
@@ -352,10 +350,9 @@ class SQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     for column in [column for column in columns if
                    column.sql_column in timestamps]:
       timestamp_data_model = (
-        sql_query_column_model_timestamp.SQLColumnModelTimestamp(
-            sql_column_type=column.sql_column_type,
-            sql_column=column.sql_column,
-            expected_message=''
-        ))
+          sql_query_column_model_timestamp.SQLColumnModelTimestamp(
+              sql_column_type=column.sql_column_type,
+              sql_column=column.sql_column,
+              expected_message=''))
       timestamp_columns.append(timestamp_data_model)
     return timestamp_columns

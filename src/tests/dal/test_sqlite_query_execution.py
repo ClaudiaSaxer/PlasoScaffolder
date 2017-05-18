@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# disable because its to silly for that long sql queries
-# pylint: disable=bad-continuation
 """test class"""
 import os
 import unittest
@@ -167,14 +165,13 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
   def testExecuteQueryDetailedWithJoin(self):
     """test the execution of a more complex Query"""
-    query = (
-      'SELECT Statuses.date AS date, Statuses.text AS text,'
-      ' Statuses.userId AS user_id, Users.Name AS Name, '
-      'Statuses.retweetCount AS '
-      'retweetCount, Statuses.favoriteCount AS favoriteCount, '
-      'Statuses.favorited AS favorited, Statuses.updatedAt AS updatedAt '
-      'FROM Statuses LEFT join Users ON Statuses.userId = Users.id '
-      'ORDER BY date')
+    query = ('SELECT Statuses.date AS date, Statuses.text AS text,'
+             ' Statuses.userId AS user_id, Users.Name AS Name, '
+             'Statuses.retweetCount AS '
+             'retweetCount, Statuses.favoriteCount AS favoriteCount, '
+             'Statuses.favorited AS favorited, Statuses.updatedAt AS updatedAt '
+             'FROM Statuses LEFT join Users ON Statuses.userId = Users.id '
+             'ORDER BY date')
     result = self.execute.ExecuteQueryDetailed(query)
     expected_data = self._ReadFromFileRelative('expected_join_query_data')
     self.assertIsNone(result.error_message)
@@ -200,20 +197,18 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
   def testExecuteQueryDetailedWithSpecialCharacters(self):
     """test the execution of a more complex Query"""
-    query = (
-      'SELECT [AS].[id] as [AS], [AS].name as "name" from Users AS [AS]')
+    query = ('SELECT [AS].[id] as [AS], [AS].name as "name" from Users AS [AS]')
 
     result = self.execute.ExecuteQueryDetailed(query)
-    expected_error_message = (
-    'Warning: Don\'t use any characters beside a-z A-Z 0-9 . ; , * = _')
+    expected_error_message = ('Warning: Don\'t use any characters beside '
+                              'a-z A-Z 0-9 . ; , * = _')
     self.assertTrue(result.has_error)
     self.assertEqual(result.error_message, expected_error_message)
     self.assertEqual(result.error_message, expected_error_message)
 
   def testExecuteQueryDetailedWithAliasWithUnderscore(self):
     """test the execution of a more complex Query"""
-    query = (
-      'SELECT id as the_id, name as the_name from users')
+    query = ('SELECT id as the_id, name as the_name from users')
 
     result = self.execute.ExecuteQueryDetailed(query)
     expected_data = self._ReadFromFileRelative('expected_id_name_data')
@@ -223,8 +218,7 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
   def testExecuteQueryDetailedWithAliasWithUnderscore2(self):
     """test the execution of a more complex Query"""
-    query = (
-      'SELECT users.id as the_id, name as the_name from users')
+    query = ('SELECT users.id as the_id, name as the_name from users')
 
     result = self.execute.ExecuteQueryDetailed(query)
     expected_data = self._ReadFromFileRelative('expected_id_name_data')
@@ -234,8 +228,8 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
   def testExecuteQueryDetailedWithAliasWithUnderscore3(self):
     """test the execution of a more complex Query"""
-    query = (
-      'SELECT users.id as the_id, name as the_name from users join statuses')
+    query = ('SELECT users.id as the_id, name as the_name '
+             'from users join statuses')
 
     result = self.execute.ExecuteQueryDetailed(query)
     expected_data = self._ReadFromFileRelative('expected_id_name_join_data')
@@ -245,9 +239,8 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
   def testExecuteQueryDetailedWithJoinAndAliasWithUnderscore(self):
     """test the execution of a more complex Query"""
-    query = (
-      'SELECT users.id as the_id, users.name as the_name from users join '
-      'statuses')
+    query = ('SELECT users.id as the_id, users.name as the_name '
+             'from users join statuses')
 
     result = self.execute.ExecuteQueryDetailed(query)
     expected_data = self._ReadFromFileRelative('expected_id_name_join_data')
@@ -257,40 +250,32 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
   def testExecuteQueryDetailedWithAliasForTable(self):
     """test the execution of a more complex Query"""
-    query = (
-      'SELECT x.id, x.name from users as x')
+    query = ('SELECT x.id, x.name from users as x')
     result = self.execute.ExecuteQueryDetailed(query)
-    expected_error_message = (
-      'Warning: Don\'t use any alias for a table name')
+    expected_error_message = ('Warning: Don\'t use any alias for a table name')
     self.assertTrue(result.has_error)
     self.assertEqual(result.error_message, expected_error_message)
 
   def testExecuteQueryReadOnlyWithAliasForMultipleTable(self):
     """test the execution of a more complex Query"""
-    query = (
-      'SELECT x.id, x.name from users as x join statuses')
+    query = ('SELECT x.id, x.name from users as x join statuses')
     result = self.execute.ExecuteQueryDetailed(query)
-    expected_error_message = (
-      'Warning: Don\'t use any alias for a table name')
+    expected_error_message = ('Warning: Don\'t use any alias for a table name')
     self.assertTrue(result.has_error)
     self.assertEqual(result.error_message, expected_error_message)
 
   def testExecuteQueryDetailedWithJoinAndAliasForTable(self):
     """test the execution of a more complex Query"""
-    query = (
-      'SELECT x.id as userid, x.name, y.id as statusid from users as x join '
-      'statuses as y')
+    query = ('SELECT x.id as userid, x.name, y.id as statusid '
+             'from users as x join statuses as y')
     result = self.execute.ExecuteQueryDetailed(query)
-
-    expected_error_message = (
-      'Warning: Don\'t use any alias for a table name')
+    expected_error_message = ('Warning: Don\'t use any alias for a table name')
     self.assertTrue(result.has_error)
     self.assertEqual(result.error_message, expected_error_message)
 
   def testExecuteQueryDetailedWithJoinAndNoTable(self):
     """test the execution of a more complex Query"""
-    query = (
-      'SELECT users.id, name from users join statuses')
+    query = ('SELECT users.id, name from users join statuses')
     result = self.execute.ExecuteQueryDetailed(query)
     expected_data = self._ReadFromFileRelative('expected_id_name_join_data')
     self.assertIsNone(result.error_message)
@@ -307,41 +292,6 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
     self.assertIsNone(result.error_message)
     self.assertEqual(result.columns[0].sql_column, 'id')
     self.assertEqual(result.columns[0].GetColumnTypeAsName(), 'int')
-
-  def testExecuteQueryDetailedSimple(self):
-    """test the execution of a simple Query"""
-    query = ('SELECT createdDate, updatedAt, screenName, Name, profileImageUrl,'
-             'location, description, url, following, followersCount, '
-             'followingCount'
-             ' FROM Users ORDER BY createdDate')
-    result = self.execute.ExecuteQueryDetailed(query)
-    expected_data = self._ReadFromFileRelative('expected_simple_query_data')
-    self.assertIsNone(result.error_message)
-    self.assertFalse(result.has_error)
-    self.assertEqual(expected_data, str(result.data))
-
-    self.assertEqual(result.columns[0].sql_column, 'createdDate')
-    self.assertEqual(result.columns[1].sql_column, 'updatedAt')
-    self.assertEqual(result.columns[2].sql_column, 'screenName')
-    self.assertEqual(result.columns[3].sql_column, 'name')
-    self.assertEqual(result.columns[4].sql_column, 'profileImageUrl')
-    self.assertEqual(result.columns[5].sql_column, 'location')
-    self.assertEqual(result.columns[6].sql_column, 'description')
-    self.assertEqual(result.columns[7].sql_column, 'url')
-    self.assertEqual(result.columns[8].sql_column, 'following')
-    self.assertEqual(result.columns[9].sql_column, 'followersCount')
-    self.assertEqual(result.columns[10].sql_column, 'followingCount')
-    self.assertEqual(result.columns[0].GetColumnTypeAsName(), 'float')
-    self.assertEqual(result.columns[1].GetColumnTypeAsName(), 'float')
-    self.assertEqual(result.columns[2].GetColumnTypeAsName(), 'str')
-    self.assertEqual(result.columns[3].GetColumnTypeAsName(), 'str')
-    self.assertEqual(result.columns[4].GetColumnTypeAsName(), 'str')
-    self.assertEqual(result.columns[5].GetColumnTypeAsName(), 'str')
-    self.assertEqual(result.columns[6].GetColumnTypeAsName(), 'str')
-    self.assertEqual(result.columns[7].GetColumnTypeAsName(), 'str')
-    self.assertEqual(result.columns[8].GetColumnTypeAsName(), 'int')
-    self.assertEqual(result.columns[9].GetColumnTypeAsName(), 'int')
-    self.assertEqual(result.columns[10].GetColumnTypeAsName(), 'int')
 
   def testExecuteQueryDetailedSimpleNoData(self):
     """test the execution of a simple Query"""
@@ -408,8 +358,8 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
   def testExecuteQueryDetailedJoinNoData(self):
     """test the execution of a join Query with no data"""
-    query = (
-      'SELECT t1.a as a, t2.a as a2, t2.c, t1.b, t2.b as b2 from t1 join t2')
+    query = ('SELECT t1.a as a, t2.a as a2, t2.c, t1.b, t2.b as b2 '
+             'from t1 join t2')
     result = self.execute_names.ExecuteQueryDetailed(query)
     expected_data = '[]'
     self.assertIsNone(result.error_message)
@@ -429,8 +379,8 @@ class SQLiteQueryExecutionTest(unittest.TestCase):
 
   def testExecuteQueryDetailedJoinNoDataNoSpace(self):
     """test the execution of a join Query with no data"""
-    query = (
-      'SELECT t1.a as a,t2.a as a2,t2.c, t1.b,t2.b as b2 from t1 join t2')
+    query = ('SELECT t1.a as a,t2.a as a2,t2.c, t1.b,t2.b as b2 '
+             'from t1 join t2')
     result = self.execute_names.ExecuteQueryDetailed(query)
     expected_data = '[]'
     self.assertIsNone(result.error_message)

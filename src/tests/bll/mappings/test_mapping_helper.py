@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# testing private members is on purpose
+# pylint: disable=protected-access
 """test class"""
 import unittest
 
@@ -30,8 +32,6 @@ class MappingHelperTest(unittest.TestCase):
     expected = 'ThisIsATest'
     actual = self.helper.GenerateClassName(name)
     self.assertEqual(expected, actual)
-
-
 
   def testRemoveEscapeErrorWithSpacesLikeInTemplate(self):
     """Tests the removing of an escape error"""
@@ -83,8 +83,11 @@ class MappingHelperTest(unittest.TestCase):
 
   def testRemoveYapfCommentOnlyTheEnableAndDisable(self):
     """Tests the removing of the yapf enable comment"""
-    string_with_yapf_enable = (
-    'something\n# yapf: disable\notherline\n# yapf: enable\nlastline')
+    string_with_yapf_enable = ('something\n'
+                               '# yapf: disable\n'
+                               'otherline\n'
+                               '# yapf: enable\n'
+                               'lastline')
     string_without_yapf_enable = 'something\notherline\nlastline'
     actual = self.helper._RemoveYapfComment(string_with_yapf_enable)
     self.assertEqual(string_without_yapf_enable, actual)
