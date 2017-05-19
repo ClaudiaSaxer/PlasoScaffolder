@@ -57,7 +57,7 @@ class {{ class_name }}Plugin(interface.SQLitePlugin):
     # will raise "IndexError: Index must be int or string".
 
     event_data = {{ class_name }}{{ query.Name|capitalize }}EventData()
-    {% for column in query.columns|sort(attribute='sql_column') %}event_data.{{ column.GetColumnAsSnakeCase()}} = row['{{ column.SQLColumn}}']
+    {% for column in query.columns|sort(attribute='sql_column') %}event_data.{{ column.GetColumnAsSnakeCase()}} = row['{{ column.sql_column}}']
     {% endfor %}
     {% for column in query.timestamp_columns|sort(attribute='sql_column') %}
     timestamp = row['{{ column.sql_column}}']
