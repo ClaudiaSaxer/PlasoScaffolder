@@ -11,14 +11,15 @@ class BaseTypeHelper(object):
   @abc.abstractmethod
   def GetDuplicateColumnNames(
       self, columns: sql_query_column_model.SQLColumnModel) -> [str]:
-    """Find out if the query has duplicate column names and if a alias is needed
+    """Find out if the query has duplicate column names and if a alias is
+        needed.
 
     Args:
       columns (sql_query_column_model.SQLColumnModel): all columns parsed
-      from the cursor
+          from the cursor
     Returns:
       [str]: a list of all the duplicate column names, if its empty it means it
-          a distinct list of columns
+          is a distinct list of columns
     """
 
   @abc.abstractmethod
@@ -30,7 +31,7 @@ class BaseTypeHelper(object):
       description: the description of the cursor
 
     Returns:
-      list(sql_query_column_model.SQLColumnModel): a list with all the column
+      [sql_query_column_model.SQLColumnModel]: a list with all the column
           names, the types are None
     """
 
@@ -46,5 +47,5 @@ class BaseTypeHelper(object):
       query: the query
 
     Returns:
-      list(sql_query_column_model.SQLColumnModel): a list with all the columns
+      [sql_query_column_model.SQLColumnModel]: a list with all the columns
     """

@@ -10,7 +10,7 @@ class ParserMapper(base_sqliteplugin_mapping.BaseSQLitePluginMapper):
 
   _PARSER_TEMPLATE = 'parser_template.jinja2'
 
-  def __init__(self, mapping_helper: base_mapping_helper.BaseMappingHelper()):
+  def __init__(self, mapping_helper: base_mapping_helper.BaseMappingHelper):
     """Initializing the init mapper class.
 
     Args:

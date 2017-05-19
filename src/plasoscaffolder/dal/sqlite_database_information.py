@@ -33,14 +33,19 @@ class SQLiteDatabaseInformation(
     else:
       return [str(data_tuple[0]) for data_tuple in data.data]
 
-  def GetTableColumnsAndType(self, table: str, all_lowercase=False) -> [str]:
+  def GetTableColumnsAndType(
+      self, table: str, all_lowercase: bool=False
+  ) -> [str]:
     """Returns the table information from the database
 
     Args:
       table (str): the name of the table
+      all_lowercase (bool): if the table name and the type should be returned
+          in lower case
 
     Returns:
-      {name, type}: the table information
+      {name, type}: the table information, with the name of the column and the
+          type of the column
     """
     query = 'PRAGMA table_info({0})'.format(table)
     data = self._sql_execution.ExecuteQuery(query)

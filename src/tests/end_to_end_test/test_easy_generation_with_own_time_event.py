@@ -18,7 +18,7 @@ class EasyGenerationWithOwnTimeEventTest(unittest.TestCase):
 
   def testEasyGenerationWithOwnTimeEvent(self):
     """Test easy file generation without errors
-    
+
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test

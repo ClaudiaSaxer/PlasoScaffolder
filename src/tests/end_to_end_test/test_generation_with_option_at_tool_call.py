@@ -17,7 +17,7 @@ class GenerateWithOptionAtToolCallTest(unittest.TestCase):
 
   def testGenerateWithOptionAtToolCall(self):
     """Test file generation with additional options calling the tool
-    
+
     1.  plasoscaffolder sqlite --path tmpdir --name test --testfile
         test_database/twitter_ios.db –-no-sql
     6.  Please write your SQL script for the plugin: select * from users

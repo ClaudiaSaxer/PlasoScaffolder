@@ -20,7 +20,7 @@ class EasyGenerationWithAbortTest(unittest.TestCase):
   def testEasyGenerationWithAbort(self):
     """Test easy file generation without errors and with abort at the end, not
     generating the files.
-    
+
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test

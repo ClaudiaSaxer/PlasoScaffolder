@@ -36,14 +36,15 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
 
   def GetDuplicateColumnNames(
       self, columns: sql_query_column_model.SQLColumnModel) -> [str]:
-    """Find out if the query has duplicate column names and if a alias is needed
+    """Find out if the query has duplicate column names and if a alias is
+        needed.
 
     Args:
       columns (sql_query_column_model.SQLColumnModel): all columns parsed
-      from the cursor
+          from the cursor
     Returns:
       [str]: a list of all the duplicate column names, if its empty it means it
-          a distinct list of columns
+          is a distinct list of columns
     """
     single_column_name_list = [column.sql_column for column in columns]
     duplicate_list = [column for column, count in
@@ -59,7 +60,7 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
       descriptions: the descriptions of the cursor
 
     Returns:
-      list(sql_query_column_model.SQLColumnModel): a list with all the column
+      [sql_query_column_model.SQLColumnModel]: a list with all the column
           names, the types are None
     """
     sql_column = []
@@ -81,7 +82,7 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
       query: the query
 
     Returns:
-      list(sql_query_column_model.SQLColumnModel): a list with all the columns
+      [sql_query_column_model.SQLColumnModel]: a list with all the columns
     """
     locked = [table.lower() for table in self._explain.GetLockedTables(query)]
 
@@ -158,15 +159,16 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
 
     return column_model
 
-  def _GetEndOfTableIfNotAlias(self, query, column_name):
+  def _GetEndOfTableIfNotAlias(self, query: str, column_name: str) -> bool:
     """Getting the start of the column if it is not an alias column
 
     Args:
-      query: the query to be searched
-      column_name: the name to be searched for
+      query (str): the query to be searched
+      column_name (str): the name to be searched for
 
-    Returns: 0 if no column could be found or the starting position of the
-        column
+    Returns:
+      bool: 0 if no column could be found or the starting position of the
+          column
     """
     wrong_positions = [name.start() for name in
                        re.finditer('.{0} as'.format(column_name), query)]
@@ -233,7 +235,6 @@ class SQLiteTypeHelper(base_type_helper.BaseTypeHelper):
 
     Returns:
       bool: True if it is prefixed, false if it isn't.
-
     """
     matches = [
         re.fullmatch(

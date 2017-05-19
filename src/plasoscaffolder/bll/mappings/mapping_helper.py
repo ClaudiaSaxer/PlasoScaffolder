@@ -15,7 +15,7 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
 
     Args:
       template_path (str): the path to the template directory
-      yapf_path (str): the path to the yapf path
+      yapf_path (str): the path to the yapf style file
     """
     super().__init__()
     template_loader = jinja2.FileSystemLoader(template_path)
@@ -24,16 +24,15 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
     self.formatter = code_formatter.CodeFormatter(yapf_path)
 
   def RenderTemplate(self, template_filename: str, context: dict) -> str:
-    """Renders the template.
+    """Renders the template with the context to return a string.
 
-       Args:
-         template_filename (str): the name of the template
-         context (dict): the context of the template
+    Args:
+      template_filename (str): the name of the template
+      context (dict): the context of the template as a dictionary
 
-       Returns:
-         str: the rendered template
-       """
-
+    Returns:
+      str: the rendered template as a string
+    """
     template = self._template_environment.get_template(
         template_filename).render(context)
     template = self._RemoveEscapeError(template)
@@ -48,10 +47,10 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
     """Generates the class name from the plugin name.
 
     Args:
-      plugin_name (str): the plugin name
+      plugin_name (str): the name of the plugin
 
     Returns:
-      str: the class name
+      str: the name of the class
     """
     return plugin_name.replace('_', ' ').title().replace(' ', '')
 
@@ -79,10 +78,10 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
     return template
 
   def _RemoveYapfComment(self, template: str) -> str:
-    """Remove the yapf comment line
+    """Remove the yapf comment line.
 
     The Line as well as the new line will be removed.
-    The Yapf Comment has to be at the end of the line. Or on its own line.
+    The yapf Comment has to be at the end of the line. Or on its own line.
 
     Args:
       template (str): the resulting template as a python file string
@@ -94,7 +93,7 @@ class MappingHelper(base_mapping_helper.BaseMappingHelper):
                                                              '')
 
   def _RemoveBlanksAtEndOfLine(self, template: str) -> str:
-    """Removes blanks at the end of lines
+    """Removes blanks at the end of lines.
 
     This is for those parts that are ignored with yapf.
 

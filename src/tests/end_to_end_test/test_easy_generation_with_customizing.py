@@ -19,7 +19,7 @@ class EasyGenerationWithCustomizingTest(unittest.TestCase):
 
   def testEasyGenerationWithCustomizing(self):
     """Test easy file generation without errors with customizing option
-    
+
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test

@@ -6,7 +6,7 @@ from plasoscaffolder.model import base_data_model
 
 
 class BaseSQLitePluginMapper(object):
-  """Class representing the sqlite plugin base mapper."""
+  """Class representing the SQLite plugin base mapper."""
   __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod

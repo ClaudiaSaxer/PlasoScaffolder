@@ -11,7 +11,7 @@ class SQLColumnModel(object):
 
     Args:
       sql_column (str): the column name of the SQL Query
-      sql_column_type (str): the type of the SQL column
+      sql_column_type (type): the type of the SQL column
     """
     super().__init__()
     self.sql_column = sql_column
@@ -19,6 +19,7 @@ class SQLColumnModel(object):
 
   def GetColumnTypeAsName(self) -> str:
     """The type as the name.
+
     example: <class 'int'> type will be returned as int
 
     Returns:

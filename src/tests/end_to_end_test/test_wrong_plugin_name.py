@@ -17,7 +17,7 @@ class WrongPluginNameTest(unittest.TestCase):
 
   def testWrongPluginName(self):
     """Test file generation with using a invalid plugin name
-    
+
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: [pfad]
     3.  What's the name of the plugin?: test plugin

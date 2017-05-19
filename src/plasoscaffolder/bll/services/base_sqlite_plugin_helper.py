@@ -29,8 +29,8 @@ class BaseSQLitePluginHelper(object):
       database_suffix: the suffix of the database file
       path (str): the path of the plaso source
       plugin_name (str): the name of the plugin
-      path_helper (base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper
-          ): the SQLite plugin helper
+      path_helper (base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper):
+          the SQLite plugin helper
 
     Returns:
       bool: True if the plugin already exists. False if it does not.
@@ -147,6 +147,6 @@ class BaseSQLitePluginHelper(object):
     Returns:
       ([sql_query_column_model_data.SQLColumnModelData],
           [sql_query_column_model_timestamp.SQLColumnModelTimestamp): a tuple
-          of columns,
-          the first are the normal columns, the second are the timestamp events
+          of columns, the first are the normal columns, the second are the
+          timestamp events
     """

@@ -26,13 +26,15 @@ class FakeDatabaseInformation(object):
     """
     return self.tables
 
-  def GetTableColumnsAndType(self, table: str, all_lowercase=False) -> [str]:
+  def GetTableColumnsAndType(
+      self, table: str, all_lowercase=False
+  ) -> [{str, type}]:
     """Returns the table information from the database
 
     Args:
       table (str): the name of the table
 
     Returns:
-      [{name, type}]: the table information
+      [{str, type}]: the table information first the column and then the type
     """
     return self.column_type

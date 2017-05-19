@@ -3,8 +3,10 @@
 
 
 class TypeMapperSQLitePython(object):
-  """The mapper between SQLite and python data types"""
-  # https://sqlite.org/datatype3.html
+  """The mapper between SQLite and python data types
+
+  The mappings taken from the site: https://sqlite.org/datatype3.html
+  """
   MAPPINGS = {'BLOB': bytes,
               'INTEGER': int,
               'INT': int,

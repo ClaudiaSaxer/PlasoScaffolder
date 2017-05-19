@@ -21,9 +21,43 @@ class SQLQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
   def ExecuteQuery(
       self, query: str
   ) -> sql_query_data.SQLQueryData:
-    """Executes the SQL Query."""
+    """Executes the SQL Query.
+
+    Args:
+      query (str): The SQL Query to execute on the SQLite database.
+
+    Returns:
+      sql_query_data.SQLQueryData: The data to the Query
+    """
     return self.to_return
 
   def ExecuteReadOnlyQuery(self, query: str):
-    """Executes the SQL Query if it is read only."""
+    """Executes the SQL Query if it is read only, and valid to parse.
+
+      Args:
+        query (str): the SQL Query to execute on the SQLite database
+
+      Returns:
+        sql_query_data.SQLQueryData: the data to the Query
+    """
+    return self.to_return
+
+
+  def TryToConnect(self) -> bool:
+    """Try to open the database File.
+
+    Returns:
+      bool: if the file can be opened and is a database file
+    """
+    return True
+
+  def ExecuteQueryDetailed(self, query: str) -> sql_query_data.SQLQueryData:
+    """Executes the SQL Query and gets detailed information.
+
+    Args:
+      query (str): The SQL Query to execute on the SQLite database.
+
+    Returns:
+      sql_query_data.SQLQueryData: The data to the Query
+    """
     return self.to_return

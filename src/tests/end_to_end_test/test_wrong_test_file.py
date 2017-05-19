@@ -17,7 +17,7 @@ class WrongTestDatabaseFileTest(unittest.TestCase):
 
   def testWrongTestFile(self):
     """Test easy file generation without errors
-    
+
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test
@@ -32,12 +32,11 @@ class WrongTestDatabaseFileTest(unittest.TestCase):
     10. Do you want to name the query parse row: Users ? [Y/n]:  Y
     11. Is the column a time event? updatedAt [Y/n]:  Y
     12. Is the column a time event? createdDate [Y/n]: Y
-    13. Enter (additional) timestamp events from the query [column-Name, 
+    13. Enter (additional) timestamp events from the query [column-Name,
         aliasName...] or [abort]: abort
     14. Does the event Users need customizing? [y/N]: N
     15. Do you want to add another Query? [Y/n]: n
     16. Do you want to Generate the files [Y/n]: Y
-
     """
     if platform.system() in ['Linux']:
 

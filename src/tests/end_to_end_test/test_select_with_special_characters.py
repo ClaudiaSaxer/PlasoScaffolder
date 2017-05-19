@@ -16,9 +16,10 @@ from tests.end_to_end_test import end_to_end_test_helper
 
 class SelectWithSpecialCharactersTest(unittest.TestCase):
   """Test file for select with special characters."""
+
   def testSelectWithSpecialCharacters(self):
     """Test different queries with special characters
-    
+
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test
