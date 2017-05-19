@@ -1,3 +1,4 @@
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
 # disable backslash in string because special characters need to be escaped
 # pylint: disable=anomalous-backslash-in-string

@@ -1,3 +1,4 @@
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
 """Test Class for end to end Tests.
 These Tests can only be run on Linux because it makes use of pexpect."""
