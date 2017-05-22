@@ -13,7 +13,7 @@ setup(name='plasoscaffolder',
                         'setuptools>=35.0.2',
                         'jinja2>=2.9.6',
                         'colorama>=0.3.7',
-                        'yapf==0.16.2',
+                        'yapf==0.16.1',
                         'pexpect>=4.2.1'],
       entry_points={'console_scripts': [
           'plasoscaffolder=plasoscaffolder.frontend.main:entry_point']}
