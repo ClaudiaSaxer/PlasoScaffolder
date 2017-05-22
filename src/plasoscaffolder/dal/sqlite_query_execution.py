@@ -63,7 +63,7 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
 
   def ExecuteQueryDetailed(
       self, query: str) -> sql_query_data.SQLQueryData:
-    """Executes the SQL Query and gets Detailed Information
+    """Executes the SQL Query and gets detailed information.
 
     Args:
       query (str): The SQL Query to execute on the SQLite database.
@@ -132,14 +132,14 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
 
     return query_data
 
-  def ExecuteReadOnlyQuery(self, query: str):
+  def ExecuteReadOnlyQuery(self, query: str) -> sql_query_data.SQLQueryData:
     """Executes the SQL Query if it is read only, and valid to parse.
 
       Args:
-        query (str): The SQL Query to execute on the SQLite database.
+        query (str): the SQL Query to execute on the SQLite database
 
       Returns:
-        sql_query_data.SQLQueryData: The data to the Query
+        sql_query_data.SQLQueryData: the data to the Query
     """
     query_data = self.ExecuteQueryDetailed(query)
     if not query_data.has_error:

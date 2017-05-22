@@ -46,7 +46,7 @@ class ParserTestMapper(base_sqliteplugin_mapping.BaseSQLitePluginMapper):
     """Calculates the amount of events from the queries.
 
     Args:
-      queries ([sql_query_model.SQLQueryModel): the queries
+      queries ([sql_query_model.SQLQueryModel]): the queries
 
     Returns:
       int: the amount of events

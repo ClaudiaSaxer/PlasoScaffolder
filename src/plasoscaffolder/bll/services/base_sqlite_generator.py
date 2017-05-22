@@ -18,8 +18,8 @@ class BaseSQLiteGenerator(object):
       self,
       template_path: str,
       fileHandler: base_file_handler.BaseFileHandler,
-      init_formatter_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
-      init_parser_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
+      formatter_init_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
+      parser_init_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
       parser_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
       formatter_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
       parser_test_mapper: base_sqliteplugin_mapping.BaseSQLitePluginMapper,
@@ -30,18 +30,22 @@ class BaseSQLiteGenerator(object):
 
     Args:
       template_path (str): the path to the template directory
-      fileHandler (FileHandler): the handler for the file
-      init_formatter_mapper (BaseSQLitePluginMapper): the init formatter mapper
-      init_parser_mapper (BaseSQLitePluginMapper): the init parser mapper
-      parser_mapper (BaseSQLitePluginMapper): the parser mapper
-      formatter_mapper (BaseSQLitePluginMapper): the mapper for the formatter
-      parser_test_mapper (BaseSQLitePluginMapper): the mapper for the formatter
-          test
-      formatter_test_mapper (BaseSQLitePluginMapper): the mapper for the parser
-          test
-      mappingHelper (BaseMappingHelper): the mapping helper
-      database_information (BaseDatabaseInformation): helper class for
-          information about the database
+      fileHandler (base_file_handler.BaseFileHandler): the handler for the file
+      formatter_init_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):
+          the init formatter mapper
+      parser_init_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):
+          the init parser mapper
+      parser_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):
+          the parser mapper
+      formatter_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):
+          the mapper for the formatter
+      parser_test_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):
+          the mapper for the formatter test
+      formatter_test_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):
+          the mapper for the parser test
+      mappingHelper (base_mapping_helper.BaseMappingHelper): the mapping helper
+      database_information (base_database_information.BaseDatabaseInformation):
+          helper class for information about the database
     """
 
   @abc.abstractmethod

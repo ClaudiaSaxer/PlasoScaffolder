@@ -23,8 +23,8 @@ class SQLQueryModel(object):
       timestamp_columns ([
           sql_query_column_model_timestamp.SQLColumnModelTimestamp]): list of
           columns which are timestamp events
-      name (str): The Name of the Query.
-      query (str): The SQL Query.
+      name (str): The name of the Query.
+      query (str): The SQL query.
       needs_customizing (bool): if the event for the query needs customizing
       amount_events (int): amount of events as result of the query
     """

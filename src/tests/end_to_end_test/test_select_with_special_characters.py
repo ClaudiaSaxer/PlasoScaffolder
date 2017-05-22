@@ -1,3 +1,4 @@
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
 # disable backslash in string because special characters need to be escaped
 # pylint: disable=anomalous-backslash-in-string
@@ -15,9 +16,10 @@ from tests.end_to_end_test import end_to_end_test_helper
 
 class SelectWithSpecialCharactersTest(unittest.TestCase):
   """Test file for select with special characters."""
+
   def testSelectWithSpecialCharacters(self):
     """Test different queries with special characters
-    
+
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test
@@ -33,7 +35,7 @@ class SelectWithSpecialCharactersTest(unittest.TestCase):
         as “S”
     11. Warning: Don’t use any characters beside a-z A-Z . ; , *
     12. Please write your SQL script for the plugin: select id as the-id from
-        users
+        user
     13. Warning: Don’t use any characters beside a-z A-Z . ; , *
     14. Please write your SQL script for the plugin: select somealias.id from
         users as somealias

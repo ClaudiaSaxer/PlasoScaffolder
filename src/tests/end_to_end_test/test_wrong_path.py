@@ -1,3 +1,4 @@
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
 """Test Class for end to end Tests.
 These Tests can only be run on Linux because it makes use of pexpect."""
@@ -16,7 +17,7 @@ class WrongPathTest(unittest.TestCase):
 
   def testWrongPath(self):
     """Test easy file generation with using the wrong path
-    
+
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?:bla bla
     3.  Folder does not exists. Enter correct one: other/wrong

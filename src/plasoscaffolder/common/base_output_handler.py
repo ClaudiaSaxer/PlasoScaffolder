@@ -45,7 +45,7 @@ class BaseOutputHandler(object):
 
   @abc.abstractmethod
   def PrintInfo(self, text: str):
-    """A echo for information.
+    """An echo for information.
 
     Args:
       text (str): the text to print
@@ -53,7 +53,7 @@ class BaseOutputHandler(object):
 
   @abc.abstractmethod
   def PrintError(self, text: str):
-    """A echo for errors.
+    """An echo for errors.
 
     Args:
       text (str): the text to print
@@ -61,13 +61,16 @@ class BaseOutputHandler(object):
 
   @abc.abstractmethod
   def Confirm(self, text: str, default=True, abort=True):
-    """A confirmation, Default Y, if no abort execution.
+    """Ask for a confirmation, either yes or no to a question.
 
      Args:
-       text (str): Prompts the user for a confirmation.
-       default (bool): the default value.
-       abort (bool): if the program should abort
+       text (str): prompts the user for a confirmation, with the given test as
+           the question
+       default (bool): the default for the confirmation answer. If True the
+           default is Y(es), if False the default is N(o)
+       abort (bool): if the program should abort if the user answer to the
+           confirm prompt is no. The default is an abort.
 
      Returns:
-        bool: false if the user entered no, true if the user entered yes
+        bool: False if the user entered no, True if the user entered yes
      """

@@ -165,7 +165,7 @@ class FakeSQLitePluginHelper(base_sqlite_plugin_helper.BaseSQLitePluginHelper):
     """Gets all columns assumed that they are timestamps
 
     Args:
-      columns [sql_query_column_model]: the columns from the query
+      columns ([sql_query_column_model]): the columns from the query
 
     Returns:
       [str]: the names from the columns assumed they could be a timestamp

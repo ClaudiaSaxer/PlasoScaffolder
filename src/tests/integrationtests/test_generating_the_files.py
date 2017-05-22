@@ -1,3 +1,4 @@
+# !/usr/bin/python
 """The integration tests."""
 # pylint: disable=protected-access
 # because tests should access protected members

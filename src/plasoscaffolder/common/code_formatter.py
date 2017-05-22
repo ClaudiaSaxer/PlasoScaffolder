@@ -24,6 +24,6 @@ class CodeFormatter(base_code_formatter.BaseCodeFormatter):
       code (str): the code to format
 
     Returns:
-      str: the formatted code.
+      str: the formatted code
     """
     return yapf_api.FormatCode(code, style_config=self.yapf_path)

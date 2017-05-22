@@ -1,3 +1,4 @@
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
 """Test Class for end to end Tests.
 These Tests can only be run on Linux because it makes use of pexpect."""
@@ -16,7 +17,7 @@ class GenerateWithOptionAtToolCallTest(unittest.TestCase):
 
   def testGenerateWithOptionAtToolCall(self):
     """Test file generation with additional options calling the tool
-    
+
     1.  plasoscaffolder sqlite --path tmpdir --name test --testfile
         test_database/twitter_ios.db –-no-sql
     6.  Please write your SQL script for the plugin: select * from users

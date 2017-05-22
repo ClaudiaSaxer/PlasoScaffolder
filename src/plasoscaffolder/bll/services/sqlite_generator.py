@@ -23,9 +23,9 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
   def __init__(
       self, path: str, name: str, database: str,
       queries: [sql_query_model.SQLQueryModel],
-      output_handler: base_output_handler.BaseOutputHandler(),
-      pluginHelper: base_sqlite_plugin_helper.BaseSQLitePluginHelper(),
-      pathHelper: base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper()
+      output_handler: base_output_handler.BaseOutputHandler,
+      pluginHelper: base_sqlite_plugin_helper.BaseSQLitePluginHelper,
+      pathHelper: base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper
   ):
     """Initializes a SQLite Generator.
 
@@ -41,7 +41,6 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
       pathHelper (base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper):
           the plugin path helper
     """
-
     super().__init__()
 
     self.queries = queries
@@ -74,18 +73,22 @@ class SQLiteGenerator(base_sqlite_generator.BaseSQLiteGenerator):
 
     Args:
       template_path (str): the path to the template directory
-      fileHandler (FileHandler): the handler for the file
-      formatter_init_mapper (BaseSQLitePluginMapper): the init formatter mapper
-      parser_init_mapper (BaseSQLitePluginMapper): the init parser mapper
-      parser_mapper (BaseSQLitePluginMapper): the parser mapper
-      formatter_mapper (BaseSQLitePluginMapper): the mapper for the formatter
-      parser_test_mapper (BaseSQLitePluginMapper): the mapper for the formatter
-          test
-      formatter_test_mapper (BaseSQLitePluginMapper): the mapper for the parser
-          test
-      mappingHelper (BaseMappingHelper): the mapping helper
-      database_information (BaseDatabaseInformation): helper class for
-          information about the database
+      fileHandler (base_file_handler.BaseFileHandler): the handler for the file
+      formatter_init_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):
+          the init formatter mapper
+      parser_init_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):
+          the init parser mapper
+      parser_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):
+          the parser mapper
+      formatter_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):
+          the mapper for the formatter
+      parser_test_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):
+          the mapper for the formatter test
+      formatter_test_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):
+          the mapper for the parser test
+      mappingHelper (base_mapping_helper.BaseMappingHelper): the mapping helper
+      database_information (base_database_information.BaseDatabaseInformation):
+          helper class for information about the database
     """
     file_handler = fileHandler
 
