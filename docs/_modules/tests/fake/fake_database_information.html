@@ -76,14 +76,16 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tables</span></div>
 
-<div class="viewcode-block" id="FakeDatabaseInformation.GetTableColumnsAndType"><a class="viewcode-back" href="../../../tests.fake.html#tests.fake.fake_database_information.FakeDatabaseInformation.GetTableColumnsAndType">[docs]</a>  <span class="k">def</span> <span class="nf">GetTableColumnsAndType</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">all_lowercase</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="FakeDatabaseInformation.GetTableColumnsAndType"><a class="viewcode-back" href="../../../tests.fake.html#tests.fake.fake_database_information.FakeDatabaseInformation.GetTableColumnsAndType">[docs]</a>  <span class="k">def</span> <span class="nf">GetTableColumnsAndType</span><span class="p">(</span>
+      <span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">all_lowercase</span><span class="o">=</span><span class="kc">False</span>
+  <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[{</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">}]:</span>
     <span class="sd">&quot;&quot;&quot;Returns the table information from the database</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">      table (str): the name of the table</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">      [{name, type}]: the table information</span>
+<span class="sd">      [{str, type}]: the table information first the column and then the type</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_type</span></div></div>
 </pre></div>

@@ -59,14 +59,14 @@
 
   <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
 <div class="viewcode-block" id="BaseMappingHelper.RenderTemplate"><a class="viewcode-back" href="../../../../plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_mapping_helper.BaseMappingHelper.RenderTemplate">[docs]</a>  <span class="k">def</span> <span class="nf">RenderTemplate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Renders the template.</span>
+    <span class="sd">&quot;&quot;&quot;Renders the template with the context to return a string.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">      template_filename (str): the name of the template</span>
-<span class="sd">      context (dict): the context of the template</span>
+<span class="sd">      context (dict): the context of the template as a dictionary</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">      str: the rendered template</span>
+<span class="sd">      str: the rendered template as a string</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
   <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
@@ -74,10 +74,10 @@
     <span class="sd">&quot;&quot;&quot;Generates the class name from the plugin name.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">      plugin_name (str): the plugin name</span>
+<span class="sd">      plugin_name (str): the name of the plugin</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">      str: the class name</span>
+<span class="sd">      str: the name of the class</span>
 <span class="sd">    &quot;&quot;&quot;</span></div></div>
 </pre></div>
 

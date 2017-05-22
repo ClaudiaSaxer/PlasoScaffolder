@@ -59,6 +59,24 @@
 <em class="property">class </em><code class="descclassname">plasoscaffolder.common.base_code_formatter.</code><code class="descname">BaseCodeFormatter</code><a class="reference internal" href="_modules/plasoscaffolder/common/base_code_formatter.html#BaseCodeFormatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.common.base_code_formatter.BaseCodeFormatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Base class representing the base class for the code formatter.</p>
+<dl class="method">
+<dt id="plasoscaffolder.common.base_code_formatter.BaseCodeFormatter.Format">
+<code class="descname">Format</code><span class="sig-paren">(</span><em>code: str</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/plasoscaffolder/common/base_code_formatter.html#BaseCodeFormatter.Format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.common.base_code_formatter.BaseCodeFormatter.Format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the code.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>code</strong> (<em>str</em>) &#8211; the code to format</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the formatted code.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -237,19 +255,22 @@ created.</li>
 <dl class="method">
 <dt id="plasoscaffolder.common.base_output_handler.BaseOutputHandler.Confirm">
 <code class="descname">Confirm</code><span class="sig-paren">(</span><em>text: str</em>, <em>default=True</em>, <em>abort=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/common/base_output_handler.html#BaseOutputHandler.Confirm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.common.base_output_handler.BaseOutputHandler.Confirm" title="Permalink to this definition">¶</a></dt>
-<dd><p>A confirmation, Default Y, if no abort execution.</p>
+<dd><p>Ask for a confirmation, either yes or no to a question.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>text</strong> (<em>str</em>) &#8211; Prompts the user for a confirmation.</li>
-<li><strong>default</strong> (<em>bool</em>) &#8211; the default value.</li>
-<li><strong>abort</strong> (<em>bool</em>) &#8211; if the program should abort</li>
+<li><strong>text</strong> (<em>str</em>) &#8211; prompts the user for a confirmation, with the given test as
+the question</li>
+<li><strong>default</strong> (<em>bool</em>) &#8211; the default for the confirmation answer. If True the
+default is Y(es), if False the default is N(o)</li>
+<li><strong>abort</strong> (<em>bool</em>) &#8211; if the program should abort if the user answer to the
+confirm prompt is no. The default is an abort.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">false if the user entered no, true if the user entered yes</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">False if the user entered no, True if the user entered yes</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
@@ -262,7 +283,7 @@ created.</li>
 <dl class="method">
 <dt id="plasoscaffolder.common.base_output_handler.BaseOutputHandler.PrintError">
 <code class="descname">PrintError</code><span class="sig-paren">(</span><em>text: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/common/base_output_handler.html#BaseOutputHandler.PrintError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.common.base_output_handler.BaseOutputHandler.PrintError" title="Permalink to this definition">¶</a></dt>
-<dd><p>A echo for errors.</p>
+<dd><p>An echo for errors.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -276,7 +297,7 @@ created.</li>
 <dl class="method">
 <dt id="plasoscaffolder.common.base_output_handler.BaseOutputHandler.PrintInfo">
 <code class="descname">PrintInfo</code><span class="sig-paren">(</span><em>text: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/common/base_output_handler.html#BaseOutputHandler.PrintInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.common.base_output_handler.BaseOutputHandler.PrintInfo" title="Permalink to this definition">¶</a></dt>
-<dd><p>A echo for information.</p>
+<dd><p>An echo for information.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -369,7 +390,7 @@ created.</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>code</strong> (<em>str</em>) &#8211; the code to format</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the formatted code.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the formatted code</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
 </tr>
@@ -542,19 +563,22 @@ created.</li>
 <dl class="method">
 <dt id="plasoscaffolder.common.output_handler_click.OutputHandlerClick.Confirm">
 <code class="descname">Confirm</code><span class="sig-paren">(</span><em>text: str</em>, <em>default=True</em>, <em>abort=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/common/output_handler_click.html#OutputHandlerClick.Confirm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.common.output_handler_click.OutputHandlerClick.Confirm" title="Permalink to this definition">¶</a></dt>
-<dd><p>A confirmation, Default Y, if no abort execution.</p>
+<dd><p>Ask for a confirmation, either yes or no to a question.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>text</strong> (<em>str</em>) &#8211; Prompts the user for a confirmation.</li>
-<li><strong>default</strong> (<em>bool</em>) &#8211; the default value.</li>
-<li><strong>abort</strong> (<em>bool</em>) &#8211; if the program should abort</li>
+<li><strong>text</strong> (<em>str</em>) &#8211; prompts the user for a confirmation, with the given test as
+the question</li>
+<li><strong>default</strong> (<em>bool</em>) &#8211; the default for the confirmation answer. If True the
+default is Y(es), if False the default is N(o)</li>
+<li><strong>abort</strong> (<em>bool</em>) &#8211; if the program should abort if the user answer to the
+confirm prompt is no. The default is an abort.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">false if the user entered no, true if the user entered yes</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">False if the user entered no, True if the user entered yes</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
@@ -664,6 +688,7 @@ created.</li>
 <em class="property">class </em><code class="descclassname">plasoscaffolder.common.type_mapper.</code><code class="descname">TypeMapperSQLitePython</code><a class="reference internal" href="_modules/plasoscaffolder/common/type_mapper.html#TypeMapperSQLitePython"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.common.type_mapper.TypeMapperSQLitePython" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>The mapper between SQLite and python data types</p>
+<p>The mappings taken from the site: <a class="reference external" href="https://sqlite.org/datatype3.html">https://sqlite.org/datatype3.html</a></p>
 <dl class="attribute">
 <dt id="plasoscaffolder.common.type_mapper.TypeMapperSQLitePython.MAPPINGS">
 <code class="descname">MAPPINGS</code><em class="property"> = {'BLOB': &lt;class 'bytes'&gt;, 'INTEGER': &lt;class 'int'&gt;, 'INT': &lt;class 'int'&gt;, 'TINYINT': &lt;class 'int'&gt;, 'SMALLINT': &lt;class 'int'&gt;, 'MEDIUMINT': &lt;class 'int'&gt;, 'BIGINT': &lt;class 'int'&gt;, 'UNSIGNED BIG INT': &lt;class 'int'&gt;, 'INT2': &lt;class 'int'&gt;, 'INT8': &lt;class 'int'&gt;, 'CHARACTER': &lt;class 'str'&gt;, 'CHAR': &lt;class 'str'&gt;, 'VARCHAR': &lt;class 'str'&gt;, 'VARYING CHARACTER': &lt;class 'str'&gt;, 'NCHAR': &lt;class 'str'&gt;, 'NATIVE CHARACTER': &lt;class 'str'&gt;, 'NVARCHAR': &lt;class 'str'&gt;, 'TEXT': &lt;class 'str'&gt;, 'CLOB': &lt;class 'str'&gt;, 'STRING': &lt;class 'str'&gt;, 'REAL': &lt;class 'float'&gt;, 'DOUBLE': &lt;class 'float'&gt;, 'DOUBLE PRECISION': &lt;class 'float'&gt;, 'FLOAT': &lt;class 'float'&gt;, 'NUMERIC': &lt;class 'int'&gt;, 'DECIMAL': &lt;class 'int'&gt;, 'BOOLEAN': &lt;class 'bool'&gt;, 'DATE': &lt;class 'int'&gt;, 'DATETIME': &lt;class 'int'&gt;}</em><a class="headerlink" href="#plasoscaffolder.common.type_mapper.TypeMapperSQLitePython.MAPPINGS" title="Permalink to this definition">¶</a></dt>

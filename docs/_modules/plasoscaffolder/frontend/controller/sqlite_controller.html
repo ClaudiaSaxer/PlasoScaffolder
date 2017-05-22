@@ -186,7 +186,8 @@
 <span class="sd">      path (str): the database file path</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">      bool: if the file can be opened and is a database file&quot;&quot;&quot;</span>
+<span class="sd">      bool: if the file can be opened and is a database file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">execution</span> <span class="o">=</span> <span class="n">sqlite_query_execution</span><span class="o">.</span><span class="n">SQLiteQueryExecution</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">execution</span><span class="o">.</span><span class="n">TryToConnect</span><span class="p">():</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_query_execution</span> <span class="o">=</span> <span class="n">execution</span>
@@ -208,7 +209,6 @@
 <span class="sd">    Returns:</span>
 <span class="sd">      [sql_query_model.SQLQueryModel]: a list of SQL Query models</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">verbose</span> <span class="o">=</span> <span class="n">value</span>
     <span class="n">add_more_queries</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">sql_query_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -308,11 +308,11 @@
         <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">name</span><span class="p">,</span> <span class="n">data_column</span><span class="p">,</span> <span class="n">timestamp_column</span><span class="p">,</span> <span class="n">needs_customizing</span><span class="p">,</span>
         <span class="n">amount_events</span><span class="p">)</span>
 
-<div class="viewcode-block" id="SQLiteController.GetTimestamps"><a class="viewcode-back" href="../../../../plasoscaffolder.frontend.controller.html#plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController.GetTimestamps">[docs]</a>  <span class="k">def</span> <span class="nf">GetTimestamps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="p">[</span><span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">],</span>
-                    <span class="n">data</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> \
-      <span class="p">([</span><span class="n">sql_query_column_model_data</span><span class="o">.</span><span class="n">SQLColumnModelData</span><span class="p">],</span>
-       <span class="p">[</span><span class="n">sql_query_column_model_timestamp</span><span class="o">.</span><span class="n">SQLColumnModelTimestamp</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;Gets the timestamp from the user and the columns</span>
+<div class="viewcode-block" id="SQLiteController.GetTimestamps"><a class="viewcode-back" href="../../../../plasoscaffolder.frontend.controller.html#plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController.GetTimestamps">[docs]</a>  <span class="k">def</span> <span class="nf">GetTimestamps</span><span class="p">(</span>
+      <span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="p">[</span><span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">],</span> <span class="n">data</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+  <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">([</span><span class="n">sql_query_column_model_data</span><span class="o">.</span><span class="n">SQLColumnModelData</span><span class="p">],</span>
+        <span class="p">[</span><span class="n">sql_query_column_model_timestamp</span><span class="o">.</span><span class="n">SQLColumnModelTimestamp</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;Gets the timestamp from the user and the columns.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">      columns ([sql_query_column_model.SQLColumnModel]): the columns from the</span>
@@ -363,7 +363,7 @@
 
 <div class="viewcode-block" id="SQLiteController.GetCustomizable"><a class="viewcode-back" href="../../../../plasoscaffolder.frontend.controller.html#plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController.GetCustomizable">[docs]</a>  <span class="k">def</span> <span class="nf">GetCustomizable</span><span class="p">(</span>
       <span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="p">[</span><span class="n">sql_query_column_model_data</span><span class="o">.</span><span class="n">SQLColumnModelData</span><span class="p">]</span>
-  <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">([</span><span class="n">sql_query_column_model_data</span><span class="o">.</span><span class="n">SQLColumnModelData</span><span class="p">]):</span>
+  <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">sql_query_column_model_data</span><span class="o">.</span><span class="n">SQLColumnModelData</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Gets the customizable columns from the user</span>
 
 <span class="sd">    Args:</span>
@@ -371,7 +371,7 @@
 <span class="sd">          from the SQL query.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns</span>
+<span class="sd">     [sql_query_column_model_data.SQLColumnModelData]: the columns</span>
 <span class="sd">          from the SQL query an set if the column is customizable</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">customizable</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -444,10 +444,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_query_execution</span><span class="p">))</span></div>
 
   <span class="k">def</span> <span class="nf">_ValidatePluginName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plugin_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Validate plugin name and prompt until name is valid</span>
+    <span class="sd">&quot;&quot;&quot;Validate plugin name and prompt until name is valid.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">      plugin_name: the name of the plugin</span>
+<span class="sd">      plugin_name (str): the name of the plugin</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">      str: a valid plugin name</span>
@@ -462,7 +462,7 @@
     <span class="sd">&quot;&quot;&quot;Validate row name and prompt until name is valid.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">      row_name: the name of the row</span>
+<span class="sd">      row_name (str): the name of the row</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">      str: a valid row name</span>
@@ -472,11 +472,11 @@
           <span class="s1">&#39;Row name is not in a valid format. Choose new Name [RowName...]&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">row_name</span>
 
-  <span class="k">def</span> <span class="nf">_ValidateTimestampString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestamp_string</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+  <span class="k">def</span> <span class="nf">_ValidateTimestampString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestamp_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Validate the timestamp string and prompt until valid</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">      timestamp_string: the string with the timestamps</span>
+<span class="sd">      timestamp_string (str): the string with the timestamps</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">      str: a comma separated string with timestamps</span>
@@ -487,11 +487,11 @@
           <span class="s1">&#39;name...]&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">timestamp_string</span>
 
-  <span class="k">def</span> <span class="nf">_ValidateColumnString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column_string</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+  <span class="k">def</span> <span class="nf">_ValidateColumnString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Validate the timestamp string and prompt until valid</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">      column_string: the string with the column names</span>
+<span class="sd">      column_string (str): the string with the column names</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">      str: a comma separated string with column names</span>
@@ -525,7 +525,7 @@
 <span class="sd">      user_input: a comma separated list of column names</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">      ([str], [str]): the columns for the right column names and the wrong</span>
+<span class="sd">      [str], [str]: the columns for the right column names and the wrong</span>
 <span class="sd">          column names as the second part of the tuple</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">right_columns</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>

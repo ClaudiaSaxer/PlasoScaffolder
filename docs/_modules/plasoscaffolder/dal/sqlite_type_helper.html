@@ -86,14 +86,15 @@
 
 <div class="viewcode-block" id="SQLiteTypeHelper.GetDuplicateColumnNames"><a class="viewcode-back" href="../../../plasoscaffolder.dal.html#plasoscaffolder.dal.sqlite_type_helper.SQLiteTypeHelper.GetDuplicateColumnNames">[docs]</a>  <span class="k">def</span> <span class="nf">GetDuplicateColumnNames</span><span class="p">(</span>
       <span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Find out if the query has duplicate column names and if a alias is needed</span>
+    <span class="sd">&quot;&quot;&quot;Find out if the query has duplicate column names and if a alias is</span>
+<span class="sd">        needed.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">      columns (sql_query_column_model.SQLColumnModel): all columns parsed</span>
-<span class="sd">      from the cursor</span>
+<span class="sd">          from the cursor</span>
 <span class="sd">    Returns:</span>
 <span class="sd">      [str]: a list of all the duplicate column names, if its empty it means it</span>
-<span class="sd">          a distinct list of columns</span>
+<span class="sd">          is a distinct list of columns</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">single_column_name_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">column</span><span class="o">.</span><span class="n">sql_column</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">]</span>
     <span class="n">duplicate_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">column</span> <span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span>
@@ -109,7 +110,7 @@
 <span class="sd">      descriptions: the descriptions of the cursor</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">      list(sql_query_column_model.SQLColumnModel): a list with all the column</span>
+<span class="sd">      [sql_query_column_model.SQLColumnModel]: a list with all the column</span>
 <span class="sd">          names, the types are None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">sql_column</span> <span class="o">=</span> <span class="p">[]</span>
@@ -131,7 +132,7 @@
 <span class="sd">      query: the query</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">      list(sql_query_column_model.SQLColumnModel): a list with all the columns</span>
+<span class="sd">      [sql_query_column_model.SQLColumnModel]: a list with all the columns</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">locked</span> <span class="o">=</span> <span class="p">[</span><span class="n">table</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_explain</span><span class="o">.</span><span class="n">GetLockedTables</span><span class="p">(</span><span class="n">query</span><span class="p">)]</span>
 
@@ -208,15 +209,16 @@
 
     <span class="k">return</span> <span class="n">column_model</span>
 
-  <span class="k">def</span> <span class="nf">_GetEndOfTableIfNotAlias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">column_name</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">_GetEndOfTableIfNotAlias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">column_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Getting the start of the column if it is not an alias column</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">      query: the query to be searched</span>
-<span class="sd">      column_name: the name to be searched for</span>
+<span class="sd">      query (str): the query to be searched</span>
+<span class="sd">      column_name (str): the name to be searched for</span>
 
-<span class="sd">    Returns: 0 if no column could be found or the starting position of the</span>
-<span class="sd">        column</span>
+<span class="sd">    Returns:</span>
+<span class="sd">      bool: 0 if no column could be found or the starting position of the</span>
+<span class="sd">          column</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">wrong_positions</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span>
                        <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="s1">&#39;.</span><span class="si">{0}</span><span class="s1"> as&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">column_name</span><span class="p">),</span> <span class="n">query</span><span class="p">)]</span>
@@ -283,7 +285,6 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">      bool: True if it is prefixed, false if it isn&#39;t.</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span>

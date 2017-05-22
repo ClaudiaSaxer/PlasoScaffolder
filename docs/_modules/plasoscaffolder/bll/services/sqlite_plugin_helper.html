@@ -105,13 +105,13 @@
             <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">helper</span><span class="o">.</span><span class="n">database_path</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="SQLitePluginHelper.IsValidPluginName"><a class="viewcode-back" href="../../../../plasoscaffolder.bll.services.html#plasoscaffolder.bll.services.sqlite_plugin_helper.SQLitePluginHelper.IsValidPluginName">[docs]</a>  <span class="k">def</span> <span class="nf">IsValidPluginName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plugin_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Validates the plugin Name.</span>
+    <span class="sd">&quot;&quot;&quot;Validates the plugin name.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">      plugin_name (str): the plugin Name</span>
+<span class="sd">      plugin_name (str): the plugin name</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">      bool: true if the plugin Name is valid</span>
+<span class="sd">      bool: true if the plugin name is valid</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_PLUGIN_NAME_PATTERN</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">)</span></div>
 
@@ -161,10 +161,10 @@
       <span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
       <span class="n">executor</span><span class="p">:</span> <span class="n">base_sql_query_execution</span><span class="o">.</span><span class="n">BaseSQLQueryExecution</span>
   <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sql_query_data</span><span class="o">.</span><span class="n">SQLQueryData</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Validates the sql query.</span>
+    <span class="sd">&quot;&quot;&quot;Validates the SQL query.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">      executor (base_sql_query_execution.SQLQueryExection()) the sql executor</span>
+<span class="sd">      executor (base_sql_query_execution.SQLQueryExection()) the SQL executor</span>
 <span class="sd">      query (str): the SQL query</span>
 
 <span class="sd">    Returns:</span>
@@ -180,7 +180,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">      queries ([sql_query_model.SQLQueryModel]): an array of multiple</span>
-<span class="sd">          sql query data objects</span>
+<span class="sd">          SQL query data objects</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">      list[str]: all distinct attributes used in the query</span>
@@ -230,8 +230,8 @@
 <span class="sd">    Returns:</span>
 <span class="sd">      ([sql_query_column_model_data.SQLColumnModelData],</span>
 <span class="sd">          [sql_query_column_model_timestamp.SQLColumnModelTimestamp]): a tuple</span>
-<span class="sd">          of columns,</span>
-<span class="sd">          the first are the normal columns, the second are the timestamp events</span>
+<span class="sd">          of columns, the first are the normal columns, the second are the </span>
+<span class="sd">          timestamp events</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">normal_columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
     <span class="n">message</span> <span class="o">=</span> <span class="p">{}</span>
@@ -264,7 +264,7 @@
 
   <span class="k">def</span> <span class="nf">_AddMessageAndDataToTimestampColumns</span><span class="p">(</span>
       <span class="bp">self</span><span class="p">,</span> <span class="n">timestamp_columns</span><span class="p">:</span> <span class="p">[</span>
-          <span class="n">sql_query_column_model_timestamp</span><span class="o">.</span><span class="n">SQLColumnModelTimestamp</span><span class="p">],</span>
+        <span class="n">sql_query_column_model_timestamp</span><span class="o">.</span><span class="n">SQLColumnModelTimestamp</span><span class="p">],</span>
       <span class="n">message</span><span class="p">:</span> <span class="p">{</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">},</span> <span class="n">timestamps_data</span><span class="p">:</span> <span class="p">{</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">}</span>
   <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">sql_query_column_model_timestamp</span><span class="o">.</span><span class="n">SQLColumnModelTimestamp</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Add Missing Message and data to the timestamp columns</span>
@@ -290,7 +290,7 @@
   <span class="k">def</span> <span class="nf">_GetDataForColumnAndAppendMessage</span><span class="p">(</span>
       <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">column</span><span class="p">:</span> <span class="n">sql_query_column_model_data</span><span class="o">.</span><span class="n">SQLColumnModelData</span><span class="p">,</span>
       <span class="n">timestamp_columns</span><span class="p">:</span> <span class="p">[</span>
-          <span class="n">sql_query_column_model_timestamp</span><span class="o">.</span><span class="n">SQLColumnModelTimestamp</span><span class="p">],</span>
+        <span class="n">sql_query_column_model_timestamp</span><span class="o">.</span><span class="n">SQLColumnModelTimestamp</span><span class="p">],</span>
       <span class="n">column_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="p">{</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">}</span>
   <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">sql_query_column_model_data</span><span class="o">.</span><span class="n">SQLColumnModelData</span><span class="p">,</span> <span class="p">{</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">}):</span>
     <span class="sd">&quot;&quot;&quot;Get the data for the column and append data to the message for the</span>
@@ -304,7 +304,7 @@
 <span class="sd">          sql_query_column_model_timestamp.SQLColumnModelTimestamp]): the</span>
 <span class="sd">              timestamp columns to get data for each timestamp</span>
 <span class="sd">      column_index (int): the index of the column in the data</span>
-<span class="sd">      message {str,str}: the existing message for the timestamp to append the</span>
+<span class="sd">      message ({str,str}): the existing message for the timestamp to append the</span>
 <span class="sd">          new content</span>
 
 <span class="sd">    Returns:</span>
@@ -343,12 +343,12 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">      timestamp (str): the timestamp to append data to</span>
-<span class="sd">      message {str,str}: the message to be changed</span>
+<span class="sd">      message ({str:str}): the message to be changed</span>
 <span class="sd">      description (str): the description to be added for the timestamp</span>
 <span class="sd">      data (str): the data to be added for the timestamp</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">      {str:str} the given message with new data added for the given timestamp</span>
+<span class="sd">      {str:str}: the given message with new data added for the given timestamp</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">timestamp</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">message</span><span class="p">:</span>
       <span class="n">message</span><span class="p">[</span><span class="n">timestamp</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">description</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
@@ -363,9 +363,9 @@
     <span class="sd">&quot;&quot;&quot;Get the data for the timestamp out of the data array</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">      data [str]: the data array</span>
-<span class="sd">      data_row [int]: the data row from the data array to get the data from</span>
-<span class="sd">      timestamp_index [int]: the index in the data row where the data for the</span>
+<span class="sd">      data ([str]): the data array</span>
+<span class="sd">      data_row (int): the data row from the data array to get the data from</span>
+<span class="sd">      timestamp_index (int): the index in the data row where the data for the</span>
 <span class="sd">        timestamp is located</span>
 
 <span class="sd">    Returns:</span>
@@ -385,7 +385,7 @@
       <span class="n">timestamps</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span><span class="p">]</span>
   <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">sql_query_column_model_timestamp</span><span class="o">.</span><span class="n">SQLColumnModelTimestamp</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Gets the timestamp columns from the columns and sets the type and the</span>
-<span class="sd">    name but not the message</span>
+<span class="sd">    name but not the message.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">    columns ([sql_query_column_model_data.SQLColumnModelData]): the columns</span>
@@ -400,10 +400,10 @@
     <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="p">[</span><span class="n">column</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span> <span class="k">if</span>
                    <span class="n">column</span><span class="o">.</span><span class="n">sql_column</span> <span class="ow">in</span> <span class="n">timestamps</span><span class="p">]:</span>
       <span class="n">timestamp_data_model</span> <span class="o">=</span> <span class="p">(</span>
-          <span class="n">sql_query_column_model_timestamp</span><span class="o">.</span><span class="n">SQLColumnModelTimestamp</span><span class="p">(</span>
-              <span class="n">sql_column_type</span><span class="o">=</span><span class="n">column</span><span class="o">.</span><span class="n">sql_column_type</span><span class="p">,</span>
-              <span class="n">sql_column</span><span class="o">=</span><span class="n">column</span><span class="o">.</span><span class="n">sql_column</span><span class="p">,</span>
-              <span class="n">expected_message</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+        <span class="n">sql_query_column_model_timestamp</span><span class="o">.</span><span class="n">SQLColumnModelTimestamp</span><span class="p">(</span>
+            <span class="n">sql_column_type</span><span class="o">=</span><span class="n">column</span><span class="o">.</span><span class="n">sql_column_type</span><span class="p">,</span>
+            <span class="n">sql_column</span><span class="o">=</span><span class="n">column</span><span class="o">.</span><span class="n">sql_column</span><span class="p">,</span>
+            <span class="n">expected_message</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
       <span class="n">timestamp_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timestamp_data_model</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">timestamp_columns</span></div>
 </pre></div>
