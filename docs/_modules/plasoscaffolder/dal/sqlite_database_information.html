@@ -83,14 +83,19 @@
     <span class="k">else</span><span class="p">:</span>
       <span class="k">return</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">data_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">data_tuple</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="SQLiteDatabaseInformation.GetTableColumnsAndType"><a class="viewcode-back" href="../../../plasoscaffolder.dal.html#plasoscaffolder.dal.sqlite_database_information.SQLiteDatabaseInformation.GetTableColumnsAndType">[docs]</a>  <span class="k">def</span> <span class="nf">GetTableColumnsAndType</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">all_lowercase</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="SQLiteDatabaseInformation.GetTableColumnsAndType"><a class="viewcode-back" href="../../../plasoscaffolder.dal.html#plasoscaffolder.dal.sqlite_database_information.SQLiteDatabaseInformation.GetTableColumnsAndType">[docs]</a>  <span class="k">def</span> <span class="nf">GetTableColumnsAndType</span><span class="p">(</span>
+      <span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">all_lowercase</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span>
+  <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Returns the table information from the database</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">      table (str): the name of the table</span>
+<span class="sd">      all_lowercase (bool): if the table name and the type should be returned</span>
+<span class="sd">          in lower case</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">      {name, type}: the table information</span>
+<span class="sd">      {name, type}: the table information, with the name of the column and the</span>
+<span class="sd">          type of the column</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;PRAGMA table_info(</span><span class="si">{0}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sql_execution</span><span class="o">.</span><span class="n">ExecuteQuery</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>

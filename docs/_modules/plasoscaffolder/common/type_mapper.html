@@ -53,8 +53,10 @@
 
 
 <div class="viewcode-block" id="TypeMapperSQLitePython"><a class="viewcode-back" href="../../../plasoscaffolder.common.html#plasoscaffolder.common.type_mapper.TypeMapperSQLitePython">[docs]</a><span class="k">class</span> <span class="nc">TypeMapperSQLitePython</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;The mapper between SQLite and python data types&quot;&quot;&quot;</span>
-  <span class="c1"># https://sqlite.org/datatype3.html</span>
+  <span class="sd">&quot;&quot;&quot;The mapper between SQLite and python data types</span>
+
+<span class="sd">  The mappings taken from the site: https://sqlite.org/datatype3.html</span>
+<span class="sd">  &quot;&quot;&quot;</span>
   <span class="n">MAPPINGS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;BLOB&#39;</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span>
               <span class="s1">&#39;INTEGER&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
               <span class="s1">&#39;INT&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>

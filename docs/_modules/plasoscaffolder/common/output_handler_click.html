@@ -114,16 +114,19 @@
     <span class="n">click</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="OutputHandlerClick.Confirm"><a class="viewcode-back" href="../../../plasoscaffolder.common.html#plasoscaffolder.common.output_handler_click.OutputHandlerClick.Confirm">[docs]</a>  <span class="k">def</span> <span class="nf">Confirm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">abort</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A confirmation, Default Y, if no abort execution.</span>
+    <span class="sd">&quot;&quot;&quot;Ask for a confirmation, either yes or no to a question.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">      text (str): Prompts the user for a confirmation.</span>
-<span class="sd">      default (bool): the default value.</span>
-<span class="sd">      abort (bool): if the program should abort</span>
+<span class="sd">     Args:</span>
+<span class="sd">       text (str): prompts the user for a confirmation, with the given test as</span>
+<span class="sd">           the question</span>
+<span class="sd">       default (bool): the default for the confirmation answer. If True the</span>
+<span class="sd">           default is Y(es), if False the default is N(o)</span>
+<span class="sd">       abort (bool): if the program should abort if the user answer to the</span>
+<span class="sd">           confirm prompt is no. The default is an abort.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">      bool: false if the user entered no, true if the user entered yes</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">     Returns:</span>
+<span class="sd">        bool: False if the user entered no, True if the user entered yes</span>
+<span class="sd">     &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">click</span><span class="o">.</span><span class="n">confirm</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">abort</span><span class="o">=</span><span class="n">abort</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">)</span></div></div>
 </pre></div>
 

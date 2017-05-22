@@ -55,7 +55,18 @@
 
 <div class="viewcode-block" id="BaseCodeFormatter"><a class="viewcode-back" href="../../../plasoscaffolder.common.html#plasoscaffolder.common.base_code_formatter.BaseCodeFormatter">[docs]</a><span class="k">class</span> <span class="nc">BaseCodeFormatter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Base class representing the base class for the code formatter.&quot;&quot;&quot;</span>
-  <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span></div>
+  <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span>
+
+  <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+<div class="viewcode-block" id="BaseCodeFormatter.Format"><a class="viewcode-back" href="../../../plasoscaffolder.common.html#plasoscaffolder.common.base_code_formatter.BaseCodeFormatter.Format">[docs]</a>  <span class="k">def</span> <span class="nf">Format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Formats the code.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      code (str): the code to format</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      str: the formatted code.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div></div>
 </pre></div>
 
           </div>

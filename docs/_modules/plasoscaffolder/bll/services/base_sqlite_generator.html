@@ -68,8 +68,8 @@
       <span class="bp">self</span><span class="p">,</span>
       <span class="n">template_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
       <span class="n">fileHandler</span><span class="p">:</span> <span class="n">base_file_handler</span><span class="o">.</span><span class="n">BaseFileHandler</span><span class="p">,</span>
-      <span class="n">init_formatter_mapper</span><span class="p">:</span> <span class="n">base_sqliteplugin_mapping</span><span class="o">.</span><span class="n">BaseSQLitePluginMapper</span><span class="p">,</span>
-      <span class="n">init_parser_mapper</span><span class="p">:</span> <span class="n">base_sqliteplugin_mapping</span><span class="o">.</span><span class="n">BaseSQLitePluginMapper</span><span class="p">,</span>
+      <span class="n">formatter_init_mapper</span><span class="p">:</span> <span class="n">base_sqliteplugin_mapping</span><span class="o">.</span><span class="n">BaseSQLitePluginMapper</span><span class="p">,</span>
+      <span class="n">parser_init_mapper</span><span class="p">:</span> <span class="n">base_sqliteplugin_mapping</span><span class="o">.</span><span class="n">BaseSQLitePluginMapper</span><span class="p">,</span>
       <span class="n">parser_mapper</span><span class="p">:</span> <span class="n">base_sqliteplugin_mapping</span><span class="o">.</span><span class="n">BaseSQLitePluginMapper</span><span class="p">,</span>
       <span class="n">formatter_mapper</span><span class="p">:</span> <span class="n">base_sqliteplugin_mapping</span><span class="o">.</span><span class="n">BaseSQLitePluginMapper</span><span class="p">,</span>
       <span class="n">parser_test_mapper</span><span class="p">:</span> <span class="n">base_sqliteplugin_mapping</span><span class="o">.</span><span class="n">BaseSQLitePluginMapper</span><span class="p">,</span>
@@ -80,18 +80,22 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">      template_path (str): the path to the template directory</span>
-<span class="sd">      fileHandler (FileHandler): the handler for the file</span>
-<span class="sd">      init_formatter_mapper (BaseSQLitePluginMapper): the init formatter mapper</span>
-<span class="sd">      init_parser_mapper (BaseSQLitePluginMapper): the init parser mapper</span>
-<span class="sd">      parser_mapper (BaseSQLitePluginMapper): the parser mapper</span>
-<span class="sd">      formatter_mapper (BaseSQLitePluginMapper): the mapper for the formatter</span>
-<span class="sd">      parser_test_mapper (BaseSQLitePluginMapper): the mapper for the formatter</span>
-<span class="sd">          test</span>
-<span class="sd">      formatter_test_mapper (BaseSQLitePluginMapper): the mapper for the parser</span>
-<span class="sd">          test</span>
-<span class="sd">      mappingHelper (BaseMappingHelper): the mapping helper</span>
-<span class="sd">      database_information (BaseDatabaseInformation): helper class for</span>
-<span class="sd">          information about the database</span>
+<span class="sd">      fileHandler (base_file_handler.BaseFileHandler): the handler for the file</span>
+<span class="sd">      formatter_init_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):</span>
+<span class="sd">          the init formatter mapper</span>
+<span class="sd">      parser_init_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):</span>
+<span class="sd">          the init parser mapper</span>
+<span class="sd">      parser_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):</span>
+<span class="sd">          the parser mapper</span>
+<span class="sd">      formatter_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):</span>
+<span class="sd">          the mapper for the formatter</span>
+<span class="sd">      parser_test_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):</span>
+<span class="sd">          the mapper for the formatter test</span>
+<span class="sd">      formatter_test_mapper (base_sqliteplugin_mapping.BaseSQLitePluginMapper):</span>
+<span class="sd">          the mapper for the parser test</span>
+<span class="sd">      mappingHelper (base_mapping_helper.BaseMappingHelper): the mapping helper</span>
+<span class="sd">      database_information (base_database_information.BaseDatabaseInformation):</span>
+<span class="sd">          helper class for information about the database</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
   <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>

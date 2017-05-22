@@ -113,7 +113,7 @@
 
 <div class="viewcode-block" id="SQLiteQueryExecution.ExecuteQueryDetailed"><a class="viewcode-back" href="../../../plasoscaffolder.dal.html#plasoscaffolder.dal.sqlite_query_execution.SQLiteQueryExecution.ExecuteQueryDetailed">[docs]</a>  <span class="k">def</span> <span class="nf">ExecuteQueryDetailed</span><span class="p">(</span>
       <span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sql_query_data</span><span class="o">.</span><span class="n">SQLQueryData</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Executes the SQL Query and gets Detailed Information</span>
+    <span class="sd">&quot;&quot;&quot;Executes the SQL Query and gets detailed information.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">      query (str): The SQL Query to execute on the SQLite database.</span>
@@ -182,14 +182,14 @@
 
     <span class="k">return</span> <span class="n">query_data</span>
 
-<div class="viewcode-block" id="SQLiteQueryExecution.ExecuteReadOnlyQuery"><a class="viewcode-back" href="../../../plasoscaffolder.dal.html#plasoscaffolder.dal.sqlite_query_execution.SQLiteQueryExecution.ExecuteReadOnlyQuery">[docs]</a>  <span class="k">def</span> <span class="nf">ExecuteReadOnlyQuery</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="SQLiteQueryExecution.ExecuteReadOnlyQuery"><a class="viewcode-back" href="../../../plasoscaffolder.dal.html#plasoscaffolder.dal.sqlite_query_execution.SQLiteQueryExecution.ExecuteReadOnlyQuery">[docs]</a>  <span class="k">def</span> <span class="nf">ExecuteReadOnlyQuery</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sql_query_data</span><span class="o">.</span><span class="n">SQLQueryData</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Executes the SQL Query if it is read only, and valid to parse.</span>
 
 <span class="sd">      Args:</span>
-<span class="sd">        query (str): The SQL Query to execute on the SQLite database.</span>
+<span class="sd">        query (str): the SQL Query to execute on the SQLite database</span>
 
 <span class="sd">      Returns:</span>
-<span class="sd">        sql_query_data.SQLQueryData: The data to the Query</span>
+<span class="sd">        sql_query_data.SQLQueryData: the data to the Query</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">query_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ExecuteQueryDetailed</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">query_data</span><span class="o">.</span><span class="n">has_error</span><span class="p">:</span>

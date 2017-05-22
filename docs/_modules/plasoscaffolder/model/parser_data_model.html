@@ -65,10 +65,10 @@
     <span class="sd">&quot;&quot;&quot;Initialises the parser data model.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">      database_name (str): the name of the database</span>
 <span class="sd">      plugin_name (str): the name of the plugin</span>
-<span class="sd">      queries (sql_query_model.SQLQueryModel): the queries</span>
+<span class="sd">      queries ([sql_query_model.SQLQueryModel]): the queries</span>
 <span class="sd">      required_tables ([str]): the tables that are required</span>
+<span class="sd">      database_name (str): the name of the database</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">queries</span> <span class="o">=</span> <span class="n">queries</span>

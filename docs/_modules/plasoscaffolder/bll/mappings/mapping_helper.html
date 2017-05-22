@@ -65,7 +65,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">      template_path (str): the path to the template directory</span>
-<span class="sd">      yapf_path (str): the path to the yapf path</span>
+<span class="sd">      yapf_path (str): the path to the yapf style file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
     <span class="n">template_loader</span> <span class="o">=</span> <span class="n">jinja2</span><span class="o">.</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="n">template_path</span><span class="p">)</span>
@@ -74,16 +74,15 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">formatter</span> <span class="o">=</span> <span class="n">code_formatter</span><span class="o">.</span><span class="n">CodeFormatter</span><span class="p">(</span><span class="n">yapf_path</span><span class="p">)</span>
 
 <div class="viewcode-block" id="MappingHelper.RenderTemplate"><a class="viewcode-back" href="../../../../plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.mapping_helper.MappingHelper.RenderTemplate">[docs]</a>  <span class="k">def</span> <span class="nf">RenderTemplate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Renders the template.</span>
+    <span class="sd">&quot;&quot;&quot;Renders the template with the context to return a string.</span>
 
-<span class="sd">       Args:</span>
-<span class="sd">         template_filename (str): the name of the template</span>
-<span class="sd">         context (dict): the context of the template</span>
+<span class="sd">    Args:</span>
+<span class="sd">      template_filename (str): the name of the template</span>
+<span class="sd">      context (dict): the context of the template as a dictionary</span>
 
-<span class="sd">       Returns:</span>
-<span class="sd">         str: the rendered template</span>
-<span class="sd">       &quot;&quot;&quot;</span>
-
+<span class="sd">    Returns:</span>
+<span class="sd">      str: the rendered template as a string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_environment</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span>
         <span class="n">template_filename</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
     <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_RemoveEscapeError</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
@@ -98,10 +97,10 @@
     <span class="sd">&quot;&quot;&quot;Generates the class name from the plugin name.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">      plugin_name (str): the plugin name</span>
+<span class="sd">      plugin_name (str): the name of the plugin</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">      str: the class name</span>
+<span class="sd">      str: the name of the class</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">plugin_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></div>
 
@@ -129,10 +128,10 @@
     <span class="k">return</span> <span class="n">template</span>
 
   <span class="k">def</span> <span class="nf">_RemoveYapfComment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Remove the yapf comment line</span>
+    <span class="sd">&quot;&quot;&quot;Remove the yapf comment line.</span>
 
 <span class="sd">    The Line as well as the new line will be removed.</span>
-<span class="sd">    The Yapf Comment has to be at the end of the line. Or on its own line.</span>
+<span class="sd">    The yapf Comment has to be at the end of the line. Or on its own line.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">      template (str): the resulting template as a python file string</span>
@@ -144,7 +143,7 @@
                                                              <span class="s1">&#39;&#39;</span><span class="p">)</span>
 
   <span class="k">def</span> <span class="nf">_RemoveBlanksAtEndOfLine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Removes blanks at the end of lines</span>
+    <span class="sd">&quot;&quot;&quot;Removes blanks at the end of lines.</span>
 
 <span class="sd">    This is for those parts that are ignored with yapf.</span>
 

@@ -61,7 +61,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">      sql_column (str): the column name of the SQL Query</span>
-<span class="sd">      sql_column_type (str): the type of the SQL column</span>
+<span class="sd">      sql_column_type (type): the type of the SQL column</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">sql_column</span> <span class="o">=</span> <span class="n">sql_column</span>
@@ -69,6 +69,7 @@
 
 <div class="viewcode-block" id="SQLColumnModel.GetColumnTypeAsName"><a class="viewcode-back" href="../../../plasoscaffolder.model.html#plasoscaffolder.model.sql_query_column_model.SQLColumnModel.GetColumnTypeAsName">[docs]</a>  <span class="k">def</span> <span class="nf">GetColumnTypeAsName</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;The type as the name.</span>
+
 <span class="sd">    example: &lt;class &#39;int&#39;&gt; type will be returned as int</span>
 
 <span class="sd">    Returns:</span>
