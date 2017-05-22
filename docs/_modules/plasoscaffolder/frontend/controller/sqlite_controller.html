@@ -309,20 +309,20 @@
         <span class="n">amount_events</span><span class="p">)</span>
 
 <div class="viewcode-block" id="SQLiteController.GetTimestamps"><a class="viewcode-back" href="../../../../plasoscaffolder.frontend.controller.html#plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController.GetTimestamps">[docs]</a>  <span class="k">def</span> <span class="nf">GetTimestamps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="p">[</span><span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">],</span>
-                    <span class="n">data</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">(</span>
-      <span class="p">[</span><span class="n">sql_query_column_model_data</span><span class="o">.</span><span class="n">SQLColumnModelData</span><span class="p">],</span>
-      <span class="p">[</span><span class="n">sql_query_column_model_timestamp</span><span class="o">.</span><span class="n">SQLColumnModelTimestamp</span><span class="p">]):</span>
+                    <span class="n">data</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> \
+      <span class="p">([</span><span class="n">sql_query_column_model_data</span><span class="o">.</span><span class="n">SQLColumnModelData</span><span class="p">],</span>
+       <span class="p">[</span><span class="n">sql_query_column_model_timestamp</span><span class="o">.</span><span class="n">SQLColumnModelTimestamp</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;Gets the timestamp from the user and the columns</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
-<span class="sd">      columns ([sql_query_column_model.SQLColumnModel]): the columns from the </span>
-<span class="sd">          SQL query. </span>
+<span class="sd">      columns ([sql_query_column_model.SQLColumnModel]): the columns from the</span>
+<span class="sd">          SQL query.</span>
 <span class="sd">      data ([str]): the data from the cursor</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">       [sql_query_column_model_data.SQLColumnModelData],</span>
-<span class="sd">           [sql_query_column_model_timestamp.SQLColumnModelTimestamp]: A </span>
-<span class="sd">           tuple of columns. The first column represents the </span>
+<span class="sd">           [sql_query_column_model_timestamp.SQLColumnModelTimestamp]: A</span>
+<span class="sd">           tuple of columns. The first column represents the</span>
 <span class="sd">           normal column for the query. The second</span>
 <span class="sd">           column represents the timestamp events.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -350,7 +350,7 @@
               <span class="s1">&#39;At least one timestamp is required, please add a timestamp&#39;</span><span class="p">)</span>
         <span class="n">own_timestamps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ValidateTimestampString</span><span class="p">(</span><span class="n">own_timestamps</span><span class="p">)</span>
 
-        <span class="n">new_columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_GetValideColumnsAndInvalid</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">own_timestamps</span><span class="p">)</span>
+        <span class="n">new_columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_GetValidColumnsAndInvalid</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">own_timestamps</span><span class="p">)</span>
         <span class="n">timestamps</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">wrong_timestamps</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_columns</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
@@ -362,16 +362,16 @@
         <span class="n">columns</span><span class="p">,</span> <span class="n">timestamps</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SQLiteController.GetCustomizable"><a class="viewcode-back" href="../../../../plasoscaffolder.frontend.controller.html#plasoscaffolder.frontend.controller.sqlite_controller.SQLiteController.GetCustomizable">[docs]</a>  <span class="k">def</span> <span class="nf">GetCustomizable</span><span class="p">(</span>
-      <span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="p">[</span><span class="n">sql_query_column_model_data</span><span class="o">.</span><span class="n">SQLColumnModelData</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">(</span>
-      <span class="p">[</span><span class="n">sql_query_column_model_data</span><span class="o">.</span><span class="n">SQLColumnModelData</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;Gets the customizable columns from the user </span>
+      <span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="p">[</span><span class="n">sql_query_column_model_data</span><span class="o">.</span><span class="n">SQLColumnModelData</span><span class="p">]</span>
+  <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">([</span><span class="n">sql_query_column_model_data</span><span class="o">.</span><span class="n">SQLColumnModelData</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;Gets the customizable columns from the user</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns </span>
-<span class="sd">          from the SQL query. </span>
+<span class="sd">      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns</span>
+<span class="sd">          from the SQL query.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns </span>
+<span class="sd">      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns</span>
 <span class="sd">          from the SQL query an set if the column is customizable</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">customizable</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -393,7 +393,7 @@
           <span class="n">add_own_customizable</span> <span class="o">=</span> <span class="kc">False</span>
 
       <span class="k">if</span> <span class="n">add_own_customizable</span><span class="p">:</span>
-        <span class="n">new_columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_GetValideColumnsAndInvalid</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">own_column</span><span class="p">)</span>
+        <span class="n">new_columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_GetValidColumnsAndInvalid</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">own_column</span><span class="p">)</span>
         <span class="n">customizable</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">wrong_customizable</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_columns</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
@@ -474,10 +474,10 @@
 
   <span class="k">def</span> <span class="nf">_ValidateTimestampString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestamp_string</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Validate the timestamp string and prompt until valid</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
 <span class="sd">      timestamp_string: the string with the timestamps</span>
-<span class="sd"> </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">      str: a comma separated string with timestamps</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -504,26 +504,26 @@
 
   <span class="k">def</span> <span class="nf">_PrintAddedAndFailedColumns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">added</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">failed</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;Prints the user which columns failed and which are added</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
-<span class="sd">      added ([str]): the added columns </span>
-<span class="sd">      failed ([str]): the failed columns </span>
+<span class="sd">      added ([str]): the added columns</span>
+<span class="sd">      failed ([str]): the failed columns</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">added_string</span> <span class="o">=</span> <span class="s1">&#39;Added: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">added</span><span class="p">)))</span>
     <span class="n">failed_string</span> <span class="o">=</span> <span class="s1">&#39;Failed: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">failed</span><span class="p">)))</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_output_handler</span><span class="o">.</span><span class="n">PrintInfo</span><span class="p">(</span><span class="n">added_string</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_output_handler</span><span class="o">.</span><span class="n">PrintInfo</span><span class="p">(</span><span class="n">failed_string</span><span class="p">)</span>
 
-  <span class="k">def</span> <span class="nf">_GetValideColumnsAndInvalid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="p">[</span>
-    <span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">],</span> <span class="n">user_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
-      <span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+  <span class="k">def</span> <span class="nf">_GetValidColumnsAndInvalid</span><span class="p">(</span>
+      <span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="p">[</span><span class="n">sql_query_column_model</span><span class="o">.</span><span class="n">SQLColumnModel</span><span class="p">],</span> <span class="n">user_input</span><span class="p">:</span> <span class="nb">str</span>
+  <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">([</span><span class="nb">str</span><span class="p">],</span> <span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  </span>
+
 <span class="sd">    Args:</span>
-<span class="sd">      columns ([sql_query_column_model.SQLColumnModel]): the columns from the </span>
+<span class="sd">      columns ([sql_query_column_model.SQLColumnModel]): the columns from the</span>
 <span class="sd">          SQL query.</span>
 <span class="sd">      user_input: a comma separated list of column names</span>
-<span class="sd">  </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">      ([str], [str]): the columns for the right column names and the wrong</span>
 <span class="sd">          column names as the second part of the tuple</span>

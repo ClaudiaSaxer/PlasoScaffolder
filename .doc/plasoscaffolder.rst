@@ -12,6 +12,18 @@ Subpackages
     plasoscaffolder.frontend
     plasoscaffolder.model
 
+Submodules
+----------
+
+plasoscaffolder\.dependencies module
+------------------------------------
+
+.. automodule:: plasoscaffolder.dependencies
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 Module contents
 ---------------
 

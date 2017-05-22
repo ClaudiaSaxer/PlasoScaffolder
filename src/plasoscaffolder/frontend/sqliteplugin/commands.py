@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=missing-docstring, unused-argument
 # Docstrings are used by click in generating output. Since we don't want this
-#  behavior the following functions do not contain docstrings.
+# behavior the following functions do not contain docstrings.
 """The commands for the SQLite plugin."""
 import os
 
 import click
-
 from plasoscaffolder.bll.services import sqlite_plugin_helper
 from plasoscaffolder.common import output_handler_click
 from plasoscaffolder.frontend.controller import sqlite_controller
@@ -38,6 +37,6 @@ def sqlite(path, name, testfile, sql):
       'bll', 'templates')
   yapf_path = os.path.join(
       os.path.dirname(
-          os.path.dirname(os.path.dirname(os.path.dirname(__file__)))),
+          os.path.dirname(os.path.dirname(__file__))),
       '.style.yapf')
-  Controller.Generate(template_path,yapf_path)
+  Controller.Generate(template_path, yapf_path)

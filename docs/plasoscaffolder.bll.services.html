@@ -70,13 +70,13 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>template_path</strong> (<em>str</em>) &#8211; the path to the template directory</li>
 <li><strong>fileHandler</strong> (<a class="reference internal" href="plasoscaffolder.common.html#plasoscaffolder.common.file_handler.FileHandler" title="plasoscaffolder.common.file_handler.FileHandler"><em>FileHandler</em></a>) &#8211; the handler for the file</li>
-<li><strong>init_formatter_mapper</strong> (<em>BaseSQLitePluginMapper</em>) &#8211; the init formatter mapper</li>
-<li><strong>init_parser_mapper</strong> (<em>BaseSQLitePluginMapper</em>) &#8211; the init parser mapper</li>
-<li><strong>parser_mapper</strong> (<em>BaseSQLitePluginMapper</em>) &#8211; the parser mapper</li>
-<li><strong>formatter_mapper</strong> (<em>BaseSQLitePluginMapper</em>) &#8211; the mapper for the formatter</li>
-<li><strong>parser_test_mapper</strong> (<em>BaseSQLitePluginMapper</em>) &#8211; the mapper for the formatter
+<li><strong>init_formatter_mapper</strong> (<a class="reference internal" href="plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><em>BaseSQLitePluginMapper</em></a>) &#8211; the init formatter mapper</li>
+<li><strong>init_parser_mapper</strong> (<a class="reference internal" href="plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><em>BaseSQLitePluginMapper</em></a>) &#8211; the init parser mapper</li>
+<li><strong>parser_mapper</strong> (<a class="reference internal" href="plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><em>BaseSQLitePluginMapper</em></a>) &#8211; the parser mapper</li>
+<li><strong>formatter_mapper</strong> (<a class="reference internal" href="plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><em>BaseSQLitePluginMapper</em></a>) &#8211; the mapper for the formatter</li>
+<li><strong>parser_test_mapper</strong> (<a class="reference internal" href="plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><em>BaseSQLitePluginMapper</em></a>) &#8211; the mapper for the formatter
 test</li>
-<li><strong>formatter_test_mapper</strong> (<em>BaseSQLitePluginMapper</em>) &#8211; the mapper for the parser
+<li><strong>formatter_test_mapper</strong> (<a class="reference internal" href="plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><em>BaseSQLitePluginMapper</em></a>) &#8211; the mapper for the parser
 test</li>
 <li><strong>mappingHelper</strong> (<a class="reference internal" href="plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_mapping_helper.BaseMappingHelper" title="plasoscaffolder.bll.mappings.base_mapping_helper.BaseMappingHelper"><em>BaseMappingHelper</em></a>) &#8211; the mapping helper</li>
 <li><strong>database_information</strong> (<a class="reference internal" href="plasoscaffolder.dal.html#plasoscaffolder.dal.base_database_information.BaseDatabaseInformation" title="plasoscaffolder.dal.base_database_information.BaseDatabaseInformation"><em>BaseDatabaseInformation</em></a>) &#8211; helper class for
@@ -155,7 +155,7 @@ timestamp event columns and adds the data to the simple columns</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>columns</strong> (<em></em><em>[</em><em>sql_query_column_model_data.SQLColumnModelData</em><em>]</em><em></em>) &#8211; the columns
+<li><strong>columns</strong> (<em></em><em>[</em><a class="reference internal" href="plasoscaffolder.model.html#plasoscaffolder.model.sql_query_column_model_data.SQLColumnModelData" title="plasoscaffolder.model.sql_query_column_model_data.SQLColumnModelData"><em>sql_query_column_model_data.SQLColumnModelData</em></a><em>]</em><em></em>) &#8211; the columns
 from the SQL query</li>
 <li><strong>timestamps</strong> (<em></em><em>[</em><em>str</em><em>]</em><em></em>) &#8211; the timestamp events</li>
 <li><strong>data</strong> (<em></em><em>[</em><em>str</em><em>]</em><em></em>) &#8211; the data from the cursor</li>
@@ -298,7 +298,7 @@ SQL queries provided by the user</li>
 </p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sql_query_data.SQLQueryData</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="plasoscaffolder.dal.html#plasoscaffolder.dal.sql_query_data.SQLQueryData" title="plasoscaffolder.dal.sql_query_data.SQLQueryData">sql_query_data.SQLQueryData</a></p>
 </td>
 </tr>
 </tbody>
@@ -366,7 +366,7 @@ SQL queries provided by the user</li>
 <p>A SQLite Generator</p>
 <dl class="class">
 <dt id="plasoscaffolder.bll.services.sqlite_generator.SQLiteGenerator">
-<em class="property">class </em><code class="descclassname">plasoscaffolder.bll.services.sqlite_generator.</code><code class="descname">SQLiteGenerator</code><span class="sig-paren">(</span><em>path: str, name: str, database: str, queries: [&lt;class 'plasoscaffolder.model.sql_query_model.SQLQueryModel'&gt;], output_handler: &lt;plasoscaffolder.common.base_output_handler.BaseOutputHandler object at 0x05166970&gt;, pluginHelper: &lt;plasoscaffolder.bll.services.base_sqlite_plugin_helper.BaseSQLitePluginHelper object at 0x05166990&gt;, pathHelper: &lt;plasoscaffolder.bll.services.base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper object at 0x05166AF0&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/bll/services/sqlite_generator.html#SQLiteGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.services.sqlite_generator.SQLiteGenerator" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">plasoscaffolder.bll.services.sqlite_generator.</code><code class="descname">SQLiteGenerator</code><span class="sig-paren">(</span><em>path: str, name: str, database: str, queries: [&lt;class 'plasoscaffolder.model.sql_query_model.SQLQueryModel'&gt;], output_handler: &lt;plasoscaffolder.common.base_output_handler.BaseOutputHandler object at 0x04949570&gt;, pluginHelper: &lt;plasoscaffolder.bll.services.base_sqlite_plugin_helper.BaseSQLitePluginHelper object at 0x04949B50&gt;, pathHelper: &lt;plasoscaffolder.bll.services.base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper object at 0x04949AD0&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/bll/services/sqlite_generator.html#SQLiteGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.services.sqlite_generator.SQLiteGenerator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#plasoscaffolder.bll.services.base_sqlite_generator.BaseSQLiteGenerator" title="plasoscaffolder.bll.services.base_sqlite_generator.BaseSQLiteGenerator"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.bll.services.base_sqlite_generator.BaseSQLiteGenerator</span></code></a></p>
 <p>Generator for SQLite Files.</p>
 <dl class="method">
@@ -380,13 +380,13 @@ SQL queries provided by the user</li>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>template_path</strong> (<em>str</em>) &#8211; the path to the template directory</li>
 <li><strong>fileHandler</strong> (<a class="reference internal" href="plasoscaffolder.common.html#plasoscaffolder.common.file_handler.FileHandler" title="plasoscaffolder.common.file_handler.FileHandler"><em>FileHandler</em></a>) &#8211; the handler for the file</li>
-<li><strong>formatter_init_mapper</strong> (<em>BaseSQLitePluginMapper</em>) &#8211; the init formatter mapper</li>
-<li><strong>parser_init_mapper</strong> (<em>BaseSQLitePluginMapper</em>) &#8211; the init parser mapper</li>
-<li><strong>parser_mapper</strong> (<em>BaseSQLitePluginMapper</em>) &#8211; the parser mapper</li>
-<li><strong>formatter_mapper</strong> (<em>BaseSQLitePluginMapper</em>) &#8211; the mapper for the formatter</li>
-<li><strong>parser_test_mapper</strong> (<em>BaseSQLitePluginMapper</em>) &#8211; the mapper for the formatter
+<li><strong>formatter_init_mapper</strong> (<a class="reference internal" href="plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><em>BaseSQLitePluginMapper</em></a>) &#8211; the init formatter mapper</li>
+<li><strong>parser_init_mapper</strong> (<a class="reference internal" href="plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><em>BaseSQLitePluginMapper</em></a>) &#8211; the init parser mapper</li>
+<li><strong>parser_mapper</strong> (<a class="reference internal" href="plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><em>BaseSQLitePluginMapper</em></a>) &#8211; the parser mapper</li>
+<li><strong>formatter_mapper</strong> (<a class="reference internal" href="plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><em>BaseSQLitePluginMapper</em></a>) &#8211; the mapper for the formatter</li>
+<li><strong>parser_test_mapper</strong> (<a class="reference internal" href="plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><em>BaseSQLitePluginMapper</em></a>) &#8211; the mapper for the formatter
 test</li>
-<li><strong>formatter_test_mapper</strong> (<em>BaseSQLitePluginMapper</em>) &#8211; the mapper for the parser
+<li><strong>formatter_test_mapper</strong> (<a class="reference internal" href="plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><em>BaseSQLitePluginMapper</em></a>) &#8211; the mapper for the parser
 test</li>
 <li><strong>mappingHelper</strong> (<a class="reference internal" href="plasoscaffolder.bll.mappings.html#plasoscaffolder.bll.mappings.base_mapping_helper.BaseMappingHelper" title="plasoscaffolder.bll.mappings.base_mapping_helper.BaseMappingHelper"><em>BaseMappingHelper</em></a>) &#8211; the mapping helper</li>
 <li><strong>database_information</strong> (<a class="reference internal" href="plasoscaffolder.dal.html#plasoscaffolder.dal.base_database_information.BaseDatabaseInformation" title="plasoscaffolder.dal.base_database_information.BaseDatabaseInformation"><em>BaseDatabaseInformation</em></a>) &#8211; helper class for
@@ -468,7 +468,7 @@ timestamp event columns and adds the data to the simple columns</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>columns</strong> (<em></em><em>[</em><em>sql_query_column_model_data.SQLColumnModelData</em><em>]</em><em></em>) &#8211; the columns
+<li><strong>columns</strong> (<em></em><em>[</em><a class="reference internal" href="plasoscaffolder.model.html#plasoscaffolder.model.sql_query_column_model_data.SQLColumnModelData" title="plasoscaffolder.model.sql_query_column_model_data.SQLColumnModelData"><em>sql_query_column_model_data.SQLColumnModelData</em></a><em>]</em><em></em>) &#8211; the columns
 from the SQL query</li>
 <li><strong>timestamps</strong> (<em></em><em>[</em><em>str</em><em>]</em><em></em>) &#8211; the timestamp events</li>
 <li><strong>data</strong> (<em></em><em>[</em><em>str</em><em>]</em><em></em>) &#8211; the data from the cursor</li>
@@ -564,7 +564,7 @@ sql query data objects</td>
 
 <dl class="method">
 <dt id="plasoscaffolder.bll.services.sqlite_plugin_helper.SQLitePluginHelper.PluginExists">
-<code class="descname">PluginExists</code><span class="sig-paren">(</span><em>path: str</em>, <em>plugin_name: str</em>, <em>database_suffix: str</em>, <em>path_helper: &lt;plasoscaffolder.bll.services.base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper object at 0x052614D0&gt;</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/plasoscaffolder/bll/services/sqlite_plugin_helper.html#SQLitePluginHelper.PluginExists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.services.sqlite_plugin_helper.SQLitePluginHelper.PluginExists" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PluginExists</code><span class="sig-paren">(</span><em>path: str</em>, <em>plugin_name: str</em>, <em>database_suffix: str</em>, <em>path_helper: &lt;plasoscaffolder.bll.services.base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper object at 0x04CB5590&gt;</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/plasoscaffolder/bll/services/sqlite_plugin_helper.html#SQLitePluginHelper.PluginExists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.services.sqlite_plugin_helper.SQLitePluginHelper.PluginExists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the plugin already exists.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -610,7 +610,7 @@ sql query data objects</td>
 </p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">sql_query_data.SQLQueryData</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="plasoscaffolder.dal.html#plasoscaffolder.dal.sql_query_data.SQLQueryData" title="plasoscaffolder.dal.sql_query_data.SQLQueryData">sql_query_data.SQLQueryData</a></p>
 </td>
 </tr>
 </tbody>

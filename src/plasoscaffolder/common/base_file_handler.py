@@ -25,6 +25,7 @@ class BaseFileHandler(object):
   @abc.abstractmethod
   def _CreateFolder(cls, directory_path):
     """Creates a folder.
+
      This function should only to be called if the target folder does not yet
      exists or there will be an exception.
 

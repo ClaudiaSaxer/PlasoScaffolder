@@ -136,7 +136,8 @@ class SQLiteController(object):
       path (str): the database file path
 
     Returns:
-      bool: if the file can be opened and is a database file"""
+      bool: if the file can be opened and is a database file
+    """
     execution = sqlite_query_execution.SQLiteQueryExecution(path)
     if execution.TryToConnect():
       self._query_execution = execution
@@ -158,7 +159,6 @@ class SQLiteController(object):
     Returns:
       [sql_query_model.SQLQueryModel]: a list of SQL Query models
     """
-
     verbose = value
     add_more_queries = True
     sql_query_list = []
@@ -258,21 +258,21 @@ class SQLiteController(object):
         query.strip(), name, data_column, timestamp_column, needs_customizing,
         amount_events)
 
-  def GetTimestamps(self, columns: [sql_query_column_model.SQLColumnModel],
-                    data: [str]) -> (
-      [sql_query_column_model_data.SQLColumnModelData],
-      [sql_query_column_model_timestamp.SQLColumnModelTimestamp]):
-    """Gets the timestamp from the user and the columns
-    
+  def GetTimestamps(
+      self, columns: [sql_query_column_model.SQLColumnModel], data: [str]
+  ) -> ([sql_query_column_model_data.SQLColumnModelData],
+        [sql_query_column_model_timestamp.SQLColumnModelTimestamp]):
+    """Gets the timestamp from the user and the columns.
+
     Args:
-      columns ([sql_query_column_model.SQLColumnModel]): the columns from the 
-          SQL query. 
+      columns ([sql_query_column_model.SQLColumnModel]): the columns from the
+          SQL query.
       data ([str]): the data from the cursor
 
     Returns:
        [sql_query_column_model_data.SQLColumnModelData],
-           [sql_query_column_model_timestamp.SQLColumnModelTimestamp]: A 
-           tuple of columns. The first column represents the 
+           [sql_query_column_model_timestamp.SQLColumnModelTimestamp]: A
+           tuple of columns. The first column represents the
            normal column for the query. The second
            column represents the timestamp events.
     """
@@ -300,7 +300,7 @@ class SQLiteController(object):
               'At least one timestamp is required, please add a timestamp')
         own_timestamps = self._ValidateTimestampString(own_timestamps)
 
-        new_columns = self._GetValideColumnsAndInvalid(columns, own_timestamps)
+        new_columns = self._GetValidColumnsAndInvalid(columns, own_timestamps)
         timestamps.update(new_columns[0])
         wrong_timestamps.update(new_columns[1])
 
@@ -312,16 +312,16 @@ class SQLiteController(object):
         columns, timestamps, data)
 
   def GetCustomizable(
-      self, columns: [sql_query_column_model_data.SQLColumnModelData]) -> (
-      [sql_query_column_model_data.SQLColumnModelData]):
-    """Gets the customizable columns from the user 
+      self, columns: [sql_query_column_model_data.SQLColumnModelData]
+  ) -> [sql_query_column_model_data.SQLColumnModelData]:
+    """Gets the customizable columns from the user
 
     Args:
-      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns 
-          from the SQL query. 
+      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns
+          from the SQL query.
 
     Returns:
-      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns 
+     [sql_query_column_model_data.SQLColumnModelData]: the columns
           from the SQL query an set if the column is customizable
     """
     customizable = set()
@@ -343,7 +343,7 @@ class SQLiteController(object):
           add_own_customizable = False
 
       if add_own_customizable:
-        new_columns = self._GetValideColumnsAndInvalid(columns, own_column)
+        new_columns = self._GetValidColumnsAndInvalid(columns, own_column)
         customizable.update(new_columns[0])
         wrong_customizable.update(new_columns[1])
 
@@ -394,10 +394,10 @@ class SQLiteController(object):
             self._query_execution))
 
   def _ValidatePluginName(self, plugin_name: str) -> str:
-    """Validate plugin name and prompt until name is valid
+    """Validate plugin name and prompt until name is valid.
 
     Args:
-      plugin_name: the name of the plugin
+      plugin_name (str): the name of the plugin
 
     Returns:
       str: a valid plugin name
@@ -412,7 +412,7 @@ class SQLiteController(object):
     """Validate row name and prompt until name is valid.
 
     Args:
-      row_name: the name of the row
+      row_name (str): the name of the row
 
     Returns:
       str: a valid row name
@@ -422,12 +422,12 @@ class SQLiteController(object):
           'Row name is not in a valid format. Choose new Name [RowName...]')
     return row_name
 
-  def _ValidateTimestampString(self, timestamp_string) -> str:
+  def _ValidateTimestampString(self, timestamp_string: str) -> str:
     """Validate the timestamp string and prompt until valid
-    
+
     Args:
-      timestamp_string: the string with the timestamps
- 
+      timestamp_string (str): the string with the timestamps
+
     Returns:
       str: a comma separated string with timestamps
     """
@@ -437,11 +437,11 @@ class SQLiteController(object):
           'name...]')
     return timestamp_string
 
-  def _ValidateColumnString(self, column_string) -> str:
+  def _ValidateColumnString(self, column_string: str) -> str:
     """Validate the timestamp string and prompt until valid
 
     Args:
-      column_string: the string with the column names
+      column_string (str): the string with the column names
 
     Returns:
       str: a comma separated string with column names
@@ -454,28 +454,28 @@ class SQLiteController(object):
 
   def _PrintAddedAndFailedColumns(self, added: [str], failed: [str]):
     """Prints the user which columns failed and which are added
-    
+
     Args:
-      added ([str]): the added columns 
-      failed ([str]): the failed columns 
+      added ([str]): the added columns
+      failed ([str]): the failed columns
     """
     added_string = 'Added: {0}'.format(','.join(sorted(added)))
     failed_string = 'Failed: {0}'.format(','.join(sorted(failed)))
     self._output_handler.PrintInfo(added_string)
     self._output_handler.PrintInfo(failed_string)
 
-  def _GetValideColumnsAndInvalid(self, columns: [
-    sql_query_column_model.SQLColumnModel], user_input: str) -> (
-      [str], [str]):
+  def _GetValidColumnsAndInvalid(
+      self, columns: [sql_query_column_model.SQLColumnModel], user_input: str
+  ) -> ([str], [str]):
     """
-  
+
     Args:
-      columns ([sql_query_column_model.SQLColumnModel]): the columns from the 
+      columns ([sql_query_column_model.SQLColumnModel]): the columns from the
           SQL query.
       user_input: a comma separated list of column names
-  
+
     Returns:
-      ([str], [str]): the columns for the right column names and the wrong
+      [str], [str]: the columns for the right column names and the wrong
           column names as the second part of the tuple
     """
     right_columns = set()

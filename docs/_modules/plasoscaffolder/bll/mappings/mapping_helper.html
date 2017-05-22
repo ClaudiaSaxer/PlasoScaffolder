@@ -107,14 +107,14 @@
 
   <span class="k">def</span> <span class="nf">_RemoveEscapeError</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Remove the escape error.</span>
-<span class="sd">    </span>
-<span class="sd">    Because jinja template variable is first escaped and then word wrapped, </span>
+
+<span class="sd">    Because jinja template variable is first escaped and then word wrapped,</span>
 <span class="sd">    the escaped backslash can be split and can result in an eol.</span>
 <span class="sd">    The escaped backslash will be placed on the next line.</span>
 <span class="sd">    This is a workaround and can be removed if yapf supports unicode string</span>
 <span class="sd">    formatting and it is also changed in the jinja2 template, and only works</span>
 <span class="sd">    with 8 spaces.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
 <span class="sd">      template (str): the resulting template as a python file string</span>
 
@@ -130,12 +130,12 @@
 
   <span class="k">def</span> <span class="nf">_RemoveYapfComment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Remove the yapf comment line</span>
-<span class="sd">    </span>
+
 <span class="sd">    The Line as well as the new line will be removed.</span>
 <span class="sd">    The Yapf Comment has to be at the end of the line. Or on its own line.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
-<span class="sd">      template (str): the resulting template as a python file string </span>
+<span class="sd">      template (str): the resulting template as a python file string</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">      str: the template without yapf comment lines</span>
@@ -145,9 +145,9 @@
 
   <span class="k">def</span> <span class="nf">_RemoveBlanksAtEndOfLine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Removes blanks at the end of lines</span>
-<span class="sd">    </span>
+
 <span class="sd">    This is for those parts that are ignored with yapf.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Args:</span>
 <span class="sd">      template (str): the template to remove the blanks at the end of lines</span>
 

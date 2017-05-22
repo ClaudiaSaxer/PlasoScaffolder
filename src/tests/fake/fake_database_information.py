@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
+# unused argument in a fake is perfectly fine
+# pylint: disable=unused-argument
 """Fake class for the Information for the SQLite Database"""
+
 
 class FakeDatabaseInformation(object):
   """Fake class representing the SQLite Query validator."""
 
   def __init__(self, tables: [], column_type: {str, type}):
     """Initializes the fake
-    
+
     Args:
-      tables ([str]): the return for the method GetTablesFromDatabase 
-      column_type ({str, type}): the return for the method 
+      tables ([str]): the return for the method GetTablesFromDatabase
+      column_type ({str, type}): the return for the method
           GetTableColumnsAndType
     """
     self.tables = tables
@@ -23,13 +26,15 @@ class FakeDatabaseInformation(object):
     """
     return self.tables
 
-  def GetTableColumnsAndType(self, table: str, all_lowercase=False) -> [str]:
+  def GetTableColumnsAndType(
+      self, table: str, all_lowercase=False
+  ) -> [{str, type}]:
     """Returns the table information from the database
 
     Args:
       table (str): the name of the table
 
     Returns:
-      [{name, type}]: the table information
+      [{str, type}]: the table information first the column and then the type
     """
     return self.column_type

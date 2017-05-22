@@ -28,3 +28,18 @@ class FakeSQLiteDatabaseInformation(
     Returns:
       [str]: the names of the tables"""
     return self._required_tables
+
+  def GetTableColumnsAndType(self, table: str, all_lowercase=False) -> [str]:
+    """Getting Types for Column if there is are multiple tables
+
+    Args:
+      tables ([str]): the name of the table
+      column_model ([sql_query_column_model.SQLColumnModel]): the column to
+          find the type for
+      query (str): the SQL query
+
+    Returns:
+      [sql_query_column_model.SQLColumnModel]: the column model with the types,
+          or None if there was a prefix error and it could not be parsed
+    """
+    return {}

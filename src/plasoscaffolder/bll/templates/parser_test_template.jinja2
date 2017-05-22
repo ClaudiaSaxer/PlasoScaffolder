@@ -36,8 +36,8 @@ class {{ class_name }}Test(test_lib.SQLitePluginTestCase):
     position = storage_writer.index(guessed_event)
     test_event = storage_writer.events[position]
 
-    expected_timestamp = timelib.Timestamp.CopyFromString(
-        u'{{ timestampcolumn.timestamp}}')
+    # TODO add expected formatted timestamp for timestamp in database: {{ timestampcolumn.timestamp}}
+    expected_timestamp = timelib.Timestamp.CopyFromString(u'TODO')
     self.assertEqual(test_event.timestamp, expected_timestamp)
 
     self.assertEqual(

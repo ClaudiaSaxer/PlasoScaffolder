@@ -1,6 +1,5 @@
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
-# disable because its to silly for that long sql queries
-# pylint: disable=bad-continuation
 """test class"""
 import os
 import unittest
@@ -21,7 +20,7 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     execute = sqlite_query_execution.SQLiteQueryExecution(file_path)
     connected = execute.TryToConnect()
     database_information = (
-      sqlite_database_information.SQLiteDatabaseInformation(execute))
+        sqlite_database_information.SQLiteDatabaseInformation(execute))
 
     result = database_information.GetTablesFromDatabase()
     self.assertEqual(len(result), 7)
@@ -41,7 +40,7 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     execute = sqlite_query_execution.SQLiteQueryExecution(file_path)
     connected = execute.TryToConnect()
     database_information = (
-      sqlite_database_information.SQLiteDatabaseInformation(execute))
+        sqlite_database_information.SQLiteDatabaseInformation(execute))
     result = database_information.GetTablesFromDatabase()
 
     self.assertEqual(result, [])
@@ -54,7 +53,7 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     execute = sqlite_query_execution.SQLiteQueryExecution(file_path)
     connected = execute.TryToConnect()
     database_information = (
-      sqlite_database_information.SQLiteDatabaseInformation(execute))
+        sqlite_database_information.SQLiteDatabaseInformation(execute))
     actual_data = database_information.GetTableColumnsAndType('nodata')
     expected_data = {'intval': 'int',
                      'integerval': 'integer',
@@ -94,7 +93,7 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     execute = sqlite_query_execution.SQLiteQueryExecution(file_path)
     connected = execute.TryToConnect()
     database_information = (
-      sqlite_database_information.SQLiteDatabaseInformation(execute))
+        sqlite_database_information.SQLiteDatabaseInformation(execute))
     actual_data = database_information.GetTableColumnsAndType('thisisnot')
     expected_data = {}
     self.assertEqual(len(actual_data), 0)
@@ -108,10 +107,9 @@ class SQLiteDatabaseInformationTest(unittest.TestCase):
     execute = sqlite_query_execution.SQLiteQueryExecution(file_path)
     connected = execute.TryToConnect()
     database_information = (
-      sqlite_database_information.SQLiteDatabaseInformation(execute))
-    'PRAGMA table_info({0})'
+        sqlite_database_information.SQLiteDatabaseInformation(execute))
     actual_data = database_information.GetTableColumnsAndType(
-      "bla);select * from nodata; (")
+        "bla);select * from nodata; (")
     expected_data = {}
     self.assertEqual(len(actual_data), 0)
     self.assertEqual(actual_data, expected_data)

@@ -1,11 +1,11 @@
-plasoscaffolder.frontend.sqliteplugin package
-=============================================
+plasoscaffolder\.frontend\.sqliteplugin package
+===============================================
 
 Submodules
 ----------
 
-plasoscaffolder.frontend.sqliteplugin.commands module
------------------------------------------------------
+plasoscaffolder\.frontend\.sqliteplugin\.commands module
+--------------------------------------------------------
 
 .. automodule:: plasoscaffolder.frontend.sqliteplugin.commands
     :members:

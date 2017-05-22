@@ -1,11 +1,11 @@
-tests.frontend.sqliteplugin package
-===================================
+tests\.frontend\.sqliteplugin package
+=====================================
 
 Submodules
 ----------
 
-tests.frontend.sqliteplugin.test_commands module
-------------------------------------------------
+tests\.frontend\.sqliteplugin\.test\_commands module
+----------------------------------------------------
 
 .. automodule:: tests.frontend.sqliteplugin.test_commands
     :members:

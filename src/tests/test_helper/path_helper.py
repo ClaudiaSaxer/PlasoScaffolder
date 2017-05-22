@@ -43,10 +43,10 @@ def TestDatabasePath() -> str:
 
 def YapfStyleFilePath() -> str:
   """ gets the path to the yapf style file.
-  
+
   Returns:
     str: the yapf file path
   """
   return os.path.join(
-      os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+      os.path.dirname(os.path.dirname(__file__)),
       '.style.yapf')

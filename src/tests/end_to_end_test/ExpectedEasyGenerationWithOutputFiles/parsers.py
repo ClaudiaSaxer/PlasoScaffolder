@@ -58,8 +58,8 @@ class TestPlugin(interface.SQLitePlugin):
     # will raise "IndexError: Index must be int or string".
 
     event_data = TestEventData()
-    event_data.id = row['']
-    event_data.name = row['']
+    event_data.id = row['id']
+    event_data.name = row['name']
 
     timestamp = row['createdDate']
     if timestamp:

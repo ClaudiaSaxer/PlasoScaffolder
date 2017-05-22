@@ -1,5 +1,5 @@
-plasoscaffolder.bll.templates package
-=====================================
+plasoscaffolder\.bll\.templates package
+=======================================
 
 Module contents
 ---------------

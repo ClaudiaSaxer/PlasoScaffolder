@@ -24,7 +24,7 @@ class BaseExplainQueryPlan(object):
     """Determines the table that were locked during the SQL query.
 
     Args:
-      query (str): the sql query to get the locked tables from
+      query (str): the SQL query to get the locked tables from
 
     Returns:
       [str]: the list of tables

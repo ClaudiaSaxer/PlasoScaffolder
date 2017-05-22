@@ -240,7 +240,7 @@ class ThePluginPlugin(interface.SQLitePlugin):
     # will raise "IndexError: Index must be int or string".
 
     event_data = ThePluginEventData()
-    event_data.blobval = row['']
+    event_data.blobval = row['blobval']
 
   def ParseIntegertypesRow(
       self, parser_mediator, row, query=None, **unused_kwargs):
@@ -256,15 +256,15 @@ class ThePluginPlugin(interface.SQLitePlugin):
     # will raise "IndexError: Index must be int or string".
 
     event_data = ThePluginEventData()
-    event_data.bigintval = row['']
-    event_data.int2val = row['']
-    event_data.int8val = row['']
-    event_data.integerval = row['']
-    event_data.intval = row['']
-    event_data.mediumintval = row['']
-    event_data.smallintval = row['']
-    event_data.tinyintval = row['']
-    event_data.unsignedbigintval = row['']
+    event_data.bigintval = row['bigintval']
+    event_data.int2val = row['int2val']
+    event_data.int8val = row['int8val']
+    event_data.integerval = row['integerval']
+    event_data.intval = row['intval']
+    event_data.mediumintval = row['mediumintval']
+    event_data.smallintval = row['smallintval']
+    event_data.tinyintval = row['tinyintval']
+    event_data.unsignedbigintval = row['unsignedbigintval']
 
   def ParseNumerictypesRow(
       self, parser_mediator, row, query=None, **unused_kwargs):
@@ -280,11 +280,11 @@ class ThePluginPlugin(interface.SQLitePlugin):
     # will raise "IndexError: Index must be int or string".
 
     event_data = ThePluginEventData()
-    event_data.booleanval = row['']
-    event_data.datetimeval = row['']
-    event_data.dateval = row['']
-    event_data.decimalval = row['']
-    event_data.numericval = row['']
+    event_data.booleanval = row['booleanval']
+    event_data.datetimeval = row['datetimeval']
+    event_data.dateval = row['dateval']
+    event_data.decimalval = row['decimalval']
+    event_data.numericval = row['numericval']
 
   def ParseRealtypesRow(
       self, parser_mediator, row, query=None, **unused_kwargs):
@@ -300,10 +300,10 @@ class ThePluginPlugin(interface.SQLitePlugin):
     # will raise "IndexError: Index must be int or string".
 
     event_data = ThePluginEventData()
-    event_data.doubleprecesionval = row['']
-    event_data.doubleval = row['']
-    event_data.floatval = row['']
-    event_data.realval = row['']
+    event_data.doubleprecesionval = row['doubleprecesionval']
+    event_data.doubleval = row['doubleval']
+    event_data.floatval = row['floatval']
+    event_data.realval = row['realval']
 
   def ParseTexttypesRow(
       self, parser_mediator, row, query=None, **unused_kwargs):
@@ -319,14 +319,14 @@ class ThePluginPlugin(interface.SQLitePlugin):
     # will raise "IndexError: Index must be int or string".
 
     event_data = ThePluginEventData()
-    event_data.characterval = row['']
-    event_data.clobval = row['']
-    event_data.nativecharacterval = row['']
-    event_data.ncharval = row['']
-    event_data.nvarchar_val = row['']
-    event_data.textval = row['']
-    event_data.varcharval = row['']
-    event_data.varyingcharacterval = row['']
+    event_data.characterval = row['characterval']
+    event_data.clobval = row['clobval']
+    event_data.nativecharacterval = row['nativecharacterval']
+    event_data.ncharval = row['ncharval']
+    event_data.nvarchar_val = row['nvarcharVal']
+    event_data.textval = row['textval']
+    event_data.varcharval = row['varcharval']
+    event_data.varyingcharacterval = row['varyingcharacterval']
 
   def ParseNodataRow(self, parser_mediator, row, query=None, **unused_kwargs):
     """Parses a contact row from the database.
@@ -341,33 +341,33 @@ class ThePluginPlugin(interface.SQLitePlugin):
     # will raise "IndexError: Index must be int or string".
 
     event_data = ThePluginEventData()
-    event_data.bigintval = row['']
-    event_data.blobval = row['']
-    event_data.booleanval = row['']
-    event_data.characterval = row['']
-    event_data.clobval = row['']
-    event_data.datetimeval = row['']
-    event_data.dateval = row['']
-    event_data.decimalval = row['']
-    event_data.doubleprecisionval = row['']
-    event_data.doubleval = row['']
-    event_data.floatval = row['']
-    event_data.int2val = row['']
-    event_data.int8val = row['']
-    event_data.integerval = row['']
-    event_data.intval = row['']
-    event_data.mediuintval = row['']
-    event_data.nativecharacterval = row['']
-    event_data.ncharval = row['']
-    event_data.numericval = row['']
-    event_data.nvarcharval = row['']
-    event_data.realval = row['']
-    event_data.smallintval = row['']
-    event_data.textval = row['']
-    event_data.tinyintval = row['']
-    event_data.unsignedbigintval = row['']
-    event_data.varcharval = row['']
-    event_data.varyingcharacterval = row['']
+    event_data.bigintval = row['bigintval']
+    event_data.blobval = row['blobval']
+    event_data.booleanval = row['booleanval']
+    event_data.characterval = row['characterval']
+    event_data.clobval = row['clobval']
+    event_data.datetimeval = row['datetimeval']
+    event_data.dateval = row['dateval']
+    event_data.decimalval = row['decimalval']
+    event_data.doubleprecisionval = row['doubleprecisionval']
+    event_data.doubleval = row['doubleval']
+    event_data.floatval = row['floatval']
+    event_data.int2val = row['int2val']
+    event_data.int8val = row['int8val']
+    event_data.integerval = row['integerval']
+    event_data.intval = row['intval']
+    event_data.mediuintval = row['mediuintval']
+    event_data.nativecharacterval = row['nativecharacterval']
+    event_data.ncharval = row['ncharval']
+    event_data.numericval = row['numericval']
+    event_data.nvarcharval = row['nvarcharval']
+    event_data.realval = row['realval']
+    event_data.smallintval = row['smallintval']
+    event_data.textval = row['textval']
+    event_data.tinyintval = row['tinyintval']
+    event_data.unsignedbigintval = row['unsignedbigintval']
+    event_data.varcharval = row['varcharval']
+    event_data.varyingcharacterval = row['varyingcharacterval']
 
 
 sqlite.SQLiteParser.RegisterPlugin(ThePluginPlugin)

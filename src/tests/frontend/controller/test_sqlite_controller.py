@@ -1,3 +1,4 @@
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
 """test class"""
 # pylint: disable=protected-access
@@ -100,13 +101,13 @@ class SQLiteControllerTest(unittest.TestCase):
                                                             fake_execution)
       prompt_output_actual = self._ReadFromFile(path)
       prompt_output_expected = (
-        'The SQL query was ok.'
-        'Do you want to name the query parse row:  ?'
-        'Does the event  need customizing?'
-        'Enter columns that are customizable [columnName,aliasName...] '
-        'or [abort]'
-        'Added: Failed: Contact'
-        'Do you want to add more columns that are customizable?')
+          'The SQL query was ok.'
+          'Do you want to name the query parse row:  ?'
+          'Does the event  need customizing?'
+          'Enter columns that are customizable [columnName,aliasName...] '
+          'or [abort]'
+          'Added: Failed: Contact'
+          'Do you want to add more columns that are customizable?')
 
       expected = sql_query_model.SQLQueryModel(
           sql_query, name, [], [], False, 0)
@@ -269,14 +270,14 @@ class SQLiteControllerTest(unittest.TestCase):
                                                             fake_execution)
       prompt_output_actual = self._ReadFromFile(path)
       prompt_output_expected = (
-        'Your query output could look like this.'
-        '[\'id\', \'name\']'
-        'first'
-        'Do you want to add this query?'
-        'Do you want to name the query parse row:  ?'
-        'What row does the SQL Query parse?'
-        'Row name is not in a valid format. Choose new Name [RowName...]'
-        'Does the event TheCorrectContanctName need customizing?')
+          'Your query output could look like this.'
+          '[\'id\', \'name\']'
+          'first'
+          'Do you want to add this query?'
+          'Do you want to name the query parse row:  ?'
+          'What row does the SQL Query parse?'
+          'Row name is not in a valid format. Choose new Name [RowName...]'
+          'Does the event TheCorrectContanctName need customizing?')
       expected = sql_query_model.SQLQueryModel(sql_query, name, [], [], False,
                                                0)
 
@@ -392,9 +393,9 @@ class SQLiteControllerTest(unittest.TestCase):
 
       prompt_output_actual = self._ReadFromFile(path)
       prompt_output_expected = (
-        'Please write your SQL script for the plugin'
-        'Do you want to add another Query?'
-        'Please write your SQL script for the plugin [\'abort\' to continue]')
+          'Please write your SQL script for the plugin'
+          'Do you want to add another Query?'
+          'Please write your SQL script for the plugin [\'abort\' to continue]')
 
       self.assertEqual(len(actual), 1)
       self.assertEqual(actual[0].query, 'query')
@@ -419,12 +420,12 @@ class SQLiteControllerTest(unittest.TestCase):
       actual = controller.SQLQuery(None, None, True)
 
       prompt_output_expected = (
-        'Please write your SQL script for the plugin'
-        'Do you want to add another Query?'
-        'Please write your SQL script for the plugin [\'abort\' to continue]'
-        'Do you want to add another Query?'
-        'Please write your SQL script for the plugin [\'abort\' to continue]'
-        'Do you want to add another Query?'
+          'Please write your SQL script for the plugin'
+          'Do you want to add another Query?'
+          'Please write your SQL script for the plugin [\'abort\' to continue]'
+          'Do you want to add another Query?'
+          'Please write your SQL script for the plugin [\'abort\' to continue]'
+          'Do you want to add another Query?'
       )
       prompt_output_actual = self._ReadFromFile(path)
 
@@ -609,8 +610,8 @@ class SQLiteControllerTest(unittest.TestCase):
                                                       plugin_helper)
       valid = controller._ValidateTimestampString("this, that,bla")
       expected = (
-        'Timestamps are not in valid format. Reenter them correctly [name,'
-        'name...]')
+          'Timestamps are not in valid format. Reenter them correctly [name,'
+          'name...]')
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
       self.assertEqual(valid, 'this,that,bla')
@@ -638,8 +639,8 @@ class SQLiteControllerTest(unittest.TestCase):
                                                       plugin_helper)
       valid = controller._ValidateColumnString("this, that,bla")
       expected = (
-        'Column names are not in valid format. Reenter them correctly [name,'
-        'name...]')
+          'Column names are not in valid format. Reenter them correctly [name,'
+          'name...]')
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
       self.assertEqual(valid, 'this,that,bla')
@@ -669,21 +670,21 @@ class SQLiteControllerTest(unittest.TestCase):
           query, with_examples, query_execution
       )
       expected = (
-        'Your query output could look like this.'
-        '[\'that\']'
-        'first'
-        'second'
-        'third'
-        'Do you want to add this query?'
-        'Do you want to name the query parse row:  ?'
-        'Is the column a time event? test'
-        'Enter (additional) timestamp events from the query [columnName,'
-        'aliasName...] or [abort]'
-        'At least one timestamp is required, please add a timestamp'
-        'Added: that'
-        'Failed: other'
-        'Do you want to add more timestamps?'
-        'Does the event  need customizing?')
+          'Your query output could look like this.'
+          '[\'that\']'
+          'first'
+          'second'
+          'third'
+          'Do you want to add this query?'
+          'Do you want to name the query parse row:  ?'
+          'Is the column a time event? test'
+          'Enter (additional) timestamp events from the query [columnName,'
+          'aliasName...] or [abort]'
+          'At least one timestamp is required, please add a timestamp'
+          'Added: that'
+          'Failed: other'
+          'Do you want to add more timestamps?'
+          'Does the event  need customizing?')
 
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
@@ -820,12 +821,12 @@ class SQLiteControllerTest(unittest.TestCase):
 
       model = controller.GetTimestamps(columns, [])
       expected = (
-        'Is the column a time event? '
-        'testEnter (additional) timestamp events from the query '
-        '[columnName,aliasName...] or [abort]'
-        'Added: test,that'
-        'Failed: other'
-        'Do you want to add more timestamps?')
+          'Is the column a time event? '
+          'testEnter (additional) timestamp events from the query '
+          '[columnName,aliasName...] or [abort]'
+          'Added: test,that'
+          'Failed: other'
+          'Do you want to add more timestamps?')
 
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
@@ -852,13 +853,13 @@ class SQLiteControllerTest(unittest.TestCase):
 
       model = controller.GetCustomizable(columns)
       expected = (
-        'Enter columns that are customizable [columnName,aliasName...] '
-        'or [abort]'
-        'Added: thatFailed: other'
-        'Do you want to add more columns that are customizable?'
-        'Enter columns that are customizable [columnName,aliasName...] or '
-        '[abort]Added: thatFailed: other'
-        'Do you want to add more columns that are customizable?')
+          'Enter columns that are customizable [columnName,aliasName...] '
+          'or [abort]'
+          'Added: thatFailed: other'
+          'Do you want to add more columns that are customizable?'
+          'Enter columns that are customizable [columnName,aliasName...] or '
+          '[abort]Added: thatFailed: other'
+          'Do you want to add more columns that are customizable?')
 
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
@@ -875,7 +876,7 @@ class SQLiteControllerTest(unittest.TestCase):
       pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(), prompt_info_list=['abort','this'],
+          path, file_handler.FileHandler(), prompt_info_list=['abort', 'this'],
           confirm=False)
 
       plugin_helper = sqlite_plugin_helper.SQLitePluginHelper()
@@ -887,11 +888,11 @@ class SQLiteControllerTest(unittest.TestCase):
 
       model = controller.GetCustomizable(columns)
       expected = (
-        'Enter columns that are customizable [columnName,aliasName...] '
-        'or [abort]'
-        'At least one column is required, please add a column'
-        'Added: thisFailed: '
-        'Do you want to add more columns that are customizable?')
+          'Enter columns that are customizable [columnName,aliasName...] '
+          'or [abort]'
+          'At least one column is required, please add a column'
+          'Added: thisFailed: '
+          'Do you want to add more columns that are customizable?')
 
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
@@ -907,7 +908,7 @@ class SQLiteControllerTest(unittest.TestCase):
       pathlib.Path(path).touch()
 
       output_handler = output_handler_file.OutputHandlerFile(
-          path, file_handler.FileHandler(), prompt_info_list=['this','abort'],
+          path, file_handler.FileHandler(), prompt_info_list=['this', 'abort'],
           prompt_error='this', confirm=True)
 
       plugin_helper = sqlite_plugin_helper.SQLitePluginHelper()
@@ -920,12 +921,12 @@ class SQLiteControllerTest(unittest.TestCase):
       model = controller.GetCustomizable(columns)
 
       expected = (
-        'Enter columns that are customizable [columnName,aliasName...] '
-        'or [abort]'
-        'Added: thisFailed: '
-        'Do you want to add more columns that are customizable?'
-        'Enter columns that are customizable [columnName,aliasName...] '
-        'or [abort]')
+          'Enter columns that are customizable [columnName,aliasName...] '
+          'or [abort]'
+          'Added: thisFailed: '
+          'Do you want to add more columns that are customizable?'
+          'Enter columns that are customizable [columnName,aliasName...] '
+          'or [abort]')
 
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
@@ -951,18 +952,17 @@ class SQLiteControllerTest(unittest.TestCase):
                  sql_query_column_model.SQLColumnModel('that'),
                  sql_query_column_model.SQLColumnModel('test'),
                  sql_query_column_model.SQLColumnModel('thisdate'),
-                 sql_query_column_model.SQLColumnModel('timethat')
-                 ]
+                 sql_query_column_model.SQLColumnModel('timethat')]
 
       model = controller.GetTimestamps(columns, [])
       expected = (
-        'Is the column a time event? thisdate'
-        'Is the column a time event? timethat'
-        'Enter (additional) timestamp events from the query '
-        '[columnName,aliasName...] or [abort]'
-        'Added: test,thisdate,timethat'
-        'Failed: other'
-        'Do you want to add more timestamps?'
+          'Is the column a time event? thisdate'
+          'Is the column a time event? timethat'
+          'Enter (additional) timestamp events from the query '
+          '[columnName,aliasName...] or [abort]'
+          'Added: test,thisdate,timethat'
+          'Failed: other'
+          'Do you want to add more timestamps?'
       )
       actual = self._ReadFromFile(path)
       self.assertEqual(expected, actual)
@@ -991,15 +991,14 @@ class SQLiteControllerTest(unittest.TestCase):
                  sql_query_column_model.SQLColumnModel('that'),
                  sql_query_column_model.SQLColumnModel('test'),
                  sql_query_column_model.SQLColumnModel('thisdate'),
-                 sql_query_column_model.SQLColumnModel('timethat')
-                 ]
+                 sql_query_column_model.SQLColumnModel('timethat')]
 
       model = controller.GetTimestamps(columns, [])
       expected = (
-        'Is the column a time event? thisdate'
-        'Is the column a time event? timethat'
-        'Enter (additional) timestamp events from the query '
-        '[columnName,aliasName...] or [abort]'
+          'Is the column a time event? thisdate'
+          'Is the column a time event? timethat'
+          'Enter (additional) timestamp events from the query '
+          '[columnName,aliasName...] or [abort]'
       )
 
       actual = self._ReadFromFile(path)
@@ -1029,18 +1028,17 @@ class SQLiteControllerTest(unittest.TestCase):
                  sql_query_column_model.SQLColumnModel('that'),
                  sql_query_column_model.SQLColumnModel('test'),
                  sql_query_column_model.SQLColumnModel('thisdate'),
-                 sql_query_column_model.SQLColumnModel('timethat')
-                 ]
+                 sql_query_column_model.SQLColumnModel('timethat')]
 
       model = controller.GetTimestamps(columns, [])
       expected = (
-        'Is the column a time event? thisdate'
-        'Is the column a time event? timethat'
-        'Enter (additional) timestamp events from the query '
-        '[columnName,aliasName...] or [abort]'
-        'Added: test,thisdate'
-        'Failed: other'
-        'Do you want to add more timestamps?'
+          'Is the column a time event? thisdate'
+          'Is the column a time event? timethat'
+          'Enter (additional) timestamp events from the query '
+          '[columnName,aliasName...] or [abort]'
+          'Added: test,thisdate'
+          'Failed: other'
+          'Do you want to add more timestamps?'
       )
 
       actual = self._ReadFromFile(path)
@@ -1070,19 +1068,18 @@ class SQLiteControllerTest(unittest.TestCase):
                  sql_query_column_model.SQLColumnModel('that'),
                  sql_query_column_model.SQLColumnModel('test'),
                  sql_query_column_model.SQLColumnModel('thisdate'),
-                 sql_query_column_model.SQLColumnModel('timethat')
-                 ]
+                 sql_query_column_model.SQLColumnModel('timethat')]
 
       model = controller.GetTimestamps(columns, [])
       expected = (
-        'Is the column a time event? this'
-        'dateIs the column a time event? timethat'
-        'Enter (additional) timestamp events from the query '
-        '[columnName,aliasName...] or [abort]'
-        'At least one timestamp is required, please add a timestamp'
-        'Added: test'
-        'Failed: other'
-        'Do you want to add more timestamps?'
+          'Is the column a time event? this'
+          'dateIs the column a time event? timethat'
+          'Enter (additional) timestamp events from the query '
+          '[columnName,aliasName...] or [abort]'
+          'At least one timestamp is required, please add a timestamp'
+          'Added: test'
+          'Failed: other'
+          'Do you want to add more timestamps?'
       )
 
       actual = self._ReadFromFile(path)
@@ -1097,12 +1094,12 @@ class SQLiteControllerTest(unittest.TestCase):
 
   def _ReadFromFile(self, path: str):
     """Read from file
-  
+
     Args:
       path (str): the file path
-  
+
       path (str): the file path
-  
+
     Returns:
       str: content of the file"""
     with open(path, 'r') as f:

@@ -1,19 +1,19 @@
-tests.bll.mappings package
-==========================
+tests\.bll\.mappings package
+============================
 
 Submodules
 ----------
 
-tests.bll.mappings.test_init_formatter_mapping module
------------------------------------------------------
+tests\.bll\.mappings\.test\_init\_formatter\_mapping module
+-----------------------------------------------------------
 
 .. automodule:: tests.bll.mappings.test_init_formatter_mapping
     :members:
     :undoc-members:
     :show-inheritance:
 
-tests.bll.mappings.test_mapping_helper module
----------------------------------------------
+tests\.bll\.mappings\.test\_mapping\_helper module
+--------------------------------------------------
 
 .. automodule:: tests.bll.mappings.test_mapping_helper
     :members:

@@ -32,7 +32,8 @@ class TestTest(test_lib.SQLitePluginTestCase):
     position = storage_writer.index(guessed_event)
     test_event = storage_writer.events[position]
 
-    expected_timestamp = timelib.Timestamp.CopyFromString(u'1449070544.333328')
+    # TODO add expected formatted timestamp for timestamp in database: 1449070544.333328
+    expected_timestamp = timelib.Timestamp.CopyFromString(u'TODO')
     self.assertEqual(test_event.timestamp, expected_timestamp)
 
     self.assertEqual(
@@ -51,7 +52,8 @@ class TestTest(test_lib.SQLitePluginTestCase):
     position = storage_writer.index(guessed_event)
     test_event = storage_writer.events[position]
 
-    expected_timestamp = timelib.Timestamp.CopyFromString(u'1177252957.0')
+    # TODO add expected formatted timestamp for timestamp in database: 1177252957.0
+    expected_timestamp = timelib.Timestamp.CopyFromString(u'TODO')
     self.assertEqual(test_event.timestamp, expected_timestamp)
 
     self.assertEqual(

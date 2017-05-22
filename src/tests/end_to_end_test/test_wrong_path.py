@@ -1,3 +1,4 @@
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
 """Test Class for end to end Tests.
 These Tests can only be run on Linux because it makes use of pexpect."""
@@ -12,9 +13,11 @@ from tests.end_to_end_test import end_to_end_test_helper
 
 
 class WrongPathTest(unittest.TestCase):
+  """Test file for wrong path."""
 
   def testWrongPath(self):
     """Test easy file generation with using the wrong path
+
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?:bla bla
     3.  Folder does not exists. Enter correct one: other/wrong
@@ -27,7 +30,8 @@ class WrongPathTest(unittest.TestCase):
     10. Do you want to name the query parse row: Users ? [Y/n]:  Y
     11. Is the column a time event? updatedAt [Y/n]:  Y
     12. Is the column a time event? createdDate [Y/n]: Y
-    13. Enter (additional) timestamp events from the query [column-Name,aliasName...] or [abort]: abort
+    13. Enter (additional) timestamp events from the query [column-Name,
+        aliasName...] or [abort]: abort
     14. Does the event Users need customizing? [y/N]: N
     15. Do you want to add another Query? [Y/n]: n
     16. Do you want to Generate the files [Y/n]: Y

@@ -1,4 +1,7 @@
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
+# disable backslash in string because special characters need to be escaped
+# pylint: disable=anomalous-backslash-in-string
 """Test Class for end to end Tests.
 These Tests can only be run on Linux because it makes use of pexpect."""
 
@@ -12,10 +15,12 @@ from tests.end_to_end_test import end_to_end_test_helper
 
 
 class EasyGenerationWithAbortTest(unittest.TestCase):
+  """Test File for Easy Generation with Abort"""
 
   def testEasyGenerationWithAbort(self):
     """Test easy file generation without errors and with abort at the end, not
     generating the files.
+
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test
@@ -36,10 +41,7 @@ class EasyGenerationWithAbortTest(unittest.TestCase):
 
       with tempfile.TemporaryDirectory() as tmpdir:
         helper = end_to_end_test_helper.EndToEndTestHelper(tmpdir, 'test')
-
         path_answer = tmpdir
-        expected_path = os.path.join(helper.DIR_PATH,
-                                     'ExpectedEasyGenerationFiles')
 
         command = 'python {0} sqlite'.format(helper.MAIN_PATH)
         child = pexpect.spawn(command)

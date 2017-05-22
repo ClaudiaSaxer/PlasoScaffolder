@@ -1,19 +1,19 @@
-tests.test_helper package
-=========================
+tests\.test\_helper package
+===========================
 
 Submodules
 ----------
 
-tests.test_helper.output_handler_file module
---------------------------------------------
+tests\.test\_helper\.output\_handler\_file module
+-------------------------------------------------
 
 .. automodule:: tests.test_helper.output_handler_file
     :members:
     :undoc-members:
     :show-inheritance:
 
-tests.test_helper.path_helper module
-------------------------------------
+tests\.test\_helper\.path\_helper module
+----------------------------------------
 
 .. automodule:: tests.test_helper.path_helper
     :members:

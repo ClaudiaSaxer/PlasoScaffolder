@@ -1,3 +1,4 @@
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
 # pylint: disable=missing-docstring
 # Docstrings are used by click in generating output. Since we don't want this

@@ -1,13 +1,13 @@
-tests.integrationtests package
-==============================
+tests\.integrationtests package
+===============================
 
 Submodules
 ----------
 
-tests.integrationtests.testGeneratingTheFiles module
-----------------------------------------------------
+tests\.integrationtests\.test\_generating\_the\_files module
+------------------------------------------------------------
 
-.. automodule:: tests.integrationtests.testGeneratingTheFiles
+.. automodule:: tests.integrationtests.test_generating_the_files
     :members:
     :undoc-members:
     :show-inheritance:

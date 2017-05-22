@@ -51,15 +51,6 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="plasoscaffolder-bll-mappings-base-formatter-mapping-module">
-<h2>plasoscaffolder.bll.mappings.base_formatter_mapping module<a class="headerlink" href="#plasoscaffolder-bll-mappings-base-formatter-mapping-module" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="plasoscaffolder-bll-mappings-base-formatter-test-mapping-module">
-<h2>plasoscaffolder.bll.mappings.base_formatter_test_mapping module<a class="headerlink" href="#plasoscaffolder-bll-mappings-base-formatter-test-mapping-module" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="plasoscaffolder-bll-mappings-base-init-mapping-module">
-<h2>plasoscaffolder.bll.mappings.base_init_mapping module<a class="headerlink" href="#plasoscaffolder-bll-mappings-base-init-mapping-module" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-plasoscaffolder.bll.mappings.base_mapping_helper">
 <span id="plasoscaffolder-bll-mappings-base-mapping-helper-module"></span><h2>plasoscaffolder.bll.mappings.base_mapping_helper module<a class="headerlink" href="#module-plasoscaffolder.bll.mappings.base_mapping_helper" title="Permalink to this headline">¶</a></h2>
 <p>Helper methods for mapping.</p>
@@ -113,19 +104,71 @@
 </dd></dl>
 
 </div>
-<div class="section" id="plasoscaffolder-bll-mappings-base-parser-mapping-module">
-<h2>plasoscaffolder.bll.mappings.base_parser_mapping module<a class="headerlink" href="#plasoscaffolder-bll-mappings-base-parser-mapping-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-plasoscaffolder.bll.mappings.base_sqliteplugin_mapping">
+<span id="plasoscaffolder-bll-mappings-base-sqliteplugin-mapping-module"></span><h2>plasoscaffolder.bll.mappings.base_sqliteplugin_mapping module<a class="headerlink" href="#module-plasoscaffolder.bll.mappings.base_sqliteplugin_mapping" title="Permalink to this headline">¶</a></h2>
+<p>Base class for mapper of SQLite plugins.</p>
+<dl class="class">
+<dt id="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper">
+<em class="property">class </em><code class="descclassname">plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.</code><code class="descname">BaseSQLitePluginMapper</code><a class="reference internal" href="_modules/plasoscaffolder/bll/mappings/base_sqliteplugin_mapping.html#BaseSQLitePluginMapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Class representing the sqlite plugin base mapper.</p>
+<dl class="method">
+<dt id="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper.GetRenderedTemplate">
+<code class="descname">GetRenderedTemplate</code><span class="sig-paren">(</span><em>data: plasoscaffolder.model.base_data_model.BaseDataModel</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/plasoscaffolder/bll/mappings/base_sqliteplugin_mapping.html#BaseSQLitePluginMapper.GetRenderedTemplate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper.GetRenderedTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the template.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference internal" href="plasoscaffolder.model.html#plasoscaffolder.model.base_data_model.BaseDataModel" title="plasoscaffolder.model.base_data_model.BaseDataModel"><em>base_data_model.BaseDataModel</em></a>) &#8211; the data for template</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the rendered template</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="plasoscaffolder-bll-mappings-base-parser-test-mapping-module">
-<h2>plasoscaffolder.bll.mappings.base_parser_test_mapping module<a class="headerlink" href="#plasoscaffolder-bll-mappings-base-parser-test-mapping-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-plasoscaffolder.bll.mappings.formatter_init_mapping">
+<span id="plasoscaffolder-bll-mappings-formatter-init-mapping-module"></span><h2>plasoscaffolder.bll.mappings.formatter_init_mapping module<a class="headerlink" href="#module-plasoscaffolder.bll.mappings.formatter_init_mapping" title="Permalink to this headline">¶</a></h2>
+<p>Class representing the mapper for the formatter init files.</p>
+<dl class="class">
+<dt id="plasoscaffolder.bll.mappings.formatter_init_mapping.FormatterInitMapping">
+<em class="property">class </em><code class="descclassname">plasoscaffolder.bll.mappings.formatter_init_mapping.</code><code class="descname">FormatterInitMapping</code><span class="sig-paren">(</span><em>mapping_helper: &lt;plasoscaffolder.bll.mappings.base_mapping_helper.BaseMappingHelper object at 0x04A17DD0&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/bll/mappings/formatter_init_mapping.html#FormatterInitMapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.mappings.formatter_init_mapping.FormatterInitMapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper</span></code></a></p>
+<p>Class representing the formatter init mapper.</p>
+<dl class="method">
+<dt id="plasoscaffolder.bll.mappings.formatter_init_mapping.FormatterInitMapping.GetRenderedTemplate">
+<code class="descname">GetRenderedTemplate</code><span class="sig-paren">(</span><em>data: plasoscaffolder.model.init_data_model.InitDataModel</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/plasoscaffolder/bll/mappings/formatter_init_mapping.html#FormatterInitMapping.GetRenderedTemplate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.mappings.formatter_init_mapping.FormatterInitMapping.GetRenderedTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the formatter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference internal" href="plasoscaffolder.model.html#plasoscaffolder.model.init_data_model.InitDataModel" title="plasoscaffolder.model.init_data_model.InitDataModel"><em>init_data_model.InitDataModel</em></a>) &#8211; the data for init file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the rendered template</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-plasoscaffolder.bll.mappings.formatter_mapping">
 <span id="plasoscaffolder-bll-mappings-formatter-mapping-module"></span><h2>plasoscaffolder.bll.mappings.formatter_mapping module<a class="headerlink" href="#module-plasoscaffolder.bll.mappings.formatter_mapping" title="Permalink to this headline">¶</a></h2>
 <p>Class representing the mapper for the formatter.</p>
 <dl class="class">
 <dt id="plasoscaffolder.bll.mappings.formatter_mapping.FormatterMapper">
-<em class="property">class </em><code class="descclassname">plasoscaffolder.bll.mappings.formatter_mapping.</code><code class="descname">FormatterMapper</code><span class="sig-paren">(</span><em>mapping_helper: &lt;plasoscaffolder.bll.mappings.base_mapping_helper.BaseMappingHelper object at 0x04FD74F0&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/bll/mappings/formatter_mapping.html#FormatterMapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.mappings.formatter_mapping.FormatterMapper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper</span></code></p>
+<em class="property">class </em><code class="descclassname">plasoscaffolder.bll.mappings.formatter_mapping.</code><code class="descname">FormatterMapper</code><span class="sig-paren">(</span><em>mapping_helper: &lt;plasoscaffolder.bll.mappings.base_mapping_helper.BaseMappingHelper object at 0x04A61210&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/bll/mappings/formatter_mapping.html#FormatterMapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.mappings.formatter_mapping.FormatterMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper</span></code></a></p>
 <p>Class representing the formatter mapper.</p>
 <dl class="method">
 <dt id="plasoscaffolder.bll.mappings.formatter_mapping.FormatterMapper.GetRenderedTemplate">
@@ -154,8 +197,8 @@ the formatter</td>
 <p>Class representing mapper for formatter test file.</p>
 <dl class="class">
 <dt id="plasoscaffolder.bll.mappings.formatter_test_mapping.FormatterTestMapper">
-<em class="property">class </em><code class="descclassname">plasoscaffolder.bll.mappings.formatter_test_mapping.</code><code class="descname">FormatterTestMapper</code><span class="sig-paren">(</span><em>mapping_helper: &lt;plasoscaffolder.bll.mappings.base_mapping_helper.BaseMappingHelper object at 0x050AA230&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/bll/mappings/formatter_test_mapping.html#FormatterTestMapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.mappings.formatter_test_mapping.FormatterTestMapper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper</span></code></p>
+<em class="property">class </em><code class="descclassname">plasoscaffolder.bll.mappings.formatter_test_mapping.</code><code class="descname">FormatterTestMapper</code><span class="sig-paren">(</span><em>mapping_helper: &lt;plasoscaffolder.bll.mappings.base_mapping_helper.BaseMappingHelper object at 0x04A35A10&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/bll/mappings/formatter_test_mapping.html#FormatterTestMapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.mappings.formatter_test_mapping.FormatterTestMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper</span></code></a></p>
 <p>Class representing the formatter test mapper.</p>
 <dl class="method">
 <dt id="plasoscaffolder.bll.mappings.formatter_test_mapping.FormatterTestMapper.GetRenderedTemplate">
@@ -177,9 +220,6 @@ the formatter</td>
 
 </dd></dl>
 
-</div>
-<div class="section" id="plasoscaffolder-bll-mappings-init-mapping-module">
-<h2>plasoscaffolder.bll.mappings.init_mapping module<a class="headerlink" href="#plasoscaffolder-bll-mappings-init-mapping-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-plasoscaffolder.bll.mappings.mapping_helper">
 <span id="plasoscaffolder-bll-mappings-mapping-helper-module"></span><h2>plasoscaffolder.bll.mappings.mapping_helper module<a class="headerlink" href="#module-plasoscaffolder.bll.mappings.mapping_helper" title="Permalink to this headline">¶</a></h2>
@@ -234,13 +274,42 @@ the formatter</td>
 </dd></dl>
 
 </div>
+<div class="section" id="module-plasoscaffolder.bll.mappings.parser_init_mapping">
+<span id="plasoscaffolder-bll-mappings-parser-init-mapping-module"></span><h2>plasoscaffolder.bll.mappings.parser_init_mapping module<a class="headerlink" href="#module-plasoscaffolder.bll.mappings.parser_init_mapping" title="Permalink to this headline">¶</a></h2>
+<p>Class representing the mapper for the parser init files.</p>
+<dl class="class">
+<dt id="plasoscaffolder.bll.mappings.parser_init_mapping.ParserInitMapping">
+<em class="property">class </em><code class="descclassname">plasoscaffolder.bll.mappings.parser_init_mapping.</code><code class="descname">ParserInitMapping</code><span class="sig-paren">(</span><em>mapping_helper: &lt;plasoscaffolder.bll.mappings.base_mapping_helper.BaseMappingHelper object at 0x04B42790&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/bll/mappings/parser_init_mapping.html#ParserInitMapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.mappings.parser_init_mapping.ParserInitMapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper</span></code></a></p>
+<p>Class representing the parser mapper.</p>
+<dl class="method">
+<dt id="plasoscaffolder.bll.mappings.parser_init_mapping.ParserInitMapping.GetRenderedTemplate">
+<code class="descname">GetRenderedTemplate</code><span class="sig-paren">(</span><em>data: plasoscaffolder.model.init_data_model.InitDataModel</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/plasoscaffolder/bll/mappings/parser_init_mapping.html#ParserInitMapping.GetRenderedTemplate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.mappings.parser_init_mapping.ParserInitMapping.GetRenderedTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the parser init file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference internal" href="plasoscaffolder.model.html#plasoscaffolder.model.init_data_model.InitDataModel" title="plasoscaffolder.model.init_data_model.InitDataModel"><em>init_data_model.InitDataModel</em></a>) &#8211; the data for init file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the rendered template</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-plasoscaffolder.bll.mappings.parser_mapping">
 <span id="plasoscaffolder-bll-mappings-parser-mapping-module"></span><h2>plasoscaffolder.bll.mappings.parser_mapping module<a class="headerlink" href="#module-plasoscaffolder.bll.mappings.parser_mapping" title="Permalink to this headline">¶</a></h2>
 <p>Class representing the mapper for the parser file.</p>
 <dl class="class">
 <dt id="plasoscaffolder.bll.mappings.parser_mapping.ParserMapper">
-<em class="property">class </em><code class="descclassname">plasoscaffolder.bll.mappings.parser_mapping.</code><code class="descname">ParserMapper</code><span class="sig-paren">(</span><em>mapping_helper: &lt;plasoscaffolder.bll.mappings.base_mapping_helper.BaseMappingHelper object at 0x05184710&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/bll/mappings/parser_mapping.html#ParserMapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.mappings.parser_mapping.ParserMapper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper</span></code></p>
+<em class="property">class </em><code class="descclassname">plasoscaffolder.bll.mappings.parser_mapping.</code><code class="descname">ParserMapper</code><span class="sig-paren">(</span><em>mapping_helper: &lt;plasoscaffolder.bll.mappings.base_mapping_helper.BaseMappingHelper object at 0x04B1DF30&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/bll/mappings/parser_mapping.html#ParserMapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.mappings.parser_mapping.ParserMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper</span></code></a></p>
 <p>Class representing the parser mapper.</p>
 <dl class="method">
 <dt id="plasoscaffolder.bll.mappings.parser_mapping.ParserMapper.GetRenderedTemplate">
@@ -269,7 +338,7 @@ the formatter</td>
 <dl class="class">
 <dt id="plasoscaffolder.bll.mappings.parser_test_mapping.ParserTestMapper">
 <em class="property">class </em><code class="descclassname">plasoscaffolder.bll.mappings.parser_test_mapping.</code><code class="descname">ParserTestMapper</code><span class="sig-paren">(</span><em>mapping_helper: plasoscaffolder.bll.mappings.base_mapping_helper.BaseMappingHelper</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plasoscaffolder/bll/mappings/parser_test_mapping.html#ParserTestMapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plasoscaffolder.bll.mappings.parser_test_mapping.ParserTestMapper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper" title="plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper"><code class="xref py py-class docutils literal"><span class="pre">plasoscaffolder.bll.mappings.base_sqliteplugin_mapping.BaseSQLitePluginMapper</span></code></a></p>
 <p>Class representing the parser mapper.</p>
 <dl class="method">
 <dt id="plasoscaffolder.bll.mappings.parser_test_mapping.ParserTestMapper.GetAmountEvents">
@@ -326,16 +395,13 @@ for the parser test</td>
   <ul>
 <li><a class="reference internal" href="#">plasoscaffolder.bll.mappings package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#plasoscaffolder-bll-mappings-base-formatter-mapping-module">plasoscaffolder.bll.mappings.base_formatter_mapping module</a></li>
-<li><a class="reference internal" href="#plasoscaffolder-bll-mappings-base-formatter-test-mapping-module">plasoscaffolder.bll.mappings.base_formatter_test_mapping module</a></li>
-<li><a class="reference internal" href="#plasoscaffolder-bll-mappings-base-init-mapping-module">plasoscaffolder.bll.mappings.base_init_mapping module</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.bll.mappings.base_mapping_helper">plasoscaffolder.bll.mappings.base_mapping_helper module</a></li>
-<li><a class="reference internal" href="#plasoscaffolder-bll-mappings-base-parser-mapping-module">plasoscaffolder.bll.mappings.base_parser_mapping module</a></li>
-<li><a class="reference internal" href="#plasoscaffolder-bll-mappings-base-parser-test-mapping-module">plasoscaffolder.bll.mappings.base_parser_test_mapping module</a></li>
+<li><a class="reference internal" href="#module-plasoscaffolder.bll.mappings.base_sqliteplugin_mapping">plasoscaffolder.bll.mappings.base_sqliteplugin_mapping module</a></li>
+<li><a class="reference internal" href="#module-plasoscaffolder.bll.mappings.formatter_init_mapping">plasoscaffolder.bll.mappings.formatter_init_mapping module</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.bll.mappings.formatter_mapping">plasoscaffolder.bll.mappings.formatter_mapping module</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.bll.mappings.formatter_test_mapping">plasoscaffolder.bll.mappings.formatter_test_mapping module</a></li>
-<li><a class="reference internal" href="#plasoscaffolder-bll-mappings-init-mapping-module">plasoscaffolder.bll.mappings.init_mapping module</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.bll.mappings.mapping_helper">plasoscaffolder.bll.mappings.mapping_helper module</a></li>
+<li><a class="reference internal" href="#module-plasoscaffolder.bll.mappings.parser_init_mapping">plasoscaffolder.bll.mappings.parser_init_mapping module</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.bll.mappings.parser_mapping">plasoscaffolder.bll.mappings.parser_mapping module</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.bll.mappings.parser_test_mapping">plasoscaffolder.bll.mappings.parser_test_mapping module</a></li>
 <li><a class="reference internal" href="#module-plasoscaffolder.bll.mappings">Module contents</a></li>

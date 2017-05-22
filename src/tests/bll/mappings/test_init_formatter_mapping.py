@@ -1,4 +1,7 @@
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
+# pylint: disable=protected-access
+# because tests should access protected members
 """test class"""
 import unittest
 

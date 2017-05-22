@@ -29,8 +29,8 @@ class BaseSQLitePluginHelper(object):
       database_suffix: the suffix of the database file
       path (str): the path of the plaso source
       plugin_name (str): the name of the plugin
-      path_helper (base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper
-          ): the SQLite plugin helper
+      path_helper (base_sqlite_plugin_path_helper.BaseSQLitePluginPathHelper):
+          the SQLite plugin helper
 
     Returns:
       bool: True if the plugin already exists. False if it does not.
@@ -131,21 +131,22 @@ class BaseSQLitePluginHelper(object):
   @abc.abstractmethod
   def GetColumnsAndTimestampColumn(
       self, columns: [sql_query_column_model.SQLColumnModel],
-      timestamps: [str], data: [str]) -> (
+      timestamps: [str], data: [str]
+  ) -> (
       [sql_query_column_model_data.SQLColumnModelData],
       [sql_query_column_model_timestamp.SQLColumnModelTimestamp]):
     """Splits the column list into a list of simple columns and a list for
     timestamp event columns and adds the data to the simple columns
 
     Args:
-      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns 
+      columns ([sql_query_column_model_data.SQLColumnModelData]): the columns
           from the SQL query
       timestamps ([str]): the timestamp events
       data ([str]): the data from the cursor
 
     Returns:
       ([sql_query_column_model_data.SQLColumnModelData],
-          [sql_query_column_model_timestamp.SQLColumnModelTimestamp): a tuple 
-          of columns,
-          the first are the normal columns, the second are the timestamp events
+          [sql_query_column_model_timestamp.SQLColumnModelTimestamp): a tuple
+          of columns, the first are the normal columns, the second are the
+          timestamp events
     """

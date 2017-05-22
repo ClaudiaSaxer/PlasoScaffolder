@@ -1,3 +1,4 @@
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
 """Test Class for end to end Tests.
 These Tests can only be run on Linux because it makes use of pexpect."""
@@ -12,9 +13,11 @@ from tests.end_to_end_test import end_to_end_test_helper
 
 
 class EasyGenerationTest(unittest.TestCase):
+  """Test File for easy Generation"""
 
   def testEasyGeneration(self):
     """Test easy file generation without errors
+
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test

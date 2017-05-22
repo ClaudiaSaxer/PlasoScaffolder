@@ -1,3 +1,4 @@
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
 """Test class"""
 import os
@@ -219,17 +220,15 @@ class SQLitePluginHelperTest(unittest.TestCase):
 
   def testGetAssumedTimestamps(self):
     """test the the parsing of assumed timestamps"""
-    columns = [
-      sql_query_column_model.SQLColumnModel('not'),
-      sql_query_column_model.SQLColumnModel('usertime'),
-      sql_query_column_model.SQLColumnModel('timecreation'),
-      sql_query_column_model.SQLColumnModel('date'),
-      sql_query_column_model.SQLColumnModel('time'),
-      sql_query_column_model.SQLColumnModel('DaTe'),
-      sql_query_column_model.SQLColumnModel('TiMe'),
-      sql_query_column_model.SQLColumnModel('userdate'),
-      sql_query_column_model.SQLColumnModel('datecreation')
-    ]
+    columns = [sql_query_column_model.SQLColumnModel('not'),
+               sql_query_column_model.SQLColumnModel('usertime'),
+               sql_query_column_model.SQLColumnModel('timecreation'),
+               sql_query_column_model.SQLColumnModel('date'),
+               sql_query_column_model.SQLColumnModel('time'),
+               sql_query_column_model.SQLColumnModel('DaTe'),
+               sql_query_column_model.SQLColumnModel('TiMe'),
+               sql_query_column_model.SQLColumnModel('userdate'),
+               sql_query_column_model.SQLColumnModel('datecreation')]
 
     actual = self.helper.GetAssumedTimestamps(columns)
     expected = ['usertime', 'timecreation', 'date', 'time', 'DaTe', 'TiMe',
@@ -246,18 +245,16 @@ class SQLitePluginHelperTest(unittest.TestCase):
   def testGetColumnsAndTimestampColumnWithData(self):
     """test the getting of the column and timestamp column"""
     timestamps = ['this', 'that', 'another']
-    columns = [
-      sql_query_column_model.SQLColumnModel('not'),
-      sql_query_column_model.SQLColumnModel('this'),
-      sql_query_column_model.SQLColumnModel('another'),
-      sql_query_column_model.SQLColumnModel('that'),
-      sql_query_column_model.SQLColumnModel('alsonot')
-    ]
+    columns = [sql_query_column_model.SQLColumnModel('not'),
+               sql_query_column_model.SQLColumnModel('this'),
+               sql_query_column_model.SQLColumnModel('another'),
+               sql_query_column_model.SQLColumnModel('that'),
+               sql_query_column_model.SQLColumnModel('alsonot')]
 
     actual = self.helper.GetColumnsAndTimestampColumn(columns, timestamps, [
-      ['first', 'second', 'third', 'fourth', 'fifth'],
-      ['the', 'next', 'data', 'row', 'things'],
-      ['last', 'stuff', 'and', 'some', 'thing']])
+        ['first', 'second', 'third', 'fourth', 'fifth'],
+        ['the', 'next', 'data', 'row', 'things'],
+        ['last', 'stuff', 'and', 'some', 'thing']])
 
     self.assertEqual(len(actual), 2)
     self.assertEqual(len(actual[0]), 2)
@@ -268,9 +265,9 @@ class SQLitePluginHelperTest(unittest.TestCase):
     self.assertEqual(actual[1][0].sql_column, 'this')
     self.assertEqual(actual[1][1].sql_column, 'another')
     self.assertEqual(actual[1][2].sql_column, 'that')
-    self.assertEqual(actual[1][0].timestamp,'second')
-    self.assertEqual(actual[1][1].timestamp,'data')
-    self.assertEqual(actual[1][2].timestamp,'some')
+    self.assertEqual(actual[1][0].timestamp, 'second')
+    self.assertEqual(actual[1][1].timestamp, 'data')
+    self.assertEqual(actual[1][2].timestamp, 'some')
     self.assertEqual(actual[0][0].GetFirstDataForTimeEvent('this'), 'first')
     self.assertEqual(actual[0][0].GetFirstDataForTimeEvent('that'), 'last')
     self.assertEqual(actual[0][0].GetFirstDataForTimeEvent('another'), 'the')
@@ -285,11 +282,11 @@ class SQLitePluginHelperTest(unittest.TestCase):
     """test the getting of the column and timestamp column"""
     timestamps = ['this', 'that', 'another']
     columns = [
-      sql_query_column_model.SQLColumnModel('not'),
-      sql_query_column_model.SQLColumnModel('this'),
-      sql_query_column_model.SQLColumnModel('another'),
-      sql_query_column_model.SQLColumnModel('that'),
-      sql_query_column_model.SQLColumnModel('alsonot')
+        sql_query_column_model.SQLColumnModel('not'),
+        sql_query_column_model.SQLColumnModel('this'),
+        sql_query_column_model.SQLColumnModel('another'),
+        sql_query_column_model.SQLColumnModel('that'),
+        sql_query_column_model.SQLColumnModel('alsonot')
     ]
 
     actual = self.helper.GetColumnsAndTimestampColumn(columns, timestamps, [])
@@ -303,9 +300,9 @@ class SQLitePluginHelperTest(unittest.TestCase):
     self.assertEqual(actual[1][0].sql_column, 'this')
     self.assertEqual(actual[1][1].sql_column, 'another')
     self.assertEqual(actual[1][2].sql_column, 'that')
-    self.assertEqual(actual[1][0].timestamp,'')
-    self.assertEqual(actual[1][1].timestamp,'')
-    self.assertEqual(actual[1][2].timestamp,'')
+    self.assertEqual(actual[1][0].timestamp, '')
+    self.assertEqual(actual[1][1].timestamp, '')
+    self.assertEqual(actual[1][2].timestamp, '')
     self.assertEqual(actual[1][0].expected_message, 'Not:  Alsonot: ')
     self.assertEqual(actual[1][1].expected_message, 'Not:  Alsonot: ')
     self.assertEqual(actual[1][2].expected_message, 'Not:  Alsonot: ')
@@ -320,11 +317,11 @@ class SQLitePluginHelperTest(unittest.TestCase):
     """test the getting of the column and timestamp column"""
     timestamps = ['this', 'that', 'another']
     columns = [
-      sql_query_column_model.SQLColumnModel('not'),
-      sql_query_column_model.SQLColumnModel('this'),
-      sql_query_column_model.SQLColumnModel('another'),
-      sql_query_column_model.SQLColumnModel('that'),
-      sql_query_column_model.SQLColumnModel('alsonot')
+        sql_query_column_model.SQLColumnModel('not'),
+        sql_query_column_model.SQLColumnModel('this'),
+        sql_query_column_model.SQLColumnModel('another'),
+        sql_query_column_model.SQLColumnModel('that'),
+        sql_query_column_model.SQLColumnModel('alsonot')
     ]
 
     actual = self.helper.GetColumnsAndTimestampColumn(
@@ -339,9 +336,9 @@ class SQLitePluginHelperTest(unittest.TestCase):
     self.assertEqual(actual[1][0].sql_column, 'this')
     self.assertEqual(actual[1][1].sql_column, 'another')
     self.assertEqual(actual[1][2].sql_column, 'that')
-    self.assertEqual(actual[1][0].timestamp,'second')
-    self.assertEqual(actual[1][1].timestamp,'third')
-    self.assertEqual(actual[1][2].timestamp,'fourth')
+    self.assertEqual(actual[1][0].timestamp, 'second')
+    self.assertEqual(actual[1][1].timestamp, 'third')
+    self.assertEqual(actual[1][2].timestamp, 'fourth')
     self.assertEqual(actual[1][0].expected_message, 'Not: first Alsonot: fifth')
     self.assertEqual(actual[1][1].expected_message, 'Not: first Alsonot: fifth')
     self.assertEqual(actual[1][2].expected_message, 'Not: first Alsonot: fifth')
@@ -356,11 +353,11 @@ class SQLitePluginHelperTest(unittest.TestCase):
     """test the getting of the column and timestamp column"""
     timestamps = ['this', 'that', 'another']
     columns = [
-      sql_query_column_model.SQLColumnModel('not'),
-      sql_query_column_model.SQLColumnModel('this'),
-      sql_query_column_model.SQLColumnModel('another'),
-      sql_query_column_model.SQLColumnModel('that'),
-      sql_query_column_model.SQLColumnModel('alsonot')
+        sql_query_column_model.SQLColumnModel('not'),
+        sql_query_column_model.SQLColumnModel('this'),
+        sql_query_column_model.SQLColumnModel('another'),
+        sql_query_column_model.SQLColumnModel('that'),
+        sql_query_column_model.SQLColumnModel('alsonot')
     ]
 
     actual = self.helper.GetColumnsAndTimestampColumn(
@@ -376,9 +373,9 @@ class SQLitePluginHelperTest(unittest.TestCase):
     self.assertEqual(actual[1][0].sql_column, 'this')
     self.assertEqual(actual[1][1].sql_column, 'another')
     self.assertEqual(actual[1][2].sql_column, 'that')
-    self.assertEqual(actual[1][0].timestamp,'second')
-    self.assertEqual(actual[1][1].timestamp,'data')
-    self.assertEqual(actual[1][2].timestamp,'row')
+    self.assertEqual(actual[1][0].timestamp, 'second')
+    self.assertEqual(actual[1][1].timestamp, 'data')
+    self.assertEqual(actual[1][2].timestamp, 'row')
     self.assertEqual(actual[1][0].expected_message, 'Not: first Alsonot: fifth')
     self.assertEqual(actual[1][1].expected_message, 'Not: the Alsonot: things')
     self.assertEqual(actual[1][2].expected_message, 'Not: the Alsonot: things')
@@ -392,11 +389,11 @@ class SQLitePluginHelperTest(unittest.TestCase):
   def testGetColumnsAndTimestampColumnEmptyTimestamp(self):
     """test the getting of the column and timestamp column"""
     columns = [
-      sql_query_column_model.SQLColumnModel('not'),
-      sql_query_column_model.SQLColumnModel('this'),
-      sql_query_column_model.SQLColumnModel('another'),
-      sql_query_column_model.SQLColumnModel('that'),
-      sql_query_column_model.SQLColumnModel('alsonot')
+        sql_query_column_model.SQLColumnModel('not'),
+        sql_query_column_model.SQLColumnModel('this'),
+        sql_query_column_model.SQLColumnModel('another'),
+        sql_query_column_model.SQLColumnModel('that'),
+        sql_query_column_model.SQLColumnModel('alsonot')
     ]
 
     actual = self.helper.GetColumnsAndTimestampColumn(columns, [], [])

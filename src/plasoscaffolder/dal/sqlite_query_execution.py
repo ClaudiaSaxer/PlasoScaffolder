@@ -42,7 +42,7 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
       self._connection.execute('PRAGMA schema_version')
 
       database_information = (
-        sqlite_database_information.SQLiteDatabaseInformation(self))
+          sqlite_database_information.SQLiteDatabaseInformation(self))
       self._type_helper = sqlite_type_helper.SQLiteTypeHelper(
           self, self._explain, database_information)
     except sqlite3.Error:
@@ -50,8 +50,7 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
 
     return True
 
-  def ExecuteQuery(
-      self, query: str) -> sql_query_data.SQLQueryData:
+  def ExecuteQuery(self, query: str) -> sql_query_data.SQLQueryData:
     """Executes the SQL Query.
 
     Args:
@@ -64,7 +63,7 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
 
   def ExecuteQueryDetailed(
       self, query: str) -> sql_query_data.SQLQueryData:
-    """Executes the SQL Query and gets Detailed Information
+    """Executes the SQL Query and gets detailed information.
 
     Args:
       query (str): The SQL Query to execute on the SQLite database.
@@ -92,20 +91,18 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
         duplicate_names_as_string = ' '.join(duplicate_names)
         data_from_executed_query.has_error = True
         data_from_executed_query.error_message = (
-          'Please use an alias (AS) for '
-          'those column names: {0}'.format(duplicate_names_as_string))
+            'Please use an alias (AS) for '
+            'those column names: {0}'.format(duplicate_names_as_string))
       if not data_from_executed_query.has_error:
 
-
         data_from_executed_query.columns = (
-          self._type_helper.AddMissingTypesFromSchema(
-              data_from_executed_query.columns, query))
+            self._type_helper.AddMissingTypesFromSchema(
+                data_from_executed_query.columns, query))
 
     return data_from_executed_query
 
   def _ExecuteQuery(
-      self, query: str,
-      detailed: bool = True) -> sql_query_data.SQLQueryData:
+      self, query: str, detailed: bool=True) -> sql_query_data.SQLQueryData:
     """Executes the SQL Query.
 
     Args:
@@ -123,8 +120,8 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
         query_data.data = cursor.fetchall()
         if detailed:
           query_data.columns = (
-            self._type_helper.GetColumnInformationFromDescription(
-                cursor.description))
+              self._type_helper.GetColumnInformationFromDescription(
+                  cursor.description))
         self._connection.execute('ROLLBACK')
     except sqlite3.Error as error:
       query_data.error_message = 'Error: {0}'.format(str(error))
@@ -135,14 +132,14 @@ class SQLiteQueryExecution(base_sql_query_execution.BaseSQLQueryExecution):
 
     return query_data
 
-  def ExecuteReadOnlyQuery(self, query: str):
+  def ExecuteReadOnlyQuery(self, query: str) -> sql_query_data.SQLQueryData:
     """Executes the SQL Query if it is read only, and valid to parse.
 
       Args:
-        query (str): The SQL Query to execute on the SQLite database.
+        query (str): the SQL Query to execute on the SQLite database
 
       Returns:
-        sql_query_data.SQLQueryData: The data to the Query
+        sql_query_data.SQLQueryData: the data to the Query
     """
     query_data = self.ExecuteQueryDetailed(query)
     if not query_data.has_error:

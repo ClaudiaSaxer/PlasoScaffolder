@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """The parser model class."""
-from plasoscaffolder.model import sql_query_model
 from plasoscaffolder.model import base_data_model
+from plasoscaffolder.model import sql_query_model
 
 
 class ParserDataModel(base_data_model.BaseDataModel):
@@ -15,13 +15,12 @@ class ParserDataModel(base_data_model.BaseDataModel):
     """Initialises the parser data model.
 
     Args:
-      database_name (str): the name of the database
       plugin_name (str): the name of the plugin
-      queries (sql_query_model.SQLQueryModel): the queries
+      queries ([sql_query_model.SQLQueryModel]): the queries
       required_tables ([str]): the tables that are required
+      database_name (str): the name of the database
     """
     super().__init__(plugin_name)
     self.queries = queries
     self.required_tables = required_tables
     self.database_name = database_name
-

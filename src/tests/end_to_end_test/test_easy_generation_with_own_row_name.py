@@ -1,3 +1,4 @@
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
 """Test Class for end to end Tests.
 These Tests can only be run on Linux because it makes use of pexpect."""
@@ -12,9 +13,11 @@ from tests.end_to_end_test import end_to_end_test_helper
 
 
 class EasyGenerationWithOwnRowNameTest(unittest.TestCase):
+  """Test File for Generation With Row Name"""
 
   def testEasyGenerationWithOwnRowName(self):
     """Test easy file generation without errors
+
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test
@@ -24,12 +27,15 @@ class EasyGenerationWithOwnRowNameTest(unittest.TestCase):
     7.  The SQL query was ok.
     8.  Do you want to name the query parse row: Users ? [Y/n]:  n
     9.  What row does the SQL Query parse?: The User
-        11. Row name is not in a valid format. Choose new Name [RowName...]: theuser
-    11. Row name is not in a valid format. Choose new Name [RowName...]: TheUser123
+        11. Row name is not in a valid format. Choose new Name [RowName...]:
+        theuser
+    11. Row name is not in a valid format. Choose new Name [RowName...]:
+        TheUser123
     12. Row name is not in a valid format. Choose new Name [RowName...]: TheUser
     13. Is the column a time event? updatedAt [Y/n]:  Y
     14. Is the column a time event? createdDate [Y/n]: Y
-    15. Enter (additional) timestamp events from the query [column-Name,aliasName...] or [abort]: abort
+    15. Enter (additional) timestamp events from the query [column-Name,
+        aliasName...] or [abort]: abort
     16. Does the event The User need customizing? [y/N]: N
     17. Do you want to add another Query? [Y/n]: n
     18. Do you want to Generate the files [Y/n]: Y

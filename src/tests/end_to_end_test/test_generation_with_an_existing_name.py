@@ -1,3 +1,4 @@
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
 """Test Class for end to end Tests.
 These Tests can only be run on Linux because it makes use of pexpect."""
@@ -11,10 +12,12 @@ import pexpect
 from tests.end_to_end_test import end_to_end_test_helper
 
 
-class EasyGenerationTest(unittest.TestCase):
+class EasyGenerationWithExistingNameTest(unittest.TestCase):
+  """Test File for Generation with an existing name"""
 
-  def testEasyGeneration(self):
+  def testEasyGenerationWithExistingName(self):
     """Test easy file generation without errors
+
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test
@@ -30,18 +33,18 @@ class EasyGenerationTest(unittest.TestCase):
     12. Does the event Users need customizing? [y/N]: N
     13. Do you want to add another Query? [Y/n]: n
     14. Do you want to Generate the files [Y/n]: y
-    1.  plasoscaffolder sqlite
-    2.  What's the path to the plaso project?: tmpdir
+    15.  plasoscaffolder sqlite
+    16.  What's the path to the plaso project?: tmpdir
     17. What's the name of the plugin?: test
     18. Plugin exists. Choose new Name: test_plugin
-    4.  What's the path to your test file?: test_database/twitter_ios.db
+    19.  What's the path to your test file?: test_database/twitter_ios.db
     20. Do you want to have a output example for your SQL Query? [Y/n]: n
     21. Please write your SQL script for the plugin: select * from users
     22. The SQL query was ok.
-    23. Do you want to name the query parse row: Users ? [Y/n]:  Y
+    23. Do you want to name the query parse row: Users ? [Y/n]: Y
     24. Is the column a time event? updatedAt [Y/n]:  Y
     25. Is the column a time event? createdDate [Y/n]: Y
-    26. Enter (additional) timestamp events from the query 
+    26. Enter (additional) timestamp events from the query
         [column-Name,aliasName...] or [abort]: abort
     27. Does the event Users need customizing? [y/N]: N
     28. Do you want to add another Query? [Y/n]: n
@@ -124,8 +127,9 @@ class EasyGenerationTest(unittest.TestCase):
 
         helper_second_plugin = end_to_end_test_helper.EndToEndTestHelper(
             tmpdir, 'test_plugin')
-        expected_path_second_plugin = os.path.join(helper_second_plugin.DIR_PATH,
-                                     'ExpectedTwoPluginsFiles')
+        expected_path_second_plugin = os.path.join(
+            helper_second_plugin.DIR_PATH,
+            'ExpectedTwoPluginsFiles')
         command = 'python {0} sqlite'.format(helper_second_plugin.MAIN_PATH)
         child = pexpect.spawn(command)
 
@@ -183,18 +187,27 @@ class EasyGenerationTest(unittest.TestCase):
 
         child.expect('create.*{0}'.format(helper_second_plugin.formatter_path))
         child.expect('create.*{0}'.format(helper_second_plugin.parser_path))
-        child.expect('create.*{0}'.format(helper_second_plugin.formatter_test_path))
-        child.expect('create.*{0}'.format(helper_second_plugin.parser_test_path))
+        child.expect(
+            'create.*{0}'.format(helper_second_plugin.formatter_test_path))
+        child.expect(
+            'create.*{0}'.format(helper_second_plugin.parser_test_path))
         child.expect('copy.*{0}'.format(helper_second_plugin.test_data_path))
         child.expect('edit.*{0}'.format(helper_second_plugin.parsers_init_path))
-        child.expect('edit.*{0}'.format(helper_second_plugin.formatter_init_path))
+        child.expect(
+            'edit.*{0}'.format(helper_second_plugin.formatter_init_path))
 
-        formatter_init_second_plugin = helper_second_plugin.ReadFromFile(helper_second_plugin.formatter_init_path)
-        formatter_second_plugin = helper_second_plugin.ReadFromFile(helper_second_plugin.formatter_path)
-        formatter_test_second_plugin = helper_second_plugin.ReadFromFile(helper_second_plugin.formatter_test_path)
-        parser_init_second_plugin = helper_second_plugin.ReadFromFile(helper_second_plugin.parsers_init_path)
-        parser_second_plugin = helper_second_plugin.ReadFromFile(helper_second_plugin.parser_path)
-        parser_test_second_plugin = helper_second_plugin.ReadFromFile(helper_second_plugin.parser_test_path)
+        formatter_init_second_plugin = helper_second_plugin.ReadFromFile(
+            helper_second_plugin.formatter_init_path)
+        formatter_second_plugin = helper_second_plugin.ReadFromFile(
+            helper_second_plugin.formatter_path)
+        formatter_test_second_plugin = helper_second_plugin.ReadFromFile(
+            helper_second_plugin.formatter_test_path)
+        parser_init_second_plugin = helper_second_plugin.ReadFromFile(
+            helper_second_plugin.parsers_init_path)
+        parser_second_plugin = helper_second_plugin.ReadFromFile(
+            helper_second_plugin.parser_path)
+        parser_test_second_plugin = helper_second_plugin.ReadFromFile(
+            helper_second_plugin.parser_test_path)
 
         expected_formatter_init = helper.ReadFromFile(os.path.join(
             expected_path, 'formatters_init.py'))
@@ -211,19 +224,25 @@ class EasyGenerationTest(unittest.TestCase):
 
         expected_formatter_first_plugin = helper_second_plugin.ReadFromFile(
             os.path.join(expected_path_second_plugin, 'formatters1.py'))
-        expected_formatter_test_first_plugin = helper_second_plugin.ReadFromFile(os.path.join(
-            expected_path_second_plugin, 'formatters_test1.py'))
+        expected_formatter_test_first_plugin = \
+          helper_second_plugin.ReadFromFile(
+              os.path.join(
+                  expected_path_second_plugin, 'formatters_test1.py'))
         expected_parser_first_plugin = helper_second_plugin.ReadFromFile(
             os.path.join(expected_path_second_plugin, 'parsers1.py'))
         expected_parser_test_first_plugin = helper_second_plugin.ReadFromFile(
             os.path.join(expected_path_second_plugin, 'parsers_test1.py'))
 
-        expected_formatter_init_second_plugin = helper_second_plugin.ReadFromFile(os.path.join(
-            expected_path_second_plugin, 'formatters_init.py'))
+        expected_formatter_init_second_plugin = \
+          helper_second_plugin.ReadFromFile(
+              os.path.join(
+                  expected_path_second_plugin, 'formatters_init.py'))
         expected_formatter_second_plugin = helper_second_plugin.ReadFromFile(
             os.path.join(expected_path_second_plugin, 'formatters2.py'))
-        expected_formatter_test_second_plugin = helper_second_plugin.ReadFromFile(os.path.join(
-            expected_path_second_plugin, 'formatters_test2.py'))
+        expected_formatter_test_second_plugin = \
+          helper_second_plugin.ReadFromFile(
+              os.path.join(
+                  expected_path_second_plugin, 'formatters_test2.py'))
         expected_parser_init_second_plugin = helper_second_plugin.ReadFromFile(
             os.path.join(expected_path_second_plugin, 'parsers_init.py'))
         expected_parser_second_plugin = helper_second_plugin.ReadFromFile(
@@ -238,12 +257,17 @@ class EasyGenerationTest(unittest.TestCase):
         self.assertEqual(parser, expected_parser)
         self.assertEqual(parser_test, expected_parser_test)
 
-        self.assertEqual(formatter_init_second_plugin, expected_formatter_init_second_plugin)
-        self.assertEqual(formatter_second_plugin, expected_formatter_second_plugin)
-        self.assertEqual(formatter_test_second_plugin, expected_formatter_test_second_plugin)
-        self.assertEqual(parser_init_second_plugin, expected_parser_init_second_plugin)
+        self.assertEqual(formatter_init_second_plugin,
+                         expected_formatter_init_second_plugin)
+        self.assertEqual(formatter_second_plugin,
+                         expected_formatter_second_plugin)
+        self.assertEqual(formatter_test_second_plugin,
+                         expected_formatter_test_second_plugin)
+        self.assertEqual(parser_init_second_plugin,
+                         expected_parser_init_second_plugin)
         self.assertEqual(parser_second_plugin, expected_parser_second_plugin)
-        self.assertEqual(parser_test_second_plugin, expected_parser_test_second_plugin)
+        self.assertEqual(parser_test_second_plugin,
+                         expected_parser_test_second_plugin)
         self.assertEqual(formatter, expected_formatter_first_plugin)
         self.assertEqual(formatter_test, expected_formatter_test_first_plugin)
         self.assertEqual(parser, expected_parser_first_plugin)

@@ -11,7 +11,7 @@ class ParserInitMapping(
 
   _PARSER_INIT_TEMPLATE = 'parser_init_template.jinja2'
 
-  def __init__(self, mapping_helper: base_mapping_helper.BaseMappingHelper()):
+  def __init__(self, mapping_helper: base_mapping_helper.BaseMappingHelper):
     """Initializing the init mapper class.
 
     Args:

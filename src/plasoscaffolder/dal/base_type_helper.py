@@ -9,17 +9,17 @@ class BaseTypeHelper(object):
   """Base class representing the type helper for SQLite."""
 
   @abc.abstractmethod
-  def GetDuplicateColumnNames(self,
-                              columns: sql_query_column_model.SQLColumnModel
-                              ) -> [str]:
-    """Find out if the query has duplicate column names and if a alias is needed
-    
+  def GetDuplicateColumnNames(
+      self, columns: sql_query_column_model.SQLColumnModel) -> [str]:
+    """Find out if the query has duplicate column names and if a alias is
+        needed.
+
     Args:
-      columns (sql_query_column_model.SQLColumnModel): all columns parsed 
-      from the cursor
+      columns (sql_query_column_model.SQLColumnModel): all columns parsed
+          from the cursor
     Returns:
       [str]: a list of all the duplicate column names, if its empty it means it
-          a distinct list of columns
+          is a distinct list of columns
     """
 
   @abc.abstractmethod
@@ -31,7 +31,7 @@ class BaseTypeHelper(object):
       description: the description of the cursor
 
     Returns:
-      list(sql_query_column_model.SQLColumnModel): a list with all the column 
+      [sql_query_column_model.SQLColumnModel]: a list with all the column
           names, the types are None
     """
 
@@ -40,12 +40,12 @@ class BaseTypeHelper(object):
       self, columns: [sql_query_column_model.SQLColumnModel], query: str,
   ) -> [sql_query_column_model.SQLColumnModel]:
     """Getting Information for the column out of the cursor.
-    
+
     Args:
-      columns ([sql_query_column_model.SQLColumnModel]): the columns with all 
+      columns ([sql_query_column_model.SQLColumnModel]): the columns with all
           the column names
       query: the query
-      
+
     Returns:
-      list(sql_query_column_model.SQLColumnModel): a list with all the columns
+      [sql_query_column_model.SQLColumnModel]: a list with all the columns
     """

@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# disable backslash in string because special characters need to be escaped
+# pylint: disable=anomalous-backslash-in-string
 """Test Class for end to end Tests.
 These Tests can only be run on Linux because it makes use of pexpect."""
 
@@ -12,9 +14,11 @@ from tests.end_to_end_test import end_to_end_test_helper
 
 
 class EasyGenerationWithOwnTimeEventTest(unittest.TestCase):
+  """Test file for generation with time event."""
 
   def testEasyGenerationWithOwnTimeEvent(self):
     """Test easy file generation without errors
+
     1.  plasoscaffolder sqlite
     2.  What's the path to the plaso project?: tmpdir
     3.  What's the name of the plugin?: test
@@ -25,13 +29,17 @@ class EasyGenerationWithOwnTimeEventTest(unittest.TestCase):
     8.  Do you want to name the query parse row: Users ? [Y/n]: Y
     9.  Is the column a time event? updatedAt [Y/n]:  n
     10. Is the column a time event? createdDate [Y/n]: Y
-    11. Enter (additional) timestamp events from the query [column-Name,aliasName...] or [abort]: id that this
-    12. Timestamps are not in valid format. Reenter them correctly [name,name...]: id, that, this
-    13. Timestamps are not in valid format. Reenter them correctly [name,name...]:id,that,this
+    11. Enter (additional) timestamp events from the query [column-Name,
+        aliasName...] or [abort]: id that this
+    12. Timestamps are not in valid format. Reenter them correctly [name,
+        name...]: id, that, this
+    13. Timestamps are not in valid format. Reenter them correctly [name,
+        name...]:id,that,this
     14. Added: createdDate,id
         Failed: that,this
     15. Do you want to add more timestamps? [y/N]: y
-    16. Enter (additional) timestamp events from the query [column-Name,aliasName...] or [abort]: name,that
+    16. Enter (additional) timestamp events from the query [column-Name,
+        aliasName...] or [abort]: name,that
     17. Added: createdDate,id,name
     18. Failed: that,this
     19. Do you want to add more timestamps? [y/N]: n
