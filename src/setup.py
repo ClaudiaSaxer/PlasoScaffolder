@@ -16,5 +16,10 @@ setup(name='plasoscaffolder',
                         'yapf==0.16.1',
                         'pexpect>=4.2.1'],
       entry_points={'console_scripts': [
-          'plasoscaffolder=plasoscaffolder.frontend.main:entry_point']}
-     )
+          'plasoscaffolder=plasoscaffolder.frontend.main:entry_point']},
+      
+    # metadata for upload to PyPI
+    author="Claudia Saxer",
+    description="This is a scaffolder for sqlite plugins for plaso.",
+    keywords="plaso scaffolder",
+    url="http://plasoscaffolder.readthedocs.io")
