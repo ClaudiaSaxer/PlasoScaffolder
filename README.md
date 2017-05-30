@@ -7,3 +7,9 @@
 
 ### Documentation
 https://claudiasaxer.github.io/PlasoScaffolder/
+
+### Requirements
+python 3.6
+
+### Installation
+pip install plasoscaffolder
