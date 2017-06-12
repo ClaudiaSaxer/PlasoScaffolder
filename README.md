@@ -7,6 +7,7 @@
 
 ### Documentation
 https://claudiasaxer.github.io/PlasoScaffolder/
+http://plasoscaffolder.readthedocs.io
 
 ### Requirements
 python 3.6
