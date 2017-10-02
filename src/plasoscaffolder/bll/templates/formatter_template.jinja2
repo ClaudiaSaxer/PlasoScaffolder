@@ -60,7 +60,7 @@ class {{ class_name }}{{ query.name|capitalize }}Formatter(interface.Conditional
 
     return self._ConditionalFormatMessages(event_values)
 {% endif %}{% endfor %}
-manager.FormattersManager.RegisterFormatter([
+manager.FormattersManager.RegisterFormatters([
   {% for query in queries %}{{ class_name }}{{ query.name|capitalize }}Formatter{% if not loop.last %},
   {% endif %}{% endfor %}
 ])

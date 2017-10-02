@@ -25,4 +25,4 @@ class TestUsersFormatter(interface.ConditionalEventFormatter):
   SOURCE_SHORT = u'Test'
 
 
-manager.FormattersManager.RegisterFormatter([TestUsersFormatter])
+manager.FormattersManager.RegisterFormatters([TestUsersFormatter])

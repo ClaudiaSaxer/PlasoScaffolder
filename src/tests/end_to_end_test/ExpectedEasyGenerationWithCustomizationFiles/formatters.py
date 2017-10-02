@@ -117,4 +117,4 @@ class TestUsersFormatter(interface.ConditionalEventFormatter):
     return self._ConditionalFormatMessages(event_values)
 
 
-manager.FormattersManager.RegisterFormatter([TestUsersFormatter])
+manager.FormattersManager.RegisterFormatters([TestUsersFormatter])

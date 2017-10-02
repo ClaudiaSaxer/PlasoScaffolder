@@ -204,7 +204,7 @@ class ThePluginNodataFormatter(interface.ConditionalEventFormatter):
   SOURCE_SHORT = u'The Plugin'
 
 
-manager.FormattersManager.RegisterFormatter([
+manager.FormattersManager.RegisterFormatters([
     ThePluginBlobtypesFormatter, ThePluginIntegertypesFormatter,
     ThePluginNumerictypesFormatter, ThePluginRealtypesFormatter,
     ThePluginTexttypesFormatter, ThePluginNodataFormatter

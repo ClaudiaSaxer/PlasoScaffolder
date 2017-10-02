@@ -160,5 +160,5 @@ class TestStatusesFormatter(interface.ConditionalEventFormatter):
   SOURCE_SHORT = u'Test'
 
 
-manager.FormattersManager.RegisterFormatter(
+manager.FormattersManager.RegisterFormatters(
     [TestUsersFormatter, TestStatusesFormatter])

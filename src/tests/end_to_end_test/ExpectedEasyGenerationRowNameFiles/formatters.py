@@ -87,4 +87,4 @@ class TestTheuserFormatter(interface.ConditionalEventFormatter):
   SOURCE_SHORT = u'Test'
 
 
-manager.FormattersManager.RegisterFormatter([TestTheuserFormatter])
+manager.FormattersManager.RegisterFormatters([TestTheuserFormatter])

@@ -23,4 +23,4 @@ class TestUsersstatusesFormatter(interface.ConditionalEventFormatter):
   SOURCE_SHORT = u'Test'
 
 
-manager.FormattersManager.RegisterFormatter([TestUsersstatusesFormatter])
+manager.FormattersManager.RegisterFormatters([TestUsersstatusesFormatter])

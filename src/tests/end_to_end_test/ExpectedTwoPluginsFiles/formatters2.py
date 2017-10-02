@@ -87,4 +87,4 @@ class TestPluginUsersFormatter(interface.ConditionalEventFormatter):
   SOURCE_SHORT = u'Test Plugin'
 
 
-manager.FormattersManager.RegisterFormatter([TestPluginUsersFormatter])
+manager.FormattersManager.RegisterFormatters([TestPluginUsersFormatter])

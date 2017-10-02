@@ -204,5 +204,5 @@ class ThePluginStatusesFormatter(interface.ConditionalEventFormatter):
   SOURCE_SHORT = u'The Plugin'
 
 
-manager.FormattersManager.RegisterFormatter(
+manager.FormattersManager.RegisterFormatters(
     [ThePluginUsersFormatter, ThePluginStatusesFormatter])
